@@ -34,11 +34,12 @@
                   type="text"
                   name="username"
                   autocomplete="off"
+                  id="username"
                   required
                 >
                 <span class="highlight"></span>
                 <span class="bar"></span>
-                <label>
+                <label for="username">
                   <i class="fa fa-user input-ikon"></i>
                   <span class="span-input">Email</span>
                 </label>
@@ -49,11 +50,12 @@
                   type="password"
                   name="password"
                   autocomplete="off"
+                  id="password"
                   required
                 >
                 <span class="highlight"></span>
                 <span class="bar"></span>
-                <label>
+                <label for="password">
                   <i class="fa fa-lock input-ikon"></i>
                   <span class="span-input">Password</span>
                 </label>

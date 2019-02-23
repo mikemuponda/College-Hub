@@ -3,12 +3,42 @@ const pkg = require('./package')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 
+let PWAIcons = [16, 120, 144, 152, 192, 384, 512].map(size => {
+  return {
+    src: `/icon.png`,
+    sizes: `${size}x${size}`,
+    type: 'image/png'
+  }
+})
+
+
 module.exports = {
   mode: 'universal',
 
-  /*
-   ** Headers of the page
-   */
+  cache: {
+    max: 1000,
+    maxAge: 900000
+  },
+
+  modules: [
+    '@nuxtjs/pwa',
+    '@nuxtjs/axios',
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/workbox',
+    '@nuxtjs/manifest'
+  ],
+
+  manifest: {
+    name: 'Collegehub',
+    short_name: 'Collegehub',
+    display: 'standalone',
+    start_url: 'https://www.lekkahub.com/',
+    theme_color: '#da552f',
+    background_color: '#FFF',
+    lang: 'zh-CN',
+    icons: PWAIcons
+  },
+
   head: {
     title: pkg.name,
     meta: [{
@@ -87,18 +117,20 @@ module.exports = {
     ],
     script: [{}],
   },
+
   css: [
     "@/static/css/style.css",
   ],
-  loading: '~/components/loading.vue',
-  plugins: [{
-    src: "~/plugins/burger-menu.js",
-    ssr: false
-  }, ],
+
+  //loading: '~/components/loading.vue',
+  loading: { color: '#da552f' },
+
+  plugins: [
+    {src: "~/plugins/burger-menu.js", ssr: false},
+  ],
+
   serverMiddleware: [
-    // body-parser middleware
     bodyParser.json(),
-    // session middleware
     session({
       secret: 'super-secret-key',
       resave: false,
@@ -111,21 +143,8 @@ module.exports = {
     // We add /api/login & /api/logout routes
     '~/api'
   ],
-  modules: [
-    // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios',
-    // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt'
-  ],
-  /*
-   ** Axios module configuration
-   */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
+  
+  axios: {},
 
-  /*
-   ** Build configuration
-   */
   build: {}
 }

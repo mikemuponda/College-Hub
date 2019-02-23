@@ -4,7 +4,7 @@ export default function ({
 }) {
   if (!store.state.authUser) {
     error({
-      message: 'You are no signed in',
+      message: 'You are not signed in',
       statusCode: 403
     })
   }
