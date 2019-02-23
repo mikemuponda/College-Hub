@@ -37,6 +37,12 @@ body {
   padding-bottom: 15px;
 }
 
+.nav-link{
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 250;
+  font-size: 14px;
+}
+
 .heading {
   font-weight: 100;
   font-size: 32px;
@@ -44,6 +50,26 @@ body {
   word-spacing: 5px;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.heading-two {
+  font-weight: 100;
+  font-size: 24px;
+  text-align: center;
+  color: #000000;
+  word-spacing: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: 350;
+}
+
+.subheading-two {
+  font-weight: 100;
+  font-size: 16px;
+  text-align: center;
+  color: #000000;
+  word-spacing: 5px;
+  font-weight: 350;
 }
 
 a:hover{
@@ -131,4 +157,36 @@ a:hover{
   margin-left: 10px;
   font-weight: 700;
   color: white;
+}
+
+.ui-card{
+  background: #fff;
+  border-radius: 1px;
+  margin-bottom: 5px;
+  -webkit-box-shadow: 11px -12px 15px -2px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 11px -12px 15px -2px rgba(0, 0, 0, 0.15);
+  box-shadow: 11px -12px 15px -2px rgba(0, 0, 0, 0.15);
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.single-notification{
+  padding: 3px 0px 3px 0px;
+  margin: 1px 0px 1px 0px;
+  background-color: #fff;
+}
+
+.dashboard-nav{
+  background: #fff;
+  margin-bottom: 5px;
+  border-top: 0.5px solid #aaa;
+}
+
+.dashboard-text{
+  font-size: 12px;
+  font-weight: 350;
+  padding: 10px 10px 0 10px;
 }

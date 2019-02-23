@@ -20,7 +20,7 @@ router.post('/login', (req, res) => {
     req.session.authUser = { username: 'demo' }
     return res.json({ username: 'demo' })
   }
-  res.status(401).json({ message: 'Bad credentials' })
+  res.status(401).json({ message: 'Incorrect login credentials' })
 })
 
 // Add POST - /api/logout

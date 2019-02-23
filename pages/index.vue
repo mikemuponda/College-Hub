@@ -1,32 +1,41 @@
 <template>
   <div style="width: 100%;">
-    <div class="container">
+    <div class="container" v-if="!$store.state.authUser">
       <div class="row" style="margin-top: 100px;">
         <div class="col-md-6" style="text-align: center; margin-top: 10%; margin-bottom: 25%;">
           <h1 class="title">College Hub</h1>
           <h2 class="subtitle">Making College Life Simpler</h2>
         </div>
         <div class="col-md-6">
-          <div v-if="!$store.state.authUser" class="col-md-10 login-card">
-            <form @submit.prevent="login"  autocomplete="off">
+          <div class="col-md-10 login-card">
+            <form @submit.prevent="login" autocomplete="off">
               <div class="col-lg-12 logo-capsul">
                 <h2 class="heading">Login</h2>
               </div>
               <div v-if="formError" class="col-lg-12 logo-capsul">
-                <p class="error"><i>{{ formError }}</i></p>
+                <p class="error">
+                  <i>{{ formError }}</i>
+                </p>
               </div>
               <div class="col-lg-12 logo-capsul">
                 <p>
-                <i>
-                  To login, use
-                  <strong>demo</strong> as username and
-                  <strong>demo</strong> as password.
-                </i>
-              </p>
-              </div><br>
+                  <i>
+                    To login, use
+                    <strong>demo</strong> as username and
+                    <strong>demo</strong> as password.
+                  </i>
+                </p>
+              </div>
+              <br>
               <div style="clear:both;"></div>
               <div class="group">
-                <input v-model="formUsername" type="text" name="username"  autocomplete="off" required>
+                <input
+                  v-model="formUsername"
+                  type="text"
+                  name="username"
+                  autocomplete="off"
+                  required
+                >
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>
@@ -35,7 +44,13 @@
                 </label>
               </div>
               <div class="group">
-                <input v-model="formPassword" type="password" name="password"  autocomplete="off" required>
+                <input
+                  v-model="formPassword"
+                  type="password"
+                  name="password"
+                  autocomplete="off"
+                  required
+                >
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>
@@ -53,17 +68,38 @@
               </div>
             </form>
           </div>
-          <div v-else>
-            Hello {{ $store.state.authUser.username }}!
-            <pre>I am the secret content, I am shown only when the use is connected.</pre>
-            <p>
-              <i>You can also refresh this page, you'll still be connected!</i>
-            </p>
-            <button @click="logout">Logout</button>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" v-else>
+      <div class="row dashboard-nav">
+        <div class="col-md-12">
+          <p class="dashboard-text"><strong>Dashboard</strong></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 nopadding">
+          <div class="ui-card">
+            <h2 class="heading-two">{{ $store.state.authUser.username }}</h2>
+            <h2 class="subheading-two">Accommodation Seeker</h2>
+            <br>
+            
           </div>
-          <p>
-            <NuxtLink to="/secret">Super secret page</NuxtLink>
-          </p>
+          <div class="ui-card">
+            <p>
+              <NuxtLink to="/secret">UserProfile</NuxtLink>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="ui-card">
+            <p>Houses applied to will come here</p>
+          </div>
+        </div>
+        <div class="col-md-2 nopadding" style="background-color: #eee;">
+          <div class="single-notification">
+            <p>This is a notification</p>
+          </div>
         </div>
       </div>
     </div>
@@ -291,7 +327,7 @@ input:valid ~ label {
   top: -5px;
 }
 .login-button,
-.kayit-ol-buton,
+.logout-button,
 .sifre-hatirlat-buton {
   background: linear-gradient(-135deg, rgb(63, 81, 181), rgb(233, 30, 99));
   background: -webkit-linear-gradient(
@@ -323,7 +359,7 @@ input:valid ~ label {
   margin-right: 10px;
 }
 
-.error{
+.error {
   color: red;
 }
 

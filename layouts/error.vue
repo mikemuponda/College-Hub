@@ -6,7 +6,7 @@
           <h1>Oops!</h1>
           <h2>{{ error.statusCode }} {{ error.message }}</h2>
         </div>
-        <router-link title="Home" to="/" v-if="error.statusCode === 404">Homepage</router-link>
+        <NuxtLink title="Home" to="/" v-if="error.statusCode === 404">Homepage</NuxtLink>
       </div>
     </div>
   </section>

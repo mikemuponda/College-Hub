@@ -2,41 +2,57 @@
   <div style="width: 100%;">
     <div class="nav" style="background-color: #ffffff; padding-bottom: 5px;">
       <nav class="navbar-expand-lg navbar-light bg-light" style="margin-left: 10px;">
-        <router-link :to="'/'" class="navbar-brand" title="College Hub" style="margin-top: 35px; ">
+        <NuxtLink :to="'/'" class="navbar-brand" title="College Hub" style="margin-top: 35px; ">
           <strong>CollegeHub</strong>
-        </router-link>
+        </NuxtLink>
       </nav>
     </div>
     <no-ssr>
       <Slide right noOverlay>
-        <router-link :to="'/'" title="Home" id="Home">
+        <NuxtLink :to="'/'" title="Home" id="Home" class="nav-link">
           <span>Home</span>
-        </router-link>
-        <router-link :to="'/how-to-use'" title="How to use" id="how-to-use">
+        </NuxtLink>
+        <NuxtLink :to="'/how-to-use'" title="How to use" id="how-to-use" class="nav-link">
           <span>How to use</span>
-        </router-link>
-        <router-link :to="'/services'" title="Services" id="services">
+        </NuxtLink>
+        <NuxtLink :to="'/services'" title="Services" id="services" class="nav-link">
           <span>Services</span>
-        </router-link>
-        <router-link :to="'/about'" title="About Us" id="about">
+        </NuxtLink>
+        <NuxtLink :to="'/about'" title="About Us" id="about" class="nav-link">
           <span>About Us</span>
-        </router-link>
-        <router-link :to="'/blog'" title="Blog" id="Blog">
+        </NuxtLink>
+        <NuxtLink :to="'/blog'" title="Blog" id="Blog" class="nav-link">
           <span>Blog</span>
-        </router-link>
-        <router-link :to="'/contact'" title="Contact" id="Contact">
+        </NuxtLink>
+        <NuxtLink :to="'/contact'" title="Contact" id="Contact" class="nav-link">
           <span>Contact</span>
-        </router-link>
-        <router-link
-          :to="'/terms-and-conditions'"
-          title="Terms and Conditions"
-          id="terms-and-conditions"
-        >
-          <span>Terms and Conditions</span>
-        </router-link>
+        </NuxtLink>
+				<button v-if="$store.state.authUser" class="logout-button" @click="logout">Logout</button>
       </Slide>
     </no-ssr>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      formError: null,
+      formUsername: '',
+      formPassword: ''
+    }
+  },
+  methods: {
+    async logout() {
+      try {
+        await this.$store.dispatch('logout')
+      } catch (e) {
+        this.formError = e.message
+      }
+    }
+  }
+}
+</script>
+
 
 
