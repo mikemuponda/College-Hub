@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%;">
     <div class="container" v-if="!$store.state.authUser">
-      <div class="row" style="margin-top: 100px;">
+      <div class="row" style="margin-top: 50px;">
         <div class="col-md-6" style="text-align: center; margin-top: 10%; margin-bottom: 25%;">
           <h1 class="title">College Hub</h1>
           <h2 class="subtitle">Making College Life Simpler</h2>
@@ -63,8 +63,10 @@
                 <a
                   class="forgot_password_link"
                   href="javascript:void('forgot_password_link');"
-                >Forgot you password?</a>
-                <a class="create-account" href="javascript:void('create-account');">Create Account</a>
+                >Forgot you password?</a><br><br>
+                <NuxtLink :to="'/create-account'" class="create-account" title="Create Account" id="Create">
+                  Create Account
+                </NuxtLink>
               </div>
             </form>
           </div>
@@ -74,7 +76,9 @@
     <div class="container-fluid" v-else>
       <div class="row dashboard-nav">
         <div class="col-md-12">
-          <p class="dashboard-text"><strong>Dashboard</strong></p>
+          <p class="dashboard-text">
+            <strong>Dashboard</strong>
+          </p>
         </div>
       </div>
       <div class="row">
@@ -83,7 +87,6 @@
             <h2 class="heading-two">{{ $store.state.authUser.username }}</h2>
             <h2 class="subheading-two">Accommodation Seeker</h2>
             <br>
-            
           </div>
           <div class="ui-card">
             <p>
@@ -328,7 +331,7 @@ input:valid ~ label {
 }
 .login-button,
 .logout-button,
-.sifre-hatirlat-buton {
+.create-account {
   background: linear-gradient(-135deg, rgb(63, 81, 181), rgb(233, 30, 99));
   background: -webkit-linear-gradient(
     -135deg,
