@@ -30,11 +30,24 @@ body {
 }
 
 .subtitle {
-  font-weight: 300;
-  font-size: 42px;
+  font-weight: 250;
+  font-size: 32px;
   color: #ffffff;
   word-spacing: 5px;
   padding-bottom: 15px;
+}
+
+.heading {
+  font-weight: 100;
+  font-size: 32px;
+  color: #ffffff;
+  word-spacing: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+a:hover{
+  text-decoration: none;
 }
 
 *,

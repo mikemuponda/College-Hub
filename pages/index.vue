@@ -2,15 +2,20 @@
   <div style="width: 100%;">
     <div class="container">
       <div class="row" style="margin-top: 100px;">
-        <div class="col-md-6">
-          <h1 class="title" style="margin-top: 100px;">College Hub</h1>
+        <div class="col-md-6" style="text-align: center; margin-top: 10%; margin-bottom: 25%;">
+          <h1 class="title">College Hub</h1>
           <h2 class="subtitle">Making College Life Simpler</h2>
         </div>
         <div class="col-md-6">
           <div v-if="!$store.state.authUser" class="col-md-10 login-card">
-            <form @submit.prevent="login">
+            <form @submit.prevent="login"  autocomplete="off">
               <div class="col-lg-12 logo-capsul">
-                <img width="100" class="logo" src="/img/logo.png" alt="Logo">
+                <h2 class="heading">Login</h2>
+              </div>
+              <div v-if="formError" class="col-lg-12 logo-capsul">
+                <p class="error"><i>{{ formError }}</i></p>
+              </div>
+              <div class="col-lg-12 logo-capsul">
                 <p>
                 <i>
                   To login, use
@@ -18,14 +23,10 @@
                   <strong>demo</strong> as password.
                 </i>
               </p>
-              </div>
-              <div v-if="formError" class="col-lg-12 logo-capsul">
-                <p class="error">{{ formError }}</p>
-              </div>
-
+              </div><br>
               <div style="clear:both;"></div>
               <div class="group">
-                <input v-model="formUsername" type="text" name="username" required>
+                <input v-model="formUsername" type="text" name="username"  autocomplete="off" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>
@@ -34,7 +35,7 @@
                 </label>
               </div>
               <div class="group">
-                <input v-model="formPassword" type="password" name="password" required>
+                <input v-model="formPassword" type="password" name="password"  autocomplete="off" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>
@@ -320,6 +321,10 @@ input:valid ~ label {
   text-decoration: none;
   font-weight: 100;
   margin-right: 10px;
+}
+
+.error{
+  color: red;
 }
 
 .zaten-hesap-var-link {
