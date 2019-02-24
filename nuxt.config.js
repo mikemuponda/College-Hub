@@ -33,9 +33,9 @@ module.exports = {
     short_name: 'Collegehub',
     display: 'standalone',
     start_url: 'https://www.lekkahub.com/',
-    theme_color: '#da552f',
+    theme_color: '#9400D3',
     background_color: '#FFF',
-    lang: 'zh-CN',
+    lang: 'en-GB',
     icons: PWAIcons
   },
 
