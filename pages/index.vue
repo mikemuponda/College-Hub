@@ -65,10 +65,15 @@
                 <a
                   class="forgot_password_link"
                   href="javascript:void('forgot_password_link');"
-                >Forgot you password?</a><br><br>
-                <NuxtLink :to="'/create-account'" class="create-account" title="Create Account" id="Create">
-                  Create Account
-                </NuxtLink>
+                >Forgot you password?</a>
+                <br>
+                <br>
+                <NuxtLink
+                  :to="'/create-account'"
+                  class="create-account"
+                  title="Create Account"
+                  id="Create"
+                >Create Account</NuxtLink>
               </div>
             </form>
           </div>
@@ -109,10 +114,11 @@
         </div>
       </div>
     </div>
-
-    <div class="container-fluid content">
-      <div class="row">
-        <h2 class="subtitle" style="color: #000;">Some very good stuff to come here</h2>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <h2 class="subtitle" style="color: #000;">Some very good stuff to come here</h2>
+        </div>
       </div>
     </div>
   </div>
