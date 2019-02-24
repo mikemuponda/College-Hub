@@ -75,6 +75,7 @@
         </div>
       </div>
     </div>
+
     <div class="container-fluid" v-else>
       <div class="row dashboard-nav">
         <div class="col-md-12">
@@ -106,6 +107,12 @@
             <p>This is a notification</p>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="container-fluid content">
+      <div class="row">
+        <h2 class="subtitle" style="color: #000;">Some very good stuff to come here</h2>
       </div>
     </div>
   </div>

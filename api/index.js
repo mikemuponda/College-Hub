@@ -1,11 +1,17 @@
 import express from 'express'
-
-// Create express router
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 const router = express.Router()
-
-// Transform req & res to have the same API as express
-// So we can use res.status() & res.json()
 const app = express()
+
+mongoose.connect('mongodb://lekka:lekka123@ds046377.mlab.com:46377/collegehub', { useNewUrlParser: true })
+var db = mongoose.connection
+  db.on('error', console.error.bind(console, 'connection error:'))
+  db.once('open', function () {
+    console.log("Connected to Mongodb")
+  });
+
+
 router.use((req, res, next) => {
   Object.setPrototypeOf(req, app.request)
   Object.setPrototypeOf(res, app.response)
@@ -17,16 +23,24 @@ router.use((req, res, next) => {
 // Add POST - /api/login
 router.post('/login', (req, res) => {
   if (req.body.username === 'demo' && req.body.password === 'demo') {
-    req.session.authUser = { username: 'demo' }
-    return res.json({ username: 'demo' })
+    req.session.authUser = {
+      username: 'demo'
+    }
+    return res.json({
+      username: 'demo'
+    })
   }
-  res.status(401).json({ message: 'Incorrect login credentials' })
+  res.status(401).json({
+    message: 'Incorrect login credentials'
+  })
 })
 
 // Add POST - /api/logout
 router.post('/logout', (req, res) => {
   delete req.session.authUser
-  res.json({ ok: true })
+  res.json({
+    ok: true
+  })
 })
 
 // Export the server middleware
