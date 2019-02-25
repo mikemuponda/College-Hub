@@ -15,9 +15,10 @@ let PWAIcons = [16, 120, 144, 152, 192, 384, 512].map(size => {
 module.exports = {
   mode: 'universal',
 
-  cache: {
-    max: 1000,
-    maxAge: 900000
+  render: {
+    static: {
+      maxAge: 1000 * 60 * 60 * 24 * 7
+    }
   },
 
   modules: [
