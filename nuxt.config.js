@@ -151,9 +151,5 @@ module.exports = {
   
   axios: {},
 
-  build: {
-    extractCSS: {
-      allChunks: true
-    }
-  }
+  build: {}
 }
