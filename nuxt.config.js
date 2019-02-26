@@ -132,6 +132,7 @@ module.exports = {
 
   plugins: [
     {src: "~/plugins/burger-menu.js", ssr: false},
+    {src: "~/plugins/vue-cookie-law.js", ssr: false},
   ],
 
   serverMiddleware: [

@@ -12,7 +12,7 @@
               <p>We are a young company that provides online services to ease life at universities.</p>
               <p>Collegehub Inc.</p>
               <a href="https://wa.me/263778011367" target="_blank" rel="noopener" title="WhatsApp">
-                <i class="fab fa-whatsapp "/>
+                <i class="fab fa-whatsapp"/>
               </a>
               
               <a
@@ -21,7 +21,7 @@
                 rel="noopener"
                 title="Facebook"
               >
-                <i class="fab fa-facebook-f "/>
+                <i class="fab fa-facebook-f"/>
               </a>
               
               <a
@@ -30,7 +30,7 @@
                 rel="noopener"
                 title="Twitter"
               >
-                <i class="fab fa-twitter "/>
+                <i class="fab fa-twitter"/>
               </a>
               
               <a
@@ -39,7 +39,7 @@
                 rel="noopener"
                 title="Instagram"
               >
-                <i class="fab fa-instagram "/>
+                <i class="fab fa-instagram"/>
               </a>
               
               <a
@@ -48,7 +48,7 @@
                 rel="noopener"
                 title="Youtube"
               >
-                <i class="fab fa-youtube "/>
+                <i class="fab fa-youtube"/>
               </a>
             </div>
             <div
@@ -108,17 +108,17 @@
                       <span>About</span>
                     </NuxtLink>
                   </p>
-									<p>
+                  <p>
                     <NuxtLink :to="'/blog'" title="Blog">
                       <span>Blog</span>
                     </NuxtLink>
                   </p>
-									<p>
+                  <p>
                     <NuxtLink :to="'/terms-and-conditions'" title="Terms and Conditions">
                       <span>Terms and Conditions</span>
                     </NuxtLink>
                   </p>
-									<p>
+                  <p>
                     <NuxtLink :to="'/privacy-policy'" title="Privacy Policy">
                       <span>Privacy Policy</span>
                     </NuxtLink>
@@ -131,6 +131,18 @@
       </div>
       <div class="footer-bottom">
         <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <cookie-law theme="dark-lime">
+                <div slot="message">
+                  This site uses cookies 🍪 to assist with navigation, analyse your use of our
+                  services, assist with our promotional and marketing efforts, and provide content from
+                  third parties. By using this site we assume that you agree to our terms and conditions.
+                  <NuxtLink :to="'/terms-and-conditions'" title="Terms and Conditions">Cookie Policy</NuxtLink>
+                </div>
+              </cookie-law>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-6 footer-copyright">
               Developed by
@@ -170,8 +182,8 @@
   padding: 0 0 10px 0;
   color: #000;
   font-size: 10px;
-	font-weight: 500;
-	background-color: #ffffff;
+  font-weight: 500;
+  background-color: #ffffff;
 }
 .footer-bottom a {
   color: #000000;
@@ -182,7 +194,7 @@
 }
 
 .footer-about .fab {
-	font-size: 25px;
+  font-size: 25px;
   vertical-align: middle;
   margin-right: 7%;
 }
