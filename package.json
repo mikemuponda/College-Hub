@@ -23,7 +23,8 @@
     "express-session": "^1.15.6",
     "mongoose": "^5.4.15",
     "nuxt": "^2.0.0",
-    "vue-burger-menu": "^2.0.1"
+    "vue-burger-menu": "^2.0.1",
+    "vue-cookie-law": "^1.9.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
