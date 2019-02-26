@@ -133,14 +133,19 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <cookie-law theme="base">
-                <div slot="message">
-                  This site uses cookies 🍪 to assist with navigation, analyse your use of our
-                  services, and provide content from third parties. By using this site we assume
-                  that you agree to our terms and conditions.
-                  <NuxtLink :to="'/terms-and-conditions'" title="Terms and Conditions">Cookie Policy</NuxtLink>
-                </div>
-              </cookie-law>
+              <no-ssr>
+                <cookie-law theme="base">
+                  <div slot="message">
+                    This site uses cookies 🍪 to assist with navigation, analyse your use of our
+                    services, and provide content from third parties. By using this site we assume
+                    that you agree to our terms and conditions.
+                    <NuxtLink
+                      :to="'/terms-and-conditions'"
+                      title="Terms and Conditions"
+                    >Cookie Policy</NuxtLink>
+                  </div>
+                </cookie-law>
+              </no-ssr>
             </div>
           </div>
           <div class="row">
