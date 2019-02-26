@@ -181,7 +181,7 @@
 .footer-bottom {
   padding: 0 0 10px 0;
   color: #000;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   background-color: #ffffff;
 }
