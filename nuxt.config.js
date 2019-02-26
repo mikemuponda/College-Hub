@@ -26,7 +26,8 @@ module.exports = {
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     '@nuxtjs/workbox',
-    '@nuxtjs/manifest'
+    '@nuxtjs/manifest',
+    '@nuxtjs/sitemap'
   ],
 
   manifest: {
@@ -42,69 +43,26 @@ module.exports = {
 
   head: {
     title: pkg.name,
-    meta: [{
-        charset: 'utf-8',
-        title: 'College Hub',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content: 'Making college life simple'
-      },
-      {
-        hid: 'author',
-        name: 'author',
-        content: 'Lekkahub'
-      },
-      {
-        hid: 'theme-color',
-        name: 'theme-color',
-        content: '#317EFB'
-      },
-      {
-        hid: 'og:site_name',
-        property: 'og:site_name',
-        content: 'Collegehub'
-      },
-      {
-        hid: 'og:type',
-        property: 'og:type',
-        content: 'website'
-      },
-      {
-        hid: 'og:title',
-        property: 'og:title',
-        content: 'College Hub'
-      },
-      {
-        hid: 'og:description',
-        property: 'og:description',
-        content: 'Making college life simple'
-      },
-      {
-        hid: 'og:url',
-        property: 'og:url',
-        content: 'https://www.collegehub.co.zw'
-      },
-      {
-        hid: 'og:locale',
-        property: 'og:locale',
-        content: 'en_GB'
-      },
-      {
-        hid: 'name',
-        itemprop: 'name',
-        content: 'College Hub'
-      },
-      {
-        hid: 'description',
-        itemprop: 'description',
-        content: 'Making college life simple'
-      }
+    meta: [
+      { charset: 'utf-8', title: 'Collegehub'},
+      { name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      { hid: 'description', name: 'description', content: 'Collegehub provides services that facilitate a smooth transition into college life and allow students to create the best experiences at college.'},
+      { hid: 'keywords', name: 'keywords', content: 'Collegehub, College, Accommodation, Rent a House, University, UZ, University of Zimbabwe, Harare, Lekkahub'},
+
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Collegehub'},
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:title', property: 'og:title', content: 'Collegehub'},
+      { hid: 'og:description', property: 'og:description', content: 'Collegehub provides services that facilitate a smooth transition into college life and allow students to create the best experiences at college.'},
+      { hid: 'og:url', property: 'og:url', content: 'https://www.collegehub.co.zw'},
+      { hid: 'og:image', property: 'og:image', content: '/img/logo.png'},
+      { hid: 'og:locale', property: 'og:locale', content: 'en_GB'},
+      { hid: 'og:locale:alternate', property: 'og:locale:alternate', content: 'en_US'},
+      { hid: 'og:locale:alternate', property: 'og:locale:alternate', content: 'sn_ZW'},
+
+      { hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image'},
+      { hid: 'twitter:site', property: 'twitter:site', content: '@collegehub_zwe'},
+      { hid: 'twitter:creator', property: 'twitter:creator', content: '@lekkahub'},
+      { hid: 'twitter:image:alt', property: 'twitter:image:alt', content: 'Collegehub'},
     ],
     link: [{
         rel: 'icon',
@@ -149,6 +107,27 @@ module.exports = {
     // We add /api/login & /api/logout routes
     '~/api'
   ],
+
+  sitemap: {
+    path: '/sitemap.xml',
+    hostname: 'https://www.lekkahub.com',
+    cacheTime: 1000 * 60 * 15,
+    gzip: true,
+    generate: false, // Enable me when using nuxt generate
+    exclude: [
+      '/secret',
+      '/admin/**'
+    ],
+    routes: [
+      '/',
+      {
+        url: '/',
+        changefreq: 'daily',
+        priority: 1,
+        lastmodISO: '2019-02-25T13:30:00.000Z'
+      }
+    ]
+  },
   
   axios: {},
 
