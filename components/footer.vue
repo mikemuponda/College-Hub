@@ -133,11 +133,11 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <cookie-law theme="dark-lime">
+              <cookie-law theme="base">
                 <div slot="message">
                   This site uses cookies 🍪 to assist with navigation, analyse your use of our
-                  services, assist with our promotional and marketing efforts, and provide content from
-                  third parties. By using this site we assume that you agree to our terms and conditions.
+                  services, and provide content from third parties. By using this site we assume
+                  that you agree to our terms and conditions.
                   <NuxtLink :to="'/terms-and-conditions'" title="Terms and Conditions">Cookie Policy</NuxtLink>
                 </div>
               </cookie-law>
