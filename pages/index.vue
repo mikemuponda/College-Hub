@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%;">
-    <div class="container" v-if="!$store.state.authUser">
+    <div class="container" style="margin-bottom: 20px;" v-if="!$store.state.authUser">
       <div class="row" style="margin-top: 50px;">
         <div class="col-md-6" style="text-align: center; margin-top: 10%; margin-bottom: 25%;">
           <h1 class="title">College Hub</h1>
@@ -81,7 +81,7 @@
       </div>
     </div>
 
-    <div class="container-fluid" v-else>
+    <div class="container-fluid" style="margin-bottom: 20px;" v-else>
       <div class="row dashboard-nav">
         <div class="col-md-12">
           <p class="dashboard-text">
@@ -114,18 +114,17 @@
         </div>
       </div>
     </div>
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <h2 class="subtitle" style="color: #000;">Some very good stuff to come here</h2>
-        </div>
-      </div>
-    </div>
+    <recommended/>
   </div>
 </template>
 
 <script>
+import recommended from '@/components/recommended'
+
 export default {
+  components: {
+    'recommended': recommended
+  },
   data() {
     return {
       formError: null,

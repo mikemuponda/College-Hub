@@ -192,7 +192,66 @@ a:hover{
   padding: 10px 10px 0 10px;
 }
 
-.content{
+.section{
   background-color: #fff;
-  height: 600px;
 }
+
+.section-title{
+  font-weight: 300;
+  font-size: 32px;
+  color: #000000;
+  word-spacing: 5px;
+  padding: 15px;
+}
+
+.recommended-card{
+  padding: 10px 10px 10px 10px;
+}
+
+.section-subtitle{
+  font-weight: 320;
+  font-size: 18px;
+  color: #000000;
+  word-spacing: 5px;
+  padding: 15px 0px 0px 0px;
+  margin-bottom: 0px;
+}
+
+.section-small-text{
+  font-weight: 420;
+  font-size: 12px;
+  color: gray;
+  padding: 0px 0px 0px 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.section-description{
+  text-align: justify;
+  font-size: 15px;
+  font-weight: 320;
+  padding-top: 10px;
+}
+
+.recommended-card{
+  border-top: 1px solid #aaa;
+  padding: 10px;
+}
+
+.recommended-house-image{
+  width: 100%;
+  border-radius: 2px;
+}
+
+@media only screen and (max-width: 600px)  {
+  .amenities{
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 600px)  {
+  .amenities{
+    text-align: right;
+  }
+}
+

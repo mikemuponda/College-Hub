@@ -42,7 +42,7 @@ module.exports = {
   },
 
   head: {
-    title: pkg.name,
+    title: 'Collegehub',
     meta: [
       { charset: 'utf-8', title: 'Collegehub'},
       { name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -75,7 +75,7 @@ module.exports = {
       },
       {
         rel: 'stylesheet',
-        href: "https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+        href: "https://use.fontawesome.com/releases/v5.7.2/css/all.css"
       }
     ],
     script: [{}],
