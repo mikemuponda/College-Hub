@@ -11,12 +11,12 @@ html {
 }
 
 body {
-	background-image: url('/img/college-hub-background-1.jpeg');
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	top: 0;
+  background-image: url('/img/college-hub-background-1.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  top: 0;
   width: 100%;
   font-weight: 250;
 }
@@ -38,7 +38,7 @@ body {
   padding-bottom: 15px;
 }
 
-.nav-link{
+.nav-link {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-weight: 250;
   font-size: 14px;
@@ -73,7 +73,7 @@ body {
   font-weight: 350;
 }
 
-a:hover{
+a:hover {
   text-decoration: none;
 }
 
@@ -106,61 +106,78 @@ a:hover{
   top: 36px;
   cursor: pointer;
 }
+
 .bm-burger-bars {
   background-color: #373a47;
 }
+
 .line-style {
   position: absolute;
   height: 20%;
   left: 0;
   right: 0;
 }
+
 .cross-style {
   position: absolute;
   top: 12px;
   right: 2px;
   cursor: pointer;
 }
+
 .bm-cross {
   background: #bdc3c7;
 }
+
 .bm-cross-button {
   height: 24px;
   width: 24px;
 }
+
 .bm-menu {
-  height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  z-index: 1000; /* Stay on top */
+  height: 100%;
+  /* 100% Full-height */
+  width: 0;
+  /* 0 width - change this with JavaScript */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1000;
+  /* Stay on top */
   top: 0;
   left: 0;
-  background-color: rgb(63, 63, 65); /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /*0.5 second transition effect to slide in the sidenav*/
+  background-color: rgb(63, 63, 65);
+  /* Black*/
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding-top: 60px;
+  /* Place content 60px from the top */
+  transition: 0.5s;
+  /*0.5 second transition effect to slide in the sidenav*/
 }
 
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
+
 .bm-item-list {
   color: #b8b7ad;
   margin-left: 10%;
   font-size: 20px;
 }
-.bm-item-list > * {
+
+.bm-item-list>* {
   display: flex;
   text-decoration: none;
   padding: 0.7em;
 }
-.bm-item-list > * > span {
+
+.bm-item-list>*>span {
   margin-left: 10px;
   font-weight: 700;
   color: white;
 }
 
-.ui-card{
+.ui-card {
   background: #fff;
   border-radius: 1px;
   margin-bottom: 5px;
@@ -174,41 +191,79 @@ a:hover{
   margin: 0 !important;
 }
 
-.single-notification{
+.single-notification {
   padding: 3px 0px 3px 0px;
   margin: 1px 0px 1px 0px;
   background-color: #fff;
 }
 
-.dashboard-nav{
+.dashboard-nav {
   background: #fff;
   margin-bottom: 5px;
   border-top: 0.5px solid #aaa;
 }
 
-.dashboard-text{
+.dashboard-text {
   font-size: 12px;
   font-weight: 350;
   padding: 10px 10px 0 10px;
 }
 
-.section{
+.section {
   background-color: #fff;
 }
 
-.section-title{
-  font-weight: 300;
-  font-size: 32px;
+.search-form-sec{
+  padding: 4rem;
+}
+.search-slt{
+  display: block;
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.5;
   color: #000000;
-  word-spacing: 5px;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #BA55D3;
+  height: calc(3rem + 2px) !important;
+  border-radius:0;
+}
+.wrn-btn{
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+  height: calc(3rem + 2px) !important;
+  border-radius:0;
+  background: #BA55D3;
+  color: #ffffff;
+}
+@media (min-width: 992px){
+  .search-sec{
+      position: relative;
+      top: -114px;
+      background: rgba(26, 70, 104, 0.51);
+  }
+}
+
+@media (max-width: 992px){
+  .search-sec{
+      background: #1A4668;
+  }
+}
+
+.section-title {
+  font-weight: 400;
+  font-size: 24px;
+  color: #000000;
   padding: 15px;
 }
 
-.recommended-card{
+.recommended-card {
   padding: 10px 10px 10px 10px;
 }
 
-.section-subtitle{
+.section-subtitle {
   font-weight: 320;
   font-size: 18px;
   color: #000000;
@@ -217,41 +272,51 @@ a:hover{
   margin-bottom: 0px;
 }
 
-.section-small-text{
+.section-small-text {
   font-weight: 420;
   font-size: 12px;
-  color: gray;
+  color: #696969;
   padding: 0px 0px 0px 0px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-.section-description{
+.section-description {
   text-align: justify;
-  font-size: 15px;
-  font-weight: 320;
+  font-size: 14px;
+  font-weight: 330;
   padding-top: 10px;
 }
 
-.recommended-card{
-  border-top: 1px solid #aaa;
-  padding: 10px;
+.time-estimate{
+  text-align: justify;
+  font-size: 12px;
+  font-weight: 450;
 }
 
-.recommended-house-image{
+.recommended-card {
+  padding: 10px;
+  -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.recommended-house-image {
   width: 100%;
   border-radius: 2px;
+  height: 180px;
 }
 
-@media only screen and (max-width: 600px)  {
-  .amenities{
+@media only screen and (max-width: 600px) {
+  .amenities {
     text-align: center;
   }
 }
 
-@media only screen and (min-width: 600px)  {
-  .amenities{
+@media only screen and (min-width: 600px) {
+  .amenities {
     text-align: right;
   }
 }
-
