@@ -1,4 +1,3 @@
-
 const express = require('express')
 const mongodb = require('mongodb')
 const router = express.Router()
@@ -21,8 +20,8 @@ router.post('/', async (req, res) => {
   const users = await loadUsers()
   await users.insertOne({
     firstname: req.body.firstname,
-    middle_name: req.body.middle_name,
     lastname: req.body.lastname,
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password,
     location: req.body.location,
