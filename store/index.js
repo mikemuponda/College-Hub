@@ -48,6 +48,37 @@ export const actions = {
   }) {
     await axios.post('/api/logout')
     commit('SET_USER', null)
-  }
+  },
+
+
+  async signUp({
+    commit
+  }, {
+    first_name,
+    last_name,
+    username,
+    email,
+    password
+  }) {
+    try {
+      const {
+        data
+      } = await axios.post('/api/signup', {
+        first_name,
+        last_name,
+        username,
+        email,
+        password
+      })
+      commit('SET_USER', data)
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error("Email is already in use")
+      }else if (error.response && error.response.status === 409) {
+        throw new Error("Username is already in use")
+      }
+      throw error
+    }
+  },
 
 }

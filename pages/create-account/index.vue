@@ -2,7 +2,7 @@
   <div style="width: 100%;">
     <div class="container">
       <div class="signup-form">
-        <form @submit="checkForm" autocomplete="off">
+        <form @submit.prevent="signUpHandler" autocomplete="off">
           <h2 class="heading" style="color: #000000;">Create Account</h2>
           <p>Please fill in this form to create an account!</p>
           <hr>
@@ -18,6 +18,19 @@
                   >{{ error }}</li>
                 </ul>
               </div>
+              <div v-if="formError" class="col-md-12 alert alert-danger">
+                <p class="error">
+                  <i>{{ formError }}</i>
+                </p>
+              </div>
+              <div v-if="created" class="col-md-12 alert alert-success">
+                <h3 style="font-size: 18px;">Hi, {{Form.first_name}}!</h3>
+                <br>
+                <p>
+                  Your account has successfully been created. We have sent a confirmation email to {{Form.email}}.
+                  Please confirm your email and have a wonderful time finding a cozy home for yourself on our website
+                </p>
+              </div>
             </div>
             <div class="row">
               <div class="col-md-6 input">
@@ -26,7 +39,7 @@
                   class="form-control"
                   name="first_name"
                   placeholder="First Name"
-                  v-model="first_name"
+                  v-model="Form.first_name"
                   required="required"
                 >
               </div>
@@ -36,7 +49,7 @@
                   class="form-control"
                   name="last_name"
                   placeholder="Last Name"
-                  v-model="last_name"
+                  v-model="Form.last_name"
                   required="required"
                 >
               </div>
@@ -48,7 +61,7 @@
                   class="form-control"
                   name="username"
                   placeholder="Username"
-                  v-model="username"
+                  v-model="Form.username"
                   required="required"
                 >
               </div>
@@ -58,7 +71,7 @@
                   class="form-control"
                   name="email"
                   placeholder="Email"
-                  v-model="email"
+                  v-model="Form.email"
                   required="required"
                 >
               </div>
@@ -70,9 +83,8 @@
                   class="form-control"
                   name="password"
                   placeholder="Password"
-                  v-model="password"
-                  v-validate="'required|min:6|max:35|confirmed'"
-                  ref="password"
+                  v-model="Form.password"
+                  required="required"
                 >
               </div>
               <div class="col-md-6 input">
@@ -82,8 +94,7 @@
                   name="confirm_password"
                   placeholder="Confirm Password"
                   v-model="confirm_password"
-                  v-validate="'required|confirmed:password'"
-                  data-vv-as="password"
+                  required="required"
                 >
               </div>
             </div>
@@ -125,41 +136,60 @@ export default {
   middleware: 'auth-redirect',
   data() {
     return {
-      first_name: '',
-      last_name: '',
-      username: '',
-      email: '',
-      password: '',
+      Form: {
+        first_name: '',
+        last_name: '',
+        username: '',
+        email: '',
+        password: ''
+      },
       confirm_password: '',
-      errors: []
+      errors: [],
+      formError: null,
+      created: null
     }
   },
   methods: {
-    checkForm: function(e) {
+    signUpHandler: async function(e) {
       this.errors = []
-
-      if (!this.first_name) {
+      this.created = false
+      if (!this.Form.first_name) {
         this.errors.push('First Name required.')
       }
-      if (!this.last_name) {
+      if (!this.Form.last_name) {
         this.errors.push('Last Name required.')
-			}
-			if (!this.username) {
+      }
+      if (!this.Form.username) {
         this.errors.push('Username required.')
       }
-      if (!this.email) {
+      if (!this.Form.email) {
         this.errors.push('Email required.')
-      } else if (!this.validEmail(this.email)) {
+      } else if (!this.validEmail(this.Form.email)) {
         this.errors.push('Please write a valid email')
       }
-      if (!this.password) {
+      if (!this.Form.password) {
         this.errors.push('Please enter a password')
       }
-      if (this.password != this.confirm_password) {
+      if (this.Form.password != this.confirm_password) {
         this.errors.push('Passwords do not match')
       }
       if (!this.errors.length) {
-        return
+        try {
+          await this.$store.dispatch('signUp', {
+            first_name: this.Form.first_name,
+            last_name: this.Form.last_name,
+            username: this.Form.username,
+            email: this.Form.email,
+            password: this.Form.password
+          })
+          this.Form.last_name = ''
+          this.Form.username = ''
+          this.Form.password = ''
+          this.formError = null
+          this.created = true
+        } catch (e) {
+          this.formError = e.message
+        }
       }
 
       e.preventDefault()
