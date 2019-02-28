@@ -5,7 +5,7 @@ const mongodb = require('mongodb')
 const router = express.Router()
 const loadUsers = async function() {
   const client = await mongodb.MongoClient.connect(
-    'mongodb://lekka:lekka123@ds046377.mlab.com:46377/collegehub,
+    'mongodb://lekka:lekka123@ds046377.mlab.com:46377/collegehub',
     {
       useNewUrlParser: true
     }
