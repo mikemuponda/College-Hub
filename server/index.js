@@ -1,13 +1,20 @@
 
 const express = require('express')
 const consola = require('consola')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 8080
-
+const signup = require('./routes/api/signup')
+app.use('/api/signup', signup)
 app.set('port', port)
+app.use(bodyParser.json())
+app.use(cors())
 
+const signup = require('./routes/api/signup')
+app.use('/api/signup', signup)
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
