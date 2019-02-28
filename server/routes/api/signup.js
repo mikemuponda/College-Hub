@@ -1,6 +1,5 @@
 const express = require('express')
 const mongodb = require('mongodb')
-
 const router = express.Router()
 const loadUsers = async function() {
   const client = await mongodb.MongoClient.connect(
