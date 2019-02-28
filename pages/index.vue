@@ -70,10 +70,8 @@
                 <br>
                 <NuxtLink
                   :to="'/create-account'"
-                  class="create-account"
                   title="Create Account"
-                  id="Create"
-                >Create Account</NuxtLink>
+                ><button class="create-account">Create Account</button></NuxtLink>
               </div>
             </form>
           </div>
@@ -178,15 +176,11 @@ export default {
 }
 .login-card:after {
   background: linear-gradient(-135deg, rgb(63, 81, 181), rgb(233, 30, 99));
-  /* Login Card Arkaplan Rengi */
-
   background: -webkit-linear-gradient(
     -135deg,
     rgb(63, 81, 181),
     rgb(233, 30, 99)
   );
-  /* Login Card Arkaplan Rengi */
-
   width: 100%;
   height: 100%;
   position: absolute;
