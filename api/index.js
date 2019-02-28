@@ -1,15 +1,7 @@
 import express from 'express'
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
 const router = express.Router()
 const app = express()
 
-mongoose.connect('mongodb://lekka:lekka123@ds046377.mlab.com:46377/collegehub', { useNewUrlParser: true })
-var db = mongoose.connection
-  db.on('error', console.error.bind(console, 'connection error:'))
-  db.once('open', function () {
-    console.log("Connected to Mongodb")
-  });
 
 
 router.use((req, res, next) => {
