@@ -35,6 +35,7 @@ export const actions = {
         password
       })
       commit('SET_USER', data)
+      commit('SET_USER', null)
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Incorrect login credentials')
@@ -73,6 +74,7 @@ export const actions = {
         isSeeker
       })
       commit('SET_USER', data)
+      commit('SET_USER', null)
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error("Email is already in use")
