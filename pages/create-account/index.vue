@@ -33,7 +33,24 @@
               </div>
             </div>
             <div class="row">
+              <div class="col-md-6 input" style="color: #000; font-weight: 500;">
+                <p>{{ accountType }}</p>
+              </div>
               <div class="col-md-6 input">
+                <select
+                  v-model="seeker"
+                  @change="onChange($event)"
+                  name="seeker"
+                  class="custom-select form-control"
+                  required="required"
+                >
+                  <option value="1">Finding Accomodation</option>
+                  <option value="2">Sharing a House</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6  input" style="padding-left: 10px;">
                 <input
                   type="text"
                   class="form-control"
@@ -55,7 +72,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 input">
+              <div class="col-md-6 input" style="padding-left: 10px;">
                 <input
                   type="text"
                   class="form-control"
@@ -77,7 +94,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 input">
+              <div class="col-md-6 input" style="padding-left: 10px;">
                 <input
                   type="password"
                   class="form-control"
@@ -141,18 +158,31 @@ export default {
         last_name: '',
         username: '',
         email: '',
-        password: ''
+        password: '',
+        isSeeker: null
       },
       confirm_password: '',
       errors: [],
       formError: null,
+      seeker: null,
+      accountType: 'Choose Option:',
       created: null
     }
   },
   methods: {
+    onChange($event) {
+      if (this.seeker == 1) {
+        this.Form.isSeeker = true
+        this.accountType = 'Searching for a house to rent'
+      } else if (this.seeker == 2) {
+        this.Form.isSeeker = false
+        this.accountType = 'Sharing available house to rent'
+      }
+    },
     signUpHandler: async function(e) {
       this.errors = []
       this.created = false
+
       if (!this.Form.first_name) {
         this.errors.push('First Name required.')
       }
@@ -180,7 +210,8 @@ export default {
             last_name: this.Form.last_name,
             username: this.Form.username,
             email: this.Form.email,
-            password: this.Form.password
+            password: this.Form.password,
+            isSeeker: this.Form.isSeeker
           })
           this.Form.last_name = ''
           this.Form.username = ''

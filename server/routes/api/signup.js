@@ -51,6 +51,8 @@ router.post('/', async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
+      isSeeker: req.body.isSeeker,
+      isConfirmed: false,
       location: req.body.location,
       houses_owned: req.body.houses_owned,
       house_id: req.body.house_id,

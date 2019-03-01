@@ -58,7 +58,8 @@ export const actions = {
     last_name,
     username,
     email,
-    password
+    password,
+    isSeeker
   }) {
     try {
       const {
@@ -68,7 +69,8 @@ export const actions = {
         last_name,
         username,
         email,
-        password
+        password,
+        isSeeker
       })
       commit('SET_USER', data)
     } catch (error) {
