@@ -1,7 +1,13 @@
 const express = require('express')
 const mongodb = require('mongodb')
+const sgMail = require('@sendgrid/mail')
 const router = express.Router()
 const app = express()
+
+const sendGridKey = ''
+sgMail.setApiKey(sendGridKey);
+
+
 const loadUsers = async function () {
   const client = await mongodb.MongoClient.connect(
     'mongodb://lekka:lekka123@ds046377.mlab.com:46377/collegehub', {
@@ -62,6 +68,13 @@ router.post('/', async (req, res) => {
       requests_made: req.body.requests_made,
       createdAt: new Date()
     })
+    const msg = {
+      to: req.body.email,
+      from: 'Collegehub <noreply@collegehub.co.zw>',
+      subject: 'Collegehub: Please confirm your email',
+      html: '<h2>Hi, ' + req.body.first_name + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="https://www.lekkahub.com/confirm-signup/' + req.body.email + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
+    }
+    sgMail.send(msg)
     res.status(201).json({
       message: 'Your account has been created. A confirmation email has been sent to ' + req.body.email
     })
