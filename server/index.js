@@ -20,6 +20,9 @@ app.use(cors())
 const signup = require('./routes/api/signup')
 app.use('/api/signup', signup)
 
+const emailconfirmation = require('./routes/api/emailconfirmation')
+app.use('/api/confirm-signup', emailconfirmation)
+
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')

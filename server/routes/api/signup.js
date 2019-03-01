@@ -51,6 +51,7 @@ router.post('/', async (req, res) => {
       message: 'Username is already in use'
     })
   } else {
+    key = (Math.floor(1000 + Math.random() * 9000)) + '-' + req.body.email
     await users.insertOne({
       firstname: req.body.first_name,
       lastname: req.body.last_name,
@@ -59,6 +60,7 @@ router.post('/', async (req, res) => {
       password: req.body.password,
       isSeeker: req.body.isSeeker,
       isConfirmed: false,
+      confirmationKey: key,
       location: req.body.location,
       houses_owned: req.body.houses_owned,
       house_id: req.body.house_id,
@@ -70,9 +72,10 @@ router.post('/', async (req, res) => {
     })
     const msg = {
       to: req.body.email,
+      cc: "tinashe@lekkahub.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Please confirm your email',
-      html: '<h2>Hi, ' + req.body.first_name + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="https://www.lekkahub.com/confirm-signup/' + req.body.email + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
+      html: '<h2>Hi, ' + req.body.first_name + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="https://www.lekkahub.com/confirm-signup/' + key + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
     }
     sgMail.send(msg)
     res.status(201).json({

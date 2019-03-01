@@ -83,4 +83,19 @@ export const actions = {
     }
   },
 
+  async emailConfirm({commit}, {id}) {
+    var url = '/api/confirm-signup/' + id
+    try {
+      const {data} = await axios.post(url, {id})
+      commit('SET_USER', data)
+    } catch (error) {
+      if (error.response && error.response.status === 400) 
+        throw new Error("User Could not be found")
+      else 
+        throw new Error("Unknown Error")
+      
+      throw error
+    }
+  },
+
 }
