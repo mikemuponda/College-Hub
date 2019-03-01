@@ -22,6 +22,11 @@ export default {
     Login: login,
     recommended: recommended,
     userDashboard: userDashboard
+  },
+  head() {
+    return {
+      title: 'Collegehub | Home',
+    }
   }
 }
 </script>

@@ -151,6 +151,11 @@
 <script>
 export default {
   middleware: 'auth-redirect',
+  head() {
+    return {
+      title: 'Collegehub | Create Account',
+    }
+  },
   data() {
     return {
       Form: {
