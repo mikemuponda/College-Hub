@@ -1,0 +1,116 @@
+<template>
+  <div style="width: 100%">
+    <div class="container" style="margin-bottom: 20px;">
+      <div class="row" style="margin-top: 50px;">
+        <div class="col-md-6" style="text-align: center; margin-top: 10%; margin-bottom: 25%;">
+          <h1 class="title">College Hub</h1>
+          <h2 class="subtitle">Making College Life Simpler</h2>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-10 login-card">
+            <form @submit.prevent="login" autocomplete="off">
+              <div class="col-lg-12 logo-capsul">
+                <h2 class="heading">Login</h2>
+              </div>
+              <div v-if="formError" class="col-lg-12 logo-capsul">
+                <p class="error">
+                  <i>{{ formError }}</i>
+                </p>
+              </div>
+              <div class="col-lg-12 logo-capsul">
+                <p>
+                  <i>
+                    To login, use
+                    <strong>demo</strong> as username and
+                    <strong>demo</strong> as password.
+                  </i>
+                </p>
+              </div>
+              <br>
+              <div style="clear:both;"></div>
+              <div class="group">
+                <input
+                  v-model="formUsername"
+                  type="text"
+                  name="username"
+                  autocomplete="off"
+                  id="username"
+                  required
+                >
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label for="username">
+                  <i class="fa fa-user input-ikon"></i>
+                  <span class="span-input">Email</span>
+                </label>
+              </div>
+              <div class="group">
+                <input
+                  v-model="formPassword"
+                  type="password"
+                  name="password"
+                  autocomplete="off"
+                  id="password"
+                  required
+                >
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label for="password">
+                  <i class="fa fa-lock input-ikon"></i>
+                  <span class="span-input">Password</span>
+                </label>
+              </div>
+              <button type="submit" class="login-button">Login</button>
+              <div class="forgot-and-create tab-menu">
+                <a
+                  class="forgot_password_link"
+                  href="javascript:void('forgot_password_link');"
+                >Forgot you password?</a>
+                <br>
+                <br>
+                <NuxtLink :to="'/create-account'" title="Create Account">
+                  <button class="create-account">Create Account</button>
+                </NuxtLink>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      formError: null,
+      formUsername: '',
+      formPassword: ''
+    }
+  },
+  methods: {
+    async login() {
+      try {
+        await this.$store.dispatch('login', {
+          username: this.formUsername,
+          password: this.formPassword
+        })
+        this.formUsername = ''
+        this.formPassword = ''
+        this.formError = null
+      } catch (e) {
+        this.formError = e.message
+      }
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch('logout')
+      } catch (e) {
+        this.formError = e.message
+      }
+    }
+  }
+}
+</script>
+

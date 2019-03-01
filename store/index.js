@@ -35,7 +35,6 @@ export const actions = {
         password
       })
       commit('SET_USER', data)
-      commit('SET_USER', null)
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Incorrect login credentials')
@@ -90,6 +89,7 @@ export const actions = {
     try {
       const {data} = await axios.post(url, {id})
       commit('SET_USER', data)
+      commit('SET_USER', null)
     } catch (error) {
       if (error.response && error.response.status === 400) 
         throw new Error("User Could not be found")
