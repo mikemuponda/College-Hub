@@ -8,7 +8,7 @@
               <i>{{ error }}</i>
             </p>
           </div>
-          <div else class="confirmation-box alert alert-success">
+          <div v-else class="confirmation-box alert alert-success">
             <h3
               style="font-size: 20px; text-align: center;"
             >Your email has successfully been confirmed. Have fun!</h3>
