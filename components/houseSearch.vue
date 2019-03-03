@@ -2,7 +2,7 @@
   <div style="width: 100%;">
     <div class="section search-form-sec">
       <div class="container">
-        <form action="#" method="post" novalidate="novalidate">
+        <form action="#" method="post" novalidate="novalidate" style="padding: 0 0.8rem 0 0.8rem;">
           <div class="row">
             <div class="col-lg-12">
               <div class="row">
