@@ -12,28 +12,15 @@ export const mutations = {
 
 export const actions = {
   // nuxtServerInit is called by Nuxt.js before server-rendering every page
-  nuxtServerInit({
-    commit
-  }, {
-    req
-  }) {
+  nuxtServerInit({commit}, {req}) {
     if (req.session && req.session.authUser) {
       commit('SET_USER', req.session.authUser)
     }
   },
-  async login({
-    commit
-  }, {
-    username,
-    password
-  }) {
+
+  async login({commit}, {email, password}) {
     try {
-      const {
-        data
-      } = await axios.post('/api/login', {
-        username,
-        password
-      })
+      const {data} = await axios.post('/users/login', {email, password})
       commit('SET_USER', data)
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -43,35 +30,15 @@ export const actions = {
     }
   },
 
-  async logout({
-    commit
-  }) {
-    await axios.post('/api/logout')
+  async logout({commit}) {
+    await axios.post('/users/logout')
     commit('SET_USER', null)
   },
 
 
-  async signUp({
-    commit
-  }, {
-    first_name,
-    last_name,
-    username,
-    email,
-    password,
-    isSeeker
-  }) {
+  async signUp({commit}, {first_name, last_name, username, email, password, isSeeker}) {
     try {
-      const {
-        data
-      } = await axios.post('/api/signup', {
-        first_name,
-        last_name,
-        username,
-        email,
-        password,
-        isSeeker
-      })
+      const {data} = await axios.post('/users/signup', {first_name, last_name, username, email, password, isSeeker})
       commit('SET_USER', data)
       commit('SET_USER', null)
     } catch (error) {
@@ -85,17 +52,17 @@ export const actions = {
   },
 
   async emailConfirm({commit}, {id}) {
-    var url = '/api/confirm-signup/' + id
+    var url = '/users/confirm-signup/' + id
     try {
       const {data} = await axios.post(url, {id})
       commit('SET_USER', data)
       commit('SET_USER', null)
     } catch (error) {
-      if (error.response && error.response.status === 400) 
+      if (error.response && error.response.status === 400){ 
         throw new Error("User Could not be found")
-      else 
+      }else{ 
         throw new Error("Unknown Error")
-      
+      }
       throw error
     }
   },

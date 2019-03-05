@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; background: #fff;">
+  <div style="width: 100%; background: #eee; padding-bottom: 20px;">
     <div class="container-fluid" style="margin-bottom: 20px;">
       <div class="row dashboard-nav">
         <div class="col-md-12">
@@ -34,16 +34,19 @@
               >
                 <i class="fas fa-user"></i>
               </NuxtLink>
-              <NuxtLink :to="'/logout'" title="Logout" style="color: #aaa;" class="user-menu-icon">
-                <i class="fas fa-sign-out-alt"></i>
-              </NuxtLink>
+              <i
+                class="fas fa-sign-out-alt user-menu-icon"
+                style="color: #000; cursor: pointer; "
+                @click="logout"
+                title="Logout"
+              ></i>
             </div>
           </div>
         </div>
       </div>
 
       <div class="container">
-        <div class="row section">
+        <div class="row">
           <div class="col-md-3" style="padding-bottom: 10px; padding-top: 5px; overflow: hidden;">
             <div class="row nopadding feature">
               <div class="nopadding" style="width: 40%; float: left;">
@@ -107,10 +110,17 @@
       </div>
 
       <div class="container" style="margin-top: 50px;">
-        <div class="row section">
+        <div class="row">
           <div class="col-md-2">
             <div class="user-profile">
-              Profile
+              <div class="profile-image">
+                <div
+                  class="ratio img-responsive img-circle"
+                  style="background-image: url(/profile-image/user.jpeg);"
+                ></div>
+              </div>
+              <br>
+              {{$store.state.authUser.user.firstname}} {{$store.state.authUser.user.lastname}}
             </div>
           </div>
 
@@ -180,9 +190,7 @@
                     <div class="row">
                       <div class="col-md-8">
                         <h3 class="section-subtitle">Avenues, Harare</h3>
-                        <p
-                          class="section-small-text"
-                        >Baines Street &#8811; Avenues &#8811; Harare</p>
+                        <p class="section-small-text">Baines Street &#8811; Avenues &#8811; Harare</p>
                         <div class="section-amenities">
                           <div style="width: 50%; float: left;">
                             <p class="section-small-text">
@@ -213,9 +221,6 @@
                   </div>
                 </div>
               </div>
-
-
-
             </div>
           </div>
           <div class="col-md-3">Ads and Suggestions will come here</div>
@@ -230,6 +235,16 @@ import houseSearch from '@/components/houseSearch'
 export default {
   components: {
     houseSearch: houseSearch
+  },
+  methods: {
+    async logout() {
+      try {
+        this.user = null
+        await this.$store.dispatch('logout')
+      } catch (e) {
+        this.formError = e.message
+      }
+    }
   }
 }
 </script>
@@ -283,16 +298,27 @@ export default {
   font-size: 15px;
 }
 
+.profile-image {
+  margin-left: 25%;
+  width: 60%;
+}
 
-@media (max-width: 600px){
-  .user-profile{
-    display: none;
-  }
+.user-profile {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 5px 5px 20px 5px;
+  font-weight: 400;
+  font-size: 13px;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  border-radius: 1px;
 }
 
 .feed {
   width: 100%;
-  height: 150px;
+  height: 170px;
   border-bottom: 0.5px solid #ccc;
 }
 
@@ -318,7 +344,7 @@ export default {
 }
 
 .img-circle {
-  margin-top: 10px;
+  margin-top: 20px;
   border-radius: 50%;
 }
 

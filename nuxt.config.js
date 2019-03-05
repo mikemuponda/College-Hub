@@ -100,12 +100,12 @@ module.exports = {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        maxAge: 60000
+        maxAge: 600000
       }
     }),
     // Api middleware
     // We add /api/login & /api/logout routes
-    '~/api'
+    '~/server/routes/api'
   ],
 
   sitemap: {

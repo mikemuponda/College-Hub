@@ -30,32 +30,7 @@
         <NuxtLink v-if="!$store.state.authUser" :to="'/create-account'" title="Create Account" id="Create" class="nav-link">
           <span>Create Account</span>
         </NuxtLink>
-				<button v-if="$store.state.authUser" class="logout-button" @click="logout">Logout</button>
       </Slide>
     </no-ssr>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      formError: null,
-      formUsername: '',
-      formPassword: ''
-    }
-  },
-  methods: {
-    async logout() {
-      try {
-        await this.$store.dispatch('logout')
-      } catch (e) {
-        this.formError = e.message
-      }
-    }
-  }
-}
-</script>
-
-
-

@@ -17,30 +17,21 @@
                   <i>{{ formError }}</i>
                 </p>
               </div>
-              <div class="col-lg-12 logo-capsul">
-                <p>
-                  <i>
-                    To login, use
-                    <strong>demo</strong> as username and
-                    <strong>demo</strong> as password.
-                  </i>
-                </p>
-              </div>
               <br>
               <div style="clear:both;"></div>
               <div class="group">
                 <input
-                  v-model="formUsername"
-                  type="text"
-                  name="username"
+                  v-model="formEmail"
+                  type="email"
+                  name="email"
                   autocomplete="off"
-                  id="username"
+                  id="email"
                   required
                 >
                 <span class="highlight"></span>
                 <span class="bar"></span>
-                <label for="username">
-                  <i class="fa fa-user input-ikon"></i>
+                <label for="email">
+                  <i class="fa fa-envelope input-ikon"></i>
                   <span class="span-input">Email</span>
                 </label>
               </div>
@@ -85,7 +76,7 @@ export default {
   data() {
     return {
       formError: null,
-      formUsername: '',
+      formEmail: '',
       formPassword: ''
     }
   },
@@ -93,10 +84,10 @@ export default {
     async login() {
       try {
         await this.$store.dispatch('login', {
-          username: this.formUsername,
+          email: this.formEmail,
           password: this.formPassword
         })
-        this.formUsername = ''
+        this.formEmail = ''
         this.formPassword = ''
         this.formError = null
       } catch (e) {
