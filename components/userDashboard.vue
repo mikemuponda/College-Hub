@@ -126,95 +126,109 @@
 
           <div class="col-md-7">
             <div class="row nopadding rental-feed">
-              <div class="row nopadding" style="width: 100%;">
-                <div class="col-md-12 inner-title-sec">
-                  <h2>Rental Requests</h2>
+              <div class="row nopadding alert alert-success" v-if="!$store.state.authUser.user.isConfirmed">
+                <div class="col-md-12">
+                  <h2 class="section-title">Hi, {{$store.state.authUser.user.firstname}}</h2>
+                  <p style="font-size: 13px;">
+                    Please note that your account has not been confirmed yet therefore you will not be able
+                    to use this service. We sent an email with a confirmation link to: {{$store.state.authUser.user.email}}.
+                    <br>Follow the link in the email, otherwise contact support.
+                  </p>
                 </div>
               </div>
 
-              <div class="row nopadding feed">
-                <div class="col-md-12">
-                  <div class="rental-image-div" style="width: 20%; float: left;">
-                    <div
-                      class="ratio img-responsive img-circle"
-                      style="background-image: url(/houses/collegehub-alexandra.jpeg);"
-                    ></div>
+
+              <div style="width: 100%;" v-else>
+                <div class="row nopadding" style="width: 100%;">
+                  <div class="col-md-12 inner-title-sec">
+                    <h2>Rental Requests</h2>
                   </div>
-                  <div class="-div" style="width: 80%; float: left;">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <h3 class="section-subtitle">Avondale, Harare</h3>
-                        <p
-                          class="section-small-text"
-                        >King George Street &#8811; Avondale &#8811; Harare</p>
-                        <div class="section-amenities">
-                          <div style="width: 50%; float: left;">
-                            <p class="section-small-text">
-                              <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
-                            </p>
-                            <p class="section-small-text">
-                              <i class="fas fa-wifi"></i>Wifi
-                            </p>
-                          </div>
-                          <div style="width: 50%; float: left;">
-                            <p class="section-small-text">
-                              <i class="fas fa-bed"></i>
-                              2 Bedrooms
-                            </p>
-                            <p class="section-small-text">
-                              <i class="fas fa-couch"></i>
-                              Furnished
-                            </p>
+                </div>
+
+                <div class="row nopadding feed">
+                  <div class="col-md-12">
+                    <div class="rental-image-div" style="width: 20%; float: left;">
+                      <div
+                        class="ratio img-responsive img-circle"
+                        style="background-image: url(/houses/collegehub-alexandra.jpeg);"
+                      ></div>
+                    </div>
+                    <div class="-div" style="width: 80%; float: left;">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <h3 class="section-subtitle">Avondale, Harare</h3>
+                          <p
+                            class="section-small-text"
+                          >King George Street &#8811; Avondale &#8811; Harare</p>
+                          <div class="section-amenities">
+                            <div style="width: 50%; float: left;">
+                              <p class="section-small-text">
+                                <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
+                              </p>
+                              <p class="section-small-text">
+                                <i class="fas fa-wifi"></i>Wifi
+                              </p>
+                            </div>
+                            <div style="width: 50%; float: left;">
+                              <p class="section-small-text">
+                                <i class="fas fa-bed"></i>
+                                2 Bedrooms
+                              </p>
+                              <p class="section-small-text">
+                                <i class="fas fa-couch"></i>
+                                Furnished
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="rental-alert">
-                          <h2 class="success">Approved</h2>
+                        <div class="col-md-4">
+                          <div class="rental-alert">
+                            <h2 class="success">Approved</h2>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="row nopadding feed">
-                <div class="col-md-12">
-                  <div class="rental-image-div" style="width: 20%; float: left;">
-                    <div
-                      class="ratio img-responsive img-circle"
-                      style="background-image: url(/houses/house-four.jpeg);"
-                    ></div>
-                  </div>
-                  <div class="-div" style="width: 80%; float: left;">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <h3 class="section-subtitle">Avenues, Harare</h3>
-                        <p class="section-small-text">Baines Street &#8811; Avenues &#8811; Harare</p>
-                        <div class="section-amenities">
-                          <div style="width: 50%; float: left;">
-                            <p class="section-small-text">
-                              <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
-                            </p>
-                            <p class="section-small-text">
-                              <i class="fas fa-wifi"></i>Wifi
-                            </p>
-                          </div>
-                          <div style="width: 50%; float: left;">
-                            <p class="section-small-text">
-                              <i class="fas fa-bed"></i>
-                              1 Bedroom
-                            </p>
-                            <p class="section-small-text">
-                              <i class="fas fa-couch"></i>
-                              Furnished
-                            </p>
+                <div class="row nopadding feed">
+                  <div class="col-md-12">
+                    <div class="rental-image-div" style="width: 20%; float: left;">
+                      <div
+                        class="ratio img-responsive img-circle"
+                        style="background-image: url(/houses/house-four.jpeg);"
+                      ></div>
+                    </div>
+                    <div class="-div" style="width: 80%; float: left;">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <h3 class="section-subtitle">Avenues, Harare</h3>
+                          <p class="section-small-text">Baines Street &#8811; Avenues &#8811; Harare</p>
+                          <div class="section-amenities">
+                            <div style="width: 50%; float: left;">
+                              <p class="section-small-text">
+                                <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
+                              </p>
+                              <p class="section-small-text">
+                                <i class="fas fa-wifi"></i>Wifi
+                              </p>
+                            </div>
+                            <div style="width: 50%; float: left;">
+                              <p class="section-small-text">
+                                <i class="fas fa-bed"></i>
+                                1 Bedroom
+                              </p>
+                              <p class="section-small-text">
+                                <i class="fas fa-couch"></i>
+                                Furnished
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="rental-alert">
-                          <h2 class="danger">Disapproved</h2>
+                        <div class="col-md-4">
+                          <div class="rental-alert">
+                            <h2 class="danger">Disapproved</h2>
+                          </div>
                         </div>
                       </div>
                     </div>
