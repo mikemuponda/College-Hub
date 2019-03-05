@@ -4,7 +4,7 @@ const sgMail = require('@sendgrid/mail')
 const router = express.Router()
 const app = express()
 
-const sendGridKey = ''
+const sendGridKey = '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'
 sgMail.setApiKey(sendGridKey);
 
 router.use((req, res, next) => {
@@ -76,7 +76,7 @@ router.post('/confirm-signup/:id', async (req, res) => {
   var key = req.params.id
   const users = await loadUsers()
   if (await users.findOne({ "confirmationKey": key })){
-    await users.findOneAndUpdate({ "confirmationKey": key }, { $set: { "isConfirmed" : true }}, { upsert:true, }) 
+    await users.findOneAndUpdate({ "confirmationKey": key }, { $set: { "isConfirmed" : true }}, { upsert:true, })
     const msg = {
 			to: req.body.email,
 			cc: "tinashe@lekkahub.com",
