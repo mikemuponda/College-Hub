@@ -47,7 +47,21 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-md-3" style="padding-bottom: 10px; padding-top: 5px; overflow: hidden;">
+          <div class="col-md-2 dashboard-greeting-display">
+            <div class="user-profile">
+              <div class="profile-image">
+                <div
+                  class="ratio img-responsive img-circle"
+                  style="background-image: url(/profile-image/user.jpeg);"
+                ></div>
+              </div>
+              <br>
+              {{$store.state.authUser.user.firstname}} {{$store.state.authUser.user.lastname}}
+            </div>
+          </div>
+
+
+          <div class="col-md-3 dashboard-greeting-display">
             <div class="row nopadding feature">
               <div class="nopadding" style="width: 40%; float: left;">
                 <img
@@ -63,7 +77,7 @@
             </div>
           </div>
 
-          <div class="col-md-3" style="padding-bottom: 10px; padding-top: 5px; overflow: hidden;">
+          <div class="col-md-3 dashboard-greeting-display">
             <div class="row nopadding feature">
               <div class="nopadding" style="width: 40%; float: left;">
                 <img class="img-fluid mb-3 mb-md-0 feature-img" src="/img/collegehub-taxi.jpeg" alt>
@@ -75,7 +89,7 @@
             </div>
           </div>
 
-          <div class="col-md-3" style="padding-bottom: 10px; padding-top: 5px; overflow: hidden;">
+          <div class="col-md-3 dashboard-greeting-display">
             <div class="row nopadding feature">
               <div class="nopadding" style="width: 40%; float: left;">
                 <img
@@ -91,37 +105,14 @@
             </div>
           </div>
 
-          <div class="col-md-3" style="padding-bottom: 10px; padding-top: 5px; overflow: hidden;">
-            <div class="row nopadding feature">
-              <div class="nopadding" style="width: 40%; float: left;">
-                <img
-                  class="img-fluid mb-3 mb-md-0 feature-img"
-                  src="/img/collegehub-house.jpeg"
-                  alt
-                >
-              </div>
-              <div style="width: 60%; float: left;">
-                <p class="feature-text">Have a house to rent?</p>
-                <p class="feature-heading">Add your listing</p>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
 
       <div class="container" style="margin-top: 50px;">
         <div class="row">
           <div class="col-md-2">
-            <div class="user-profile">
-              <div class="profile-image">
-                <div
-                  class="ratio img-responsive img-circle"
-                  style="background-image: url(/profile-image/user.jpeg);"
-                ></div>
-              </div>
-              <br>
-              {{$store.state.authUser.user.firstname}} {{$store.state.authUser.user.lastname}}
-            </div>
+            Hello World
           </div>
 
           <div class="col-md-7">
@@ -262,141 +253,3 @@ export default {
   }
 }
 </script>
-
-
-<style>
-.dir {
-  width: 20%;
-  float: left;
-}
-
-.user-menu {
-  width: 80%;
-  float: left;
-  padding-right: 10px;
-}
-
-.inner-div {
-  width: 100%;
-  text-align: right;
-  margin-top: 5px;
-}
-
-.feature {
-  background: #ffffff;
-  border-radius: 1px;
-  height: 80px;
-  overflow: hidden;
-  -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-}
-
-.feature-img {
-  height: 100%;
-  width: 100%;
-  border-radius: 1px 0 0 1px;
-}
-
-.feature-text {
-  padding: 10px 0px 0px 10px;
-  margin: 0px;
-  font-size: 12px;
-  color: #aaaaaa;
-}
-
-.feature-heading {
-  padding: 0px 0px 10px 10px;
-  margin: 0px;
-  font-weight: 400;
-  font-size: 15px;
-}
-
-.profile-image {
-  margin-left: 25%;
-  width: 60%;
-}
-
-.user-profile {
-  text-align: center;
-  background-color: #ffffff;
-  padding: 5px 5px 20px 5px;
-  font-weight: 400;
-  font-size: 13px;
-  margin-bottom: 20px;
-  -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  border-radius: 1px;
-}
-
-.feed {
-  width: 100%;
-  height: 170px;
-  border-bottom: 0.5px solid #ccc;
-}
-
-.inner-title-sec {
-  background-color: #eeeeee;
-  height: 30px;
-  border-bottom: 0.5px solid #aaaaaa;
-}
-
-.inner-title-sec h2 {
-  font-weight: 500;
-  font-size: 16px;
-  padding: 5px 0 0 0;
-}
-
-.rental-feed {
-  background: #ffffff;
-  border-radius: 1px;
-  overflow: hidden;
-  -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-}
-
-.img-circle {
-  margin-top: 20px;
-  border-radius: 50%;
-}
-
-.ratio {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 0;
-  padding-bottom: 80%;
-  position: relative;
-  width: 80%;
-}
-.img-responsive {
-  display: block;
-  height: auto;
-  max-width: 100%;
-}
-
-.section-amenities {
-  margin-top: 10px;
-}
-
-.section-amenities i {
-  margin-right: 5px;
-}
-
-.rental-alert .success {
-  font-size: 16px;
-  color: green;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.rental-alert .danger {
-  font-size: 16px;
-  color: red;
-  text-align: center;
-  margin-top: 20px;
-}
-</style>
-

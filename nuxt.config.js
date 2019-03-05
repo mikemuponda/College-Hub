@@ -100,7 +100,7 @@ module.exports = {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        maxAge: 600000
+        maxAge: 6000000
       }
     }),
     // Api middleware

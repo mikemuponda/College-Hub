@@ -73,7 +73,7 @@ router.post('/signup', async (req, res) => {
 
 //Email Confirmation
 router.post('/confirm-signup/:id', async (req, res) => {
-  key = req.params.id
+  var key = req.params.id
   const users = await loadUsers()
   if (await users.findOne({ "confirmationKey": key })){
     await users.findOneAndUpdate({ "confirmationKey": key }, { $set: { "isConfirmed" : true }}, { upsert:true, }) 
@@ -85,7 +85,7 @@ router.post('/confirm-signup/:id', async (req, res) => {
       html: '<h2>Hi, ' + req.body.first_name + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
     }
     sgMail.send(msg)
-    user = await users.findOne({ "confirmationKey": key })
+    var user = await users.findOne({ "confirmationKey": key })
     if(user.isConfirmed)
       res.send(user)
     else{
