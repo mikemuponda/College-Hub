@@ -67,4 +67,18 @@ export const actions = {
     }
   },
 
+  async getProfile({commit}, {id}){
+    var url = '/users/profile/' + id
+    try {
+      return await axios.post(url, {id})
+    } catch (error) {
+      if (error.response && error.response.status === 401){ 
+        throw new Error("User Could not be found. Please check if your account has been confirmed")
+      }else{ 
+        throw new Error("Unknown Error")
+      }
+      throw error
+    }
+  }
+
 }
