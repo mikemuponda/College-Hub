@@ -25,7 +25,7 @@
             >
               <i class="fas fa-comment"></i>
             </NuxtLink>
-            <NuxtLink :to="'/profile'" title="Profile" style="color: #aaa;" class="user-menu-icon">
+            <NuxtLink :to="{path: '/profile/' + $store.state.authUser.user.username}" title="Profile" style="color: #aaa;" class="user-menu-icon">
               <i class="fas fa-user"></i>
             </NuxtLink>
             <i
@@ -55,5 +55,3 @@ export default {
   }
 }
 </script>
-
-

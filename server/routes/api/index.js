@@ -146,7 +146,21 @@ router.delete('/delete/:id', async (req, res) => {
   })
 })
 
+router.get('/profile/:id', async (req, res) => {
+  const users = await loadUsers()
+  var username = req.params.id
+  var user = null
+  var isConfirmed = true
+  if (user = await users.findOne({ "username": username, "isConfirmed": isConfirmed})) {
+    return res.json({
+      user
+    })
+  }
 
+  res.status(401).json({
+    message: 'User Not Found or has not yet confirmed'
+  })
+})
 
 export default {
   path: '/users',
