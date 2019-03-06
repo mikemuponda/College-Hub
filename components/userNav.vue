@@ -3,9 +3,11 @@
     <div class="row dashboard-nav">
       <div class="col-md-12">
         <div class="dir">
-          <p class="dashboard-text">
-            <strong>Dashboard</strong>
-          </p>
+          <NuxtLink :to="'/'" title="Dashboard">
+            <p class="dashboard-text" style="color: #000; margin-left: 10px;">
+              <strong>Dashboard</strong>
+            </p>
+          </NuxtLink>
         </div>
         <div class="user-menu">
           <div class="inner-div">
@@ -25,7 +27,12 @@
             >
               <i class="fas fa-comment"></i>
             </NuxtLink>
-            <NuxtLink :to="{path: '/profile/' + $store.state.authUser.user.username}" title="Profile" style="color: #aaa;" class="user-menu-icon">
+            <NuxtLink
+              :to="{path: '/profile/' + $store.state.authUser.user.username}"
+              title="Profile"
+              style="color: #aaa;"
+              class="user-menu-icon"
+            >
               <i class="fas fa-user"></i>
             </NuxtLink>
             <i
