@@ -1,6 +1,6 @@
 <template>
  <div style="width: 100%">
-
+   {{this.$route.params.id}}
  </div>
 </template>
 

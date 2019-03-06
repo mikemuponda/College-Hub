@@ -27,13 +27,17 @@ const loadUsers = async function () {
 
 //Account Signup
 router.post('/signup', async (req, res) => {
-	var key = null;
+  var key = null;
   const users = await loadUsers()
-  if (await users.findOne({email: req.body.email})) {
+  if (await users.findOne({
+      email: req.body.email
+    })) {
     res.status(401).json({
       message: 'Email is already in use'
     })
-  } else if(await users.findOne({username: req.body.username})){
+  } else if (await users.findOne({
+      username: req.body.username
+    })) {
     res.status(409).json({
       message: 'Username is already in use'
     })
@@ -75,20 +79,32 @@ router.post('/signup', async (req, res) => {
 router.post('/confirm-signup/:id', async (req, res) => {
   var key = req.params.id
   const users = await loadUsers()
-  if (await users.findOne({ "confirmationKey": key })){
-    await users.findOneAndUpdate({ "confirmationKey": key }, { $set: { "isConfirmed" : true }}, { upsert:true, })
+  if (await users.findOne({
+      "confirmationKey": key
+    })) {
+    await users.findOneAndUpdate({
+      "confirmationKey": key
+    }, {
+      $set: {
+        "isConfirmed": true
+      }
+    }, {
+      upsert: true,
+    })
     const msg = {
-			to: req.body.email,
-			cc: "tinashe@lekkahub.com",
+      to: req.body.email,
+      cc: "tinashe@lekkahub.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Your email account has been confirmed',
       html: '<h2>Hi, ' + req.body.first_name + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
     }
     sgMail.send(msg)
-    var user = await users.findOne({ "confirmationKey": key })
-    if(user.isConfirmed)
+    var user = await users.findOne({
+      "confirmationKey": key
+    })
+    if (user.isConfirmed)
       res.send(user)
-    else{
+    else {
       res.status(400).json({
         message: 'Does not exist!'
       })
@@ -108,9 +124,9 @@ router.post('/login', async (req, res) => {
       "email": req.body.email,
       "password": req.body.password
     })) {
-			req.session.authUser = {
-				user: user
-			}
+    req.session.authUser = {
+      user: user
+    }
     return res.json({
       user
     })
@@ -143,6 +159,22 @@ router.delete('/delete/:id', async (req, res) => {
   })
   res.status(201).json({
     message: req.params.id + ' has been deleted'
+  })
+})
+
+router.get('/profile/:id', async (req, res) => {
+  const users = await loadUsers()
+  var username = req.params.id
+  var user = null
+  var isConfirmed = true
+  if (user = await users.findOne({ "username": username, "isConfirmed": isConfirmed})) {
+    return res.json({
+      user
+    })
+  }
+
+  res.status(401).json({
+    message: 'User Not Found or has not yet confirmed'
   })
 })
 
