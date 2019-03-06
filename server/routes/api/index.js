@@ -179,7 +179,6 @@ router.get('/profile/:id', async (req, res) => {
 })
 
 
-
 export default {
   path: '/users',
   handler: router
