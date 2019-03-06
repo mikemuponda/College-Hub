@@ -7,9 +7,7 @@
           <div v-else>
             <div class="row">
               <div class="col-md-12">
-                <strong>
-                  {{userProfile.firstname}} {{userProfile.lastname}}
-                </strong>
+                <strong>{{userProfile.firstname}} {{userProfile.lastname}}</strong>
               </div>
             </div>
           </div>
@@ -21,6 +19,9 @@
 
 <script>
 export default {
+  validate({ params }) {
+    return true
+  },
   data() {
     return {
       userProfile: {},
@@ -40,10 +41,7 @@ export default {
   head() {
     return {
       title:
-        'Collegehub | ' +
-        this.userProfile.firstname +
-        ' ' +
-        this.userProfile.lastname,
+        'Collegehub | ' + this.$route.params.id,
       link: [
         {
           hid: 'canonical',
@@ -55,20 +53,14 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content:
-            this.userProfile.firstname +
-            ' ' +
-            this.userProfile.lastname +
-            "' account on Collegehub. Collegehub provides services that facilate college life."
+          content: this.$route.params.id +
+            "'s account on Collegehub. Collegehub provides services that facilate college life."
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content:
-            this.userProfile.firstname +
-            ' ' +
-            this.userProfile.lastname +
-            "' account on Collegehub. Collegehub provides services that facilate college life."
+          content: this.$route.params.id +
+            "'s account on Collegehub. Collegehub provides services that facilate college life."
         },
         {
           hid: 'og:url',
