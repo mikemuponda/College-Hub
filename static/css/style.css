@@ -402,6 +402,7 @@ input:valid~label {
   opacity: 0.8;
   border: none;
   width: 100%;
+  cursor: pointer;
 }
 
 .forgot-and-create {
@@ -443,7 +444,6 @@ input:valid~label {
 
 .dashboard-nav {
   background: #fff;
-  margin-bottom: 5px;
   border-top: 0.5px solid #aaa;
   border-bottom: 0.5px solid #aaa;
 }

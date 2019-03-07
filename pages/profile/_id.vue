@@ -3,94 +3,193 @@
     <div class="container-fluid" style="background: #eee;">
       <div class="row">
         <div class="col-md-12" style="text-align: center;">
-          <div class="alert alert-danger" v-if="error.length > 1">{{error}}</div>
+          <div style="height: 90px; margin-top: 20px;" class="alert alert-danger" v-if="error.length > 1">{{error}}</div>
           <div class="container" v-else>
-            <div class="emp-profile section">
+            <div class="emp-profile">
               <form method="post">
                 <div class="row">
-                  <div class="col-md-4">
-                    <div class="profile-img">
+                  <div class="col-md-4" style="margin-top: 10px;">
+                    <div class="profile-img item-box">
                       <img src="/profile-image/user.jpeg" alt>
-                      <div class="file btn btn-lg btn-primary" v-if="$store.state.authUser">
+                      <div
+                        class="file btn btn-lg btn-primary"
+                        v-if="$store.state.authUser && ($store.state.authUser.user.username == this.$route.params.id)"
+                      >
                         Change Photo
                         <input type="file" name="file">
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="profile-head">
-                      <h5>{{userProfile.username}}</h5>
-                      <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                          <a
-                            class="nav-link active"
-                            id="home-tab"
-                            data-toggle="tab"
-                            href="#home"
-                            role="tab"
-                            aria-controls="home"
-                            aria-selected="true"
-                          >About</a>
-                        </li>
-                        <li class="nav-item">
-                          <a
-                            class="nav-link"
-                            id="profile-tab"
-                            data-toggle="tab"
-                            href="#profile"
-                            role="tab"
-                            aria-controls="profile"
-                            aria-selected="false"
-                          >Timeline</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <input
-                      type="submit"
-                      class="profile-edit-btn"
-                      name="btnAddMore"
-                      value="Edit Profile"
-                      v-if="$store.state.authUser"
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="profile-work" style="text-align: left;">
-                      <p>
-                        {{userProfile.firstname}} {{userProfile.lastname}}
-                        <br>
-                        Joined: {{date(userProfile.createdAt)}}
-                      </p>
-                      <div class="sensitive" v-if="$store.state.authUser">
-                        <p>{{userProfile.email}}</p>
-                        <p v-if="$store.state.isSeeker">Seeking Accomodation</p>
-                        <p v-else>Providing Accomodation</p>
+                      <div class="profile-item-brief" style="text-align: left;">
+                        <p>{{userProfile.firstname}} {{userProfile.lastname}}</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-8">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                      <div
-                        class="tab-pane fade show active"
-                        id="home"
-                        role="tabpanel"
-                        aria-labelledby="home-tab"
-                      >
-                        <div class="row">
-                          <div class="col-md-12">Some Info</div>
+                  <div class="col-md-6" style="margin-top: 10px;">
+                    <div class="edit-profile-section profile-head item-box" v-if="displayEdit">
+                      <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" style="padding-left: 30px;">Edit Profile</a>
+                        </li>
+                      </ul>
+                      <div class="row input-div">
+                        <div class="col-md-4">
+                          <label for="firstname">First Name</label>
+                        </div>
+                        <div class="col-md-6">
+                          <input
+                            type="text"
+                            class="form-control-edit"
+                            id="firstname"
+                            :placeholder="userProfile.firstname"
+                            v-model="Form.first_name"
+                          >
+                        </div>
+                      </div>
+                      <div class="row input-div">
+                        <div class="col-md-4">
+                          <label for="lastname">Last Name</label>
+                        </div>
+                        <div class="col-md-6">
+                          <input
+                            type="text"
+                            class="form-control-edit"
+                            id="lastname"
+                            :placeholder="userProfile.lastname"
+                            v-model="Form.last_name"
+                          >
+                        </div>
+                      </div>
+                      <div class="row input-div">
+                        <div class="col-md-4">
+                          <label for="email">Email</label>
+                        </div>
+                        <div class="col-md-6">
+                          <input
+                            type="text"
+                            class="form-control-edit"
+                            id="email"
+                            :placeholder="userProfile.email"
+                            v-model="Form.email"
+                          >
+                        </div>
+                      </div>
+                      <div class="row input-div">
+                        <div class="col-md-4">
+                          <label for="accountType">{{ accountType }}</label>
+                        </div>
+                        <div class="col-md-6">
+                          <select
+                            v-model="seeker"
+                            @change="onChange($event)"
+                            class="form-control-edit"
+                            id="accountType"
+                          >
+                            <option
+                              value="Finding Accomodation"
+                              v-if="userProfile.isSeeker"
+                            >Finding Accomodation</option>
+                            <option
+                              value="Listing Accomodation"
+                              v-if="!userProfile.isSeeker"
+                            >Listing Accomodation</option>
+                            <option value="1">Finding Accomodation</option>
+                            <option value="2">Listing Accomodation</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="profile-head item-box" v-else>
+                      <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" style="padding-left: 30px;">About</a>
+                        </li>
+                      </ul>
+                      <div class="profile-about">
+                        <div class="row nopadding">
+                          <div class="col-md-12 nopadding">
+                            <div class="nopadding" style="width: 30%; float: left;">
+                              <label class="nopadding">Username:</label>
+                            </div>
+                            <div class="nopadding" style="width: 70%; float: left;">
+                              <p class="nopadding">{{userProfile.username}}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row nopadding">
+                          <div class="col-md-12 nopadding">
+                            <div class="nopadding" style="width: 30%; float: left;">
+                              <label class="nopadding">Name:</label>
+                            </div>
+                            <div class="nopadding" style="width: 70%; float: left;">
+                              <p
+                                class="nopadding"
+                              >{{userProfile.firstname}} {{userProfile.lastname}}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row nopadding">
+                          <div class="col-md-12 nopadding">
+                            <div class="nopadding" style="width: 30%; float: left;">
+                              <label class="nopadding">Joined:</label>
+                            </div>
+                            <div class="nopadding" style="width: 70%; float: left;">
+                              <p class="nopadding">{{date(userProfile.createdAt)}}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="sensitive" v-if="$store.state.authUser">
+                          <div class="row nopadding">
+                            <div class="col-md-12 nopadding">
+                              <div class="nopadding" style="width: 30%; float: left;">
+                                <label class="nopadding">Email:</label>
+                              </div>
+                              <div class="nopadding" style="width: 70%; float: left;">
+                                <p class="nopadding">{{userProfile.email}}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row nopadding">
+                            <div class="col-md-12 nopadding">
+                              <div class="nopadding" style="width: 30%; float: left;">
+                                <label class="nopadding">Account Type:</label>
+                              </div>
+                              <div class="nopadding" style="width: 70%; float: left;">
+                                <p
+                                  class="nopadding"
+                                  v-if="$store.state.isSeeker"
+                                >Seeking Accomodation</p>
+                                <p class="nopadding" v-else>Providing Accomodation</p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input
+                      class="default-button"
+                      value="Edit Profile"
+                      v-on:click="edit"
+                      v-if="$store.state.authUser && ($store.state.authUser.user.username == this.$route.params.id) && !displayEdit"
+                    >
+                    <input
+                      class="default-button"
+                      value="Cancel"
+                      v-on:click="cancel"
+                      v-if="$store.state.authUser && ($store.state.authUser.user.username == this.$route.params.id) && displayEdit"
+                    >
+                    <input
+                      class="default-button"
+                      style="margin-top: 10px;"
+                      value="Save"
+                      v-on:click="save"
+                      v-if="$store.state.authUser && ($store.state.authUser.user.username == this.$route.params.id) && displayEdit"
+                    >
+                  </div>
                 </div>
               </form>
             </div>
-
-
-
           </div>
         </div>
       </div>
@@ -106,7 +205,17 @@ export default {
   data() {
     return {
       userProfile: {},
-      error: ''
+      error: '',
+      displayEdit: false,
+      accountType: 'Account Type',
+      seeker: '',
+      Form: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        isSeeker: null
+      }
     }
   },
   async beforeCreate() {
@@ -120,8 +229,34 @@ export default {
     }
   },
   methods: {
-    date(date){
-      return new Date(date);
+    date(date) {
+      return new Date(date)
+    },
+    edit: function(e) {
+      this.displayEdit = true
+    },
+    cancel: function(e) {
+      this.displayEdit = false
+    },
+    save: function(e) {
+      this.displayEdit = false
+    },
+    onChange: function(e) {
+      if (this.seeker == 1) {
+        this.Form.isSeeker = true
+        this.accountType = 'Finding Accommodation'
+      } else if (this.seeker == 2) {
+        this.Form.isSeeker = false
+        this.accountType = 'Listing Accommodation'
+      } else {
+        if (this.userProfile.isSeeker) {
+          this.Form.isSeeker = true
+          this.accountType = 'Finding Accommodation'
+        } else {
+          this.Form.isSeeker = false
+          this.accountType = 'Listing Accommodation'
+        }
+      }
     }
   },
   head() {
@@ -165,11 +300,18 @@ export default {
 .emp-profile {
   margin-top: 2%;
   margin-bottom: 2%;
+}
+
+.item-box {
+  background-color: #fff;
   border-radius: 1px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
 }
+
 .profile-img {
   text-align: center;
 }
@@ -194,12 +336,7 @@ export default {
   right: 0;
   top: 0;
 }
-.profile-head h5 {
-  color: #333;
-}
-.profile-head h6 {
-  color: #0062cc;
-}
+
 .profile-edit-btn {
   border: none;
   border-radius: 1.5rem;
@@ -221,32 +358,78 @@ export default {
   border: none;
   border-bottom: 2px solid #0062cc;
 }
-.profile-work {
+.profile-item-brief {
   padding: 14%;
   margin-top: -15%;
 }
-.profile-work p {
+.profile-item-brief p {
   font-size: 12px;
   color: #818182;
   font-weight: 600;
   margin-top: 10%;
 }
 
-.profile-work a {
+.profile-item-brief a {
   text-decoration: none;
   color: #495057;
   font-weight: 600;
   font-size: 14px;
 }
-.profile-work ul {
+.profile-item-brief ul {
   list-style: none;
 }
-.profile-tab label {
-  font-weight: 600;
+
+.edit-profile-section {
+  padding-top: 50px 10px 10px 10px;
 }
-.profile-tab p {
-  font-weight: 600;
-  color: #0062cc;
+
+.form-control-edit {
+  width: 95%;
+  margin-right: 5px;
+  border: 0.5px solid #ccc;
+  border-radius: 1px;
+  background-color: #eee;
+  padding: 2px 10px;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.input-div {
+  margin-top: 5px;
+}
+
+.input-div label {
+  width: 100%;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 430;
+  color: #909090;
+}
+
+.profile-about {
+  width: 100%;
+  text-align: left;
+  padding-left: 20px;
+  padding-bottom: 50px;
+}
+
+@media (max-width: 762px) {
+  .input-div label {
+    text-align: left;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+}
+
+.profile-about label {
+  width: 95%;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 450;
+}
+
+.profile-about p {
+  margin-left: 10px;
+  font-size: 13px;
 }
 </style>
 

@@ -4,6 +4,11 @@
       <div class="container">
         <div class="row">
           <div class="col-md-2 dashboard-greeting-display">
+            <NuxtLink
+              :to="{path: '/profile/' + $store.state.authUser.user.username}"
+              title="Profile"
+              style="color: #606060;"
+            >
             <div class="user-profile">
               <div class="profile-image">
                 <div
@@ -14,6 +19,7 @@
               <br>
               {{$store.state.authUser.user.firstname}} {{$store.state.authUser.user.lastname}}
             </div>
+            </NuxtLink>
           </div>
 
 
