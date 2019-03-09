@@ -79,6 +79,33 @@ export const actions = {
       }
       throw error
     }
+  },
+
+  async editProfile({commit}, {id, firstname, lastname, email, password, isSeeker}){
+    var url = '/users/profile/edit/' + id
+    var form = {}
+    if(firstname != '')
+      form["firstname"] = firstname;
+    if(lastname != '')
+      form["lastname"] = lastname;
+    if(email != '')
+      form["email"] = email;
+    if(password != '')
+      form["password"] = password;
+
+    form["isSeeker"] = isSeeker;
+    
+    console.log(form)
+    try {
+      return await axios.post(url, form)
+    } catch (error) {
+      if (error.response && error.response.status === 401){ 
+        throw new Error("This account may not have been confirmed yet.")
+      }else{ 
+        throw new Error("Unknown Error")
+      }
+      throw error
+    }
   }
 
 }

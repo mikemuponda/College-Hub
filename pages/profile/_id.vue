@@ -3,7 +3,11 @@
     <div class="container-fluid" style="background: #eee;">
       <div class="row">
         <div class="col-md-12" style="text-align: center;">
-          <div style="height: 90px; margin-top: 20px;" class="alert alert-danger" v-if="error.length > 1">{{error}}</div>
+          <div
+            style="height: 90px; margin-top: 20px;"
+            class="alert alert-danger"
+            v-if="error.length > 1"
+          >{{error}}</div>
           <div class="container" v-else>
             <div class="emp-profile">
               <form method="post">
@@ -30,6 +34,20 @@
                           <a class="nav-link active" style="padding-left: 30px;">Edit Profile</a>
                         </li>
                       </ul>
+                      <div class="row input-div" v-if="submitErrors.length">
+                        <div class="col-md-12">
+                          <div class="alert alert-danger">
+                            <ul style="color: #000000;">
+                              <li
+                                v-for="(error, index) in submitErrors"
+                                :item="error"
+                                :index="index"
+                                :key="error"
+                              >{{ error }}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                       <div class="row input-div">
                         <div class="col-md-4">
                           <label for="firstname">First Name</label>
@@ -40,7 +58,7 @@
                             class="form-control-edit"
                             id="firstname"
                             :placeholder="userProfile.firstname"
-                            v-model="Form.first_name"
+                            v-model="Form.firstname"
                           >
                         </div>
                       </div>
@@ -54,7 +72,7 @@
                             class="form-control-edit"
                             id="lastname"
                             :placeholder="userProfile.lastname"
-                            v-model="Form.last_name"
+                            v-model="Form.lastname"
                           >
                         </div>
                       </div>
@@ -64,9 +82,10 @@
                         </div>
                         <div class="col-md-6">
                           <input
-                            type="text"
+                            type="email"
                             class="form-control-edit"
                             id="email"
+                            name="email"
                             :placeholder="userProfile.email"
                             v-model="Form.email"
                           >
@@ -208,10 +227,12 @@ export default {
       error: '',
       displayEdit: false,
       accountType: 'Account Type',
+      submitErrors: [],
       seeker: '',
       Form: {
-        first_name: '',
-        last_name: '',
+        id: this.$route.params.id,
+        firstname: '',
+        lastname: '',
         email: '',
         password: '',
         isSeeker: null
@@ -238,8 +259,27 @@ export default {
     cancel: function(e) {
       this.displayEdit = false
     },
-    save: function(e) {
+    save: async function(e) {
+      this.submitErrors = []
       this.displayEdit = false
+
+      if (this.Form.email && !this.validEmail(this.Form.email)){
+        this.submitErrors.push('Please write a valid email')
+        this.displayEdit = true
+      }else{
+        this.displayEdit = false
+      }
+      if (!this.submitErrors.length) {
+        try {
+          await this.$store.dispatch('editProfile', this.Form)
+        } catch (e) {
+          this.submitErrors.push(e.message)
+        }
+      }
+    },
+    validEmail: function(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(email)
     },
     onChange: function(e) {
       if (this.seeker == 1) {
