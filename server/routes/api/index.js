@@ -29,18 +29,10 @@ const loadUsers = async function () {
 router.post('/signup', async (req, res) => {
   var key = null;
   const users = await loadUsers()
-  if (await users.findOne({
-      email: req.body.email
-    })) {
-    res.status(401).json({
-      message: 'Email is already in use'
-    })
-  } else if (await users.findOne({
-      username: req.body.username
-    })) {
-    res.status(409).json({
-      message: 'Username is already in use'
-    })
+  if (await users.findOne({email: req.body.email})) {
+    res.status(401).json({message: 'Email is already in use'})
+  } else if (await users.findOne({username: req.body.username})) {
+    res.status(409).json({message: 'Username is already in use'})
   } else {
     key = (Math.floor(1000 + Math.random() * 9000)) + '-' + req.body.email
     await users.insertOne({
@@ -77,20 +69,13 @@ router.post('/signup', async (req, res) => {
 
 //Email Confirmation
 router.post('/confirm-signup/:id', async (req, res) => {
-  var key = req.params.id
   const users = await loadUsers()
-  if (await users.findOne({
-      "confirmationKey": key
-    })) {
-    await users.findOneAndUpdate({
-      "confirmationKey": key
-    }, {
-      $set: {
-        "isConfirmed": true
-      }
-    }, {
-      upsert: true,
-    })
+  if (await users.findOne({"confirmationKey": req.params.id})) {
+    await users.findOneAndUpdate(
+      {"confirmationKey": req.params.id},
+      {$set: {"isConfirmed": true}},
+      {upsert: true,}
+    )
     const msg = {
       to: req.body.email,
       cc: "tinashe@lekkahub.com",
@@ -99,20 +84,14 @@ router.post('/confirm-signup/:id', async (req, res) => {
       html: '<h2>Hi, ' + req.body.first_name + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
     }
     sgMail.send(msg)
-    var user = await users.findOne({
-      "confirmationKey": key
-    })
+    var user = await users.findOne({"confirmationKey": req.params.id})
     if (user.isConfirmed)
       res.send(user)
     else {
-      res.status(400).json({
-        message: 'Does not exist!'
-      })
+      res.status(400).json({message: 'Does not exist!'})
     }
   } else {
-    res.status(400).json({
-      message: 'Does not exist!'
-    })
+    res.status(400).json({message: 'Does not exist!'})
   }
 })
 
@@ -120,28 +99,17 @@ router.post('/confirm-signup/:id', async (req, res) => {
 router.post('/login', async (req, res) => {
   const users = await loadUsers()
   var user = null;
-  if (user = await users.findOne({
-      "email": req.body.email,
-      "password": req.body.password
-    })) {
-    req.session.authUser = {
-      user: user
-    }
-    return res.json({
-      user
-    })
+  if (user = await users.findOne({"email": req.body.email,"password": req.body.password})) {
+    req.session.authUser = {user: user}
+    return res.json({user})
   }
-  res.status(401).json({
-    message: 'Incorrect login credentials'
-  })
+  res.status(401).json({message: 'Incorrect login credentials'})
 })
 
 //Logout User
 router.post('/logout', (req, res) => {
   delete req.session.authUser
-  res.json({
-    ok: true
-  })
+  res.json({ok: true})
 })
 
 //Get All Users
@@ -150,30 +118,42 @@ router.get('/allusers', async (req, res) => {
   res.send(await users.find({}).toArray())
 })
 
-
 //Delete User
 router.delete('/delete/:id', async (req, res) => {
   const users = await loadUsers()
-  await users.deleteOne({
-    _id: new mongodb.ObjectID(req.params.id)
-  })
+  await users.deleteOne({_id: new mongodb.ObjectID(req.params.id)})
   res.status(201).json({
     message: req.params.id + ' has been deleted'
   })
 })
 
+//Get a user
 router.post('/profile/:id', async (req, res) => {
   const users = await loadUsers()
-  var username = req.params.id
   var user = null
-  var isConfirmed = true
-  if (user = await users.findOne({ "username": username, "isConfirmed": isConfirmed})) {
+  if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
     return res.json({user})
   }
-
   res.status(401).json({
     message: 'User Not Found or has not yet confirmed'
   })
+})
+
+router.post('/profile/edit/:id', async (req, res) => {
+  const users = await loadUsers()
+  if (await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
+    let params = { updatedAt: new Date() }
+    await users.findOneAndUpdate(
+      {"username": req.params.id},
+      {$set: Object.assign(params, req.body)},
+      {upsert: true,}
+    )
+    res.status(201).json({message: 'Updated Successfully'})
+  }else{
+    res.status(401).json({
+      message: 'User Not Found or has not yet confirmed'
+    })
+  }
 })
 
 
