@@ -27,6 +27,9 @@
         <NuxtLink :to="'/contact'" title="Contact" id="Contact" class="nav-link">
           <span>Contact</span>
         </NuxtLink>
+        <NuxtLink v-if="!$store.state.authUser" :to="'/'" title="Login" id="Login" class="nav-link">
+          <span>Login</span>
+        </NuxtLink>
         <NuxtLink v-if="!$store.state.authUser" :to="'/create-account'" title="Create Account" id="Create" class="nav-link">
           <span>Create Account</span>
         </NuxtLink>

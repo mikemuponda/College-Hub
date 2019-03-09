@@ -267,7 +267,7 @@ export default {
 .card {
   border-radius: 1px !important;
   background-color: #fff !important;
-  height: 600px;
+  height: 500px;
 }
 .contacts_body {
   padding: 0.75rem 0 !important;
@@ -289,7 +289,7 @@ export default {
   align-content: center;
 }
 .search {
-  border-radius: 15px 0 0 15px !important;
+  border-radius: 1px 0 0 1px !important;
   background-color: #eee !important;
   border: 0 !important;
   color: #606060 !important;
@@ -317,14 +317,14 @@ export default {
   cursor: pointer;
 }
 .send_btn {
-  border-radius: 0 15px 15px 0 !important;
+  border-radius: 0 1px 1px 0 !important;
   background-color: #aaa !important;
   border: 0 !important;
   color: #606060 !important;
   cursor: pointer;
 }
 .search_btn {
-  border-radius: 0 15px 15px 0 !important;
+  border-radius: 0 1px 1px 0 !important;
   background-color: #aaa !important;
   border: 0 !important;
   color: #606060 !important;

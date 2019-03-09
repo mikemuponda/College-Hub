@@ -148,7 +148,10 @@ router.post('/profile/edit/:id', async (req, res) => {
       {$set: Object.assign(params, req.body)},
       {upsert: true,}
     )
-    res.status(201).json({message: 'Updated Successfully'})
+    var user = null
+    if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
+      return res.json({user})
+    }
   }else{
     res.status(401).json({
       message: 'User Not Found or has not yet confirmed'

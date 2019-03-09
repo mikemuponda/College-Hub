@@ -81,7 +81,7 @@ export const actions = {
     }
   },
 
-  async editProfile({commit}, {id, firstname, lastname, email, password, isSeeker}){
+  async editProfile({commit}, {id, firstname, lastname, email, password, sex, dob, phone, isSeeker}){
     var url = '/users/profile/edit/' + id
     var form = {}
     if(firstname != '')
@@ -92,10 +92,17 @@ export const actions = {
       form["email"] = email;
     if(password != '')
       form["password"] = password;
-
-    form["isSeeker"] = isSeeker;
+    if(sex != '')
+      form["sex"] = sex;
+    if(dob != '')
+      form["dob"] = dob;
+    if(phone != '')
+      form["phone"] = phone;
+    if(isSeeker)
+      form["isSeeker"] = isSeeker;
+    else
+      form["isSeeker"] = false;
     
-    console.log(form)
     try {
       return await axios.post(url, form)
     } catch (error) {

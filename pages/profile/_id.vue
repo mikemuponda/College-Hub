@@ -93,6 +93,57 @@
                       </div>
                       <div class="row input-div">
                         <div class="col-md-4">
+                          <label for="phone">Phone</label>
+                        </div>
+                        <div class="col-md-6">
+                          <input
+                            type="phone"
+                            class="form-control-edit"
+                            id="phone"
+                            name="phone"
+                            :placeholder="userProfile.phone"
+                            v-model="Form.phone"
+                          >
+                        </div>
+                      </div>
+                      <div class="row input-div">
+                        <div class="col-md-4">
+                          <label for="dob">Date of Birth</label>
+                        </div>
+                        <div class="col-md-6">
+                          <input
+                            type="date"
+                            class="form-control-edit"
+                            id="dob"
+                            name="dob"
+                            :placeholder="userProfile.dob"
+                            v-model="Form.dob"
+                          >
+                        </div>
+                      </div>
+                      <div class="row input-div">
+                        <div class="col-md-4">
+                          <label for="accountType">Sex</label>
+                        </div>
+                        <div class="col-md-6">
+                          <select v-model="Form.sex" class="form-control-edit" id="sex">
+                            <option
+                              :value="userProfile.sex"
+                              v-if="userProfile.sex"
+                            >{{userProfile.sex}}</option>
+                            <option
+                              v-if="!userProfile.sex || (userProfile.sex == 'Male')"
+                              value="Female"
+                            >Female</option>
+                            <option
+                              v-if="!userProfile.sex || (userProfile.sex == 'Female')"
+                              value="Male"
+                            >Male</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row input-div">
+                        <div class="col-md-4">
                           <label for="accountType">{{ accountType }}</label>
                         </div>
                         <div class="col-md-6">
@@ -125,17 +176,23 @@
                       </ul>
                       <div class="profile-about">
                         <div class="row nopadding">
-                          <div class="col-md-12 nopadding">
+                          <div class="col-md-12 nopadding" style="border-bottom: 0.5px solid #eee;">
                             <div class="nopadding" style="width: 30%; float: left;">
                               <label class="nopadding">Username:</label>
                             </div>
                             <div class="nopadding" style="width: 70%; float: left;">
-                              <p class="nopadding">{{userProfile.username}}</p>
+                              <NuxtLink
+                                :to="{path: '/profile/' + userProfile.username}"
+                                :title="userProfile.username"
+                                style="color: #000;"
+                              >
+                                <p class="nopadding">{{userProfile.username}}</p>
+                              </NuxtLink>
                             </div>
                           </div>
                         </div>
                         <div class="row nopadding">
-                          <div class="col-md-12 nopadding">
+                          <div class="col-md-12 nopadding" style="border-bottom: 0.5px solid #eee;">
                             <div class="nopadding" style="width: 30%; float: left;">
                               <label class="nopadding">Name:</label>
                             </div>
@@ -147,7 +204,17 @@
                           </div>
                         </div>
                         <div class="row nopadding">
-                          <div class="col-md-12 nopadding">
+                          <div class="col-md-12 nopadding" style="border-bottom: 0.5px solid #eee;">
+                            <div class="nopadding" style="width: 30%; float: left;">
+                              <label class="nopadding">Sex:</label>
+                            </div>
+                            <div class="nopadding" style="width: 70%; float: left;">
+                              <p class="nopadding">{{userProfile.sex}}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row nopadding">
+                          <div class="col-md-12 nopadding" style="border-bottom: 0.5px solid #eee;">
                             <div class="nopadding" style="width: 30%; float: left;">
                               <label class="nopadding">Joined:</label>
                             </div>
@@ -158,7 +225,23 @@
                         </div>
                         <div class="sensitive" v-if="$store.state.authUser">
                           <div class="row nopadding">
-                            <div class="col-md-12 nopadding">
+                            <div
+                              class="col-md-12 nopadding"
+                              style="border-bottom: 0.5px solid #eee;"
+                            >
+                              <div class="nopadding" style="width: 30%; float: left;">
+                                <label class="nopadding">D.o.B:</label>
+                              </div>
+                              <div class="nopadding" style="width: 70%; float: left;">
+                                <p class="nopadding">{{date(userProfile.dob)}}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row nopadding">
+                            <div
+                              class="col-md-12 nopadding"
+                              style="border-bottom: 0.5px solid #eee;"
+                            >
                               <div class="nopadding" style="width: 30%; float: left;">
                                 <label class="nopadding">Email:</label>
                               </div>
@@ -168,14 +251,30 @@
                             </div>
                           </div>
                           <div class="row nopadding">
-                            <div class="col-md-12 nopadding">
+                            <div
+                              class="col-md-12 nopadding"
+                              style="border-bottom: 0.5px solid #eee;"
+                            >
+                              <div class="nopadding" style="width: 30%; float: left;">
+                                <label class="nopadding">Phone:</label>
+                              </div>
+                              <div class="nopadding" style="width: 70%; float: left;">
+                                <p class="nopadding">{{userProfile.phone}}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row nopadding">
+                            <div
+                              class="col-md-12 nopadding"
+                              style="border-bottom: 0.5px solid #eee;"
+                            >
                               <div class="nopadding" style="width: 30%; float: left;">
                                 <label class="nopadding">Account Type:</label>
                               </div>
                               <div class="nopadding" style="width: 70%; float: left;">
                                 <p
                                   class="nopadding"
-                                  v-if="$store.state.isSeeker"
+                                  v-if="userProfile.isSeeker"
                                 >Seeking Accomodation</p>
                                 <p class="nopadding" v-else>Providing Accomodation</p>
                               </div>
@@ -235,6 +334,9 @@ export default {
         lastname: '',
         email: '',
         password: '',
+        sex: '',
+        dob: '',
+        phone: '',
         isSeeker: null
       }
     }
@@ -263,15 +365,16 @@ export default {
       this.submitErrors = []
       this.displayEdit = false
 
-      if (this.Form.email && !this.validEmail(this.Form.email)){
+      if (this.Form.email && !this.validEmail(this.Form.email)) {
         this.submitErrors.push('Please write a valid email')
         this.displayEdit = true
-      }else{
+      } else {
         this.displayEdit = false
       }
       if (!this.submitErrors.length) {
         try {
           await this.$store.dispatch('editProfile', this.Form)
+          window.location.reload(true)
         } catch (e) {
           this.submitErrors.push(e.message)
         }
@@ -469,7 +572,7 @@ export default {
 
 .profile-about p {
   margin-left: 10px;
-  font-size: 13px;
+  font-size: 12px;
 }
 </style>
 
