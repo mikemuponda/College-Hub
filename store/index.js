@@ -30,6 +30,19 @@ export const actions = {
     }
   },
 
+  async forgotPassword({commit}, {email}){
+    try {
+      const {data} = await axios.post('/users/forgot-password', {email})
+      commit('SET_USER', data)
+      commit('SET_USER', null)
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Email Provided does not exist')
+      }
+      throw error
+    }
+  },
+
   async logout({commit}) {
     await axios.post('/users/logout')
     commit('SET_USER', null)

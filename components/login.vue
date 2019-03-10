@@ -53,10 +53,11 @@
               </div>
               <button type="submit" class="login-button">Login</button>
               <div class="forgot-and-create tab-menu">
-                <a
+                <NuxtLink
+                  :to="'/forgot-password'"
                   class="forgot_password_link"
-                  href="javascript:void('forgot_password_link');"
-                >Forgot you password?</a>
+                  title="Forgot Password"
+                >Forgot you password?</NuxtLink>
                 <br>
                 <br>
                 <NuxtLink :to="'/create-account'" title="Create Account">

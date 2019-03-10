@@ -58,7 +58,7 @@ router.post('/signup', async (req, res) => {
       cc: "tinashe@lekkahub.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Please confirm your email',
-      html: '<h2>Hi, ' + req.body.first_name + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="https://www.lekkahub.com/confirm-signup/' + key + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
+      html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="https://www.lekkahub.com/confirm-signup/' + key + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
     }
     sgMail.send(msg)
     res.status(201).json({
@@ -81,7 +81,7 @@ router.post('/confirm-signup/:id', async (req, res) => {
       cc: "tinashe@lekkahub.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Your email account has been confirmed',
-      html: '<h2>Hi, ' + req.body.first_name + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
+      html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
     }
     sgMail.send(msg)
     var user = await users.findOne({"confirmationKey": req.params.id})
@@ -104,6 +104,32 @@ router.post('/login', async (req, res) => {
     return res.json({user})
   }
   res.status(401).json({message: 'Incorrect login credentials'})
+})
+
+//Forgot Password
+router.post('/forgot-password', async (req, res) => {
+  const users = await loadUsers()
+  var key = null;
+  var user = '';
+  if (user = await users.findOne({"email": req.body.email})) {
+    key = (Math.floor(1000 + Math.random() * 9000)) + '-' + req.body.email
+    await users.findOneAndUpdate(
+      {"email": req.body.email},
+      {$set: {"password-reset-status": true, "password-reset-code": key}},
+      {upsert: true,}
+    )
+    const msg = {
+      to: req.body.email,
+      cc: "tinashe@lekkahub.com",
+      from: 'Collegehub <noreply@collegehub.co.zw>',
+      subject: 'Collegehub: Reset Your Password',
+      html: '<h2>Hi, ' + user.firstname + '</h2><p>It seems you forgot your password. Please <a href="https://www.lekkahub.com/reset-password/' + key + '" title="Collegehub">clicking this link</a> to reset your password.</p><p>Regards</p>',
+    }
+    //sgMail.send(msg)
+    res.status(201).json({message: 'An Reset Passwoord email has been sent to your email'})
+  } else {
+    res.status(400).json({message: 'Email does not exist!'})
+  }
 })
 
 //Logout User
