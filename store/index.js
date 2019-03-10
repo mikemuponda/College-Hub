@@ -43,6 +43,20 @@ export const actions = {
     }
   },
 
+  async resetPassword({commit}, {id, password}){
+    var url = '/users/reset-password/' + id
+    try {
+      const {data} = await axios.post(url, {password})
+      commit('SET_USER', data)
+      commit('SET_USER', null)
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Reset id provided is incorrect. Please go to the "Forgot Password" Page')
+      }
+      throw error
+    }
+  },
+
   async logout({commit}) {
     await axios.post('/users/logout')
     commit('SET_USER', null)
