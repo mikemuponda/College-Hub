@@ -24,7 +24,7 @@
                 </p>
               </div>
               <div v-if="created" class="col-md-12 alert alert-success">
-                <h3 style="font-size: 18px;">Hi, {{Form.first_name}}!</h3>
+                <h3 style="font-size: 18px;">Hi, {{Form.firstname}}!</h3>
                 <br>
                 <p>
                   Your account has successfully been created. We have sent a confirmation email to {{Form.email}}.
@@ -54,9 +54,9 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="first_name"
+                  name="firstname"
                   placeholder="First Name"
-                  v-model="Form.first_name"
+                  v-model="Form.firstname"
                   required="required"
                 >
               </div>
@@ -64,9 +64,9 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="last_name"
+                  name="lastname"
                   placeholder="Last Name"
-                  v-model="Form.last_name"
+                  v-model="Form.lastname"
                   required="required"
                 >
               </div>
@@ -159,8 +159,8 @@ export default {
   data() {
     return {
       Form: {
-        first_name: '',
-        last_name: '',
+        firstname: '',
+        lastname: '',
         username: '',
         email: '',
         password: '',
@@ -188,10 +188,10 @@ export default {
       this.errors = []
       this.created = false
 
-      if (!this.Form.first_name) {
+      if (!this.Form.firstname) {
         this.errors.push('First Name required.')
       }
-      if (!this.Form.last_name) {
+      if (!this.Form.lastname) {
         this.errors.push('Last Name required.')
       }
       if (!this.Form.username) {
@@ -211,14 +211,14 @@ export default {
       if (!this.errors.length) {
         try {
           await this.$store.dispatch('signUp', {
-            first_name: this.Form.first_name,
-            last_name: this.Form.last_name,
+            firstname: this.Form.firstname,
+            lastname: this.Form.lastname,
             username: this.Form.username,
             email: this.Form.email,
             password: this.Form.password,
             isSeeker: this.Form.isSeeker
           })
-          this.Form.last_name = ''
+          this.Form.lastname = ''
           this.Form.username = ''
           this.Form.password = ''
           this.formError = null

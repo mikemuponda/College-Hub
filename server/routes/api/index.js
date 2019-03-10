@@ -36,8 +36,8 @@ router.post('/signup', async (req, res) => {
   } else {
     key = (Math.floor(1000 + Math.random() * 9000)) + '-' + req.body.email
     await users.insertOne({
-      firstname: req.body.first_name,
-      lastname: req.body.last_name,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
