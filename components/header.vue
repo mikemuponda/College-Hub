@@ -21,6 +21,9 @@
         <NuxtLink :to="'/about'" title="About Us" id="about" class="nav-link">
           <span>About Us</span>
         </NuxtLink>
+        <NuxtLink :to="'/team'" title="Team" id="team" class="nav-link">
+          <span>Team</span>
+        </NuxtLink>
         <NuxtLink :to="'/blog'" title="Blog" id="Blog" class="nav-link">
           <span>Blog</span>
         </NuxtLink>

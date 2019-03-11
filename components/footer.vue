@@ -109,8 +109,8 @@
                     </NuxtLink>
                   </p>
                   <p>
-                    <NuxtLink :to="'/blog'" title="Blog">
-                      <span>Blog</span>
+                    <NuxtLink :to="'/team'" title="Team">
+                      <span>Team</span>
                     </NuxtLink>
                   </p>
                   <p>
