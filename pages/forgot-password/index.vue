@@ -11,12 +11,13 @@
                   <h2 class="heading">Reset Password</h2>
                 </div>
                 <div class="row">
-                  <div v-if="notification.length" class="col-md-12 alert alert-success">
+                  <div v-if="created" class="col-md-12 alert alert-success">
                     <p>
-                      {{notification}}
+                      Your account has successfully been created. We have sent a confirmation email to {{Form.email}}.
+                      Please confirm your email and have a wonderful time finding a cozy home for yourself on our website
                     </p>
                   </div>
-                  <div class="col-md-12" v-else>
+                  <div class="col-md-12" else>
                     <div v-if="formError" class="col-lg-12 logo-capsul">
                       <p class="error">
                         <i>{{ formError }}</i>
@@ -70,21 +71,26 @@ export default {
   data() {
     return {
       formError: null,
-			formEmail: '',
-			notification: ''
+      formEmail: '',
+      created: ''
     }
   },
   methods: {
     submitEmail: async function(e) {
-			this.notification = ''
+      this.created = false
       try {
-          await this.$store.dispatch('forgotPassword', {email: this.formEmail})
+        if (
+          await this.$store.dispatch('forgotPassword', {
+            email: this.formEmail
+          })
+        ) {
+          this.formEmail = ''
           this.formError = null
-					this.notification = 'We have sent an email to ' + this.formEmail + ' Please follow the link in the email to reset your password'
-
+          this.created = true
+        }
       } catch (e) {
         this.formError = e.message
-			}
+      }
     }
   }
 }

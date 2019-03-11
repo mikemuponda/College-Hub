@@ -125,7 +125,7 @@ router.post('/forgot-password', async (req, res) => {
       subject: 'Collegehub: Reset Your Password',
       html: '<h2>Hi, ' + user.firstname + '</h2><p>It seems you forgot your password. Please <a href="https://www.lekkahub.com/reset-password/' + key + '" title="Collegehub">clicking this link</a> to reset your password.</p><p>Regards</p>',
     }
-    sgMail.send(msg)
+    //sgMail.send(msg)
     res.status(201).json({message: 'An Reset Passwoord email has been sent to your email'})
   } else {
     res.status(400).json({message: 'Email does not exist!'})
