@@ -11,23 +11,22 @@
                   <h2 class="heading">Reset Password</h2>
                 </div>
                 <div class="row">
-                  <div v-if="created" class="col-md-12 alert alert-success">
+                  <div v-if="notification.length" class="col-md-12 alert alert-success">
                     <p>
-                      Your account has successfully been created. We have sent a confirmation email to {{Form.email}}.
-                      Please confirm your email and have a wonderful time finding a cozy home for yourself on our website
+                      {{notification}}
                     </p>
                   </div>
-                  <div class="col-md-12" else>
-                    <div v-if="formError" class="col-lg-12 logo-capsul">
+                  <div class="col-md-12" v-else>
+                    <div v-if="error" class="col-lg-12 logo-capsul">
                       <p class="error">
-                        <i>{{ formError }}</i>
+                        <i>{{ error }}</i>
                       </p>
                     </div>
                     <br>
                     <div style="clear:both;"></div>
                     <div class="group">
                       <input
-                        v-model="formEmail"
+                        v-model="email"
                         type="email"
                         name="email"
                         autocomplete="off"
@@ -70,26 +69,20 @@
 export default {
   data() {
     return {
-      formError: null,
-      formEmail: '',
-      created: ''
+      error: null,
+      email: '',
+			notification: ''
     }
   },
   methods: {
     submitEmail: async function(e) {
-      this.created = false
       try {
-        if (
-          await this.$store.dispatch('forgotPassword', {
-            email: this.formEmail
-          })
-        ) {
-          this.formEmail = ''
-          this.formError = null
-          this.created = true
-        }
+        await this.$store.dispatch('forgotPassword', {email: this.email}) 
+        this.error = null
+        this.notification = 'We have sent an email to ' + this.email + ' Please follow the link in the email to reset your password'
+        
       } catch (e) {
-        this.formError = e.message
+        this.error = e.message
       }
     }
   }

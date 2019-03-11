@@ -16,7 +16,7 @@
                   </div>
                   <div class="col-md-12" v-else>
                     <div v-if="errors.length" class="col-lg-12 logo-capsul">
-                      <ul class="error" style="color: #000000;">
+                      <ul class="error" style="color: red;">
                         <li
                           v-for="(error, index) in errors"
                           :item="error"
@@ -86,7 +86,7 @@ export default {
     }
   },
   methods: {
-    confirmPassword: async function(e) {
+    resetPassword: async function(e) {
       this.notification = ''
       if (!this.password) {
         this.errors.push('Please enter a password')
@@ -96,7 +96,10 @@ export default {
       }
       if (!this.errors.length) {
         try {
-          await this.$store.dispatch('resetPassword', {id: this.id, password: this.password})
+          await this.$store.dispatch('resetPassword', {
+            id: this.id,
+            password: this.password
+          })
           this.errors = []
           this.notification = 'Your password has successfully been reset.'
         } catch (e) {
