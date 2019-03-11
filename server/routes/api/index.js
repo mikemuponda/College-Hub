@@ -119,16 +119,40 @@ router.post('/forgot-password', async (req, res) => {
       {upsert: true,}
     )
     const msg = {
-      to: req.body.email,
+      to: user.email,
       cc: "tinashe@lekkahub.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Reset Your Password',
       html: '<h2>Hi, ' + user.firstname + '</h2><p>It seems you forgot your password. Please <a href="https://www.lekkahub.com/reset-password/' + key + '" title="Collegehub">clicking this link</a> to reset your password.</p><p>Regards</p>',
     }
-    //sgMail.send(msg)
-    res.status(201).json({message: 'An Reset Passwoord email has been sent to your email'})
+    sgMail.send(msg)
+    res.status(201).json({message: 'A Reset Passwoord email has been sent to your email'})
   } else {
     res.status(400).json({message: 'Email does not exist!'})
+  }
+})
+
+//Reset Password
+router.post('/reset-password/:id', async (req, res) => {
+  const users = await loadUsers()
+  var user = '';
+  if (user = await users.findOne({"password-reset-code": req.params.id})) {
+    await users.findOneAndUpdate(
+      {"password-reset-code": req.params.id},
+      {$set: {"password-reset-status": false, "password": req.body.password}},
+      {upsert: true,}
+    )
+    const msg = {
+      to: user.email,
+      cc: "tinashe@lekkahub.com",
+      from: 'Collegehub <noreply@collegehub.co.zw>',
+      subject: 'Collegehub: Reset Your Password',
+      html: '<h2>Hi, ' + user.firstname + '</h2><p>Your password has been reset. Your new password is: <strong>'+ req.body.password +'</strong>.<br>Go to <a href="https://www.lekkahub.com" title="Collegehub">Collegehub</a> and login.</p><p>Regards</p>',
+    }
+    sgMail.send(msg)
+    res.status(201).json({message: 'Password successfully reset!'})
+  } else {
+    res.status(401).json({message: 'Email does not exist!'})
   }
 })
 
