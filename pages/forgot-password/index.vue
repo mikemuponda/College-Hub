@@ -67,12 +67,21 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'Collegehub | Forgot Password',
+    }
+  },
   data() {
     return {
       error: null,
       email: '',
 			notification: ''
     }
+  },
+  mounted() {
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
   },
   methods: {
     submitEmail: async function(e) {

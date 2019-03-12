@@ -168,9 +168,7 @@ module.exports = {
   ],
 
   //loading: '~/components/loading.vue',
-  loading: {
-    color: '#da552f'
-  },
+  loading: '~/components/loading.vue',
 
   plugins: [{
       src: "~/plugins/burger-menu.js",

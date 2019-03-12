@@ -341,7 +341,8 @@ export default {
       }
     }
   },
-  async beforeCreate() {
+  async mounted() {
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
     try {
       this.userProfile = await this.$store.dispatch('getProfile', {
         id: this.$route.params.id
@@ -350,6 +351,7 @@ export default {
     } catch (e) {
       this.error = e.message
     }
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 500)})
   },
   methods: {
     date(date) {

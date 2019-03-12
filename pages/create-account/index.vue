@@ -174,6 +174,10 @@ export default {
       created: null
     }
   },
+  mounted() {
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
+  },
   methods: {
     onChange($event) {
       if (this.seeker == 1) {

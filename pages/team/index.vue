@@ -372,6 +372,20 @@
   </div>
 </template>
 
+<script>
+export default {
+  head() {
+    return {
+      title: 'Collegehub | Team',
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
+  }
+}
+</script>
+
 <style>
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 

@@ -76,6 +76,11 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'Collegehub | Reset Password',
+    }
+  },
   data() {
     return {
       id: this.$route.params.id,
@@ -84,6 +89,10 @@ export default {
       notification: '',
       confirmPassword: ''
     }
+  },
+  mounted() {
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
   },
   methods: {
     resetPassword: async function(e) {

@@ -47,6 +47,11 @@ export default {
       error: null
     }
   },
+  mounted() {
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.confirm()
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
+  },
   methods: {
     confirm: async function() {
       var id = this.$route.params.id
@@ -61,9 +66,6 @@ export default {
   created() {
     this.confirm()
   },
-  mounted() {
-    this.confirm()
-  }
 }
 </script>
 

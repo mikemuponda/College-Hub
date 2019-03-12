@@ -78,6 +78,21 @@
   </div>
 </template>
 
+<script>
+export default {
+  head() {
+    return {
+      title: 'Collegehub | Privacy Policy',
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
+  }
+}
+</script>
+
+
 <style>
 .pp p {
 	text-align: justify;
