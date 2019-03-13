@@ -1,19 +1,17 @@
-
 const express = require('express')
 const consola = require('consola')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { Nuxt, Builder } = require('nuxt')
+const {
+  Nuxt,
+  Builder
+} = require('nuxt')
 const app = express()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 8080
 
 
 app.set('port', port)
-app.use(bodyParser.json())
-app.use(cors())
-
-
 app.use(bodyParser.json())
 app.use(cors())
 
@@ -37,7 +35,13 @@ async function start() {
   app.use(nuxt.render)
 
   // Listen the server
-  app.listen(port, host)
+  const server = app.listen(port, host)
+  const io = require('socket.io')(server);
+  io.on('connection', function (socket) {
+    socket.on('SEND_MESSAGE', function (data) {
+      io.emit('MESSAGE', data)
+    });
+  });
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true
