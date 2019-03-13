@@ -179,7 +179,8 @@ module.exports = {
       ssr: false
     },
     {
-      src: "~/plugins/socketio.js"
+      src: "~/plugins/socketio.js",
+      ssr: false
     }
   ],
 
