@@ -4,7 +4,7 @@ const sgMail = require('@sendgrid/mail')
 const router = express.Router()
 const app = express()
 
-const sendGridKey = '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'
+const sendGridKey = ''
 sgMail.setApiKey(sendGridKey);
 
 router.use((req, res, next) => {

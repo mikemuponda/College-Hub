@@ -40,7 +40,7 @@ export default {
       user: '',
       message: '',
       messages: [],
-      socket: io('localhost:8080')
+      socket: io('lekkahub.com')
     }
   },
   methods: {
