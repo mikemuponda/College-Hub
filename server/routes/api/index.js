@@ -4,7 +4,7 @@ const sgMail = require('@sendgrid/mail')
 const router = express.Router()
 const app = express()
 
-const sendGridKey = ''
+const sendGridKey = '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'
 sgMail.setApiKey(sendGridKey);
 
 router.use((req, res, next) => {
@@ -189,6 +189,7 @@ router.post('/profile/:id', async (req, res) => {
   })
 })
 
+//Edit profile
 router.post('/profile/edit/:id', async (req, res) => {
   const users = await loadUsers()
   if (await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
@@ -200,6 +201,36 @@ router.post('/profile/edit/:id', async (req, res) => {
     )
     var user = null
     if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
+      return res.json({user})
+    }
+  }else{
+    res.status(401).json({
+      message: 'User Not Found or has not yet confirmed'
+    })
+  }
+})
+
+
+//Change Username
+router.post('/profile/edit/username/:id', async (req, res) => {
+  const users = await loadUsers()
+  if (await users.findOne({ "email": req.params.id, "isConfirmed": true})) {
+    let params = { updatedAt: new Date() }
+    await users.findOneAndUpdate(
+      {"email": req.params.id},
+      {$set: Object.assign(params, req.body)},
+      {upsert: true,}
+    )
+    var user = null
+    if (user = await users.findOne({ "email": req.params.id, "isConfirmed": true})) {
+      const msg = {
+        to: req.params.id,
+        cc: "tinashe@lekkahub.com",
+        from: 'Collegehub <noreply@collegehub.co.zw>',
+        subject: 'Collegehub: Your Username has successfully been changed',
+        html: '<h2>Hi, ' + user.firstname + '</h2><p>Your username has successfully been changed to ' + user.username + '. Please follow <a href="https://www.lekkahub.com/profile/' + user.username + '" title="Profile">this link</a> to check out your profile</p><p>Regards</p>',
+      }
+      sgMail.send(msg)
       return res.json({user})
     }
   }else{

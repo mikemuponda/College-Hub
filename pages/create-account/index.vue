@@ -209,7 +209,7 @@ export default {
       if (!this.Form.password) {
         this.errors.push('Please enter a password')
       }
-      if (this.Form.password != this.confirm_password) {
+      if (this.Form.password.replace(/\s/g, '') != this.confirm_password.replace(/\s/g, '')) {
         this.errors.push('Passwords do not match')
       }
       if (!this.errors.length) {
@@ -217,9 +217,9 @@ export default {
           await this.$store.dispatch('signUp', {
             firstname: this.Form.firstname,
             lastname: this.Form.lastname,
-            username: this.Form.username,
-            email: this.Form.email,
-            password: this.Form.password,
+            username: this.Form.username.replace(/\s/g, ''),
+            email: this.Form.email.replace(/\s/g, ''),
+            password: this.Form.password.replace(/\s/g, ''),
             isSeeker: this.Form.isSeeker
           })
           this.Form.lastname = ''
