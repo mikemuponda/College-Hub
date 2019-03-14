@@ -1,5 +1,6 @@
 <template>
-  <div class="card mt-3">
+<div style="width: 100%;">
+  <div class="card mt-3" v-if="$store.state.authUser">
     <div class="card-body">
       <div class="card-title">
         <h3>Chat Group</h3>
@@ -16,10 +17,7 @@
     </div>
     <div class="card-footer">
       <form @submit.prevent="sendMessage">
-        <div class="gorm-group">
-          <label for="user">User:</label>
-          <input type="text" v-model="user" class="form-control">
-        </div>
+						{{assignUser($store.state.authUser.user)}}
         <div class="gorm-group pb-3">
           <label for="message">Message:</label>
           <input type="text" v-model="message" class="form-control">
@@ -28,6 +26,10 @@
       </form>
     </div>
   </div>
+	<div v-else>
+		You are not logged in. Please login
+	</div>
+	</div>
 </template>
 
 <script>
@@ -38,24 +40,23 @@ export default {
       user: '',
       message: '',
       messages: [],
-      socket: io('localhost:8080')
+      socket: io('lekkahub.com')
     }
   },
   methods: {
+		assignUser(sessionUser) {
+			this.user = sessionUser
+		},
     sendMessage(e) {
       e.preventDefault()
-
-      this.socket.emit('SEND_MESSAGE', {
-        user: this.user,
-        message: this.message
-      })
+      this.socket.emit('SEND_MESSAGE', {user: this.user.username, message: this.message})
       this.message = ''
     }
   },
   mounted() {
     this.socket.on('MESSAGE', data => {
-      this.messages = [...this.messages, data]
-      // you can also do this.messages.push(data)
+      //this.messages = [...this.messages, data]
+      this.messages.push(data)
     })
   }
 }
