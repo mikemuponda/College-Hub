@@ -36,7 +36,6 @@
 
 <script>
 export default {
-  middleware: 'auth-redirect',
   head() {
     return {
       title: 'Collegehub | Your Account has been confirmed',
