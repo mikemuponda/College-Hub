@@ -78,16 +78,13 @@ export default {
     return {
       formError: null,
       formEmail: '',
-      formPassword: ''
+      formPassword: '',
     }
   },
   methods: {
     async login() {
       try {
-        await this.$store.dispatch('login', {
-          email: this.formEmail,
-          password: this.formPassword
-        })
+        await this.$store.dispatch('login', {email: this.formEmail, password: this.formPassword})
         this.formEmail = ''
         this.formPassword = ''
         this.formError = null

@@ -36,12 +36,8 @@ async function start() {
   const server = app.listen(port, host)
   const io = require('socket.io')(server);
 
-  io.on('connection', function(socket) {
-      //console.log(socket.id)
-      socket.on('SEND_MESSAGE', function(data) {
-          io.emit('MESSAGE', data)
-      });
-  })
+  //io.on('connection', function(socket) { socket.on('SEND_MESSAGE', function(data) { io.emit('MESSAGE', data)});})
+  io.on('connection', function(socket) { socket.on('ACTIVITY_FEED', function(data) { io.emit('ACTIVITY', data)});})
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true

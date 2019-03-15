@@ -22,6 +22,7 @@ export const actions = {
     try {
       const {data} = await axios.post('/users/login', {email, password})
       commit('SET_USER', data)
+      return {data}
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Incorrect login credentials')
