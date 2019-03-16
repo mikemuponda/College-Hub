@@ -175,6 +175,10 @@ module.exports = {
       ssr: false
     },
     {
+      src: "~/plugins/vue-google-maps.js",
+      ssr: false
+    },
+    {
       src: "~/plugins/vue-cookie-law.js",
       ssr: false
     },

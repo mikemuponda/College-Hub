@@ -3,6 +3,7 @@
     <!--snippet from bootsnipp.com statrs after this-->
     <section id="about" class="pb-5">
       <div class="container">
+        
         <div class="row">
           <div class="col-md-8 col-sm-8 col-xs-8">
             <div class="item-box">

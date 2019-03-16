@@ -15,7 +15,7 @@
                   <div class="card">
                     <div class="card-body text-center">
                       <p>
-                        <img class="img-fluid" src="/img/team/avatar.png" alt="card image">
+                        <img class="img-fluid" src="/img/team/bright.jpeg" title="Bright Zenda" alt="Bright Zenda">
                       </p>
                       <h4 class="card-title">Bright Zenda</h4>
                       <p class="card-text">CEO and Co-Founder</p>
@@ -30,9 +30,8 @@
                     <div class="card-body text-center mt-4">
                       <h4 class="card-title">Bright Zenda</h4>
                       <p class="card-text">
-                        Bright is the CEO and Co-founder of Collegehub. An innovative young man who is also
-                        a medical trainee at the University of Zimbabwe. Bright is passionate about bringing
-                        transformation to his community. He is currently vice chairs Achievers Trust, a students' initiative.
+                        Bright is the CEO and Co-founder of Collegehub. An innovative young man who is passionate about bringing community
+                        transformation. Bright is a medical trainee at the University of Zimbabwe. He vice chairs Achievers Trust, a students' initiative.
                       </p>
                       <ul class="list-inline">
                         <li class="list-inline-item">
@@ -41,7 +40,7 @@
                             target="_blank"
                             rel="noopener"
                             title="Facebbok"
-                            href="#"
+                            href="https://www.facebook.com/bright.zenda"
                           >
                             <i class="fa fa-facebook"></i>
                           </a>
@@ -50,10 +49,11 @@
                           <a
                             class="social-icon text-xs-center"
                             target="_blank"
-                            href="mailto:bright@collegehub.co.zw"
-                            title="Email Bright"
+                            rel="noopener"
+                            title="Twitter"
+                            href="https://twitter.com/brightzenW"
                           >
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-twitter"></i>
                           </a>
                         </li>
                         <li class="list-inline-item">
@@ -83,7 +83,7 @@
                   <div class="card">
                     <div class="card-body text-center">
                       <p>
-                        <img class="img-fluid" src="/img/team/avatar.png" alt="card image">
+                        <img class="img-fluid" src="/img/team/tinashen.jpeg" title="Tinashe Nyamapfeni" alt="Tinashe Nyamapfeni">
                       </p>
                       <h4 class="card-title">Tinashe Nyamapfeni</h4>
                       <p class="card-text">Chairperson</p>
@@ -109,7 +109,7 @@
                             target="_blank"
                             rel="noopener"
                             title="Facebook"
-                            href="#"
+                            href="https://www.facebook.com/tinashe.nyamapfeni2"
                           >
                             <i class="fa fa-facebook"></i>
                           </a>
@@ -151,7 +151,7 @@
                   <div class="card">
                     <div class="card-body text-center">
                       <p>
-                        <img class="img-fluid" src="/img/team/avatar.png" alt="card image">
+                        <img class="img-fluid" src="/img/team/vincent.jpeg" title="Vincent Chabvonga" alt="Vincent Chabvonga">
                       </p>
                       <h4 class="card-title">Vincent Chabvonga</h4>
                       <p class="card-text">Head Marketing</p>
@@ -167,15 +167,17 @@
                       <h4 class="card-title">Vincent Chabvonga</h4>
                       <p
                         class="card-text"
-                      >This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                      >The head marketing at Collegehub. Vincent manages the marketing operations
+                       at Collegehub. He is also a trader on the ZSE. He is currently studying Medicine
+                       and Surgery at the University of Zimbabwe.</p>
                       <ul class="list-inline">
                         <li class="list-inline-item">
                           <a
                             class="social-icon text-xs-center"
                             target="_blank"
                             rel="noopener"
-                            title="Lekkahub"
-                            href="#"
+                            title="Facebook"
+                            href="https://www.facebook.com/profile.php?id=100011633389334"
                           >
                             <i class="fa fa-facebook"></i>
                           </a>
@@ -184,21 +186,22 @@
                           <a
                             class="social-icon text-xs-center"
                             target="_blank"
-                            href="mailto:tinashe.nyamapfeni@collegehub.co.zw"
-                            title="Email Bright"
+                            rel="noopener"
+                            title="Twitter"
+                            href="https://twitter.com/vince_daniel"
                           >
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-twitter"></i>
                           </a>
                         </li>
                         <li class="list-inline-item">
                           <a
                             class="social-icon text-xs-center"
-                            href="https://wa.me/263774113701"
                             target="_blank"
                             rel="noopener"
-                            title="WhatsApp"
+                            title="Instagram"
+                            href="https://www.instagram.com/vincechabvonga/"
                           >
-                            <i class="fa fa-whatsapp"/>
+                            <i class="fa fa-instagram"></i>
                           </a>
                         </li>
                       </ul>
@@ -217,9 +220,9 @@
                   <div class="card">
                     <div class="card-body text-center">
                       <p>
-                        <img class="img-fluid" src="/img/team/avatar.png" alt="card image">
+                        <img class="img-fluid" src="/img/team/kudzie.jpeg" title="Kudzaishe Rudo Mabika" alt="Kudzaishe Rudo Mabika">
                       </p>
-                      <h4 class="card-title">Kudzaishe Mabika</h4>
+                      <h4 class="card-title">Kudzaishe Rudo Mabika</h4>
                       <p class="card-text">Marketing</p>
                       <a href="#" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
@@ -230,29 +233,33 @@
                 <div class="backside">
                   <div class="card">
                     <div class="card-body text-center mt-4">
-                      <h4 class="card-title">Kudzaishe Mabika</h4>
-                      <p
-                        class="card-text"
-                      >This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                      <h4 class="card-title">Kudzaishe Rudo Mabika</h4>
+                      <p class="card-text">
+                        A radical Christian end time girl pursuing Matthew 6:33. Currently working for Stanbic Zimbabwe
+                        but going back to school soon. The goal is to add value to College Hub by bringing femininity to
+                        the team and being the voice of reason🤗
+                      </p>
                       <ul class="list-inline">
                         <li class="list-inline-item">
-                          <a class="social-icon text-xs-center" target="_blank" href="#">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="Facebook"
+                            href="https://www.facebook.com/kudzaishe.mabika"
+                          >
                             <i class="fa fa-facebook"></i>
                           </a>
                         </li>
                         <li class="list-inline-item">
-                          <a class="social-icon text-xs-center" target="_blank" href="#">
-                            <i class="fa fa-twitter"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="social-icon text-xs-center" target="_blank" href="#">
-                            <i class="fa fa-skype"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="social-icon text-xs-center" target="_blank" href="#">
-                            <i class="fa fa-google"></i>
+                          <a
+                            href="https://www.instagram.com/Kudzaishe__rudo"
+                            target="_blank"
+                            rel="noopener"
+                            title="Instagram"
+                            class="social-icon text-xs-center"
+                          >
+                            <i class="fa fa-instagram"/>
                           </a>
                         </li>
                       </ul>
@@ -271,7 +278,7 @@
                   <div class="card">
                     <div class="card-body text-center">
                       <p>
-                        <img class="img-fluid" src="/img/team/avatar.png" alt="card image">
+                        <img class="img-fluid" src="/img/team/aldrin.jpeg" title="Aldrin Chitate" alt="Aldrin Chitate">
                       </p>
                       <h4 class="card-title">Aldrin Chitate</h4>
                       <p class="card-text">Marketing</p>
@@ -287,26 +294,31 @@
                       <h4 class="card-title">Aldrin Chitate</h4>
                       <p
                         class="card-text"
-                      >This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.This is basic card with image on top, title, description and button.</p>
+                      >What better way is there to contribute to society other than serving?
+                      This platform has offered me an opportunity to be of service to you,
+                      particularly the homeowner and home seeker. I look forward to a wonderful
+                      experience with all.</p>
                       <ul class="list-inline">
                         <li class="list-inline-item">
-                          <a class="social-icon text-xs-center" target="_blank" href="#">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="Facebook"
+                            href="https://www.facebook.com/aldrin.drizzy"
+                          >
                             <i class="fa fa-facebook"></i>
                           </a>
                         </li>
                         <li class="list-inline-item">
-                          <a class="social-icon text-xs-center" target="_blank" href="#">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="Twitter"
+                            href="https://twitter.com/AldrinChitate"
+                          >
                             <i class="fa fa-twitter"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="social-icon text-xs-center" target="_blank" href="#">
-                            <i class="fa fa-skype"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a class="social-icon text-xs-center" target="_blank" href="#">
-                            <i class="fa fa-google"></i>
                           </a>
                         </li>
                       </ul>
@@ -325,7 +337,7 @@
                   <div class="card">
                     <div class="card-body text-center">
                       <p>
-                        <img class="img-fluid" src="/img/team/avatar.png" alt="card image">
+                        <img class="img-fluid" src="/img/team/tinashe.png" title="Tinashe Zvihwati" alt="Tinashe Zvihwati">
                       </p>
                       <h4 class="card-title">Tinashe Zvihwati</h4>
                       <p class="card-text">Developer</p>
@@ -340,7 +352,8 @@
                     <div class="card-body text-center mt-4">
                       <h4 class="card-title">Tinashe Zvihwati</h4>
                       <p class="card-text">
-                        The guru behind the service and co-founder. Tinashe is a member of
+                        <i class="fa fa-code"/><strong>The guru behind the service</strong><i class="fa fa-code"/><br>
+                        Tinashe is a member of
                         <a
                           href="https://www.lekkahub.com"
                           target="_blank"
