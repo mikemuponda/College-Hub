@@ -317,7 +317,7 @@ export default {
     return {
       user: '',
       userProfile: '',
-      activity: 'Hello',
+      activity: '',
       activities: [],
       time: '',
       socket: io('lekkahub.com')
