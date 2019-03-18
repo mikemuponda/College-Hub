@@ -14,7 +14,8 @@
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 10px;">
                     <div class="profile-img item-box">
-                      <img src="/profile-image/user.jpeg" :title="userProfile.firstname + ' ' + userProfile.lastname" :alt="userProfile.firstname + ' ' + userProfile.lastname">
+                      <img v-if="userProfile.profileImage" :src="userProfile.profileImage.path" :title="userProfile.firstname + ' ' + userProfile.lastname" :alt="userProfile.firstname + ' ' + userProfile.lastname">
+                      <img v-else src="/profileImages/user.png" :title="userProfile.firstname + ' ' + userProfile.lastname" :alt="userProfile.firstname + ' ' + userProfile.lastname">
                       <div
                         class="file btn btn-lg btn-primary"
                         v-if="displayEdit && $store.state.authUser && ($store.state.authUser.user.username == this.$route.params.id)"

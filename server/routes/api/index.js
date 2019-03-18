@@ -1,6 +1,12 @@
 const express = require('express')
 const mongodb = require('mongodb')
 const sgMail = require('@sendgrid/mail')
+const multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {cb(null, 'static/profileImages/')},
+  filename: function (req, file, cb) {cb(null, file.originalname )}
+});
+var upload = multer({ storage: storage });
 const router = express.Router()
 const app = express()
 
@@ -206,6 +212,26 @@ router.post('/profile/edit/:id', async (req, res) => {
   }
 })
 
+//Upload Image
+router.post('/profile/upload/image/:id', upload.single('profileImage'), async (req, res, next) => {
+  req.file.path = req.file.path.replace(/\\/g, "/")
+  req.file.path = req.file.path.replace("static", "")
+  const users = await loadUsers()
+  var user = null
+  if (await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
+    let params = { profileImage: req.file }
+    await users.findOneAndUpdate(
+      {"username": req.params.id},
+      {$set: Object.assign(params)},
+      {upsert: true,}
+    )
+    user = await users.findOne({ "username": req.params.id})
+    return res.json({user})
+  }else{
+    res.status(401).json({message: 'User Not Found or has not yet confirmed'})
+  }
+})
+
 
 //Change Username
 router.post('/profile/edit/username/:id', async (req, res) => {
@@ -235,6 +261,7 @@ router.post('/profile/edit/username/:id', async (req, res) => {
     })
   }
 })
+
 
 
 export default {
