@@ -821,11 +821,15 @@
                                 Please click to confirm that your information is correct and complies
                                 with our terms and conditions.
                               </p>
-                              <label for="confirm" style="width: 95%; font-size: 12px;" class="btn btn-success">
-                                Confirm
-                                <input type="checkbox" id="confirm" class="badgebox">
-                                <span class="badge">&check;</span>
-                              </label>
+                              <div class="agree" style="text-align: center;">
+                                <label style="font-size: 2.5em;">
+                                  <input type="checkbox" value="" checked>
+                                  <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                </label>
+                              </div>
+
                               <br>
                               <button
                                 class="default-button"
@@ -1015,6 +1019,49 @@ export default {
   width: 99%;
 }
 
+
+
+.agree label:after{
+    content: '';
+    display: table;
+    clear: both;
+}
+.agree .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    margin-right: .5em;
+}
+.agree .cr .cr-icon{
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+.agree label input[type="checkbox"] {
+    display: none;
+}
+.agree label input[type="checkbox"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+.agree label input[type="checkbox"]:checked + .cr > .cr-icon{
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+.agree label input[type="checkbox"]:disabled + .cr{
+    opacity: .5;
+}
+
+
+
+
+
 @media (max-width: 762px) {
   .listing-input-div {
     margin-left: 15px;
@@ -1022,11 +1069,10 @@ export default {
   .guest-count {
     width: 100%;
   }
-
   .listing-input-div .amenities {
     width: 95%;
+    font-size: 16px;
   }
-
   .gmap {
     width: 95%;
   }
