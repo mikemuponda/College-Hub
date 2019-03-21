@@ -4,7 +4,7 @@
     <section id="team" class="pb-5">
       <div class="container">
         <div class="item-box" style="margin-bottom: 20px;">
-          <h2 class="heading-two">Team</h2>
+          <h1 class="heading-two">Team</h1>
         </div>
         <div class="row">
           <!-- Team member -->

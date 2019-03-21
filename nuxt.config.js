@@ -179,10 +179,6 @@ module.exports = {
       ssr: false
     },
     {
-      src: "~/plugins/vue-cookie-law.js",
-      ssr: false
-    },
-    {
       src: "~/plugins/socketio.js",
       ssr: false
     }

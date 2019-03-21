@@ -1,13 +1,11 @@
 <template>
   <div style="width:100%">
-    <!--snippet from bootsnipp.com statrs after this-->
     <section id="about" class="pb-5">
       <div class="container">
-        
         <div class="row">
           <div class="col-md-8 col-sm-8 col-xs-8">
             <div class="item-box">
-              <h2 class="heading-two">About Us</h2>
+              <h1 class="heading-two">About Us</h1>
             </div>
             <div class="item-box">
               <div class="row">

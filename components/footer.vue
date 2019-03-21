@@ -16,7 +16,7 @@
               </a>
               
               <a
-                href="https://www.facebook.com/Collegehubzim"
+                href="https://www.facebook.com/collegehubzw"
                 target="_blank"
                 rel="noopener"
                 title="Facebook"
@@ -25,7 +25,7 @@
               </a>
               
               <a
-                href="https://twitter.com/IamTinashe__"
+                href="https://twitter.com/collegehubzw"
                 target="_blank"
                 rel="noopener"
                 title="Twitter"
@@ -34,7 +34,7 @@
               </a>
               
               <a
-                href="https://www.instagram.com/iamtinashe_"
+                href="https://www.instagram.com/collegehubzw"
                 target="_blank"
                 rel="noopener"
                 title="Instagram"
@@ -43,7 +43,7 @@
               </a>
               
               <a
-                href="https://www.youtube.com/user/tinashepride"
+                href="https://www.youtube.com/user/collegehubzw"
                 target="_blank"
                 rel="noopener"
                 title="Youtube"
@@ -64,10 +64,10 @@
               </p>
               <p>
                 <i class="fas fa-envelope"></i> Email:
-                <a href="mailto:support@collegehub.co.zw">support@collegehub.co.zw</a>
+                <a href="mailto:hello@collegehub.co.zw">hello@collegehub.co.zw</a>
               </p>
               <p>
-                <i class="fab fa-skype"></i> Skype: Collegehub_zw
+                <i class="fab fa-skype"></i> Skype: collegehubzw
               </p>
             </div>
             <div
@@ -131,23 +131,6 @@
       </div>
       <div class="footer-bottom">
         <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <no-ssr>
-                <cookie-law theme="base">
-                  <div slot="message">
-                    This site uses cookies 🍪 to assist with navigation, analyse your use of our
-                    services, and provide content from third parties. By using this site we assume
-                    that you agree to our terms and conditions.
-                    <NuxtLink
-                      :to="'/terms-and-conditions'"
-                      title="Terms and Conditions"
-                    >Cookie Policy</NuxtLink>
-                  </div>
-                </cookie-law>
-              </no-ssr>
-            </div>
-          </div>
           <div class="row">
             <div class="col-md-6 footer-copyright">
               Developed by
