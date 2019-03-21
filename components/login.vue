@@ -3,8 +3,8 @@
     <div class="container" style="margin-bottom: 20px;">
       <div class="row" style="margin-top: 50px;">
         <div class="col-md-6" style="text-align: center; margin-top: 10%; margin-bottom: 25%;">
-          <h1 class="title">College Hub</h1>
-          <h2 class="subtitle">Making College Life Simpler</h2>
+          <h1 class="title">Collegehub</h1>
+          <h2 class="subtitle">Making College Life Simple</h2>
         </div>
         <div class="col-md-6">
           <div class="col-md-10 login-card">

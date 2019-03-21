@@ -12,8 +12,20 @@
               <div class="user-profile">
                 <div class="profile-image">
                   <div
+                    v-if="userProfile.profileImage"
                     class="ratio img-responsive img-circle"
-                    style="background-image: url(/profile-image/user.jpeg);"
+                    :title="userProfile.firstname + ' ' + userProfile.lastname"
+                    :alt="userProfile.firstname + ' ' + userProfile.lastname"
+                    v-bind:style="{
+                      backgroundImage: 'url(' + userProfile.profileImage.path + ')'
+                    }"
+                  ></div>
+                  <div
+                    v-else
+                    class="ratio img-responsive img-circle"
+                    style="background-image: url(/profileImages/user.png);"
+                    :title="userProfile.firstname + ' ' + userProfile.lastname"
+                    :alt="userProfile.firstname + ' ' + userProfile.lastname"
                   ></div>
                 </div>
                 <br>
@@ -29,8 +41,8 @@
                     <div class="nopadding" style="width: 40%; float: left;">
                       <img
                         class="img-fluid mb-3 mb-md-0 feature-img"
-                        src="/img/collegehub-selling-something.jpeg"
-                        alt
+                        src="/img/collegehub-from-mobile.jpeg"
+                        alt ="List your house"
                       >
                     </div>
                     <div style="width: 60%; float: left;">
@@ -42,13 +54,13 @@
               </div>
 
               <div class="col-md-4 dashboard-greeting-display">
-                <NuxtLink :to="'/taxi/find'" title="Get a Taxi" style="color: #606060;">
+                <NuxtLink :to="'/taxi/find'" title= "Get a Taxi" style="color: #606060;">
                   <div class="row nopadding feature">
                     <div class="nopadding" style="width: 40%; float: left;">
                       <img
                         class="img-fluid mb-3 mb-md-0 feature-img"
                         src="/img/collegehub-taxi.jpeg"
-                        alt
+                        alt = "Get a Taxi"
                       >
                     </div>
                     <div style="width: 60%; float: left;">
@@ -70,7 +82,7 @@
                       <img
                         class="img-fluid mb-3 mb-md-0 feature-img"
                         src="/img/collegehub-restaurants.jpeg"
-                        alt
+                        alt="Find a restaurant"
                       >
                     </div>
                     <div style="width: 60%; float: left;">
@@ -89,8 +101,8 @@
                     <div class="nopadding" style="width: 40%; float: left;">
                       <img
                         class="img-fluid mb-3 mb-md-0 feature-img"
-                        src="/img/collegehub-selling-something.jpeg"
-                        alt
+                        src="/img/collegehub-house.jpeg"
+                        alt="List your house"
                       >
                     </div>
                     <div style="width: 60%; float: left;">
@@ -107,7 +119,7 @@
                       <img
                         class="img-fluid mb-3 mb-md-0 feature-img"
                         src="/img/collegehub-taxi.jpeg"
-                        alt
+                        alt="List your taxi"
                       >
                     </div>
                     <div style="width: 60%; float: left;">
@@ -128,7 +140,7 @@
                       <img
                         class="img-fluid mb-3 mb-md-0 feature-img"
                         src="/img/collegehub-restaurants.jpeg"
-                        alt
+                        alt="Add your restaurant"
                       >
                     </div>
                     <div style="width: 60%; float: left;">

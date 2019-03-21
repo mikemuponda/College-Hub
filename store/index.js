@@ -109,6 +109,13 @@ export const actions = {
     }
   },
 
+  async profileImage({commit}, {formData, id}){
+    axios.post( '/users/profile/upload/image/' + id, formData, {
+      headers: {'Content-Type': 'multipart/form-data'}
+      }).then(function(){console.log('SUCCESS!!')}).catch(function(){console.log('FAILURE!!')
+    })
+  },
+
   async editProfile({commit}, {id, firstname, lastname, email, password, sex, dob, phone, isSeeker}){
     var url = '/users/profile/edit/' + id
     var form = {}

@@ -5,19 +5,31 @@
         <div class="row">
           <div class="col-md-2 dashboard-greeting-display">
             <NuxtLink
-              :to="{path: '/profile/' + user.username}"
+              :to="{path: '/profile/' + userProfile.username}"
               title="Profile"
               style="color: #606060;"
             >
               <div class="user-profile">
                 <div class="profile-image">
                   <div
+                    v-if="userProfile.profileImage"
                     class="ratio img-responsive img-circle"
-                    style="background-image: url(/profile-image/user.jpeg);"
+                    :title="userProfile.firstname + ' ' + userProfile.lastname"
+                    :alt="userProfile.firstname + ' ' + userProfile.lastname"
+                    v-bind:style="{
+                      backgroundImage: 'url(' + userProfile.profileImage.path + ')'
+                    }"
+                  ></div>
+                  <div
+                    v-else
+                    class="ratio img-responsive img-circle"
+                    style="background-image: url(/profileImages/user.png);"
+                    :title="userProfile.firstname + ' ' + userProfile.lastname"
+                    :alt="userProfile.firstname + ' ' + userProfile.lastname"
                   ></div>
                 </div>
                 <br>
-                {{user.firstname}} {{user.lastname}}
+                {{userProfile.firstname}} {{userProfile.lastname}}
               </div>
             </NuxtLink>
           </div>
@@ -823,7 +835,7 @@
                               </p>
                               <div class="agree" style="text-align: center;">
                                 <label style="font-size: 2.5em;">
-                                  <input type="checkbox" value="" checked>
+                                  <input type="checkbox" value checked>
                                   <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                   </span>
@@ -891,7 +903,7 @@ export default {
   },
   data() {
     return {
-      user: '',
+      userProfile: '',
       errors: '',
       page: 1,
       guestcount: 1,
@@ -937,13 +949,14 @@ export default {
     addListing: function(event) {}
   },
   created() {
-    this.user = this.$store.state.authUser
-    this.user = this.user.user
+    this.userProfile = this.$store.state.authUser
+    this.userProfile = this.userProfile.user
   }
 }
 </script>
 
 <style>
+
 .listing-input-div {
   margin-top: 15px;
   margin-left: 5px;
@@ -1019,48 +1032,42 @@ export default {
   width: 99%;
 }
 
-
-
-.agree label:after{
-    content: '';
-    display: table;
-    clear: both;
+.agree label:after {
+  content: '';
+  display: table;
+  clear: both;
 }
 .agree .cr {
-    position: relative;
-    display: inline-block;
-    border: 1px solid #a9a9a9;
-    border-radius: .25em;
-    width: 1.3em;
-    height: 1.3em;
-    margin-right: .5em;
+  position: relative;
+  display: inline-block;
+  border: 1px solid #a9a9a9;
+  border-radius: 0.25em;
+  width: 1.3em;
+  height: 1.3em;
+  margin-right: 0.5em;
 }
-.agree .cr .cr-icon{
-    position: absolute;
-    font-size: .8em;
-    line-height: 0;
-    top: 50%;
-    left: 20%;
+.agree .cr .cr-icon {
+  position: absolute;
+  font-size: 0.8em;
+  line-height: 0;
+  top: 50%;
+  left: 20%;
 }
-.agree label input[type="checkbox"] {
-    display: none;
+.agree label input[type='checkbox'] {
+  display: none;
 }
-.agree label input[type="checkbox"] + .cr > .cr-icon {
-    transform: scale(3) rotateZ(-20deg);
-    opacity: 0;
-    transition: all .3s ease-in;
+.agree label input[type='checkbox'] + .cr > .cr-icon {
+  transform: scale(3) rotateZ(-20deg);
+  opacity: 0;
+  transition: all 0.3s ease-in;
 }
-.agree label input[type="checkbox"]:checked + .cr > .cr-icon{
-    transform: scale(1) rotateZ(0deg);
-    opacity: 1;
+.agree label input[type='checkbox']:checked + .cr > .cr-icon {
+  transform: scale(1) rotateZ(0deg);
+  opacity: 1;
 }
-.agree label input[type="checkbox"]:disabled + .cr{
-    opacity: .5;
+.agree label input[type='checkbox']:disabled + .cr {
+  opacity: 0.5;
 }
-
-
-
-
 
 @media (max-width: 762px) {
   .listing-input-div {

@@ -10,21 +10,42 @@
           >{{error}}</div>
           <div class="container" v-else>
             <div class="emp-profile">
-              <form method="post">
+              <form method="post" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-4" style="margin-top: 10px;">
                     <div class="profile-img item-box">
-                      <img v-if="userProfile.profileImage" :src="userProfile.profileImage.path" :title="userProfile.firstname + ' ' + userProfile.lastname" :alt="userProfile.firstname + ' ' + userProfile.lastname">
-                      <img v-else src="/profileImages/user.png" :title="userProfile.firstname + ' ' + userProfile.lastname" :alt="userProfile.firstname + ' ' + userProfile.lastname">
+                      <div
+                        v-if="userProfile.profileImage"
+                        class="ratio img-responsive img-circle profImagePosition"
+                        :title="userProfile.firstname + ' ' + userProfile.lastname"
+                        :alt="userProfile.firstname + ' ' + userProfile.lastname"
+                        v-bind:style="{
+                          backgroundImage: 'url(' + userProfile.profileImage.path + ')'
+                        }"
+                      ></div>
+                      <div
+                        v-else
+                        class="ratio img-responsive img-circle profImagePosition"
+                        style="background-image: url(/profileImages/user.png);"
+                        :title="userProfile.firstname + ' ' + userProfile.lastname"
+                        :alt="userProfile.firstname + ' ' + userProfile.lastname"
+                      ></div>
                       <div
                         class="file btn btn-lg btn-primary"
                         v-if="displayEdit && $store.state.authUser && ($store.state.authUser.user.username == this.$route.params.id)"
                       >
                         Change Photo
-                        <input type="file" name="file">
+                        <input
+                          type="file"
+                          v-on:change="handleFileUpload"
+                          :id="uploadFieldName"
+                          :ref="uploadFieldName"
+                          :name="uploadFieldName"
+                          accept="image/*"
+                        >
                       </div>
                       <div class="profile-item-brief" style="text-align: left;">
-                        <p>{{userProfile.firstname}} {{userProfile.lastname}}</p>
+                        <p>Brief Description here</p>
                       </div>
                     </div>
                   </div>
@@ -286,25 +307,27 @@
                     </div>
                   </div>
                   <div class="col-md-2" style="margin-top: 10px;">
-                    <input
+                    <button
                       class="default-button"
-                      value="Edit Profile"
-                      v-on:click="edit"
+                      value="Edit"
+                      style="margin-top: 10px;"
+                      v-on:click.prevent="edit"
                       v-if="$store.state.authUser && ($store.state.authUser.user.username == this.$route.params.id) && !displayEdit"
-                    >
-                    <input
+                    >Edit</button>
+                    <button
                       class="default-button"
                       value="Cancel"
-                      v-on:click="cancel"
+                      style="margin-top: 10px;"
+                      v-on:click.prevent="cancel"
                       v-if="$store.state.authUser && ($store.state.authUser.user.username == this.$route.params.id) && displayEdit"
-                    >
-                    <input
+                    >Cancel</button>
+                    <button
                       class="default-button"
                       style="margin-top: 10px;"
                       value="Save"
                       v-on:click="save"
                       v-if="$store.state.authUser && ($store.state.authUser.user.username == this.$route.params.id) && displayEdit"
-                    >
+                    >Save</button>
                   </div>
                 </div>
               </form>
@@ -315,6 +338,13 @@
     </div>
   </div>
 </template>
+
+<style>
+.profImagePosition {
+  margin-left: 10%;
+}
+</style>
+
 
 <script>
 export default {
@@ -339,11 +369,15 @@ export default {
         dob: '',
         phone: '',
         isSeeker: null
-      }
+      },
+      profileImage: null,
+      uploadFieldName: 'profileImage'
     }
   },
   async mounted() {
-    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+    })
     try {
       this.userProfile = await this.$store.dispatch('getProfile', {
         id: this.$route.params.id
@@ -352,7 +386,9 @@ export default {
     } catch (e) {
       this.error = e.message
     }
-    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
+    this.$nextTick(() => {
+      setTimeout(() => this.$nuxt.$loading.finish(), 0)
+    })
   },
   methods: {
     date(date) {
@@ -363,6 +399,9 @@ export default {
     },
     cancel: function(e) {
       this.displayEdit = false
+    },
+    handleFileUpload: function(e) {
+      this.profileImage = this.$refs.profileImage.files[0]
     },
     save: async function(e) {
       this.submitErrors = []
@@ -375,7 +414,16 @@ export default {
         this.displayEdit = false
       }
       if (!this.submitErrors.length) {
+        let formData = new FormData()
+        formData.append('profileImage', this.profileImage)
+        formData.append('id', this.id)
         try {
+          if (this.profileImage)
+            await this.$store.dispatch('profileImage', {
+              formData: formData,
+              id: this.userProfile.username
+            })
+
           await this.$store.dispatch('editProfile', this.Form)
           window.location.reload(true)
         } catch (e) {
