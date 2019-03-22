@@ -15,12 +15,21 @@
                   <div class="col-md-4" style="margin-top: 10px;">
                     <div class="profile-img item-box">
                       <div
-                        v-if="userProfile.profileImage"
+                        v-if="userProfile.profileImage && !imageUrl"
                         class="ratio img-responsive img-circle profImagePosition"
                         :title="userProfile.firstname + ' ' + userProfile.lastname"
                         :alt="userProfile.firstname + ' ' + userProfile.lastname"
                         v-bind:style="{
                           backgroundImage: 'url(' + userProfile.profileImage.path + ')'
+                        }"
+                      ></div>
+                      <div
+                        v-else-if="imageUrl"
+                        class="ratio img-responsive img-circle profImagePosition"
+                        :title="userProfile.firstname + ' ' + userProfile.lastname"
+                        :alt="userProfile.firstname + ' ' + userProfile.lastname"
+                        v-bind:style="{
+                          backgroundImage: 'url(' + imageUrl + ')'
                         }"
                       ></div>
                       <div
@@ -41,6 +50,7 @@
                           :id="uploadFieldName"
                           :ref="uploadFieldName"
                           :name="uploadFieldName"
+                          @change="onFileChange"
                           accept="image/*"
                         >
                       </div>
@@ -371,7 +381,8 @@ export default {
         isSeeker: null
       },
       profileImage: null,
-      uploadFieldName: 'profileImage'
+      uploadFieldName: 'profileImage',
+      imageUrl: null
     }
   },
   async mounted() {
@@ -402,6 +413,10 @@ export default {
     },
     handleFileUpload: function(e) {
       this.profileImage = this.$refs.profileImage.files[0]
+    },
+    onFileChange(e) {
+      const file = e.target.files[0]
+      this.imageUrl = URL.createObjectURL(file)
     },
     save: async function(e) {
       this.submitErrors = []
