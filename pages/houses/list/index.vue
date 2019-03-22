@@ -962,7 +962,6 @@ export default {
 </script>
 
 <style>
-
 .listing-input-div {
   margin-top: 15px;
   margin-left: 5px;

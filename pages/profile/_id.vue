@@ -46,7 +46,6 @@
                         Change Photo
                         <input
                           type="file"
-                          v-on:change="handleFileUpload"
                           :id="uploadFieldName"
                           :ref="uploadFieldName"
                           :name="uploadFieldName"
@@ -411,11 +410,10 @@ export default {
     cancel: function(e) {
       this.displayEdit = false
     },
-    handleFileUpload: function(e) {
-      this.profileImage = this.$refs.profileImage.files[0]
-    },
     onFileChange(e) {
-      const file = e.target.files[0]
+      var file = e.target.files[0]
+      file.renameFile = this.userProfile._id + '.' + file.name.split('.').pop()
+      this.profileImage = file
       this.imageUrl = URL.createObjectURL(file)
     },
     save: async function(e) {

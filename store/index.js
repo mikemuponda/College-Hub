@@ -112,7 +112,7 @@ export const actions = {
   async profileImage({commit}, {formData, id}){
     axios.post( '/users/profile/upload/image/' + id, formData, {
       headers: {'Content-Type': 'multipart/form-data'}
-      }).then(function(){console.log('SUCCESS!!')}).catch(function(){console.log('FAILURE!!')
+      }).then(function(){console.log('UPLOADED')}).catch(function(){console.log('FAILED')
     })
   },
 

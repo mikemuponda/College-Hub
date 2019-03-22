@@ -2,11 +2,8 @@ const express = require('express')
 const mongodb = require('mongodb')
 const sgMail = require('@sendgrid/mail')
 const multer = require('multer');
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {cb(null, 'static/profileImages/')},
-  filename: function (req, file, cb) {cb(null, file.originalname )}
-});
-var upload = multer({ storage: storage });
+const fs = require('fs')
+const path = require('path')
 const router = express.Router()
 const app = express()
 
@@ -212,13 +209,24 @@ router.post('/profile/edit/:id', async (req, res) => {
   }
 })
 
-//Upload Image
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {cb(null, 'static/profileImages/')},
+  filename: function (req, file, cb) {cb(null, file.originalname )}
+});
+var upload = multer({ storage: storage });
 router.post('/profile/upload/image/:id', upload.single('profileImage'), async (req, res, next) => {
-  req.file.path = req.file.path.replace(/\\/g, "/")
-  req.file.path = req.file.path.replace("static", "")
   const users = await loadUsers()
   var user = null
-  if (await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
+  if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
+    req.file.path = req.file.path.replace(/\\/g, "/")
+    var newFilename = user._id + path.extname(req.file.filename) 
+    fs.rename(req.file.path, 'static/profileImages/' + newFilename, function(err) {
+      if ( err ) console.log('ERROR: ' + err);
+    })
+    req.file.filename = user._id + path.extname(req.file.filename)
+    req.file.path = '/profileImages/' + newFilename
+
     let params = { profileImage: req.file }
     await users.findOneAndUpdate(
       {"username": req.params.id},
