@@ -215,18 +215,24 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {cb(null, file.originalname )}
 });
 var upload = multer({ storage: storage });
+
 router.post('/profile/upload/image/:id', upload.single('profileImage'), async (req, res, next) => {
   const users = await loadUsers()
   var user = null
+  var date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(' ', '').replace(':', '').replace(':', '').replace('-', '').replace('-', '')
   if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
     req.file.path = req.file.path.replace(/\\/g, "/")
-    var newFilename = user._id + path.extname(req.file.filename) 
+    if (fs.existsSync('static' + user.profileImage.path)){
+      fs.unlinkSync('static' + user.profileImage.path);
+    }
+    
+    var newFilename = date + user._id + path.extname(req.file.filename) 
     fs.rename(req.file.path, 'static/profileImages/' + newFilename, function(err) {
       if ( err ) console.log('ERROR: ' + err);
     })
     req.file.filename = user._id + path.extname(req.file.filename)
     req.file.path = '/profileImages/' + newFilename
-
+    
     let params = { profileImage: req.file }
     await users.findOneAndUpdate(
       {"username": req.params.id},
