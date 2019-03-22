@@ -5,19 +5,31 @@
         <div class="row">
           <div class="col-md-2 dashboard-greeting-display">
             <NuxtLink
-              :to="{path: '/profile/' + user.username}"
+              :to="{path: '/profile/' + userProfile.username}"
               title="Profile"
               style="color: #606060;"
             >
               <div class="user-profile">
                 <div class="profile-image">
                   <div
+                    v-if="userProfile.profileImage"
                     class="ratio img-responsive img-circle"
-                    style="background-image: url(/profile-image/user.jpeg);"
+                    :title="userProfile.firstname + ' ' + userProfile.lastname"
+                    :alt="userProfile.firstname + ' ' + userProfile.lastname"
+                    v-bind:style="{
+                      backgroundImage: 'url(' + userProfile.profileImage.path + ')'
+                    }"
+                  ></div>
+                  <div
+                    v-else
+                    class="ratio img-responsive img-circle"
+                    style="background-image: url(/profileImages/user.png);"
+                    :title="userProfile.firstname + ' ' + userProfile.lastname"
+                    :alt="userProfile.firstname + ' ' + userProfile.lastname"
                   ></div>
                 </div>
                 <br>
-                {{user.firstname}} {{user.lastname}}
+                {{userProfile.firstname}} {{userProfile.lastname}}
               </div>
             </NuxtLink>
           </div>
@@ -51,14 +63,14 @@ export default {
   },
   data() {
     return {
-      user: '',
+      userProfile: '',
       errors: ''
     }
   },
   methods: {},
   created() {
-    this.user = this.$store.state.authUser
-    this.user = this.user.user
+    this.userProfile = this.$store.state.authUser
+    this.userProfile = this.userProfile.user
   }
 }
 </script>
