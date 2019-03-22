@@ -7,7 +7,7 @@
             <div class="item-box">
               <h1 class="heading-two">Services</h1>
             </div>
-            <div class="item-box">
+            <div class="item-box" style="margin-top: 10px;">
               <div class="row">
                 <div class="col-md-12">
                   <div class="row">

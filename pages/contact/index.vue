@@ -7,7 +7,7 @@
             <div class="item-box">
               <h1 class="heading-two">Contact Us</h1>
             </div>
-            <div class>
+            <div style="width: 100%;">
               <form style="margin-top: 50px;" autocomplete="on">
                 <div class="row">
                   <div class="col-md-6">

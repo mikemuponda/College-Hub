@@ -746,13 +746,19 @@ input:valid~label {
   box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
 }
 
+.pb-5 {
+  padding: 60px 0;
+}
+
 .profile-img {
   text-align: center;
 }
+
 .profile-img img {
   width: 70%;
   height: 250px;
 }
+
 .profile-img .file {
   position: relative;
   overflow: hidden;
@@ -761,7 +767,13 @@ input:valid~label {
   border: none;
   border-radius: 0;
   font-size: 15px;
-  background: #212529b8;
+  background: linear-gradient(-135deg, rgb(63, 81, 181), rgb(233, 30, 99));
+  background: -webkit-linear-gradient(-135deg,rgb(63, 81, 181),rgb(233, 30, 99));
+}
+
+.profile-img .file:hover{
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 .profile-img .file input {
@@ -769,6 +781,7 @@ input:valid~label {
   opacity: 0;
   right: 0;
   top: 0;
+  cursor: pointer;
 }
 
 @media (max-width: 316px) {
@@ -802,18 +815,22 @@ input:valid~label {
 .profile-head .nav-tabs {
   margin-bottom: 5%;
 }
+
 .profile-head .nav-tabs .nav-link {
   font-weight: 600;
   border: none;
 }
+
 .profile-head .nav-tabs .nav-link.active {
   border: none;
   border-bottom: 2px solid #0062cc;
 }
+
 .profile-item-brief {
   padding: 14%;
   margin-top: -15%;
 }
+
 .profile-item-brief p {
   font-size: 12px;
   color: #818182;
@@ -827,6 +844,7 @@ input:valid~label {
   font-weight: 600;
   font-size: 14px;
 }
+
 .profile-item-brief ul {
   list-style: none;
 }
@@ -845,6 +863,7 @@ input:valid~label {
   display: inline-block;
   box-sizing: border-box;
 }
+
 .input-div {
   margin-top: 5px;
 }

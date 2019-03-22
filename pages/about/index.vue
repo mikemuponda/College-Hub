@@ -7,7 +7,7 @@
             <div class="item-box">
               <h1 class="heading-two">About Us</h1>
             </div>
-            <div class="item-box">
+            <div class="item-box" style="margin-top: 10px;">
               <div class="row">
                 <div class="col-md-12">
                   <div class="row">
@@ -235,20 +235,6 @@ export default {
 </script>
 
 <style>
-.item-box {
-  background-color: #fff;
-  border-radius: 1px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  margin-top: 10px;
-}
-
-section {
-  padding: 60px 0;
-}
 
 .about-us-p {
   padding: 20px;

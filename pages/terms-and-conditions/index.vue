@@ -7,7 +7,7 @@
             <div class="item-box">
               <h1 class="heading-two">Terms and Conditions</h1>
             </div>
-            <div class="item-box">
+            <div class="item-box" style="margin-top: 10px;">
               <div
                 class="section"
                 style="margin: 20px 0 20px 0; padding: 0 5% 0 5%; border-radius: 1px;"
