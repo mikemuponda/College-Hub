@@ -348,9 +348,15 @@ export default {
       return d.toLocaleTimeString()
     }
   },
-  created() {
-    this.userProfile = this.$store.state.authUser
-    this.userProfile = this.userProfile.user
+  async created() {
+    try {
+      this.userProfile = await this.$store.dispatch('getProfile', {
+        id: this.$store.state.authUser.user.username
+      })
+      this.userProfile = this.userProfile.data.user
+    } catch (e) {
+      this.error = e.message
+    }
     this.socket.emit('ACTIVITY_FEED', {
       user: this.userProfile.username,
       activity: 'has logged in'

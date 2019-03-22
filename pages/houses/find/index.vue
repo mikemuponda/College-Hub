@@ -68,9 +68,15 @@ export default {
     }
   },
   methods: {},
-  created() {
-    this.userProfile = this.$store.state.authUser
-    this.userProfile = this.userProfile.user
+  async created() {
+    try {
+      this.userProfile = await this.$store.dispatch('getProfile', {
+        id: this.$store.state.authUser.user.username
+      })
+      this.userProfile = this.userProfile.data.user
+    } catch (e) {
+      this.error = e.message
+    }
   }
 }
 </script>
