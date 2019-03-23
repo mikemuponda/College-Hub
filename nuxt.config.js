@@ -197,7 +197,8 @@ module.exports = {
     // Api middleware
     // We add /api/login & /api/logout routes
     '~/server/routes/api',
-    '~/server/routes/api/houses'
+    '~/server/routes/api/houses',
+    '~/server/routes/api/contact'
   ],
 
   sitemap: {

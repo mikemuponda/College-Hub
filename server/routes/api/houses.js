@@ -8,7 +8,7 @@ const router = express.Router()
 const app = express()
 
 const sendGridKey = ''
-sgMail.setApiKey(sendGridKey);
+sgMail.setApiKey(sendGridKey)
 
 router.use((req, res, next) => {
   Object.setPrototypeOf(req, app.request)
