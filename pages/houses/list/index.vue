@@ -4,34 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-2 dashboard-greeting-display">
-            <NuxtLink
-              :to="{path: '/profile/' + userProfile.username}"
-              title="Profile"
-              style="color: #606060;"
-            >
-              <div class="user-profile">
-                <div class="profile-image">
-                  <div
-                    v-if="userProfile.profileImage"
-                    class="ratio img-responsive img-circle"
-                    :title="userProfile.firstname + ' ' + userProfile.lastname"
-                    :alt="userProfile.firstname + ' ' + userProfile.lastname"
-                    v-bind:style="{
-                      backgroundImage: 'url(' + userProfile.profileImage.path + ')'
-                    }"
-                  ></div>
-                  <div
-                    v-else
-                    class="ratio img-responsive img-circle"
-                    style="background-image: url(/profileImages/user.png);"
-                    :title="userProfile.firstname + ' ' + userProfile.lastname"
-                    :alt="userProfile.firstname + ' ' + userProfile.lastname"
-                  ></div>
-                </div>
-                <br>
-                {{userProfile.firstname}} {{userProfile.lastname}}
-              </div>
-            </NuxtLink>
+            <greetingColumn/>
           </div>
           <div class="col-md-7">
             <div class="container">
@@ -70,7 +43,8 @@
                           <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit">
+                              <select class="form-control-edit" v-model="Form.spaceType">
+                                <option :value="null">Select Space</option>
                                 <option value="Full House">Full House</option>
                                 <option value="Cottage">Cottage</option>
                                 <option value="Private Room">Private Room</option>
@@ -78,7 +52,8 @@
                               </select>
                             </div>
                             <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit">
+                              <select class="form-control-edit" v-model="Form.totalRoomCount">
+                                <option :value="null">Total Rooms Available</option>
                                 <option value="1">One Room</option>
                                 <option value="2">Two Rooms</option>
                                 <option value="3">Three Rooms</option>
@@ -96,12 +71,14 @@
                           <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit">
+                              <select class="form-control-edit" v-model="Form.city">
+                                <option :value="null">City</option>
                                 <option value="Harare">Harare</option>
                               </select>
                             </div>
                             <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit">
+                              <select class="form-control-edit" v-model="Form.suburb">
+                                <option :value="null">Suburb</option>
                                 <option value="Belgravia">Belgravia</option>
                                 <option value="Avenues">Avenues</option>
                               </select>
@@ -119,17 +96,19 @@
                           <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit">
+                              <select class="form-control-edit" v-model="Form.specificSpaceType">
+                                <option :value="null">Specify the type of Space</option>
                                 <option value="Apartment">Apartment</option>
                                 <option value="House">House</option>
-                                <option value="Hostel">Hostel</option>
-                                <option value="Hostel">Hotel</option>
+                                <option value="Hostel" v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'">Hostel</option>
+                                <option value="Hotel" v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'">Hotel</option>
                               </select>
                             </div>
-                            <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit">
-                                <option value="1">Characteristics</option>
-                                <option value="2">Serviced</option>
+                            <div class="col-md-5 listing-input-div" v-if="Form.specificSpaceType == 'Hostel' || Form.specificSpaceType == 'Hotel'">
+                              <select class="form-control-edit" v-model="Form.features">
+                                <option :value="null">Features</option>
+                                <option value="serviced">serviced</option>
+                                <option value="non-serviced">non-serviced</option>
                               </select>
                             </div>
                           </div>
@@ -142,9 +121,10 @@
                               >Is this set up as a dedicated guest space?</label>
                             </div>
                             <div class="col-md-5 listing-input-div">
-                              <select id="dedicated-space" class="form-control-edit">
-                                <option value="1">Yes, it’s primarily set up for guests</option>
-                                <option value="2">No, there are my personal belongings</option>
+                              <select id="dedicated-space" class="form-control-edit" v-model="Form.isDedicated">
+                                <option :value="null">Is your space dedicated for guests</option>
+                                <option :value="true">Yes, it’s primarily set up for guests</option>
+                                <option :value="false">No, there are my personal belongings</option>
                               </select>
                             </div>
                           </div>
@@ -157,9 +137,10 @@
                               >Are you listing on behalf of a company?</label>
                             </div>
                             <div class="col-md-5 listing-input-div">
-                              <select id="on-behalf" class="form-control-edit">
-                                <option value="1">Yes, I work for or run a hospitality business</option>
-                                <option value="2">No, I'm listing on my own behalf</option>
+                              <select id="on-behalf" class="form-control-edit" v-model="Form.onBehalf">
+                                <option :value="null">Listing on behalf?</option>
+                                <option :value="true">Yes, I work for or run a hospitality business</option>
+                                <option :value="false">No, I'm listing on my own behalf</option>
                               </select>
                             </div>
                           </div>
@@ -172,10 +153,11 @@
                               >Is this space furnished?</label>
                             </div>
                             <div class="col-md-5 listing-input-div">
-                              <select id="furnished-or-not" class="form-control-edit">
-                                <option value="1">Yes, it is fully furnished</option>
-                                <option value="2">It is partially furnished</option>
-                                <option value="3">No, it is not furnished</option>
+                              <select id="furnished-or-not" class="form-control-edit" v-model="Form.furnishStatus">
+                                <option :value="null">Is this space furnished</option>
+                                <option value="Fully Furnished">Yes, it is fully furnished</option>
+                                <option value="Partially Furnished">It is partially furnished</option>
+                                <option value="Not Furnished">No, it is not furnished</option>
                               </select>
                             </div>
                           </div>
@@ -207,7 +189,7 @@
                                       class="btn btn-danger btn-number"
                                       data-type="minus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="guestcount = guestcount - 1"
+                                      v-on:click.prevent="Form.guestcount = Form.guestcount - 1"
                                     >
                                       <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
@@ -216,7 +198,7 @@
                                     type="number"
                                     name="quant[2]"
                                     class="form-control guest-count"
-                                    :value="guestcount"
+                                    :value="Form.guestcount"
                                     min="1"
                                     max="100"
                                     style="border-radius: 4px;"
@@ -227,7 +209,7 @@
                                       class="btn btn-success btn-number"
                                       data-type="plus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="guestcount = guestcount + 1"
+                                      v-on:click.prevent="Form.guestcount = Form.guestcount + 1"
                                       style="margin-right: 10px;"
                                     >
                                       <i class="fa fa-plus" aria-hidden="true"></i>
@@ -256,7 +238,7 @@
                                       class="btn btn-danger btn-number"
                                       data-type="minus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="bedroomcount = bedroomcount - 1"
+                                      v-on:click.prevent="Form.bedroomcount = Form.bedroomcount - 1"
                                     >
                                       <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
@@ -265,7 +247,7 @@
                                     type="number"
                                     name="quant[2]"
                                     class="form-control guest-count"
-                                    :value="bedroomcount"
+                                    :value="Form.bedroomcount"
                                     min="1"
                                     max="100"
                                     style="border-radius: 4px;"
@@ -276,7 +258,7 @@
                                       class="btn btn-success btn-number"
                                       data-type="plus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="bedroomcount = bedroomcount + 1"
+                                      v-on:click.prevent="Form.bedroomcount = Form.bedroomcount + 1"
                                       style="margin-right: 10px;"
                                     >
                                       <i class="fa fa-plus" aria-hidden="true"></i>
@@ -305,7 +287,7 @@
                                       class="btn btn-danger btn-number"
                                       data-type="minus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="countperbedroom = countperbedroom - 1"
+                                      v-on:click.prevent="Form.countperbedroom = Form.countperbedroom - 1"
                                     >
                                       <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
@@ -314,7 +296,7 @@
                                     type="number"
                                     name="quant[2]"
                                     class="form-control guest-count"
-                                    :value="countperbedroom"
+                                    :value="Form.countperbedroom"
                                     min="1"
                                     max="5"
                                     style="border-radius: 4px;"
@@ -325,7 +307,7 @@
                                       class="btn btn-success btn-number"
                                       data-type="plus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="countperbedroom = countperbedroom + 1"
+                                      v-on:click.prevent="Form.countperbedroom = Form.countperbedroom + 1"
                                       style="margin-right: 10px;"
                                     >
                                       <i class="fa fa-plus" aria-hidden="true"></i>
@@ -359,7 +341,7 @@
                                       class="btn btn-danger btn-number"
                                       data-type="minus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="kitchencount = kitchencount - 1"
+                                      v-on:click.prevent="Form.kitchencount = Form.kitchencount - 1"
                                     >
                                       <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
@@ -368,7 +350,7 @@
                                     type="number"
                                     name="quant[2]"
                                     class="form-control guest-count"
-                                    :value="kitchencount"
+                                    :value="Form.kitchencount"
                                     min="1"
                                     max="100"
                                     style="border-radius: 4px;"
@@ -379,7 +361,7 @@
                                       class="btn btn-success btn-number"
                                       data-type="plus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="kitchencount = kitchencount + 1"
+                                      v-on:click.prevent="Form.kitchencount = Form.kitchencount + 1"
                                       style="margin-right: 10px;"
                                     >
                                       <i class="fa fa-plus" aria-hidden="true"></i>
@@ -408,7 +390,7 @@
                                       class="btn btn-danger btn-number"
                                       data-type="minus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="bathroomcount = bathroomcount - 1"
+                                      v-on:click.prevent="Form.bathroomcount = Form.bathroomcount - 1"
                                     >
                                       <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
@@ -417,7 +399,7 @@
                                     type="number"
                                     name="quant[2]"
                                     class="form-control guest-count"
-                                    :value="bathroomcount"
+                                    :value="Form.bathroomcount"
                                     min="1"
                                     max="100"
                                     style="border-radius: 4px;"
@@ -428,7 +410,7 @@
                                       class="btn btn-success btn-number"
                                       data-type="plus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="bathroomcount = bathroomcount + 1"
+                                      v-on:click.prevent="Form.bathroomcount = Form.bathroomcount + 1"
                                       style="margin-right: 10px;"
                                     >
                                       <i class="fa fa-plus" aria-hidden="true"></i>
@@ -457,7 +439,7 @@
                                       class="btn btn-danger btn-number"
                                       data-type="minus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="studyroomcount = studyroomcount - 1"
+                                      v-on:click.prevent="Form.studyroomcount = Form.studyroomcount - 1"
                                     >
                                       <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
@@ -466,7 +448,7 @@
                                     type="number"
                                     name="quant[2]"
                                     class="form-control guest-count"
-                                    :value="studyroomcount"
+                                    :value="Form.studyroomcount"
                                     min="1"
                                     max="100"
                                     style="border-radius: 4px;"
@@ -477,7 +459,7 @@
                                       class="btn btn-success btn-number"
                                       data-type="plus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="studyroomcount = studyroomcount + 1"
+                                      v-on:click.prevent="Form.studyroomcount = Form.studyroomcount + 1"
                                       style="margin-right: 10px;"
                                     >
                                       <i class="fa fa-plus" aria-hidden="true"></i>
@@ -506,7 +488,7 @@
                                       class="btn btn-danger btn-number"
                                       data-type="minus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="diningroomcount = diningroomcount - 1"
+                                      v-on:click.prevent="Form.diningroomcount = Form.diningroomcount - 1"
                                     >
                                       <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
@@ -515,7 +497,7 @@
                                     type="number"
                                     name="quant[2]"
                                     class="form-control guest-count"
-                                    :value="diningroomcount"
+                                    :value="Form.diningroomcount"
                                     min="1"
                                     max="100"
                                     style="border-radius: 4px;"
@@ -526,7 +508,7 @@
                                       class="btn btn-success btn-number"
                                       data-type="plus"
                                       data-field="quant[2]"
-                                      v-on:click.prevent="diningroomcount = diningroomcount + 1"
+                                      v-on:click.prevent="Form.diningroomcount = Form.diningroomcount + 1"
                                       style="margin-right: 10px;"
                                     >
                                       <i class="fa fa-plus" aria-hidden="true"></i>
@@ -894,8 +876,13 @@
 </template>
 
 <script>
+import greetingColumn from '@/components/defaultGreetingColumn'
+
 export default {
   middleware: 'auth',
+  components: {
+    greetingColumn: greetingColumn,
+  },
   head() {
     return {
       title: 'Collegehub | List your house'
@@ -904,15 +891,26 @@ export default {
   data() {
     return {
       userProfile: '',
-      errors: '',
+      errors: [],
       page: 1,
-      guestcount: 1,
-      bedroomcount: 1,
-      countperbedroom: 1,
-      kitchencount: 1,
-      bathroomcount: 1,
-      studyroomcount: 0,
-      diningroomcount: 1,
+      Form: {
+        spaceType: null,
+        totalRoomCount: null,
+        city: null,
+        suburb: null,
+        specificSpaceType: null,
+        features: null,
+        isDedicated: null,
+        onBehalf: null,
+        furnishStatus: null,
+        guestcount: 1,
+        bedroomcount: 1,
+        countperbedroom: 1,
+        kitchencount: 1,
+        bathroomcount: 1,
+        studyroomcount: 0,
+        diningroomcount: 1,
+      },
       markers: [],
       place: null,
       mapCenter: { lat: -17.82422, lng: 31.049363 },
@@ -921,7 +919,35 @@ export default {
   },
   methods: {
     nextPage: function(event) {
-      this.page = this.page + 1
+      if(this.page == 1){
+        if(!this.Form.spaceType)
+          this.errors.push("Please select the space that you are listing")
+        if(!this.Form.totalRoomCount)
+          this.errors.push("Please enter number of rooms you are sharing")
+        if(!this.Form.city)
+          this.errors.push("Please select the city in which your space is located")
+        if(!this.Form.suburb)
+          this.errors.push("Please select the suburb in which your space is located")
+        if(this.Form.spaceType && this.Form.totalRoomCount && this.Form.city && this.Form.suburb){
+          this.page = this.page + 1
+          this.errors = []
+        }
+      }else if(this.page == 2){
+        if(!this.Form.specificSpaceType)
+          this.errors.push("Please specify the type of space")
+        if(this.Form.isDedicated == null)
+          this.errors.push("Please highlight if your space is dedicated for guests")
+        if(this.Form.onBehalf == null)
+          this.errors.push("Please highlight if you are listing on behalf of someone or a company")
+        if(this.Form.furnishStatus == null)
+          this.errors.push("Please highlight if your space is furnished")
+        if(this.Form.specificSpaceType && this.Form.isDedicated != null && this.Form.onBehalf != null && this.Form.furnishStatus != null){
+          this.page = this.page + 1
+          this.errors = []
+        }
+      }else{
+        this.page = this.page + 1
+      }
     },
     prevPage: function(event) {
       this.page = this.page - 1

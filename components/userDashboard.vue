@@ -332,7 +332,7 @@ export default {
       activity: '',
       activities: [],
       time: '',
-      socket: io('lekkahub.com')
+      socket: io('localhost:8080')
     }
   },
   methods: {
