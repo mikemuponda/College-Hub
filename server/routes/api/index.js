@@ -18,7 +18,7 @@ router.use((req, res, next) => {
   next()
 })
 
-//Load Data From MongoDB
+//Load Users From MongoDB
 const loadUsers = async function () {
   const client = await mongodb.MongoClient.connect('mongodb://lekka:lekka123@ds046377.mlab.com:46377/collegehub', {useNewUrlParser: true})
   return client.db('collegehub').collection('users')
