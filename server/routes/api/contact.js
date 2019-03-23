@@ -27,7 +27,7 @@ router.post('/message/send', async (req, res) => {
 	var message = null
 	message = await contactMessage.insertOne(req.body, function (err, result){
 		const msg = {
-      to: "tinashe@lekkahub.com",
+      to: "collegehubzw@gmail.com",
       cc: req.body.email,
       from: req.body.name + ' <' + req.body.email + '>',
       subject: 'Message from ' + req.body.name,

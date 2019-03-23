@@ -54,7 +54,7 @@ router.post('/signup', async (req, res) => {
     })
     const msg = {
       to: req.body.email,
-      cc: "tinashe@lekkahub.com",
+      cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Please confirm your email',
       html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="https://www.lekkahub.com/confirm-signup/' + key + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
@@ -77,7 +77,7 @@ router.post('/confirm-signup/:id', async (req, res) => {
     )
     const msg = {
       to: req.body.email,
-      cc: "tinashe@lekkahub.com",
+      cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Your email account has been confirmed',
       html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
@@ -119,7 +119,7 @@ router.post('/forgot-password', async (req, res) => {
     )
     const msg = {
       to: user.email,
-      cc: "tinashe@lekkahub.com",
+      cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Reset Your Password',
       html: '<h2>Hi, ' + user.firstname + '</h2><p>It seems you forgot your password. Please <a href="https://www.lekkahub.com/reset-password/' + key + '" title="Collegehub">clicking this link</a> to reset your password.</p><p>Regards</p>',
@@ -143,7 +143,7 @@ router.post('/reset-password/:id', async (req, res) => {
     )
     const msg = {
       to: user.email,
-      cc: "tinashe@lekkahub.com",
+      cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Reset Your Password',
       html: '<h2>Hi, ' + user.firstname + '</h2><p>Your password has been reset. Your new password is: <strong>'+ req.body.password +'</strong>.<br>Go to <a href="https://www.lekkahub.com" title="Collegehub">Collegehub</a> and login.</p><p>Regards</p>',
@@ -261,7 +261,7 @@ router.post('/profile/edit/username/:id', async (req, res) => {
     if (user = await users.findOne({ "email": req.params.id, "isConfirmed": true})) {
       const msg = {
         to: req.params.id,
-        cc: "tinashe@lekkahub.com",
+        cc: "collegehubzw@gmail.com",
         from: 'Collegehub <noreply@collegehub.co.zw>',
         subject: 'Collegehub: Your Username has successfully been changed',
         html: '<h2>Hi, ' + user.firstname + '</h2><p>Your username has successfully been changed to ' + user.username + '. Please follow <a href="https://www.lekkahub.com/profile/' + user.username + '" title="Profile">this link</a> to check out your profile</p><p>Regards</p>',
