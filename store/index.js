@@ -148,6 +148,20 @@ export const actions = {
       }
       throw error
     }
-  }
+  },
+
+  async contact({commit}, {name, email, phone, message}){
+    var url = '/contact/message/send'
+    try {
+      return await axios.post(url, {name, email, phone, message})
+    } catch (error) {
+      if (error.response && error.response.status === 401){ 
+        throw new Error("Message could not ne sent")
+      }else{ 
+        throw new Error("Message could not ne sent")
+      }
+      throw error
+    }
+  },
 
 }

@@ -8,7 +8,24 @@
               <h1 class="heading-two">Contact Us</h1>
             </div>
             <div style="width: 100%;">
-              <form style="margin-top: 50px;" autocomplete="on">
+              <form method="post" style="margin-top: 50px;" autocomplete="on">
+                <div class="row alert alert-danger" v-if="errors.length">
+                  <div class="col-md-12">
+                    <ul style="color: #000000;">
+                      <li
+                        v-for="(error, index) in errors"
+                        :item="error"
+                        :index="index"
+                        :key="error"
+                      >{{ error }}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row alert alert-success" v-if="sent">
+                  <div class="col-md-12">
+                    Your message has successfully been sent. We will reply you as soon as possible.
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
@@ -19,7 +36,7 @@
                         class="form-control"
                         placeholder="Full Name"
                         autocomplete="false"
-                        value
+                        required
                       >
                     </div>
                     <div class="form-group">
@@ -30,7 +47,7 @@
                         class="form-control"
                         placeholder="Email"
                         autocomplete="false"
-                        value
+                        required
                       >
                     </div>
                     <div class="form-group">
@@ -54,6 +71,7 @@
                         placeholder="Your Message"
                         style="width: 100%; height: 150px;"
                         autocomplete="false"
+                        required
                       ></textarea>
                     </div>
                   </div>
@@ -61,11 +79,12 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input
+                      <button
                         class="default-button"
                         value="Send Message"
                         style="cursor: pointer; text-align: center;"
-                      >
+                        v-on:click.prevent="send"
+                      >Send</button>
                     </div>
                   </div>
                 </div>
@@ -133,7 +152,6 @@
               <h2 class="subheading-three">ads and other stuff to come here</h2>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -155,7 +173,21 @@ export default {
         phone: '',
         message: ''
       },
+      errors: [],
+      sent: null,
       markers: [{ position: { lat: -17.82422, lng: 31.049363 } }]
+    }
+  },
+  methods: {
+    send: async function(e) {
+      try {
+        if (await this.$store.dispatch('contact', this.contactForm)){
+          this.sent = true
+          this.contactForm = null
+        }
+      } catch (e) {
+        this.errors.push(e.message)
+      }
     }
   },
   mounted() {

@@ -37,7 +37,7 @@ router.post('/message/send', async (req, res) => {
 		if(err)
 			res.status(401).json({message: 'Error Adding message'})
 		else
-			res.status(201).json({message})
+			res.status(201).json({message: 'Your message has successfully been sent'})
 	})
 })
 
