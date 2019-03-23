@@ -183,7 +183,10 @@ export default {
       try {
         if (await this.$store.dispatch('contact', this.contactForm)){
           this.sent = true
-          this.contactForm = null
+          this.contactForm.name = null
+          this.contactForm.email = null
+          this.contactForm.phone = null
+          this.contactForm.message = null
         }
       } catch (e) {
         this.errors.push(e.message)
