@@ -3,10 +3,14 @@
     <section id="privacypolicy" class="pb-5">
       <div class="container">
         <div class="row">
-          <div class="col-md-8 col-sm-8 col-xs-8">
+          <div class="col-md-12">
             <div class="item-box">
               <h1 class="heading-two">Terms and Conditions</h1>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8 col-sm-8 col-xs-8">
             <div class="item-box" style="margin-top: 10px;">
               <div
                 class="section"
@@ -154,9 +158,7 @@
           </div>
 
           <div class="col-md-4 col-sm-4 col-xs-4">
-            <div class="item-box">
-              <h2 class="subheading-three">ads and other stuff to come here</h2>
-            </div>
+            <div style="margin-top: 10px"><defaultAdsColumn/></div>
           </div>
         </div>
       </div>
@@ -165,7 +167,11 @@
 </template>
 
 <script>
+import defaultAdsColumn from '@/components/defaultAdsColumn'
 export default {
+  components: {
+    defaultAdsColumn: defaultAdsColumn
+  },
   head() {
     return {
       title: 'Collegehub | Terms and Conditions'

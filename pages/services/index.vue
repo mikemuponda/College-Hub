@@ -3,10 +3,14 @@
 		<section id="services" class="pb-5">
       <div class="container">
         <div class="row">
-          <div class="col-md-8 col-sm-8 col-xs-8">
+          <div class="col-md-12">
             <div class="item-box">
               <h1 class="heading-two">Services</h1>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8 col-sm-8 col-xs-8">
             <div class="item-box" style="margin-top: 10px;">
               <div class="row">
                 <div class="col-md-12">
@@ -17,7 +21,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <p class="about-us-p">
+                      <p class="services-p">
                         College hub offers house owners a platform to share their properties with
                         prospective occupants who are the students.Our clients(students) have nothing
                         short of an efficient ,easy way of accessing off campus accommodation. We
@@ -40,7 +44,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <p class="about-us-p">
+                      <p class="services-p">
                         Students due to their busy schedules hardly have ample time to go through
                         different websites online to look for a place to have lunch ,dinner,etc.
                         College hub in partnership will restaurants close to campus site ,brings
@@ -60,7 +64,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <p class="about-us-p">
+                      <p class="services-p">
                         Its quite a nightmare when you find yourself stuck in town or anywhere
                         else away from campus especially at night on a rainy day and there are
                         no public buses to the college.College hub is here to take away that
@@ -77,9 +81,7 @@
 
 
           <div class="col-md-4 col-sm-4 col-xs-4">
-            <div class="item-box">
-              <h2 class="subheading-three">ads and other stuff to come here</h2>
-            </div>
+            <div style="margin-top: 10px"><defaultAdsColumn/></div>
           </div>
 
 
@@ -90,7 +92,11 @@
 </template>
 
 <script>
+import defaultAdsColumn from '@/components/defaultAdsColumn'
 export default {
+  components: {
+    defaultAdsColumn: defaultAdsColumn
+  },
   head() {
     return {
       title: 'Collegehub | Services',
@@ -102,3 +108,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.services-p {
+  padding: 20px;
+  text-align: justify;
+}
+</style>
