@@ -100,11 +100,20 @@
                                 <option :value="null">Specify the type of Space</option>
                                 <option value="Apartment">Apartment</option>
                                 <option value="House">House</option>
-                                <option value="Hostel" v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'">Hostel</option>
-                                <option value="Hotel" v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'">Hotel</option>
+                                <option
+                                  value="Hostel"
+                                  v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'"
+                                >Hostel</option>
+                                <option
+                                  value="Hotel"
+                                  v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'"
+                                >Hotel</option>
                               </select>
                             </div>
-                            <div class="col-md-5 listing-input-div" v-if="Form.specificSpaceType == 'Hostel' || Form.specificSpaceType == 'Hotel'">
+                            <div
+                              class="col-md-5 listing-input-div"
+                              v-if="Form.specificSpaceType == 'Hostel' || Form.specificSpaceType == 'Hotel'"
+                            >
                               <select class="form-control-edit" v-model="Form.features">
                                 <option :value="null">Features</option>
                                 <option value="serviced">serviced</option>
@@ -121,7 +130,11 @@
                               >Is this set up as a dedicated guest space?</label>
                             </div>
                             <div class="col-md-5 listing-input-div">
-                              <select id="dedicated-space" class="form-control-edit" v-model="Form.isDedicated">
+                              <select
+                                id="dedicated-space"
+                                class="form-control-edit"
+                                v-model="Form.isDedicated"
+                              >
                                 <option :value="null">Is your space dedicated for guests</option>
                                 <option :value="true">Yes, it’s primarily set up for guests</option>
                                 <option :value="false">No, there are my personal belongings</option>
@@ -137,7 +150,11 @@
                               >Are you listing on behalf of a company?</label>
                             </div>
                             <div class="col-md-5 listing-input-div">
-                              <select id="on-behalf" class="form-control-edit" v-model="Form.onBehalf">
+                              <select
+                                id="on-behalf"
+                                class="form-control-edit"
+                                v-model="Form.onBehalf"
+                              >
                                 <option :value="null">Listing on behalf?</option>
                                 <option :value="true">Yes, I work for or run a hospitality business</option>
                                 <option :value="false">No, I'm listing on my own behalf</option>
@@ -153,7 +170,11 @@
                               >Is this space furnished?</label>
                             </div>
                             <div class="col-md-5 listing-input-div">
-                              <select id="furnished-or-not" class="form-control-edit" v-model="Form.furnishStatus">
+                              <select
+                                id="furnished-or-not"
+                                class="form-control-edit"
+                                v-model="Form.furnishStatus"
+                              >
                                 <option :value="null">Is this space furnished</option>
                                 <option value="Fully Furnished">Yes, it is fully furnished</option>
                                 <option value="Partially Furnished">It is partially furnished</option>
@@ -532,10 +553,13 @@
                           <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit">
-                                <option value="0">House Number</option>
-                                <option v-for="index in 60" :key="index" :value="index">{{index}}</option>
-                              </select>
+                              <input
+                                type="text"
+                                class="form-control-edit"
+                                style="border-radius: 1px;"
+                                placeholder="House Number"
+                                v-model="Form.addressHouseNumber"
+                              >
                             </div>
                             <div class="col-md-5 listing-input-div">
                               <input
@@ -543,6 +567,7 @@
                                 class="form-control-edit"
                                 style="border-radius: 1px;"
                                 placeholder="Street"
+                                v-model="Form.addressStreet"
                               >
                             </div>
                           </div>
@@ -550,11 +575,13 @@
                           <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit">
-                                <option value="0">Suburb</option>
-                                <option value="Belgravia">Belgravia</option>
-                                <option value="Avondale">Avondale</option>
-                              </select>
+                              <input
+                                type="text"
+                                class="form-control-edit"
+                                style="border-radius: 1px;"
+                                placeholder="Suburb"
+                                v-model="Form.addressSuburb"
+                              >
                             </div>
                             <div class="col-md-5 listing-input-div">
                               <input
@@ -562,6 +589,7 @@
                                 class="form-control-edit"
                                 style="border-radius: 1px;"
                                 placeholder="Township or District"
+                                v-model="Form.addressTownship"
                               >
                             </div>
                           </div>
@@ -588,7 +616,7 @@
                                 <Gmap-Map
                                   style="height: 100%"
                                   class="gmap"
-                                  :zoom="10"
+                                  :zoom="12"
                                   :center="{lat: mapCenter.lat, lng: mapCenter.lng}"
                                 >
                                   <Gmap-Marker
@@ -598,7 +626,7 @@
                                   ></Gmap-Marker>
                                   <Gmap-Marker
                                     v-if="this.place"
-                                    label="{this.place}"
+                                    label="this.place"
                                     style="background-color: red; width: 200px;"
                                     :position="{lat: this.place.geometry.location.lat(), lng: this.place.geometry.location.lng(),}"
                                   ></Gmap-Marker>
@@ -621,21 +649,39 @@
                             <div class="col-md-3 listing-input-div">
                               <label for="beds" class="btn btn-success amenities">
                                 <i class="fas fa-bed"></i> Beds
-                                <input type="checkbox" id="beds" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="beds"
+                                  class="badgebox"
+                                  v-model="Form.amenities.beds"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
                               <label for="essentials" class="btn btn-success amenities">
                                 <i class="fas fa-briefcase"></i> Essentials
-                                <input type="checkbox" id="essentials" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="essentials"
+                                  class="badgebox"
+                                  v-model="Form.amenities.essentials"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
                               <label for="wifi" class="btn btn-success amenities">
                                 <i class="fas fa-wifi"></i> Wifi
-                                <input type="checkbox" id="wifi" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="wifi"
+                                  class="badgebox"
+                                  v-model="Form.amenities.wifi"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
@@ -646,21 +692,39 @@
                             <div class="col-md-3 listing-input-div">
                               <label for="desks" class="btn btn-success amenities">
                                 <i class="fas fa-table"></i> Desks
-                                <input type="checkbox" id="desks" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="desks"
+                                  class="badgebox"
+                                  v-model="Form.amenities.desks"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
                               <label for="drawer" class="btn btn-success amenities">
                                 <i class="fas fa-archway"></i> Drawers
-                                <input type="checkbox" id="drawer" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="drawer"
+                                  class="badgebox"
+                                  v-model="Form.amenities.drawer"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
                               <label for="television" class="btn btn-success amenities">
                                 <i class="fas fa-tv"></i> TV
-                                <input type="checkbox" id="television" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="television"
+                                  class="badgebox"
+                                  v-model="Form.amenities.television"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
@@ -671,21 +735,39 @@
                             <div class="col-md-3 listing-input-div">
                               <label for="pool" class="btn btn-success amenities">
                                 <i class="fas fa-swimming-pool"></i> Pool
-                                <input type="checkbox" id="pool" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="pool"
+                                  class="badgebox"
+                                  v-model="Form.amenities.pool"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
                               <label for="laundry" class="btn btn-success amenities">
                                 <i class="fas fa-tshirt"></i> Laundry
-                                <input type="checkbox" id="laundry" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="laundry"
+                                  class="badgebox"
+                                  v-model="Form.amenities.laundry"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
                               <label for="parking" class="btn btn-success amenities">
                                 <i class="fas fa-car"></i> Parking
-                                <input type="checkbox" id="parking" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="parking"
+                                  class="badgebox"
+                                  v-model="Form.amenities.parking"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
@@ -696,21 +778,39 @@
                             <div class="col-md-3 listing-input-div">
                               <label for="elevator" class="btn btn-success amenities">
                                 <i class="fab fa-accessible-icon"></i> Elevator
-                                <input type="checkbox" id="elevator" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="elevator"
+                                  class="badgebox"
+                                  v-model="Form.amenities.elevator"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
                               <label for="hottub" class="btn btn-success amenities">
                                 <i class="fas fa-hot-tub"></i> Hot Tub
-                                <input type="checkbox" id="hottub" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="hottub"
+                                  class="badgebox"
+                                  v-model="Form.amenities.hottub"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
                               <label for="gym" class="btn btn-success amenities">
                                 <i class="fas fa-dumbbell"></i> Gym
-                                <input type="checkbox" id="gym" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="gym"
+                                  class="badgebox"
+                                  v-model="Form.amenities.gym"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
@@ -721,21 +821,39 @@
                             <div class="col-md-3 listing-input-div">
                               <label for="firstaid" class="btn btn-warning amenities">
                                 <i class="fas fa-first-aid"></i> First Aid
-                                <input type="checkbox" id="firstaid" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="firstaid"
+                                  class="badgebox"
+                                  v-model="Form.amenities.firstaid"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
-                              <label for="fire" class="btn btn-warning amenities">
+                              <label for="fireextinguisher" class="btn btn-warning amenities">
                                 <i class="fas fa-fire-extinguisher"></i> Extinguisher
-                                <input type="checkbox" id="fire" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="fireextinguisher"
+                                  class="badgebox"
+                                  v-model="Form.amenities.fireextinguisher"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
                             <div class="col-md-3 listing-input-div">
                               <label for="locks" class="btn btn-warning amenities">
                                 <i class="fas fa-lock"></i> Locks
-                                <input type="checkbox" id="locks" class="badgebox">
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="locks"
+                                  class="badgebox"
+                                  v-model="Form.amenities.locks"
+                                >
                                 <span class="badge">&check;</span>
                               </label>
                             </div>
@@ -817,7 +935,7 @@
                               </p>
                               <div class="agree" style="text-align: center;">
                                 <label style="font-size: 2.5em;">
-                                  <input type="checkbox" value checked>
+                                  <input type="checkbox" value checked required>
                                   <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                   </span>
@@ -881,7 +999,7 @@ import greetingColumn from '@/components/defaultGreetingColumn'
 export default {
   middleware: 'auth',
   components: {
-    greetingColumn: greetingColumn,
+    greetingColumn: greetingColumn
   },
   head() {
     return {
@@ -894,12 +1012,12 @@ export default {
       errors: [],
       page: 1,
       Form: {
+        owner: null,
         spaceType: null,
         totalRoomCount: null,
         city: null,
         suburb: null,
         specificSpaceType: null,
-        features: null,
         isDedicated: null,
         onBehalf: null,
         furnishStatus: null,
@@ -910,6 +1028,29 @@ export default {
         bathroomcount: 1,
         studyroomcount: 0,
         diningroomcount: 1,
+        addressHouseNumber: null,
+        addressStreet: null,
+        addressSuburb: null,
+        addressTownship: null,
+        addressLatitude: null,
+        addressLongitude: null,
+        amenities: {
+          beds: false,
+          essentials: false,
+          wifi: false,
+          desks: false,
+          drawer: false,
+          television: false,
+          pool: false,
+          laundry: false,
+          parking: false,
+          elevator: false,
+          hottub: false,
+          gym: false,
+          firstaid: false,
+          fireextinguisher: false,
+          locks: false
+        }
       },
       markers: [],
       place: null,
@@ -919,33 +1060,108 @@ export default {
   },
   methods: {
     nextPage: function(event) {
-      if(this.page == 1){
-        if(!this.Form.spaceType)
-          this.errors.push("Please select the space that you are listing")
-        if(!this.Form.totalRoomCount)
-          this.errors.push("Please enter number of rooms you are sharing")
-        if(!this.Form.city)
-          this.errors.push("Please select the city in which your space is located")
-        if(!this.Form.suburb)
-          this.errors.push("Please select the suburb in which your space is located")
-        if(this.Form.spaceType && this.Form.totalRoomCount && this.Form.city && this.Form.suburb){
+      if (this.page == 1) {
+        this.errors = []
+        if (!this.Form.spaceType)
+          this.errors.push('Please select the space that you are listing')
+        if (!this.Form.totalRoomCount)
+          this.errors.push('Please enter number of rooms you are sharing')
+        if (!this.Form.city)
+          this.errors.push(
+            'Please select the city in which your space is located'
+          )
+        if (!this.Form.suburb)
+          this.errors.push(
+            'Please select the suburb in which your space is located'
+          )
+        if (
+          this.Form.spaceType &&
+          this.Form.totalRoomCount &&
+          this.Form.city &&
+          this.Form.suburb
+        ) {
           this.page = this.page + 1
           this.errors = []
         }
-      }else if(this.page == 2){
-        if(!this.Form.specificSpaceType)
-          this.errors.push("Please specify the type of space")
-        if(this.Form.isDedicated == null)
-          this.errors.push("Please highlight if your space is dedicated for guests")
-        if(this.Form.onBehalf == null)
-          this.errors.push("Please highlight if you are listing on behalf of someone or a company")
-        if(this.Form.furnishStatus == null)
-          this.errors.push("Please highlight if your space is furnished")
-        if(this.Form.specificSpaceType && this.Form.isDedicated != null && this.Form.onBehalf != null && this.Form.furnishStatus != null){
+      } else if (this.page == 2) {
+        this.errors = []
+        if (!this.Form.specificSpaceType)
+          this.errors.push('Please specify the type of space')
+        if (this.Form.isDedicated == null)
+          this.errors.push(
+            'Please highlight if your space is dedicated for guests'
+          )
+        if (this.Form.onBehalf == null)
+          this.errors.push(
+            'Please highlight if you are listing on behalf of someone or a company'
+          )
+        if (this.Form.furnishStatus == null)
+          this.errors.push('Please highlight if your space is furnished')
+        if (
+          this.Form.specificSpaceType &&
+          this.Form.isDedicated != null &&
+          this.Form.onBehalf != null &&
+          this.Form.furnishStatus != null
+        ) {
           this.page = this.page + 1
           this.errors = []
         }
-      }else{
+      } else if (this.page == 3) {
+        this.errors = []
+        if (this.Form.guestcount < 1)
+          this.errors.push('Number of guests should be at least 1')
+        if (this.Form.bedroomcount < 1)
+          this.errors.push('Number of bedrooms should be at least 1')
+        if (this.Form.countperbedroom < 1)
+          this.errors.push('Number of people per bedroom should be at least 1')
+        if (
+          this.Form.guestcount >= 1 &&
+          this.Form.bedroomcount >= 1 &&
+          this.Form.countperbedroom >= 1
+        ) {
+          this.page = this.page + 1
+          this.errors = []
+        }
+      } else if (this.page == 4) {
+        this.errors = []
+        if (
+          this.Form.kitchencount < 0 ||
+          this.Form.bathroomcount < 0 ||
+          this.Form.studyroomcount < 0 ||
+          this.Form.diningroomcount < 0
+        )
+          this.errors.push('Please make sure that numbers are at least 0')
+        if (
+          this.Form.kitchencount >= 0 &&
+          this.Form.bathroomcount >= 0 &&
+          this.Form.studyroomcount >= 0 &&
+          this.Form.diningroomcount >= 0
+        ) {
+          this.page = this.page + 1
+          this.errors = []
+        }
+      } else if (this.page == 5) {
+        this.errors = []
+        if (
+          !this.Form.addressHouseNumber ||
+          !this.Form.addressStreet ||
+          !this.Form.addressSuburb
+        )
+          this.errors.push('Please enter your full address')
+        if (this.Form.addressLatitude == null || this.addressLongitude == null)
+          this.errors.push('Please pinpoint your space on the Map')
+        if (
+          this.Form.addressHouseNumber &&
+          this.Form.addressStreet &&
+          this.Form.addressSuburb
+        ) {
+          this.page = this.page + 1
+          this.errors = []
+        }
+      } else if (this.page == 6) {
+        this.page = this.page + 1
+        this.errors = []
+      } else {
         this.page = this.page + 1
       }
     },
@@ -954,25 +1170,26 @@ export default {
     },
     setPlace(place) {
       this.place = place
-    },
-    usePlace(place) {
-      if (this.place) {
-        this.markers.push({
-          position: {
-            lat: this.place.geometry.location.lat(),
-            lng: this.place.geometry.location.lng()
-          }
-        }),
-          (this.mapCenter.lat = this.place.geometry.location.lat())
-        this.mapCenter.lng = this.place.geometry.location.lng()
-        this.place = null
-      }
+      this.Form.addressLatitude = this.place.geometry.location.lat()
+      this.Form.addressLongitude = this.place.geometry.location.lng()
+      this.mapCenter.lat = this.Form.addressLatitude
+      this.mapCenter.lng = this.Form.addressLongitude
     },
     onFileChange(e) {
       const file = e.target.files[0]
       this.imageUrl = URL.createObjectURL(file)
     },
-    addListing: function(event) {}
+    async addListing(e) {
+      if (!this.errors.length) {
+        try {
+          await this.$store.dispatch('addListing', this.Form)
+          this.Form = ''
+        } catch (e) {
+          this.errors.push(e.message)
+        }
+      }
+      e.preventDefault()
+    }
   },
   async created() {
     try {
@@ -980,6 +1197,7 @@ export default {
         id: this.$store.state.authUser.user.username
       })
       this.userProfile = this.userProfile.data.user
+      this.Form.owner = this.userProfile._id
     } catch (e) {
       this.error = e.message
     }

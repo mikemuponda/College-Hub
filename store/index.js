@@ -164,4 +164,19 @@ export const actions = {
     }
   },
 
+  async addListing({commit}, Form){
+    var url = '/houses/list/house'
+    console.log(Form)
+    try {
+      return await axios.post(url, Form)
+    } catch (error) {
+      if (error.response && error.response.status === 401){ 
+        throw new Error("Message could not ne sent")
+      }else{ 
+        throw new Error("Message could not ne sent")
+      }
+      throw error
+    }
+  }
+
 }
