@@ -78,8 +78,19 @@
                           <div class="col-md-5 listing-input-div">
                             <select class="form-control-edit" v-model="Form.suburb">
                               <option :value="null">Suburb</option>
-                              <option value="Belgravia">Belgravia</option>
+                              <option value="Alexandra Park">Alexandra Park</option>
+                              <option value="Arundale">Arundale</option>
                               <option value="Avenues">Avenues</option>
+                              <option value="Avondale">Avondale</option>
+                              <option value="Belgravia">Belgravia</option>
+                              <option value="Borrowdale">Borrowdale</option>
+                              <option value="CBD">CBD</option>
+                              <option value="Emerald Hill">Emerald Hill</option>
+                              <option value="Groom Bridge">Groom Bridge</option>
+                              <option value="Gunhill">Gunhill</option>
+                              <option value="Kensington">Kensington</option>
+                              <option value="Milton Park">Milton Park</option>
+                              <option value="Mount Pleasant">Mount Pleasant</option>
                             </select>
                           </div>
                         </div>
@@ -608,6 +619,11 @@
                               ></gmap-autocomplete>
                             </no-ssr>
                           </div>
+                        </div><br>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h2 class="subheading-three" style="font-size: 14px;">Please drag the marker to the location of your space</h2>
+                          </div>
                         </div>
                         <div class="row">
                           <div class="col-md-1"></div>
@@ -619,7 +635,7 @@
                               <Gmap-Map
                                 style="height: 100%"
                                 class="gmap"
-                                :zoom="12"
+                                :zoom="13"
                                 :center="{lat: mapCenter.lat, lng: mapCenter.lng}"
                               >
                                 <Gmap-Marker
@@ -628,10 +644,12 @@
                                   :position="marker.position"
                                 ></Gmap-Marker>
                                 <Gmap-Marker
-                                  v-if="this.place"
+                                  :draggable="true"
+                                  :clickable="true"
+                                  @dragend="resetCoordinates"
                                   label="this.place"
                                   style="background-color: red; width: 200px;"
-                                  :position="{lat: this.place.geometry.location.lat(), lng: this.place.geometry.location.lng(),}"
+                                  :position="{lat: this.Form.addressLatitude, lng: this.Form.addressLongitude,}"
                                 ></Gmap-Marker>
                               </Gmap-Map>
                             </no-ssr>
@@ -921,6 +939,51 @@
                               <i class="fa fa-plus imgAdd"></i>
                             </div>
                           </div>
+                        </div><br>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h2 class="subheading-three">Set the price</h2>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-1"></div>
+                          <div class="col-md-2 listing-input-div">
+                            <select class="form-control-edit" v-model="Form.priceCurrency">
+                              <option :value="null">Currency</option>
+                              <option value="ZW$">RTGS $</option>
+                              <option value="US$">US $</option>
+                              <option value="SAR">SA R</option>
+                              <option value="BWP">BW P</option>
+                              <option value="GB£">GB £</option>
+                              <option value="EU€">EU €</option>
+                            </select>
+                          </div>
+                          <div class="col-md-2 listing-input-div">
+                            <input
+                              type="number"
+                              class="form-control-edit"
+                              style="border-radius: 1px;"
+                              placeholder="Price"
+                              v-model="Form.priceValue"
+                            >
+                          </div>
+                          <div class="col-md-3 listing-input-div">
+                            <select class="form-control-edit" v-model="Form.priceMethod">
+                              <option :value="null">Pricing Method</option>
+                              <option value="perHead">per Head</option>
+                              <option value="perRoom">per Room</option>
+                              <option value="fullHouse">Full House</option>
+                            </select>
+                          </div>
+                          <div class="col-md-2 listing-input-div">
+                            <select class="form-control-edit" v-model="Form.priceTime">
+                              <option :value="null">Unit Time</option>
+                              <option value="Week">per Week</option>
+                              <option value="Month">per Month</option>
+                              <option value="Semester">per Semester</option>
+                              <option value="Year">per Year</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
 
@@ -1057,8 +1120,8 @@ export default {
         addressStreet: null,
         addressSuburb: null,
         addressTownship: null,
-        addressLatitude: null,
-        addressLongitude: null,
+        addressLatitude: -17.82422,
+        addressLongitude: 31.049363,
         features: null,
         amenities: {
           beds: false,
@@ -1078,7 +1141,11 @@ export default {
           locks: false
         },
         title: null,
-        description: null
+        description: null,
+        priceCurrency: null,
+        priceValue: null,
+        priceMethod: null,
+        priceTime: null
       },
       markers: [],
       place: null,
@@ -1195,8 +1262,18 @@ export default {
           this.errors.push('Please enter a title')
         if (!this.Form.description)
           this.errors.push('Please enter a short description')
+        if (!this.Form.priceCurrency)
+          this.errors.push('Please select currency')
+        if (!this.Form.priceValue)
+          this.errors.push('Please enter amount')
+        if (this.Form.priceValue < 1)
+          this.errors.push('Please enter a valid price')
+        if (!this.Form.priceMethod)
+          this.errors.push('Please select how you intend to price your space')
+        if (!this.Form.priceTime)
+          this.errors.push('Please select unit time')
 
-        if (this.Form.description && this.Form.title){
+        if (this.Form.description && this.Form.title && this.Form.priceCurrency && this.Form.priceValue && this.Form.priceMethod && this.Form.priceTime && this.Form.priceValue >= 1){
           this.page = this.page + 1
           this.errors = []
         }
@@ -1213,6 +1290,10 @@ export default {
       this.Form.addressLongitude = this.place.geometry.location.lng()
       this.mapCenter.lat = this.Form.addressLatitude
       this.mapCenter.lng = this.Form.addressLongitude
+    },
+    resetCoordinates(place){
+      this.Form.addressLatitude = place.latLng.lat()
+      this.Form.addressLongitude = place.latLng.lng()
     },
     onFileChange(e) {
       const file = e.target.files[0]
