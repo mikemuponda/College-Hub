@@ -23,10 +23,6 @@ export default {
     recommended: recommended,
     userDashboard: userDashboard
   },
-  mounted() {
-    this.$nextTick(() => {this.$nuxt.$loading.start()})
-    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
-  },
   head() {
     return {
       title: 'Collegehub | Home',

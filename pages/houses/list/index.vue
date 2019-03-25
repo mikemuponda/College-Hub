@@ -53,16 +53,16 @@
                           <div class="col-md-5 listing-input-div">
                             <select class="form-control-edit" v-model="Form.totalRoomCount">
                               <option :value="null">Total Rooms Available</option>
-                              <option value="1">One Room</option>
-                              <option value="2">Two Rooms</option>
-                              <option value="3">Three Rooms</option>
-                              <option value="4">Four Rooms</option>
-                              <option value="5">Five Rooms</option>
-                              <option value="6">Five Rooms</option>
-                              <option value="7">Six Rooms</option>
-                              <option value="8">Seven Rooms</option>
-                              <option value="9">Eight Rooms</option>
-                              <option value="10">Nine Rooms</option>
+                              <option value="One Room">One Room</option>
+                              <option value="Two Rooms">Two Rooms</option>
+                              <option value="Three Rooms">Three Rooms</option>
+                              <option value="Four Rooms">Four Rooms</option>
+                              <option value="Five Rooms">Five Rooms</option>
+                              <option value="Six Rooms">Six Rooms</option>
+                              <option value="Seven Rooms">Seven Rooms</option>
+                              <option value="Eight Rooms">Eight Rooms</option>
+                              <option value="Nine Rooms">Nine Rooms</option>
+                              <option value="Ten Rooms">Ten Rooms</option>
                             </select>
                           </div>
                         </div>
@@ -94,8 +94,17 @@
                         </div>
                         <div class="row">
                           <div class="col-md-1"></div>
+                          <div
+                            class="col-md-5 listing-input-div"
+                            v-if="Form.spaceType != 'Private Room' && Form.spaceType != 'Shared Room'"
+                          >
+                            <label
+                              class="listing-label"
+                              for="specificSpaceType"
+                            >Please specify the type of space you are sharing.</label>
+                          </div>
                           <div class="col-md-5 listing-input-div">
-                            <select class="form-control-edit" v-model="Form.specificSpaceType">
+                            <select class="form-control-edit" v-model="Form.specificSpaceType" id="specificSpaceType">
                               <option :value="null">Specify the type of Space</option>
                               <option value="Apartment">Apartment</option>
                               <option value="House">House</option>
@@ -111,7 +120,7 @@
                           </div>
                           <div
                             class="col-md-5 listing-input-div"
-                            v-if="Form.specificSpaceType == 'Hostel' || Form.specificSpaceType == 'Hotel'"
+                            v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'"
                           >
                             <select class="form-control-edit" v-model="Form.features">
                               <option :value="null">Features</option>
@@ -1031,6 +1040,7 @@ export default {
         addressTownship: null,
         addressLatitude: null,
         addressLongitude: null,
+        features: null,
         amenities: {
           beds: false,
           essentials: false,
@@ -1188,7 +1198,8 @@ export default {
       e.preventDefault()
     }
   },
-  async created() {
+  async mounted() {
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
     try {
       this.userProfile = await this.$store.dispatch('getProfile', {
         id: this.$store.state.authUser.user.username
@@ -1198,6 +1209,7 @@ export default {
     } catch (e) {
       this.error = e.message
     }
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   }
 }
 </script>

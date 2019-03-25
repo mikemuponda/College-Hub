@@ -102,11 +102,11 @@
                       class="row prof-blok"
                       style="padding-bottom: 0px; padding-top: 0px; margin-bottom: 0px; margin-top: 30px;"
                     >
-                      <div class="md-col-5" style="width: 10%; margin-left: 10%;">
-                        <p class="fonts-seven">Email</p>
+                      <div style="width: 10%; margin-left: 10%; float: left;">
+                        <p style="font-size: 12px; font-weight: 500;">Email</p>
                       </div>
-                      <div class="md-col-6" style="width: 70%;">
-                        <p class="fonts-six">hello@collegehub.co.zw</p>
+                      <div style="width: 70%; float: left;">
+                        <p style="font-size: 12px; padding-left: 20px;">hello@collegehub.co.zw</p>
                       </div>
                     </div>
                     <hr style="width: 80%;">
@@ -114,11 +114,11 @@
                       class="row prof-blok"
                       style="padding-bottom: 0px; padding-top: 0px; margin-bottom: 0px; margin-top: 0px;"
                     >
-                      <div class="md-col-5" style="width: 10%; margin-left: 10%;">
-                        <p class="fonts-seven">Mobile</p>
+                      <div style="width: 10%; margin-left: 10%; float: left;">
+                        <p style="font-size: 12px; font-weight: 500;">Mobile</p>
                       </div>
-                      <div class="md-col-6" style="width: 70%;">
-                        <p class="fonts-six">+263778011367</p>
+                      <div style="width: 70%; float: left;">
+                        <p style="font-size: 12px; padding-left: 20px;">+263 778 011 367</p>
                       </div>
                     </div>
                     <hr style="width: 80%;">

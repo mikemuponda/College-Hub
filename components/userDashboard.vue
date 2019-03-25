@@ -262,7 +262,8 @@ export default {
       userProfile: ''
     }
   },
-  async created() {
+  async mounted() {
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
     try {
       this.userProfile = await this.$store.dispatch('getProfile', {
         id: this.$store.state.authUser.user.username
@@ -271,6 +272,7 @@ export default {
     } catch (e) {
       this.error = e.message
     }
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   }
 }
 </script>
