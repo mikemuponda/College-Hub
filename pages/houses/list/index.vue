@@ -878,6 +878,7 @@
                               class="form-control-edit"
                               style="border-radius: 1px;"
                               placeholder="Title"
+                              v-model="Form.title"
                             >
                           </div>
                         </div>
@@ -891,6 +892,7 @@
                               rows="4"
                               maxlength="200"
                               minlength="1500"
+                              v-model="Form.description"
                             ></textarea>
                           </div>
                         </div>
@@ -950,11 +952,27 @@
                               class="default-button"
                               style="width: 95%;"
                               v-on:click.prevent="addListing"
-                              v-if="page >= 8"
+                              v-if="page == 8"
                             >Add Listing</button>
                           </div>
                         </div>
                         <div class="col-md-4"></div>
+                      </div>
+
+                      <!-- Page 9 : Response Page -->
+                      <div class="form-section" style="width: 100%;" v-if="page == 9 && submitted">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h2 class="subheading-three">Your Listing has been added</h2>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="alert alert-success">
+                              Your listing has successfully been added.
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <div class="row" style="margin-top: 50px;">
@@ -964,7 +982,7 @@
                               <button
                                 class="default-button"
                                 style="width: 100px;"
-                                v-if="page != 1"
+                                v-if="page > 1 && page < 9"
                                 v-on:click.prevent="prevPage"
                               >Back</button>
                               <p style="color: #fff;">.</p>
@@ -1017,6 +1035,7 @@ export default {
       userProfile: '',
       errors: [],
       page: 1,
+      submitted: false,
       Form: {
         owner: null,
         spaceType: null,
@@ -1057,7 +1076,9 @@ export default {
           firstaid: false,
           fireextinguisher: false,
           locks: false
-        }
+        },
+        title: null,
+        description: null
       },
       markers: [],
       place: null,
@@ -1168,6 +1189,17 @@ export default {
       } else if (this.page == 6) {
         this.page = this.page + 1
         this.errors = []
+      }else if (this.page == 7) {
+        this.errors = []
+        if (!this.Form.title)
+          this.errors.push('Please enter a title')
+        if (!this.Form.description)
+          this.errors.push('Please enter a short description')
+
+        if (this.Form.description && this.Form.title){
+          this.page = this.page + 1
+          this.errors = []
+        }
       } else {
         this.page = this.page + 1
       }
@@ -1189,8 +1221,12 @@ export default {
     async addListing(e) {
       if (!this.errors.length) {
         try {
-          await this.$store.dispatch('addListing', this.Form)
-          this.Form = ''
+          if(
+          await this.$store.dispatch('addListing', this.Form)){
+            this.submitted = true
+            this.page = this.page + 1
+            this.Form = ''
+          }
         } catch (e) {
           this.errors.push(e.message)
         }

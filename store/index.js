@@ -166,7 +166,6 @@ export const actions = {
 
   async addListing({commit}, Form){
     var url = '/houses/list/house'
-    console.log(Form)
     try {
       return await axios.post(url, Form)
     } catch (error) {
