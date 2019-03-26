@@ -136,7 +136,7 @@ export default {
           }
         }
       }
-      this.counter = Math.round((i / j) * this.max)
+      this.counter = 100 - Math.round((i / j) * this.max)
 
       this.socket.emit('ACTIVITY_FEED', {
         user: this.userProfile,

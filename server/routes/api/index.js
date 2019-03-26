@@ -43,13 +43,6 @@ router.post('/signup', async (req, res) => {
       isSeeker: req.body.isSeeker,
       isConfirmed: false,
       confirmationKey: key,
-      location: req.body.location,
-      houses_owned: req.body.houses_owned,
-      house_id: req.body.house_id,
-      house_no: req.body.house_no,
-      street: req.body.street,
-      surbub: req.body.surbub,
-      requests_made: req.body.requests_made,
       createdAt: new Date()
     })
     const msg = {

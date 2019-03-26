@@ -138,51 +138,99 @@
                 </div>
 
                 <div style="width: 100%;" v-else>
-                  <div class="row nopadding" style="width: 100%;">
-                    <div class="col-md-12 inner-title-sec">
-                      <h2>Rental Requests</h2>
-                    </div>
-                  </div>
-
-                  <div class="row nopadding feed">
-                    <div class="col-md-12">
-                      <div class="rental-image-div" style="width: 20%; float: left;">
-                        <div
-                          class="ratio img-responsive img-circle"
-                          style="background-image: url(/houses/collegehub-alexandra.jpeg);"
-                        ></div>
+                  <div class="forSeekers" style="width: 100%" v-if="userProfile.isSeeker">
+                    <div class="row nopadding" style="width: 100%;">
+                      <div class="col-md-12 inner-title-sec">
+                        <h2>Rental Requests</h2>
                       </div>
-                      <div class="-div" style="width: 80%; float: left;">
-                        <div class="row">
-                          <div class="col-md-8">
-                            <h3 class="section-subtitle">Avondale, Harare</h3>
-                            <p
-                              class="section-small-text"
-                            >King George Street &#8811; Avondale &#8811; Harare</p>
-                            <div class="section-amenities">
-                              <div style="width: 50%; float: left;">
-                                <p class="section-small-text">
-                                  <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
-                                </p>
-                                <p class="section-small-text">
-                                  <i class="fas fa-wifi"></i>Wifi
-                                </p>
+                    </div>
+
+                    <div class="row nopadding feed">
+                      <div class="col-md-12">
+                        <div class="rental-image-div" style="width: 20%; float: left;">
+                          <div
+                            class="ratio img-responsive img-circle"
+                            style="background-image: url(/houses/collegehub-alexandra.jpeg);"
+                          ></div>
+                        </div>
+                        <div class="-div" style="width: 80%; float: left;">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <h3 class="section-subtitle">Avondale, Harare</h3>
+                              <p
+                                class="section-small-text"
+                              >King George Street &#8811; Avondale &#8811; Harare</p>
+                              <div class="section-amenities">
+                                <div style="width: 50%; float: left;">
+                                  <p class="section-small-text">
+                                    <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
+                                  </p>
+                                  <p class="section-small-text">
+                                    <i class="fas fa-wifi"></i>Wifi
+                                  </p>
+                                </div>
+                                <div style="width: 50%; float: left;">
+                                  <p class="section-small-text">
+                                    <i class="fas fa-bed"></i>
+                                    2 Bedrooms
+                                  </p>
+                                  <p class="section-small-text">
+                                    <i class="fas fa-couch"></i>
+                                    Furnished
+                                  </p>
+                                </div>
                               </div>
-                              <div style="width: 50%; float: left;">
-                                <p class="section-small-text">
-                                  <i class="fas fa-bed"></i>
-                                  2 Bedrooms
-                                </p>
-                                <p class="section-small-text">
-                                  <i class="fas fa-couch"></i>
-                                  Furnished
-                                </p>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="rental-alert">
+                                <h2 class="success">Approved</h2>
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-4">
-                            <div class="rental-alert">
-                              <h2 class="success">Approved</h2>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row nopadding feed">
+                      <div class="col-md-12">
+                        <div class="rental-image-div" style="width: 20%; float: left;">
+                          <div
+                            class="ratio img-responsive img-circle"
+                            style="background-image: url(/houses/house-four.jpeg);"
+                          ></div>
+                        </div>
+                        <div class="-div" style="width: 80%; float: left;">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <h3 class="section-subtitle">Avenues, Harare</h3>
+                              <p
+                                class="section-small-text"
+                              >Baines Street &#8811; Avenues &#8811; Harare</p>
+                              <div class="section-amenities">
+                                <div style="width: 50%; float: left;">
+                                  <p class="section-small-text">
+                                    <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
+                                  </p>
+                                  <p class="section-small-text">
+                                    <i class="fas fa-wifi"></i>Wifi
+                                  </p>
+                                </div>
+                                <div style="width: 50%; float: left;">
+                                  <p class="section-small-text">
+                                    <i class="fas fa-bed"></i>
+                                    1 Bedroom
+                                  </p>
+                                  <p class="section-small-text">
+                                    <i class="fas fa-couch"></i>
+                                    Furnished
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="rental-alert">
+                                <h2 class="danger">Disapproved</h2>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -190,46 +238,96 @@
                     </div>
                   </div>
 
-                  <div class="row nopadding feed">
-                    <div class="col-md-12">
-                      <div class="rental-image-div" style="width: 20%; float: left;">
-                        <div
-                          class="ratio img-responsive img-circle"
-                          style="background-image: url(/houses/house-four.jpeg);"
-                        ></div>
+                  <div class="forProviders" style="width: 100%" v-if="!userProfile.isSeeker">
+                    <div class="houseAvailable" style="width: 100%">
+                      <div class="row nopadding" style="width: 100%;">
+                        <div class="col-md-12 inner-title-sec">
+                          <h2>My Houses</h2>
+                        </div>
                       </div>
-                      <div class="-div" style="width: 80%; float: left;">
+
+                      <div style="width: 100%; text-align: center;" v-if="houseExists == false">
+                        <p
+                          style="margin-top: 30px; color: #000;"
+                          class="subheading"
+                        >It looks like you haven't listed your space yet</p>
                         <div class="row">
-                          <div class="col-md-8">
-                            <h3 class="section-subtitle">Avenues, Harare</h3>
-                            <p
-                              class="section-small-text"
-                            >Baines Street &#8811; Avenues &#8811; Harare</p>
-                            <div class="section-amenities">
-                              <div style="width: 50%; float: left;">
-                                <p class="section-small-text">
-                                  <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
-                                </p>
-                                <p class="section-small-text">
-                                  <i class="fas fa-wifi"></i>Wifi
-                                </p>
+                          <div class="col-md-3"></div>
+                          <div class="col-md-6">
+                            <NuxtLink :to="'/houses/list'" title="List Your House">
+                              <button
+                                style="margin-bottom: 30px;"
+                                class="default-button"
+                              >List Your House</button>
+                            </NuxtLink>
+                          </div>
+                          <div class="col-md-3"></div>
+                        </div>
+                      </div>
+
+                      <div style="width: 100%;" v-if="houseExists == true">
+                        <div
+                          class="row nopadding feed"
+                          v-for="(house, index) in housesOwned"
+                          :key="index"
+                        >
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-4 rental-image-div">
+                                <div
+                                  class="ratio img-responsive img-circle resizeHouseimage"
+                                  style="background-image: url(/houses/collegehub-alexandra.jpeg); margin-top: 10px;"
+                                ></div>
                               </div>
-                              <div style="width: 50%; float: left;">
-                                <p class="section-small-text">
-                                  <i class="fas fa-bed"></i>
-                                  1 Bedroom
-                                </p>
-                                <p class="section-small-text">
-                                  <i class="fas fa-couch"></i>
-                                  Furnished
-                                </p>
+                              <div class="col-md-8">
+                                <div class="row">
+                                  <div class="col-md-12 houseMobileStyles">
+                                    <h3 class="section-subtitle">{{house.title}}</h3>
+                                    <p
+                                      class="section-small-text"
+                                    >{{house.addressSuburb}}, {{house.city}}</p>
+                                    <div style="width: 100%; margin-top: 10px;">
+                                      <p class="section-small-text">{{house.description}}</p>
+                                    </div>
+                                    <div class="section-amenities">
+                                      <div style="width: 50%; float: left;">
+                                        <p class="section-small-text">
+                                          <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
+                                        </p>
+                                        <p class="section-small-text">
+                                          <i class="fas fa-wifi"></i>Wifi
+                                        </p>
+                                      </div>
+                                      <div style="width: 50%; float: left;">
+                                        <p class="section-small-text">
+                                          <i class="fas fa-bed"></i>
+                                          2 Bedrooms
+                                        </p>
+                                        <p class="section-small-text">
+                                          <i class="fas fa-couch"></i>
+                                          Furnished
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-4">
-                            <div class="rental-alert">
-                              <h2 class="danger">Disapproved</h2>
+                        </div>
+
+                        <div style="width: 100%; padding-top: 50px;">
+                          <div class="row nopadding feed">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                              <NuxtLink :to="'/houses/list'" title="Add another house">
+                                <button
+                                  style="margin-bottom: 30px;"
+                                  class="default-button"
+                                >Add another house</button>
+                              </NuxtLink>
                             </div>
+                            <div class="col-md-4"></div>
                           </div>
                         </div>
                       </div>
@@ -238,9 +336,13 @@
                 </div>
               </div>
             </div>
+
+
             <div class="col-md-4">
               <defaultAdsColumn/>
             </div>
+
+
           </div>
         </div>
       </div>
@@ -259,20 +361,53 @@ export default {
   data() {
     return {
       user: '',
-      userProfile: ''
+      userProfile: '',
+      housesOwned: null,
+      houseExists: null
     }
   },
   async mounted() {
-    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+    })
     try {
       this.userProfile = await this.$store.dispatch('getProfile', {
         id: this.$store.state.authUser.user.username
       })
       this.userProfile = this.userProfile.data.user
+      if (!this.userProfile.isSeeker) {
+        this.houseExists = await this.$store.dispatch('getHousesByID', {
+          id: this.userProfile._id
+        })
+        if (this.houseExists.data.message == 'House could not be found')
+          this.houseExists = false
+        else if (this.houseExists.data.message == '404')
+          this.houseExists = false
+        else {
+          this.housesOwned = this.houseExists.data
+          this.houseExists = true
+        }
+      }
     } catch (e) {
       this.error = e.message
     }
-    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
+    this.$nextTick(() => {
+      setTimeout(() => this.$nuxt.$loading.finish(), 0)
+    })
   }
 }
 </script>
+
+<style>
+@media only screen and (max-width: 756px) {
+  .resizeHouseimage {
+    height: 0;
+    padding-bottom: 40%;
+    width: 40%;
+    margin-left: 30%;
+  }
+  .houseMobileStyles{
+    text-align: center;
+  }
+}
+</style>

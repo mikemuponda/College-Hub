@@ -42,7 +42,7 @@ router.get('/allhouses', async (req, res) => {
   res.send(await houses.find({}).toArray())
 })
 
-//Get one house
+//Get one house by id
 router.post('/house/:id', async (req, res) => {
   const houses = await loadHouses()
   var house = null
@@ -51,6 +51,19 @@ router.post('/house/:id', async (req, res) => {
   }else{
 		res.status(401).json({message: 'House could not be found'})
 	}
+})
+
+//Get houses by owner
+router.post('/owner/:id', async (req, res) => {
+  const houses = await loadHouses()
+  var housesOwnned = null
+  if(housesOwnned = await houses.find({owner: req.params.id}).toArray())
+    if(!housesOwnned.length)
+      res.status(201).json({message: 'House could not be found'})
+    else
+      res.send(housesOwnned)
+  else
+    res.status(401).json({message: 'House could not be found'})
 })
 
 //Delete House
