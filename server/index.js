@@ -38,9 +38,9 @@ async function start() {
 
   //io.on('connection', function(socket) { socket.on('SEND_MESSAGE', function(data) { io.emit('MESSAGE', data)});})
   //io.on('connection', function(socket) { socket.on('ACTIVITY_FEED', function(data) { io.emit('ACTIVITY', data)});})
-  //consola.ready({
-  //  message: `Server listening on http://${host}:${port}`,
-  //  badge: true
-  //})
+  consola.ready({
+    message: `Server listening on http://${host}:${port}`,
+    badge: true
+  })
 }
 start()
