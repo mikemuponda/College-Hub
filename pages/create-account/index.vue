@@ -44,6 +44,7 @@
                   class="custom-select form-control"
                   required="required"
                 >
+                  <option :value="null">Account Type</option>
                   <option value="1">Finding Accomodation</option>
                   <option value="2">Sharing a House</option>
                 </select>

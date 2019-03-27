@@ -158,18 +158,9 @@
                         </div>
                         <div class="col-md-6">
                           <select v-model="Form.sex" class="form-control-edit" id="sex">
-                            <option
-                              :value="userProfile.sex"
-                              v-if="userProfile.sex"
-                            >{{userProfile.sex}}</option>
-                            <option
-                              v-if="!userProfile.sex || (userProfile.sex == 'Male')"
-                              value="Female"
-                            >Female</option>
-                            <option
-                              v-if="!userProfile.sex || (userProfile.sex == 'Female')"
-                              value="Male"
-                            >Male</option>
+                            <option :value="null">Sex</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
                           </select>
                         </div>
                       </div>
@@ -184,16 +175,9 @@
                             class="form-control-edit"
                             id="accountType"
                           >
-                            <option
-                              value="Finding Accomodation"
-                              v-if="userProfile.isSeeker"
-                            >Finding Accomodation</option>
-                            <option
-                              value="Listing Accomodation"
-                              v-if="!userProfile.isSeeker"
-                            >Listing Accomodation</option>
+                            <option :value="null">Account Type</option>
                             <option value="1">Finding Accomodation</option>
-                            <option value="2">Listing Accomodation</option>
+                            <option value="2">Sharing a House</option>
                           </select>
                         </div>
                       </div>

@@ -34,17 +34,6 @@ router.post('/signup', async (req, res) => {
     res.status(409).json({message: 'Username is already in use'})
   } else {
     key = (Math.floor(1000 + Math.random() * 9000)) + '-' + req.body.email
-    await users.insertOne({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-      isSeeker: req.body.isSeeker,
-      isConfirmed: false,
-      confirmationKey: key,
-      createdAt: new Date()
-    })
     const msg = {
       to: req.body.email,
       cc: "collegehubzw@gmail.com",
@@ -52,7 +41,20 @@ router.post('/signup', async (req, res) => {
       subject: 'Collegehub: Please confirm your email',
       html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="https://www.lekkahub.com/confirm-signup/' + key + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
     }
-    sgMail.send(msg)
+    if(sgMail.send(msg)){
+      await users.insertOne({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        isSeeker: req.body.isSeeker,
+        isConfirmed: false,
+        confirmationKey: key,
+        createdAt: new Date()
+      })
+    }
+    
     res.status(201).json({
       message: 'Your account has been created. A confirmation email has been sent to ' + req.body.email
     })
@@ -215,8 +217,10 @@ router.post('/profile/upload/image/:id', upload.single('profileImage'), async (r
   var date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(' ', '').replace(':', '').replace(':', '').replace('-', '').replace('-', '')
   if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
     req.file.path = req.file.path.replace(/\\/g, "/")
-    if (fs.existsSync('static' + user.profileImage.path)){
-      fs.unlinkSync('static' + user.profileImage.path);
+    if(typeof user.profileImage.path !== 'undefined'){
+      if (fs.existsSync('static' + user.profileImage.path)){
+        fs.unlinkSync('static' + user.profileImage.path);
+      }
     }
     
     var newFilename = date + user._id + path.extname(req.file.filename) 
