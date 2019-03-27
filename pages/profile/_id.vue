@@ -155,7 +155,7 @@
                           <label for="sex">Sex</label>
                         </div>
                         <div class="col-md-6">
-                          <select v-model="Form.sex" class="form-control-edit" id="sex">
+                          <select id="sex" class="form-control-edit" v-model="Form.sex">
                             <option :value="null">Sex</option>
                             <option value="Female">Female</option>
                             <option value="Male">Male</option>
@@ -168,10 +168,10 @@
                         </div>
                         <div class="col-md-6">
                           <select
-                            v-model="seeker"
+                            id="accountType"
                             @change="onChange($event)"
                             class="form-control-edit"
-                            id="accountType"
+                            v-model="seeker"
                           >
                             <option :value="null">Account Type</option>
                             <option value="1">Finding Accomodation</option>

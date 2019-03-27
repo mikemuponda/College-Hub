@@ -51,6 +51,10 @@ router.post('/signup', async (req, res) => {
         isSeeker: req.body.isSeeker,
         isConfirmed: false,
         confirmationKey: key,
+        profileImage: null,
+        dob: null,
+        phone: null,
+        sex: null,
         createdAt: new Date()
       })
     }
@@ -218,7 +222,7 @@ router.post('/profile/upload/image/:id', upload.single('profileImage'), async (r
   var date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(' ', '').replace(':', '').replace(':', '').replace('-', '').replace('-', '')
   if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
     req.file.path = req.file.path.replace(/\\/g, "/")
-    if(typeof user.profileImage !== 'undefined'){
+    if(typeof user.profileImage !== 'undefined' || user.profileImage != null){
       if (fs.existsSync('static' + user.profileImage.path)){
         fs.unlinkSync('static' + user.profileImage.path);
       }

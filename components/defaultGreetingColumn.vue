@@ -131,7 +131,7 @@ export default {
         j++
         if (this.userProfile.hasOwnProperty(index)) {
           var value = this.userProfile[index]
-          if (value == '' || value == null) {
+          if ((value == '' || value == null) && value != false) {
             i++
           }
         }
