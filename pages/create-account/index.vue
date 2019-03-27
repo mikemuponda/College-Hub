@@ -40,7 +40,6 @@
                 <select
                   v-model="seeker"
                   @change="onChange($event)"
-                  name="seeker"
                   class="custom-select form-control"
                   required="required"
                 >
@@ -55,7 +54,6 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="firstname"
                   placeholder="First Name"
                   v-model="Form.firstname"
                   required="required"
@@ -65,7 +63,6 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="lastname"
                   placeholder="Last Name"
                   v-model="Form.lastname"
                   required="required"
@@ -77,7 +74,6 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="username"
                   placeholder="Username"
                   v-model="Form.username"
                   required="required"
@@ -87,7 +83,6 @@
                 <input
                   type="email"
                   class="form-control"
-                  name="email"
                   placeholder="Email"
                   v-model="Form.email"
                   required="required"
@@ -99,7 +94,6 @@
                 <input
                   type="password"
                   class="form-control"
-                  name="password"
                   placeholder="Password"
                   v-model="Form.password"
                   required="required"
@@ -109,7 +103,6 @@
                 <input
                   type="password"
                   class="form-control"
-                  name="confirm_password"
                   placeholder="Confirm Password"
                   v-model="confirm_password"
                   required="required"

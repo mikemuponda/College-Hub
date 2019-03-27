@@ -116,7 +116,6 @@
                             type="email"
                             class="form-control-edit"
                             id="email"
-                            name="email"
                             :placeholder="userProfile.email"
                             v-model="Form.email"
                           >
@@ -146,7 +145,6 @@
                             type="date"
                             class="form-control-edit"
                             id="dob"
-                            name="dob"
                             :placeholder="userProfile.dob"
                             v-model="Form.dob"
                           >
@@ -154,7 +152,7 @@
                       </div>
                       <div class="row input-div">
                         <div class="col-md-4">
-                          <label for="accountType">Sex</label>
+                          <label for="sex">Sex</label>
                         </div>
                         <div class="col-md-6">
                           <select v-model="Form.sex" class="form-control-edit" id="sex">
