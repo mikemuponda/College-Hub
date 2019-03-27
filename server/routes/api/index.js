@@ -76,7 +76,7 @@ router.post('/confirm-signup/:id', async (req, res) => {
       cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Your email account has been confirmed',
-      html: '<h2>Hi, ' + user.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
+      html: '<h2>Hello, ' + user.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
     }
     sgMail.send(msg)
     var user = await users.findOne({"confirmationKey": req.params.id})
