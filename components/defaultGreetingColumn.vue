@@ -42,7 +42,7 @@
       </div>
     </div>
     <!-- Feed Item Start -->
-    <!-- <div
+    <div
       style="background-color: #fff; border-radius: 2px;"
       class="item white shadow cf mobileHide"
       v-for="(activity, index) in activities.slice().reverse()"
@@ -88,12 +88,12 @@
           </div>
         </div>
       </NuxtLink>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-//import io from 'socket.io-client'
+import io from 'socket.io-client'
 export default {
   data() {
     return {
@@ -102,22 +102,22 @@ export default {
       max: 100,
       activity: '',
       activities: [],
-      //time: '',
-     // socket: io('lekkahub.com')
+      time: '',
+      socket: io('lekkahub.com')
     }
   },
   methods: {
-    //shareActivity() {
-    //  this.socket.emit('ACTIVITY_FEED', {
-    //    user: this.user.username,
-    //    activity: this.activity
-    //  })
-    //  this.activity = ''
-   // },
-   // timer() {
-    //  var d = new Date()
-    //  return d.toLocaleTimeString()
-    //}
+    shareActivity() {
+      this.socket.emit('ACTIVITY_FEED', {
+        user: this.user.username,
+        activity: this.activity
+      })
+      this.activity = ''
+    },
+    timer() {
+      var d = new Date()
+      return d.toLocaleTimeString()
+    }
   },
   async created() {
     try {

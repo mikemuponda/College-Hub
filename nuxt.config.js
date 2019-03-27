@@ -178,7 +178,10 @@ module.exports = {
       src: "~/plugins/vue-google-maps.js",
       ssr: false
     },
-    //{src: "~/plugins/socketio.js", ssr: false}
+    {
+      src: "~/plugins/socketio.js",
+      ssr: false
+    }
   ],
 
   serverMiddleware: [
