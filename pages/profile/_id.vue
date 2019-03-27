@@ -8,11 +8,11 @@
             class="alert alert-danger"
             v-if="error.length > 1"
           >{{error}}</div>
-          <div class="container" v-else>
+          <div style="width: 100%;" v-else>
             <div class="emp-profile">
               <form method="post" enctype="multipart/form-data">
                 <div class="row">
-                  <div class="col-md-4" style="margin-top: 10px;">
+                  <div class="col-md-3" style="margin-top: 10px;">
                     <div class="profile-img item-box">
                       <div
                         v-if="userProfile.profileImage && !imageUrl"
@@ -58,7 +58,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6" style="margin-top: 10px;">
+                  <div class="col-md-7" style="margin-top: 10px;">
                     <div class="edit-profile-section profile-head item-box" v-if="displayEdit">
                       <ul class="nav nav-tabs">
                         <li class="nav-item">

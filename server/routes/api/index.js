@@ -64,18 +64,19 @@ router.post('/signup', async (req, res) => {
 //Email Confirmation
 router.post('/confirm-signup/:id', async (req, res) => {
   const users = await loadUsers()
-  if (await users.findOne({"confirmationKey": req.params.id})) {
+  var user = null
+  if (user = await users.findOne({"confirmationKey": req.params.id})) {
     await users.findOneAndUpdate(
       {"confirmationKey": req.params.id},
       {$set: {"isConfirmed": true}},
       {upsert: true,}
     )
     const msg = {
-      to: req.body.email,
+      to: user.email,
       cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Your email account has been confirmed',
-      html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
+      html: '<h2>Hi, ' + user.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
     }
     sgMail.send(msg)
     var user = await users.findOne({"confirmationKey": req.params.id})
