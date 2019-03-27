@@ -644,10 +644,10 @@
                                   :position="marker.position"
                                 ></Gmap-Marker>
                                 <Gmap-Marker
+                                  :icon="{ url: require('@/assets/icons/map-marker.png')}"
                                   :draggable="true"
                                   :clickable="true"
                                   @dragend="resetCoordinates"
-                                  label="this.place"
                                   style="background-color: red; width: 200px;"
                                   :position="{lat: this.Form.addressLatitude, lng: this.Form.addressLongitude,}"
                                 ></Gmap-Marker>
