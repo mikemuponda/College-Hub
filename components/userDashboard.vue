@@ -291,21 +291,45 @@
                                     </div>
                                     <div class="section-amenities">
                                       <div style="width: 50%; float: left;">
-                                        <p class="section-small-text">
-                                          <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
+                                        <p class="section-small-text" v-if="house.specificSpaceType == 'Apartment'">
+                                          <i class="fas fa-building"></i>
+                                          {{house.specificSpaceType}}
                                         </p>
-                                        <p class="section-small-text">
-                                          <i class="fas fa-wifi"></i>Wifi
+                                        <p class="section-small-text" v-else-if="house.specificSpaceType == 'House'">
+                                          <i class="fas fa-home"></i>
+                                          {{house.specificSpaceType}}
+                                        </p>
+                                        <p class="section-small-text" v-else>
+                                          <i class="fas fa-hotel"></i>
+                                          {{house.specificSpaceType}}
+                                        </p>
+                                        <p class="section-small-text" v-if="house.amenities.wifi">
+                                          <i class="fas fa-wifi"></i> Wifi
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.essentials">
+                                          <i class="fas fa-briefcase"></i> Essentials
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.desks">
+                                          <i class="fas fa-table"></i> Desks
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.drawer">
+                                          <i class="fas fa-archway"></i> Drawers
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.television">
+                                            <i class="fas fa-tv"></i> TV
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.locks">
+                                            <i class="fas fa-lock"></i> Locks
                                         </p>
                                       </div>
                                       <div style="width: 50%; float: left;">
                                         <p class="section-small-text">
                                           <i class="fas fa-bed"></i>
-                                          2 Bedrooms
+                                          {{house.bedroomcount}} Bedrooms  
                                         </p>
                                         <p class="section-small-text">
                                           <i class="fas fa-couch"></i>
-                                          Furnished
+                                          {{house.furnishStatus}}
                                         </p>
                                       </div>
                                     </div>
