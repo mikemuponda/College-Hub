@@ -89,6 +89,16 @@
         </div>
       </NuxtLink>
     </div>
+
+    <div class="row nopadding" style="width: 100%;">
+      <div class="col-md-12 nopadding">
+        <div style="width: 100%; margin-bottom: 10px; margin-top: 10px;" class="item-box">
+          <no-ssr>
+            <flip-countdown deadline="2019-05-22 23:59:59"></flip-countdown>
+          </no-ssr>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

@@ -181,6 +181,10 @@ module.exports = {
     {
       src: "~/plugins/socketio.js",
       ssr: false
+    },
+    {
+      src: "~/plugins/vue2-flip-countdown.js",
+      ssr: false
     }
   ],
 
