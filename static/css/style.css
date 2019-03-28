@@ -401,7 +401,7 @@ input:valid~label {
   display: block;
   text-align: center;
   text-decoration: none;
-  color: #eee;
+  color: #fff;
   font-family: roboto;
   font-weight: 100;
   padding: 10px;
@@ -411,6 +411,28 @@ input:valid~label {
   border: none;
   width: 100%;
   cursor: pointer;
+}
+
+.default-button-small {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  font-family: roboto;
+  font-weight: 80;
+  font-size: 14px;
+  padding: 1px;
+  margin-top: 10px;
+  border-radius: 2px;
+  outline: none;
+  opacity: 0.8;
+  border: none;
+  width: 95%;
+  margin-left: 2.5%;
+  cursor: pointer;
+  -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
 }
 
 .forgot-and-create {
@@ -598,7 +620,7 @@ input:valid~label {
 
 @media only screen and (min-width: 756px) {
   .feed {
-    height: 170px;
+    height: 250px;
   }
 }
 

@@ -1145,7 +1145,9 @@ export default {
         priceCurrency: null,
         priceValue: null,
         priceMethod: null,
-        priceTime: null
+        priceTime: null,
+        status: 'Active',
+        createdAt: new Date(),
       },
       markers: [],
       place: null,

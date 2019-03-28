@@ -196,6 +196,26 @@ export const actions = {
       return "404"
       throw error
     }
-  }
+  },
+
+  async changeHouseStatus({commit}, {id, status}){
+    var url = '/houses/house/edit/' + id
+    try {
+      return await axios.post(url, {status})
+    } catch (error) {
+      return "404"
+      throw error
+    }
+  },
+
+  async deleteHouse({commit}, {id}){
+    var url = '/houses/delete/' + id
+    try {
+      return await axios.delete(url)
+    } catch (error) {
+      return "404"
+      throw error
+    }
+  },
 
 }

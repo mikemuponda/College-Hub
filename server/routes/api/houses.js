@@ -30,16 +30,29 @@ router.post('/list/house', async (req, res) => {
 	var house = null
 	house = await houses.insertOne(req.body, function (err, result){
 		if(err)
-			res.status(401).json({message: 'Error Adding house'})
+      return res.status(401).json({message: 'Error Adding house'})
 		else
-			res.status(201).json({house})
+      return res.status(201).json({house})
 	})
+})
+
+//Edit a house
+router.post('/house/edit/:id', async (req, res) => {
+	const houses = await loadHouses()
+	var house = null
+  let params = { updatedAt: new Date() }
+  if(await houses.findOneAndUpdate({"_id": new mongodb.ObjectID(req.params.id)}, {$set: Object.assign(params, req.body)}, {upsert: true,})){
+    house = await houses.findOne({ "_id": new mongodb.ObjectID(req.params.id)})
+    return res.json({house})
+  }else{
+    return res.status(401).json({message: 'House could not be found'})
+  }
 })
 
 //Get All Houses
 router.get('/allhouses', async (req, res) => {
   const houses = await loadHouses()
-  res.send(await houses.find({}).toArray())
+  return res.send(await houses.find({}).toArray())
 })
 
 //Get one house by id
@@ -49,7 +62,7 @@ router.post('/house/:id', async (req, res) => {
   if (house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id)})) {
     return res.json({house})
   }else{
-		res.status(401).json({message: 'House could not be found'})
+		return res.status(401).json({message: 'House could not be found'})
 	}
 })
 
@@ -66,13 +79,14 @@ router.post('/owner/:id', async (req, res) => {
     res.status(401).json({message: 'House could not be found'})
 })
 
-//Delete House
+//Delete House by ID
 router.delete('/delete/:id', async (req, res) => {
   const houses = await loadHouses()
-  await houses.deleteOne({_id: new mongodb.ObjectID(req.params.id)})
-  res.status(201).json({
-    message: req.params.id + ' has been deleted'
-  })
+  if(await houses.deleteOne({_id: new mongodb.ObjectID(req.params.id)})){
+    return res.status(201).json({message: 'Successfully Deleted'})
+  }else{
+    return res.status(401).json({message: 'House could not be found'})
+  }
 })
 
 export default {

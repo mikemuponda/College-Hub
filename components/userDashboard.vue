@@ -311,20 +311,47 @@
                                     </div>
                                   </div>
                                 </div>
+                                <div class="row">
+                                  <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                    <p style="color: #00FF00; font-weight: 400;">{{house.status}}</p>
+                                  </div>
+                                </div>
+                                <div class="row" style="padding-bottom: 20px;">
+                                  <div class="col-md-12">
+                                    <div class="row">
+                                      <div class="col-md-3">
+                                        <NuxtLink :to="'/houses/view/' + house._id" title="View">
+                                          <button class="default-button-small button-green">View</button>
+                                        </NuxtLink>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <NuxtLink :to="'/houses/edit/' + house._id" title="Edit">
+                                          <button class="default-button-small button-blue">Edit</button>
+                                        </NuxtLink>
+                                      </div>
+                                      <div class="col-md-3" v-if="house.status == 'Active'">
+                                        <button class="default-button-small button-yellow" v-on:click.prevent="changeHouseStatus(house._id)">Suspend</button>
+                                      </div>
+                                      <div class="col-md-3" v-else>
+                                        <button class="default-button-small button-green" v-on:click.prevent="changeHouseStatus(house._id)">Activate</button>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <button class="default-button-small button-red" v-on:click.prevent="deleteHouse(house._id)">Remove</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
 
-                        <div style="width: 100%; padding-top: 50px;">
-                          <div class="row nopadding feed">
+                        <div style="width: 100%; padding-top: 40px; padding-bottom: 40px;">
+                          <div class="row nopadding add-house">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
                               <NuxtLink :to="'/houses/list'" title="Add another house">
-                                <button
-                                  style="margin-bottom: 30px;"
-                                  class="default-button"
-                                >Add another house</button>
+                                <button class="default-button">Add another house</button>
                               </NuxtLink>
                             </div>
                             <div class="col-md-4"></div>
@@ -337,12 +364,9 @@
               </div>
             </div>
 
-
             <div class="col-md-4">
               <defaultAdsColumn/>
             </div>
-
-
           </div>
         </div>
       </div>
@@ -363,7 +387,43 @@ export default {
       user: '',
       userProfile: '',
       housesOwned: null,
-      houseExists: null
+      houseExists: null,
+      errors: null,
+    }
+  },
+  methods: {
+    async changeHouseStatus(id){
+      var index = this.housesOwned.findIndex(house => house._id === id)
+      var newStatus = null
+      if(this.housesOwned[index].status == 'Suspended')
+        newStatus = 'Active'
+      else
+        newStatus = 'Suspended'
+      try{
+        if(await this.$store.dispatch('changeHouseStatus', {id: id, status: newStatus})){
+          this.housesOwned[index].status = newStatus
+        }
+      } catch (e) {
+        this.errors.push(e.message)
+      }
+    },
+    async deleteHouse(id){
+      try{
+        if(await this.$store.dispatch('deleteHouse', {id: id})){
+          this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id})
+          if (this.houseExists.data.message == 'House could not be found')
+            this.houseExists = false
+          else if (this.houseExists.data.message == '404')
+            this.houseExists = false
+          else {
+            this.housesOwned = null
+            this.housesOwned = this.houseExists.data
+            this.houseExists = true
+          }
+        }
+      } catch (e) {
+        this.errors.push(e.message)
+      }
     }
   },
   async mounted() {
@@ -389,7 +449,7 @@ export default {
         }
       }
     } catch (e) {
-      this.error = e.message
+      this.errors.push(e.message)
     }
     this.$nextTick(() => {
       setTimeout(() => this.$nuxt.$loading.finish(), 0)
@@ -406,8 +466,24 @@ export default {
     width: 40%;
     margin-left: 30%;
   }
-  .houseMobileStyles{
+  .houseMobileStyles {
     text-align: center;
   }
+}
+
+.button-green{
+  background-image: linear-gradient(to right, #7FFF00 , #00FF00);
+}
+
+.button-blue{
+  background-image: linear-gradient(to right, #1E90FF , #4169E1);
+}
+
+.button-yellow{
+  background-image: linear-gradient(to right, #FFFF00	 , #FFD700);
+}
+
+.button-red{
+  background-image: linear-gradient(to right, #FF4500 , #FF0000);
 }
 </style>
