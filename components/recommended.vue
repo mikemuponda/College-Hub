@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%">
     <div class="section">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row nopadding">
           <div class="col-md-12">
             <h3 class="section-title">Recommended</h3>
