@@ -186,6 +186,16 @@ export const actions = {
       return "404"
       throw error
     }
+  },
+
+  async getHouses({commit}, {id}){
+    var url = '/houses/' + id
+    try {
+      return await axios.get(url)
+    } catch (error) {
+      return "404"
+      throw error
+    }
   }
 
 }

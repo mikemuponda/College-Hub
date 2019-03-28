@@ -970,7 +970,7 @@
                           <div class="col-md-3 listing-input-div">
                             <select class="form-control-edit" v-model="Form.priceMethod">
                               <option :value="null">Pricing Method</option>
-                              <option value="perHead">per Head</option>
+                              <option value="perHead">per Person</option>
                               <option value="perRoom">per Room</option>
                               <option value="fullHouse">Full House</option>
                             </select>
