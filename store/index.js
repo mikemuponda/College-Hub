@@ -86,9 +86,9 @@ export const actions = {
       commit('SET_USER', data)
       commit('SET_USER', null)
     } catch (error) {
-      if (error.response && error.response.status === 400){ 
+      if (error.response && error.response.status === 400){
         throw new Error("User Could not be found")
-      }else{ 
+      }else{
         throw new Error("Unknown Error")
       }
       throw error
@@ -100,9 +100,9 @@ export const actions = {
     try {
       return await axios.post(url, {id})
     } catch (error) {
-      if (error.response && error.response.status === 401){ 
+      if (error.response && error.response.status === 401){
         throw new Error("This account may not have been confirmed yet.")
-      }else{ 
+      }else{
         throw new Error("Unknown Error")
       }
       throw error
@@ -137,13 +137,13 @@ export const actions = {
       form["isSeeker"] = isSeeker;
     else
       form["isSeeker"] = false;
-    
+
     try {
       return await axios.post(url, form)
     } catch (error) {
-      if (error.response && error.response.status === 401){ 
+      if (error.response && error.response.status === 401){
         throw new Error("This account may not have been confirmed yet.")
-      }else{ 
+      }else{
         throw new Error("Unknown Error")
       }
       throw error
@@ -155,9 +155,9 @@ export const actions = {
     try {
       return await axios.post(url, {name, email, phone, message})
     } catch (error) {
-      if (error.response && error.response.status === 401){ 
+      if (error.response && error.response.status === 401){
         throw new Error("Message could not ne sent")
-      }else{ 
+      }else{
         throw new Error("Message could not ne sent")
       }
       throw error
@@ -169,9 +169,9 @@ export const actions = {
     try {
       return await axios.post(url, Form)
     } catch (error) {
-      if (error.response && error.response.status === 401){ 
+      if (error.response && error.response.status === 401){
         throw new Error("Message could not ne sent")
-      }else{ 
+      }else{
         throw new Error("Message could not ne sent")
       }
       throw error
@@ -188,6 +188,16 @@ export const actions = {
     }
   },
 
+  async getOneHouse({commit}, {id}){
+    var url = '/houses/house/' + id
+    try {
+      return await axios.post(url, {id})
+    } catch (error) {
+      return "404"
+      throw error
+    }
+  },
+  
   async getHouses({commit}, {id}){
     var url = '/houses/' + id
     try {
@@ -217,5 +227,7 @@ export const actions = {
       throw error
     }
   },
+
+
 
 }
