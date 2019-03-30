@@ -49,16 +49,29 @@
 </template>
 
 <script>
+import io from 'socket.io-client'
 export default {
+  data() {
+    return {
+      userProfile: '',
+      socket: io('lekkahub.com')
+    }
+  },
   methods: {
     async logout() {
       try {
-        this.user = null
+        this.socket.emit('ACTIVITY_FEED_LOGOUT', {
+          user: this.userProfile,
+        })
+        this.userProfile = null
         await this.$store.dispatch('logout')
       } catch (e) {
         this.formError = e.message
       }
     }
+  },
+  async created() {
+    this.userProfile = this.$store.state.authUser.user 
   }
 }
 </script>

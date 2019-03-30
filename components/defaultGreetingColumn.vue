@@ -45,7 +45,7 @@
     <div
       style="background-color: #fff; border-radius: 2px;"
       class="item white shadow cf mobileHide"
-      v-for="(activity, index) in activities.slice().reverse()"
+      v-for="(activity, index) in activities"
       :key="index"
     >
       <NuxtLink
@@ -74,7 +74,7 @@
             <div style="float: left; width: 70%; text-align: center; margin-top: 10px;">
               <span style="font-size:10px;">
                 <strong>{{ activity.user.username }}</strong><br>
-                <p class="nopadding">{{activity.activity}}</p>
+                <p class="nopadding">{{activity.activity.status}}</p>
               </span>
             </div>
           </div>
@@ -84,11 +84,16 @@
             class="activity-box col-12 col-persist gutter-h-10 padding-15"
             style="text-align: right;"
           >
-            <span style="font-size:9px; color: #606060; padding-right: 5px;">{{timer()}}</span>
+            <span style="font-size:9px; color: #606060; padding-right: 5px;">{{activity.activity.time}}</span>
           </div>
         </div>
       </NuxtLink>
     </div>
+
+    <div
+      style="background-color: #fff; border-radius: 2px; text-align: right; padding-right: 5px; font-size: 12px; font-weight: 400;"
+      class="item white shadow cf mobileHide"
+    ><p> Online Users: {{loggedInUsers}} <i style="color: green;" class="fas fa-circle"></i></p></div>
 
     <div class="row nopadding" style="width: 100%;">
       <div class="col-md-12 nopadding">
@@ -113,7 +118,8 @@ export default {
       activity: '',
       activities: [],
       time: '',
-      socket: io('lekkahub.com')
+      socket: io('lekkahub.com'),
+      loggedInUsers: null,
     }
   },
   methods: {
@@ -123,10 +129,6 @@ export default {
         activity: this.activity
       })
       this.activity = ''
-    },
-    timer() {
-      var d = new Date()
-      return d.toLocaleTimeString()
     }
   },
   async created() {
@@ -147,17 +149,49 @@ export default {
         }
       }
       this.counter = 100 - Math.round((i / j) * this.max)
+      var d = new Date()
+      
 
       this.socket.emit('ACTIVITY_FEED', {
         user: this.userProfile,
-        activity: 'is logged in'
+        activity: {
+          status: 'is logged in',
+          time: d.toLocaleTimeString(),
+          ringer: true
+        }
       })
       this.socket.on('ACTIVITY', data => {
-        this.activities.push(data)
-        if (this.userProfile.username != data.user.username) {
+        var tempActivVar = []
+        tempActivVar = data
+        var setRinger = false, i = 0
+        for(i = 0; i < tempActivVar.length; i++){
+          if(tempActivVar[i].activity.ringer == true){
+            setRinger = true
+          }
+          if(this.userProfile.username == tempActivVar[i].user.username){
+            setRinger = false
+          }
+        }
+        tempActivVar = tempActivVar.slice().reverse()
+        this.activities = []
+        if (tempActivVar.length < 5){
+          for(i = 0; i < tempActivVar.length; i++){
+            this.activities.push(tempActivVar[i])
+          }
+        }else{
+          for(i = 0; i < 5; i++){
+            this.activities.push(tempActivVar[i])
+          }
+        }
+
+        if (setRinger == true){
           var audio = new Audio('/notifications/open-ended.mp3')
           audio.play()
+          setRinger = false
         }
+
+        this.loggedInUsers = tempActivVar.length
+        
       })
       this.activity = ''
     } catch (e) {
