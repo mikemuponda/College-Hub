@@ -1,13 +1,22 @@
 const express = require('express')
 const mongodb = require('mongodb')
 const sgMail = require('@sendgrid/mail')
-const multer = require('multer');
-const fs = require('fs')
-const path = require('path')
+const multer = require('multer')
+const aws = require('aws-sdk')
+const multerS3 = require('multer-s3')
 const router = express.Router()
 const app = express()
+require('dotenv').config()
 
-const sendGridKey = ''
+aws.config.update({
+  secretAccessKey: process.env.awsSecretAccessKey,
+  accessKeyId: process.env.awsAccessKeyId,
+  region: process.env.awsRegion
+})
+
+const s3 = new aws.S3()
+
+const sendGridKey = process.env.sendGridKey
 sgMail.setApiKey(sendGridKey);
 
 router.use((req, res, next) => {
@@ -20,7 +29,7 @@ router.use((req, res, next) => {
 
 //Load Users From MongoDB
 const loadUsers = async function () {
-  const client = await mongodb.MongoClient.connect('mongodb://lekka:lekka123@ds046377.mlab.com:46377/collegehub', {useNewUrlParser: true})
+  const client = await mongodb.MongoClient.connect(process.env.database, {useNewUrlParser: true})
   return client.db('collegehub').collection('users')
 }
 
@@ -209,45 +218,56 @@ router.post('/profile/edit/:id', async (req, res) => {
   }
 })
 
+//Image Upload
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {cb(null, 'static/profileImages/')},
-  filename: function (req, file, cb) {cb(null, file.originalname )}
-});
-var upload = multer({ storage: storage });
+ 
+var upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'collegehub',
+    acl: 'public-read',
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: 'Profile Image'});
+    },
+    key: function (req, file, cb) {
+      cb(null, 'profileImages/' + Date.now().toString() + file.originalname)
+    }
+  })
+})
 
 router.post('/profile/upload/image/:id', upload.single('profileImage'), async (req, res, next) => {
   const users = await loadUsers()
   var user = null
-  var date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(' ', '').replace(':', '').replace(':', '').replace('-', '').replace('-', '')
-  if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
-    req.file.path = req.file.path.replace(/\\/g, "/")
-    if((typeof user.profileImage !== 'undefined' && user.profileImage != null)){
-      if (fs.existsSync('static' + user.profileImage.path)){
-        fs.unlinkSync('static' + user.profileImage.path);
-      }
+  let params = {
+    profileImage: {
+      "fieldname": req.file.fieldname,
+      "originalname": req.file.originalname,
+      "encoding": req.file.encoding,
+      "mimetype": req.file.mimetype,
+      "size": req.file.size,
+      "bucket": req.file.bucket,
+      "key": req.file.key,
+      "acl": req.file.acl,
+      "contentType": req.file.contentType,
+      "contentDisposition": req.file.contentDisposition,
+      "storageClass": req.file.storageClass,
+      "serverSideEncryption": req.file.serverSideEncryption,
+      "metadata": {
+          "fieldName": req.file.metadata.fieldName
+      },
+      "location": req.file.location,
+      "etag": req.file.etag,
+      "path": "https://s3.amazonaws.com/collegehub/" + req.file.key
     }
-    
-    var newFilename = date + user._id + path.extname(req.file.filename) 
-    fs.rename(req.file.path, 'static/profileImages/' + newFilename, function(err) {
-      if ( err ) console.log('ERROR: ' + err);
-    })
-    req.file.filename = user._id + path.extname(req.file.filename)
-    req.file.path = '/profileImages/' + newFilename
-    
-    let params = { profileImage: req.file }
-    await users.findOneAndUpdate(
-      {"username": req.params.id},
-      {$set: Object.assign(params)},
-      {upsert: true,}
-    )
-    user = await users.findOne({ "username": req.params.id})
-    return res.json({user})
-  }else{
-    res.status(401).json({message: 'User Not Found or has not yet confirmed'})
   }
+  await users.findOneAndUpdate(
+    {"username": req.params.id},
+    {$set: Object.assign(params)},
+    {upsert: true,}
+  )
+  user = await users.findOne({ "username": req.params.id})
+  return res.json({user})
 })
-
 
 //Change Username
 router.post('/profile/edit/username/:id', async (req, res) => {

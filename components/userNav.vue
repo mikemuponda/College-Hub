@@ -54,7 +54,7 @@ export default {
   data() {
     return {
       userProfile: '',
-      socket: io('lekkahub.com')
+      socket: io(process.env.socketsIO)
     }
   },
   methods: {

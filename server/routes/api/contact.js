@@ -3,8 +3,9 @@ const mongodb = require('mongodb')
 const sgMail = require('@sendgrid/mail')
 const router = express.Router()
 const app = express()
+require('dotenv').config()
 
-const sendGridKey = ''
+const sendGridKey = process.env.sendGridKey
 sgMail.setApiKey(sendGridKey)
 
 router.use((req, res, next) => {
@@ -17,7 +18,7 @@ router.use((req, res, next) => {
 
 //Load Users From MongoDB
 const loadContactInfo = async function () {
-  const client = await mongodb.MongoClient.connect('mongodb://lekka:lekka123@ds046377.mlab.com:46377/collegehub', {useNewUrlParser: true})
+  const client = await mongodb.MongoClient.connect(process.env.database, {useNewUrlParser: true})
   return client.db('collegehub').collection('contactMessages')
 }
 

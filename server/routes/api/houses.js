@@ -7,7 +7,7 @@ const path = require('path')
 const router = express.Router()
 const app = express()
 
-const sendGridKey = ''
+const sendGridKey = process.env.sendGridKey
 sgMail.setApiKey(sendGridKey)
 
 router.use((req, res, next) => {
@@ -20,7 +20,7 @@ router.use((req, res, next) => {
 
 //Load Houses From MongoDB
 const loadHouses = async function () {
-  const client = await mongodb.MongoClient.connect('mongodb://lekka:lekka123@ds046377.mlab.com:46377/collegehub', {useNewUrlParser: true})
+  const client = await mongodb.MongoClient.connect(process.env.database, {useNewUrlParser: true})
   return client.db('collegehub').collection('houses')
 }
 

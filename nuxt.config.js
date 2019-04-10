@@ -1,4 +1,5 @@
 const pkg = require('./package')
+require('dotenv').config()
 
 const bodyParser = require('body-parser')
 const session = require('express-session')
@@ -40,7 +41,8 @@ module.exports = {
     'bootstrap-vue/nuxt',
     '@nuxtjs/workbox',
     '@nuxtjs/manifest',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/dotenv',
   ],
 
   manifest: {

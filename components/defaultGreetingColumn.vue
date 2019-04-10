@@ -118,7 +118,7 @@ export default {
       activity: '',
       activities: [],
       time: '',
-      socket: io('lekkahub.com'),
+      socket: io(process.env.socketsIO),
       loggedInUsers: null,
     }
   },
