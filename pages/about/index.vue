@@ -22,16 +22,17 @@
                   <div class="row">
                     <div class="col-md-6">
                       <p class="about-us-p">
-                        We believe in serving and providing our community with world class
-                        services. We believe in combining leading-edge technologies with hands-on
-                        services to create complete, customized solutions that drive efficiency,
-                        enhance user experience and give high quality services We are passionate
-                        about making university experiences an easy ride.
+                        Collegehub is a students' marketplace, that provides a range of services. We
+                        are passionate about making university life an easy ride. From finding
+                        accomodation, getting a taxi, finding restaurants, buying and selling stuff
+                        to other students; we provide these services on a click. We believe in
+                        combining cutting-edge technologies with hands-on experience to provide
+                        a world class service.
                       </p>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                       <div class="about-img">
-                        <img src="/img/logo.png">
+                        <img style="width: 100%; float: left;" src="/img/collegehub-img1.png">
                       </div>
                     </div>
                   </div>
@@ -46,10 +47,8 @@
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <div style="text-align: center; font-size: 60px; margin-top: 40px;">
-                        <i class="fas fa-chalkboard-teacher" style="color: #EE82EE;"></i>
-                        <i class="fas fa-code" style="color: #9400D3;"></i>
-                        <i class="fas fa-chart-line" style="color: blue;"></i>
+                      <div style="width: 100%;">
+                        <img style="width: 100%;" src="/img/collegehub-img2.png">
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -72,11 +71,9 @@
                         shoulders. We are a committed team that is capable and well equipped.
                       </p>
                     </div>
-                    <div class="col-md-6">
-                      <div style="text-align: center; font-size: 62px; margin-top: 40px;">
-                        <i class="fas fa-graduation-cap" style="color: green;"></i>
-                        <i class="fas fa-graduation-cap" style="color: orange;"></i>
-                        <i class="fas fa-graduation-cap" style="color: lightblue;"></i>
+                    <div class="col-md-5">
+                      <div style="width: 100%;">
+                        <img style="width: 100%;" src="/img/collegehub-img1.png">
                       </div>
                     </div>
                   </div>
@@ -89,11 +86,9 @@
                         <br>Your satisfaction comes before anything else. We are driven by your delight in our services.
                       </p>
                     </div>
-                    <div class="col-md-6">
-                      <div style="text-align: center; font-size: 62px; margin-top: 40px;">
-                        <i class="fas fa-chalkboard-teacher" style="color: #EE82EE;"></i>
-                        <i class="fas fa-code" style="color: #9400D3;"></i>
-                        <i class="fas fa-chart-line" style="color: blue;"></i>
+                    <div class="col-md-5">
+                      <div style="width: 100%;">
+                        <img style="width: 100%;" src="/img/collegehub-img2.png">
                       </div>
                     </div>
                   </div>
