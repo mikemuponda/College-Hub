@@ -43,7 +43,7 @@ router.post('/message/send', async (req, res) => {
 })
 
 //Get All Messages
-router.get('/allmessages', async (req, res) => {
+router.post('/allmessages', async (req, res) => {
   const contactMessage = await loadContactInfo()
   res.send(await contactMessage.find({}).toArray())
 })

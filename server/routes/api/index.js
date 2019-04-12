@@ -67,10 +67,10 @@ router.post('/signup', async (req, res) => {
         createdAt: new Date()
       })
     }
-    
-    res.status(201).json({
-      message: 'Your account has been created. A confirmation email has been sent to ' + req.body.email
-    })
+    if(req.xhr)
+      return res.status(201).json({message: 'Your account has been created. A confirmation email has been sent to ' + req.body.email})
+    else
+      return res.status(403).json({message: 'Not Authorised'})
   }
 })
 
@@ -93,9 +93,12 @@ router.post('/confirm-signup/:id', async (req, res) => {
     }
     sgMail.send(msg)
     var user = await users.findOne({"confirmationKey": req.params.id})
-    if (user.isConfirmed)
-      res.send(user)
-    else {
+    if (user.isConfirmed){
+      if(req.xhr)
+        return res.json({user})
+      else
+        return res.status(403).json({message: 'Not Authorised'})
+    }else {
       res.status(400).json({message: 'Does not exist!'})
     }
   } else {
@@ -109,7 +112,10 @@ router.post('/login', async (req, res) => {
   var user = null;
   if (user = await users.findOne({"email": req.body.email,"password": req.body.password})) {
     req.session.authUser = {user: user}
-    return res.json({user})
+    if(req.xhr)
+      return res.json({user})
+    else
+      return res.status(403).json({message: 'Not Authorised'})
   }
   res.status(401).json({message: 'Incorrect login credentials'})
 })
@@ -134,7 +140,10 @@ router.post('/forgot-password', async (req, res) => {
       html: '<h2>Hi, ' + user.firstname + '</h2><p>It seems you forgot your password. Please <a href="https://www.lekkahub.com/reset-password/' + key + '" title="Collegehub">clicking this link</a> to reset your password.</p><p>Regards</p>',
     }
     sgMail.send(msg)
-    res.status(201).json({message: 'A Reset Passwoord email has been sent to your email'})
+    if(req.xhr)
+      return res.status(201).json({message: 'A Reset Passwoord email has been sent to your email'})
+    else
+      return res.status(403).json({message: 'Not Authorised'})
   } else {
     res.status(400).json({message: 'Email does not exist!'})
   }
@@ -158,7 +167,10 @@ router.post('/reset-password/:id', async (req, res) => {
       html: '<h2>Hi, ' + user.firstname + '</h2><p>Your password has been reset. Your new password is: <strong>'+ req.body.password +'</strong>.<br>Go to <a href="https://www.lekkahub.com" title="Collegehub">Collegehub</a> and login.</p><p>Regards</p>',
     }
     sgMail.send(msg)
-    res.status(201).json({message: 'Password successfully reset!'})
+    if(req.xhr)
+      return res.status(201).json({message: 'Password successfully reset!'})
+    else
+      return res.status(403).json({message: 'Not Authorised'})
   } else {
     res.status(401).json({message: 'Email does not exist!'})
   }
@@ -171,9 +183,12 @@ router.post('/logout', (req, res) => {
 })
 
 //Get All Users
-router.get('/allusers', async (req, res) => {
+router.post('/allusers', async (req, res) => {
   const users = await loadUsers()
-  res.send(await users.find({}).toArray())
+  if(req.xhr)
+    return res.send(await users.find({}).toArray())
+  else
+    return res.status(403).json({message: 'Not Authorised'})
 })
 
 //Delete User
@@ -190,11 +205,13 @@ router.post('/profile/:id', async (req, res) => {
   const users = await loadUsers()
   var user = null
   if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
-    return res.json({user})
+    if(req.xhr)
+      return res.json({user})
+    else
+      return res.status(403).json({message: 'Not Authorised'})
+  }else{
+    return res.status(401).json({message: 'User Not Found or has not yet confirmed'})
   }
-  res.status(401).json({
-    message: 'User Not Found or has not yet confirmed'
-  })
 })
 
 //Edit profile
@@ -209,7 +226,10 @@ router.post('/profile/edit/:id', async (req, res) => {
     )
     var user = null
     if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
-      return res.json({user})
+      if(req.xhr)
+        return res.json({user})
+      else
+        return res.status(403).json({message: 'Not Authorised'})
     }
   }else{
     res.status(401).json({
@@ -266,7 +286,10 @@ router.post('/profile/upload/image/:id', upload.single('profileImage'), async (r
     {upsert: true,}
   )
   user = await users.findOne({ "username": req.params.id})
-  return res.json({user})
+  if(req.xhr)
+    return res.json({user})
+  else
+    return res.status(403).json({message: 'Not Authorised'})
 })
 
 //Change Username
@@ -289,7 +312,10 @@ router.post('/profile/edit/username/:id', async (req, res) => {
         html: '<h2>Hi, ' + user.firstname + '</h2><p>Your username has successfully been changed to ' + user.username + '. Please follow <a href="https://www.lekkahub.com/profile/' + user.username + '" title="Profile">this link</a> to check out your profile</p><p>Regards</p>',
       }
       sgMail.send(msg)
-      return res.json({user})
+      if(req.xhr)
+        return res.json({user})
+      else
+        return res.status(403).json({message: 'Not Authorised'})
     }
   }else{
     res.status(401).json({

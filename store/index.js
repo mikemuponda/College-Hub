@@ -1,4 +1,5 @@
 import axios from 'axios'
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 export const state = () => ({
   authUser: null
@@ -201,7 +202,7 @@ export const actions = {
   async getHouses({commit}, {id}){
     var url = '/houses/' + id
     try {
-      return await axios.get(url)
+      return await axios.post(url)
     } catch (error) {
       return "404"
       throw error
