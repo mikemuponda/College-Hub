@@ -6,7 +6,7 @@ const session = require('express-session')
 const appRoutes = require('./routes.json')
 const axios = require('axios');
 
-//var allUsers = axios.get('https://www.lekkahub.com/users/allusers')
+//var allUsers = axios.get('https://www.collegehub.co.zw/users/allusers')
 var allUsers = appRoutes
 var routes = []
 
@@ -49,7 +49,7 @@ module.exports = {
     name: 'Collegehub',
     short_name: 'Collegehub',
     display: 'standalone',
-    start_url: 'https://www.lekkahub.com/',
+    start_url: 'https://www.collegehub.co.zw/',
     theme_color: '#9400D3',
     background_color: '#FFF',
     lang: 'en-GB',
@@ -204,12 +204,13 @@ module.exports = {
     // We add /api/login & /api/logout routes
     '~/server/routes/api',
     '~/server/routes/api/houses',
-    '~/server/routes/api/contact'
+    '~/server/routes/api/contact',
+    '~/server/routes/api/health'
   ],
 
   sitemap: {
     path: '/sitemap.xml',
-    hostname: 'https://www.lekkahub.com',
+    hostname: 'https://www.collegehub.co.zw',
     cacheTime: 1000 * 60 * 15,
     gzip: true,
     generate: false, // Enable me when using nuxt generate
