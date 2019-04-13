@@ -33,1010 +33,1104 @@
                       </div>
 
                       <!-- Page 1 : Let’s get started listing your space.-->
-                      <div class="form-section" style="width: 100%;" v-if="page == 1">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">Let’s get started listing your space.</h2>
+                      <transition name="fade">
+                        <div class="form-section" style="width: 100%;" v-if="page == 1">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">Let’s get started listing your space.</h2>
+                            </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <select class="form-control-edit" v-model="Form.spaceType">
-                              <option :value="null">Select Space</option>
-                              <option value="Full House">Full House</option>
-                              <option value="Cottage">Cottage</option>
-                              <option value="Private Room">Private Room</option>
-                              <option value="Shared Room">Shared Room</option>
-                            </select>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <select class="form-control-edit" v-model="Form.spaceType">
+                                <option :value="null">Select Space</option>
+                                <option value="Full House">Full House</option>
+                                <option value="Cottage">Cottage</option>
+                                <option value="Private Room">Private Room</option>
+                                <option value="Shared Room">Shared Room</option>
+                              </select>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <select class="form-control-edit" v-model="Form.totalRoomCount">
+                                <option :value="null">Total Rooms Available</option>
+                                <option value="One Room">One Room</option>
+                                <option value="Two Rooms">Two Rooms</option>
+                                <option value="Three Rooms">Three Rooms</option>
+                                <option value="Four Rooms">Four Rooms</option>
+                                <option value="Five Rooms">Five Rooms</option>
+                                <option value="Six Rooms">Six Rooms</option>
+                                <option value="Seven Rooms">Seven Rooms</option>
+                                <option value="Eight Rooms">Eight Rooms</option>
+                                <option value="Nine Rooms">Nine Rooms</option>
+                                <option value="Ten Rooms">Ten Rooms</option>
+                              </select>
+                            </div>
                           </div>
-                          <div class="col-md-5 listing-input-div">
-                            <select class="form-control-edit" v-model="Form.totalRoomCount">
-                              <option :value="null">Total Rooms Available</option>
-                              <option value="One Room">One Room</option>
-                              <option value="Two Rooms">Two Rooms</option>
-                              <option value="Three Rooms">Three Rooms</option>
-                              <option value="Four Rooms">Four Rooms</option>
-                              <option value="Five Rooms">Five Rooms</option>
-                              <option value="Six Rooms">Six Rooms</option>
-                              <option value="Seven Rooms">Seven Rooms</option>
-                              <option value="Eight Rooms">Eight Rooms</option>
-                              <option value="Nine Rooms">Nine Rooms</option>
-                              <option value="Ten Rooms">Ten Rooms</option>
-                            </select>
-                          </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <select class="form-control-edit" v-model="Form.city">
-                              <option :value="null">City</option>
-                              <option value="Harare">Harare</option>
-                            </select>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <select class="form-control-edit" v-model="Form.city">
+                                <option :value="null">City</option>
+                                <option value="Harare">Harare</option>
+                                <option value="Bulawayo">Bulawayo</option>
+                                <option value="Gweru">Gweru</option>
+                                <option value="Mutare">Mutare</option>
+                                <option value="Masvingo">Masvingo</option>
+                                <option value="Marondera">Marondera</option>
+                                <option value="Chinhoyi">Chinhoyi</option>
+                                <option value="Bindura">Bindura</option>
+                                <option value="Gwanda">Gwanda</option>
+                                <option value="Lupane">Lupane</option>
+                              </select>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <select class="form-control-edit" v-model="Form.suburb">
+                                <option :value="null">Suburb</option>
+                                <option v-if="Form.city=='Harare'" value="Alexandra Park">Alexandra Park</option>
+                                <option v-if="Form.city=='Harare'" value="Arundale">Arundale</option>
+                                <option v-if="Form.city=='Harare'" value="Avenues">Avenues</option>
+                                <option v-if="Form.city=='Harare'" value="Avondale">Avondale</option>
+                                <option v-if="Form.city=='Harare'" value="Belgravia">Belgravia</option>
+                                <option v-if="Form.city=='Harare'" value="Borrowdale">Borrowdale</option>
+                                <option v-if="Form.city=='Harare'" value="CBD">CBD</option>
+                                <option v-if="Form.city=='Harare'" value="Emerald Hill">Emerald Hill</option>
+                                <option v-if="Form.city=='Harare'" value="Groom Bridge">Groom Bridge</option>
+                                <option v-if="Form.city=='Harare'" value="Gunhill">Gunhill</option>
+                                <option v-if="Form.city=='Harare'" value="Kensington">Kensington</option>
+                                <option v-if="Form.city=='Harare'" value="Milton Park">Milton Park</option>
+                                <option v-if="Form.city=='Harare'" value="Mount Pleasant">Mount Pleasant</option>
+                              </select>
+                            </div>
                           </div>
-                          <div class="col-md-5 listing-input-div">
-                            <select class="form-control-edit" v-model="Form.suburb">
-                              <option :value="null">Suburb</option>
-                              <option value="Alexandra Park">Alexandra Park</option>
-                              <option value="Arundale">Arundale</option>
-                              <option value="Avenues">Avenues</option>
-                              <option value="Avondale">Avondale</option>
-                              <option value="Belgravia">Belgravia</option>
-                              <option value="Borrowdale">Borrowdale</option>
-                              <option value="CBD">CBD</option>
-                              <option value="Emerald Hill">Emerald Hill</option>
-                              <option value="Groom Bridge">Groom Bridge</option>
-                              <option value="Gunhill">Gunhill</option>
-                              <option value="Kensington">Kensington</option>
-                              <option value="Milton Park">Milton Park</option>
-                              <option value="Mount Pleasant">Mount Pleasant</option>
-                            </select>
+
+                          <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-11">
+
+                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
+                                <label style="font-size: 1em; float: left;">
+                                  <input type="checkbox" v-model="Form.universities.UniversityofZimbabwe" :value="true">
+                                  <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                </label>
+                                <p style="float: left;">University of Zimbabwe</p>
+                              </div><br>
+
+                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
+                                <label style="font-size: 1em; float: left;">
+                                  <input type="checkbox" v-model="Form.universities.HarareInstituteofTechnology" :value="true">
+                                  <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                </label>
+                                <p style="float: left;">Harare Institute of Technology</p>
+                              </div><br>
+
+                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
+                                <label style="font-size: 1em; float: left;">
+                                  <input type="checkbox" v-model="Form.universities.WomensUniversityinAfrica" :value="true">
+                                  <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                </label>
+                                <p style="float: left;">Women's University in Africa</p>
+                              </div><br>
+
+                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
+                                <label style="font-size: 1em; float: left;">
+                                  <input type="checkbox" v-model="Form.universities.ZimbabweOpenUniversity" :value="true">
+                                  <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                </label>
+                                <p style="float: left;">Zimbabwe Open University</p>
+                              </div><br>
+
+                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
+                                <label style="font-size: 1em; float: left;">
+                                  <input type="checkbox" v-model="Form.universities.CatholicUniversityinZimbabwe" :value="true">
+                                  <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                </label>
+                                <p style="float: left;">Catholic University in Zimbabwe</p>
+                              </div><br>
+
+                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
+                                <label style="font-size: 1em; float: left;">
+                                  <input type="checkbox" v-model="Form.universities.SouthernAfricaMethodistUniversity" :value="true">
+                                  <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                </label>
+                                <p style="float: left;">Southern Africa Methodist University</p>
+                              </div><br>
+                              
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </transition>
 
                       <!-- Page 2 : What kind of Place are you listing?-->
-                      <div class="form-section" style="width: 100%;" v-if="page == 2">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">What kind of Place are you listing?</h2>
+                      <transition name="fade">
+                        <div class="form-section" style="width: 100%;" v-if="page == 2">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">What kind of Place are you listing?</h2>
+                            </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div
-                            class="col-md-5 listing-input-div"
-                            v-if="Form.spaceType != 'Private Room' && Form.spaceType != 'Shared Room'"
-                          >
-                            <label
-                              class="listing-label"
-                              for="specificSpaceType"
-                            >Please specify the type of space you are sharing.</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <select class="form-control-edit" v-model="Form.specificSpaceType" id="specificSpaceType">
-                              <option :value="null">Specify the type of Space</option>
-                              <option value="Apartment">Apartment</option>
-                              <option value="House">House</option>
-                              <option
-                                value="Hostel"
-                                v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'"
-                              >Hostel</option>
-                              <option
-                                value="Hotel"
-                                v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'"
-                              >Hotel</option>
-                            </select>
-                          </div>
-                          <div
-                            class="col-md-5 listing-input-div"
-                            v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'"
-                          >
-                            <select class="form-control-edit" v-model="Form.features">
-                              <option :value="null">Features</option>
-                              <option value="serviced">serviced</option>
-                              <option value="non-serviced">non-serviced</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label
-                              class="listing-label"
-                              for="dedicated-space"
-                            >Is this set up as a dedicated guest space?</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <select
-                              id="dedicated-space"
-                              class="form-control-edit"
-                              v-model="Form.isDedicated"
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div
+                              class="col-md-5 listing-input-div"
+                              v-if="Form.spaceType != 'Private Room' && Form.spaceType != 'Shared Room'"
                             >
-                              <option :value="null">Is your space dedicated for guests</option>
-                              <option :value="true">Yes, it’s primarily set up for guests</option>
-                              <option :value="false">No, there are my personal belongings</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label
-                              class="listing-label"
-                              for="on-behalf"
-                            >Are you listing on behalf of a company?</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <select
-                              id="on-behalf"
-                              class="form-control-edit"
-                              v-model="Form.onBehalf"
+                              <label
+                                class="listing-label"
+                                for="specificSpaceType"
+                              >Please specify the type of space you are sharing.</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <select class="form-control-edit" v-model="Form.specificSpaceType" id="specificSpaceType">
+                                <option :value="null">Specify the type of Space</option>
+                                <option value="Apartment">Apartment</option>
+                                <option value="House">House</option>
+                                <option
+                                  value="Hostel"
+                                  v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'"
+                                >Hostel</option>
+                                <option
+                                  value="Hotel"
+                                  v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'"
+                                >Hotel</option>
+                              </select>
+                            </div>
+                            <div
+                              class="col-md-5 listing-input-div"
+                              v-if="Form.spaceType == 'Private Room' || Form.spaceType == 'Shared Room'"
                             >
-                              <option :value="null">Listing on behalf?</option>
-                              <option :value="true">Yes, I work for or run a hospitality business</option>
-                              <option :value="false">No, I'm listing on my own behalf</option>
-                            </select>
+                              <select class="form-control-edit" v-model="Form.features">
+                                <option :value="null">Features</option>
+                                <option value="serviced">serviced</option>
+                                <option value="non-serviced">non-serviced</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label
+                                class="listing-label"
+                                for="dedicated-space"
+                              >Is this set up as a dedicated guest space?</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <select
+                                id="dedicated-space"
+                                class="form-control-edit"
+                                v-model="Form.isDedicated"
+                              >
+                                <option :value="null">Is your space dedicated for guests</option>
+                                <option :value="true">Yes, it’s primarily set up for guests</option>
+                                <option :value="false">No, there are my personal belongings</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label
+                                class="listing-label"
+                                for="on-behalf"
+                              >Are you listing on behalf of a company?</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <select
+                                id="on-behalf"
+                                class="form-control-edit"
+                                v-model="Form.onBehalf"
+                              >
+                                <option :value="null">Listing on behalf?</option>
+                                <option :value="true">Yes, I work for or run a hospitality business</option>
+                                <option :value="false">No, I'm listing on my own behalf</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label
+                                class="listing-label"
+                                for="furnished-or-not"
+                              >Is this space furnished?</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <select
+                                id="furnished-or-not"
+                                class="form-control-edit"
+                                v-model="Form.furnishStatus"
+                              >
+                                <option :value="null">Is this space furnished</option>
+                                <option value="Fully Furnished">Yes, it is fully furnished</option>
+                                <option value="Partially Furnished">It is partially furnished</option>
+                                <option value="Not Furnished">No, it is not furnished</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label
-                              class="listing-label"
-                              for="furnished-or-not"
-                            >Is this space furnished?</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <select
-                              id="furnished-or-not"
-                              class="form-control-edit"
-                              v-model="Form.furnishStatus"
-                            >
-                              <option :value="null">Is this space furnished</option>
-                              <option value="Fully Furnished">Yes, it is fully furnished</option>
-                              <option value="Partially Furnished">It is partially furnished</option>
-                              <option value="Not Furnished">No, it is not furnished</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
+                       </transition>
 
                       <!-- Page 3 : How many people can your place accommodate?-->
-                      <div class="form-section" style="width: 100%;" v-if="page == 3">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">How many people can your place accommodate?</h2>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label
-                              class="listing-label"
-                              for="furnished-or-not"
-                            >Total number of guests who can be accommodated</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <div class="center">
-                              <div class="input-group">
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-number"
-                                    data-type="minus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.guestcount = Form.guestcount - 1"
-                                  >
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
-                                <input
-                                  type="number"
-                                  name="quant[2]"
-                                  class="form-control guest-count"
-                                  :value="Form.guestcount"
-                                  min="1"
-                                  max="100"
-                                  style="border-radius: 4px;"
-                                >
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-number"
-                                    data-type="plus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.guestcount = Form.guestcount + 1"
-                                    style="margin-right: 10px;"
-                                  >
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
-                              </div>
-                              <p></p>
+                      <transition name="fade">
+                        <div class="form-section" style="width: 100%;" v-if="page == 3">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">How many people can your place accommodate?</h2>
                             </div>
                           </div>
-                        </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label
+                                class="listing-label"
+                                for="furnished-or-not"
+                              >Total number of guests who can be accommodated</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <div class="center">
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger btn-number"
+                                      data-type="minus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.guestcount = Form.guestcount - 1"
+                                    >
+                                      <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                  <input
+                                    type="number"
+                                    name="quant[2]"
+                                    class="form-control guest-count"
+                                    :value="Form.guestcount"
+                                    min="1"
+                                    max="100"
+                                    style="border-radius: 4px;"
+                                  >
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-number"
+                                      data-type="plus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.guestcount = Form.guestcount + 1"
+                                      style="margin-right: 10px;"
+                                    >
+                                      <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                                <p></p>
+                              </div>
+                            </div>
+                          </div>
 
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label
-                              class="listing-label"
-                              for="furnished-or-not"
-                            >Number of bedrooms available</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <div class="center">
-                              <div class="input-group">
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-number"
-                                    data-type="minus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.bedroomcount = Form.bedroomcount - 1"
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label
+                                class="listing-label"
+                                for="furnished-or-not"
+                              >Number of bedrooms available</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <div class="center">
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger btn-number"
+                                      data-type="minus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.bedroomcount = Form.bedroomcount - 1"
+                                    >
+                                      <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                  <input
+                                    type="number"
+                                    name="quant[2]"
+                                    class="form-control guest-count"
+                                    :value="Form.bedroomcount"
+                                    min="1"
+                                    max="100"
+                                    style="border-radius: 4px;"
                                   >
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
-                                <input
-                                  type="number"
-                                  name="quant[2]"
-                                  class="form-control guest-count"
-                                  :value="Form.bedroomcount"
-                                  min="1"
-                                  max="100"
-                                  style="border-radius: 4px;"
-                                >
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-number"
-                                    data-type="plus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.bedroomcount = Form.bedroomcount + 1"
-                                    style="margin-right: 10px;"
-                                  >
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-number"
+                                      data-type="plus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.bedroomcount = Form.bedroomcount + 1"
+                                      style="margin-right: 10px;"
+                                    >
+                                      <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                                <p></p>
                               </div>
-                              <p></p>
                             </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label
-                              class="listing-label"
-                              for="furnished-or-not"
-                            >Number of people per bedroom</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <div class="center">
-                              <div class="input-group">
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-number"
-                                    data-type="minus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.countperbedroom = Form.countperbedroom - 1"
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label
+                                class="listing-label"
+                                for="furnished-or-not"
+                              >Number of people per bedroom</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <div class="center">
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger btn-number"
+                                      data-type="minus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.countperbedroom = Form.countperbedroom - 1"
+                                    >
+                                      <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                  <input
+                                    type="number"
+                                    name="quant[2]"
+                                    class="form-control guest-count"
+                                    :value="Form.countperbedroom"
+                                    min="1"
+                                    max="5"
+                                    style="border-radius: 4px;"
                                   >
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
-                                <input
-                                  type="number"
-                                  name="quant[2]"
-                                  class="form-control guest-count"
-                                  :value="Form.countperbedroom"
-                                  min="1"
-                                  max="5"
-                                  style="border-radius: 4px;"
-                                >
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-number"
-                                    data-type="plus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.countperbedroom = Form.countperbedroom + 1"
-                                    style="margin-right: 10px;"
-                                  >
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-number"
+                                      data-type="plus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.countperbedroom = Form.countperbedroom + 1"
+                                      style="margin-right: 10px;"
+                                    >
+                                      <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                                <p></p>
                               </div>
-                              <p></p>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </transition>
 
                       <!-- Page 4 : Available Spaces?-->
-                      <div class="form-section" style="width: 100%;" v-if="page == 4">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">Available Spaces?</h2>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label class="listing-label" for="furnished-or-not">How many kitchens?</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <div class="center">
-                              <div class="input-group">
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-number"
-                                    data-type="minus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.kitchencount = Form.kitchencount - 1"
-                                  >
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
-                                <input
-                                  type="number"
-                                  name="quant[2]"
-                                  class="form-control guest-count"
-                                  :value="Form.kitchencount"
-                                  min="1"
-                                  max="100"
-                                  style="border-radius: 4px;"
-                                >
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-number"
-                                    data-type="plus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.kitchencount = Form.kitchencount + 1"
-                                    style="margin-right: 10px;"
-                                  >
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
-                              </div>
-                              <p></p>
+                      <transition name="fade">
+                        <div class="form-section" style="width: 100%;" v-if="page == 4">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">Available Spaces?</h2>
                             </div>
                           </div>
-                        </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label class="listing-label" for="furnished-or-not">How many kitchens?</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <div class="center">
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger btn-number"
+                                      data-type="minus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.kitchencount = Form.kitchencount - 1"
+                                    >
+                                      <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                  <input
+                                    type="number"
+                                    name="quant[2]"
+                                    class="form-control guest-count"
+                                    :value="Form.kitchencount"
+                                    min="1"
+                                    max="100"
+                                    style="border-radius: 4px;"
+                                  >
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-number"
+                                      data-type="plus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.kitchencount = Form.kitchencount + 1"
+                                      style="margin-right: 10px;"
+                                    >
+                                      <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                                <p></p>
+                              </div>
+                            </div>
+                          </div>
 
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label class="listing-label" for="furnished-or-not">How many bathrooms?</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <div class="center">
-                              <div class="input-group">
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-number"
-                                    data-type="minus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.bathroomcount = Form.bathroomcount - 1"
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label class="listing-label" for="furnished-or-not">How many bathrooms?</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <div class="center">
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger btn-number"
+                                      data-type="minus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.bathroomcount = Form.bathroomcount - 1"
+                                    >
+                                      <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                  <input
+                                    type="number"
+                                    name="quant[2]"
+                                    class="form-control guest-count"
+                                    :value="Form.bathroomcount"
+                                    min="1"
+                                    max="100"
+                                    style="border-radius: 4px;"
                                   >
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
-                                <input
-                                  type="number"
-                                  name="quant[2]"
-                                  class="form-control guest-count"
-                                  :value="Form.bathroomcount"
-                                  min="1"
-                                  max="100"
-                                  style="border-radius: 4px;"
-                                >
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-number"
-                                    data-type="plus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.bathroomcount = Form.bathroomcount + 1"
-                                    style="margin-right: 10px;"
-                                  >
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-number"
+                                      data-type="plus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.bathroomcount = Form.bathroomcount + 1"
+                                      style="margin-right: 10px;"
+                                    >
+                                      <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                                <p></p>
                               </div>
-                              <p></p>
                             </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label
-                              class="listing-label"
-                              for="furnished-or-not"
-                            >How many Study Rooms?</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <div class="center">
-                              <div class="input-group">
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-number"
-                                    data-type="minus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.studyroomcount = Form.studyroomcount - 1"
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label
+                                class="listing-label"
+                                for="furnished-or-not"
+                              >How many Study Rooms?</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <div class="center">
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger btn-number"
+                                      data-type="minus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.studyroomcount = Form.studyroomcount - 1"
+                                    >
+                                      <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                  <input
+                                    type="number"
+                                    name="quant[2]"
+                                    class="form-control guest-count"
+                                    :value="Form.studyroomcount"
+                                    min="1"
+                                    max="100"
+                                    style="border-radius: 4px;"
                                   >
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
-                                <input
-                                  type="number"
-                                  name="quant[2]"
-                                  class="form-control guest-count"
-                                  :value="Form.studyroomcount"
-                                  min="1"
-                                  max="100"
-                                  style="border-radius: 4px;"
-                                >
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-number"
-                                    data-type="plus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.studyroomcount = Form.studyroomcount + 1"
-                                    style="margin-right: 10px;"
-                                  >
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-number"
+                                      data-type="plus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.studyroomcount = Form.studyroomcount + 1"
+                                      style="margin-right: 10px;"
+                                    >
+                                      <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                                <p></p>
                               </div>
-                              <p></p>
                             </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <label
-                              class="listing-label"
-                              for="furnished-or-not"
-                            >How many Dining/Sitting Rooms or Lounges?</label>
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <div class="center">
-                              <div class="input-group">
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-number"
-                                    data-type="minus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.diningroomcount = Form.diningroomcount - 1"
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <label
+                                class="listing-label"
+                                for="furnished-or-not"
+                              >How many Dining/Sitting Rooms or Lounges?</label>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <div class="center">
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-danger btn-number"
+                                      data-type="minus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.diningroomcount = Form.diningroomcount - 1"
+                                    >
+                                      <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                  <input
+                                    type="number"
+                                    name="quant[2]"
+                                    class="form-control guest-count"
+                                    :value="Form.diningroomcount"
+                                    min="1"
+                                    max="100"
+                                    style="border-radius: 4px;"
                                   >
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
-                                <input
-                                  type="number"
-                                  name="quant[2]"
-                                  class="form-control guest-count"
-                                  :value="Form.diningroomcount"
-                                  min="1"
-                                  max="100"
-                                  style="border-radius: 4px;"
-                                >
-                                <span class="input-group-btn">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-number"
-                                    data-type="plus"
-                                    data-field="quant[2]"
-                                    v-on:click.prevent="Form.diningroomcount = Form.diningroomcount + 1"
-                                    style="margin-right: 10px;"
-                                  >
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                  </button>
-                                </span>
+                                  <span class="input-group-btn">
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-number"
+                                      data-type="plus"
+                                      data-field="quant[2]"
+                                      v-on:click.prevent="Form.diningroomcount = Form.diningroomcount + 1"
+                                      style="margin-right: 10px;"
+                                    >
+                                      <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                  </span>
+                                </div>
+                                <p></p>
                               </div>
-                              <p></p>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </transition>
 
                       <!-- Page 5 : Will you tell us more about the location?-->
-                      <div class="form-section" style="width: 100%;" v-if="page == 5">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">Will you tell us more about the location?</h2>
+                      <transition name="fade">
+                        <div class="form-section" style="width: 100%;" v-if="page == 5">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">Will you tell us more about the location?</h2>
+                            </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <input
-                              type="text"
-                              class="form-control-edit"
-                              style="border-radius: 1px;"
-                              placeholder="House Number"
-                              v-model="Form.addressHouseNumber"
-                            >
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <input
-                              type="text"
-                              class="form-control-edit"
-                              style="border-radius: 1px;"
-                              placeholder="Street"
-                              v-model="Form.addressStreet"
-                            >
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-5 listing-input-div">
-                            <input
-                              type="text"
-                              class="form-control-edit"
-                              style="border-radius: 1px;"
-                              placeholder="Suburb"
-                              v-model="Form.addressSuburb"
-                            >
-                          </div>
-                          <div class="col-md-5 listing-input-div">
-                            <input
-                              type="text"
-                              class="form-control-edit"
-                              style="border-radius: 1px;"
-                              placeholder="Township or District"
-                              v-model="Form.addressTownship"
-                            >
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-10 listing-input-div">
-                            <no-ssr>
-                              <gmap-autocomplete
-                                placeholder="Location"
-                                class="form-control-edit gmap"
-                                @place_changed="setPlace"
-                              ></gmap-autocomplete>
-                            </no-ssr>
-                          </div>
-                        </div><br>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three" style="font-size: 14px;">Please drag the marker to the location of your space</h2>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div
-                            class="col-md-10 listing-input-div"
-                            style="width: 100%; height:50vh;"
-                          >
-                            <no-ssr>
-                              <Gmap-Map
-                                style="height: 100%"
-                                class="gmap"
-                                :zoom="13"
-                                :center="{lat: mapCenter.lat, lng: mapCenter.lng}"
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <input
+                                type="text"
+                                class="form-control-edit"
+                                style="border-radius: 1px;"
+                                placeholder="House Number"
+                                v-model="Form.addressHouseNumber"
                               >
-                                <Gmap-Marker
-                                  v-for="(marker, index) in markers"
-                                  :key="index"
-                                  :position="marker.position"
-                                ></Gmap-Marker>
-                                <Gmap-Marker
-                                  :icon="{ url: require('@/assets/icons/map-marker.png')}"
-                                  :draggable="true"
-                                  :clickable="true"
-                                  @dragend="resetCoordinates"
-                                  style="background-color: red; width: 200px;"
-                                  :position="{lat: this.Form.addressLatitude, lng: this.Form.addressLongitude,}"
-                                ></Gmap-Marker>
-                              </Gmap-Map>
-                            </no-ssr>
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <input
+                                type="text"
+                                class="form-control-edit"
+                                style="border-radius: 1px;"
+                                placeholder="Street"
+                                v-model="Form.addressStreet"
+                              >
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 listing-input-div">
+                              <input
+                                type="text"
+                                class="form-control-edit"
+                                style="border-radius: 1px;"
+                                placeholder="Suburb"
+                                v-model="Form.addressSuburb"
+                              >
+                            </div>
+                            <div class="col-md-5 listing-input-div">
+                              <input
+                                type="text"
+                                class="form-control-edit"
+                                style="border-radius: 1px;"
+                                placeholder="Township or District"
+                                v-model="Form.addressTownship"
+                              >
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10 listing-input-div">
+                              <no-ssr>
+                                <gmap-autocomplete
+                                  placeholder="Location"
+                                  class="form-control-edit gmap"
+                                  @place_changed="setPlace"
+                                ></gmap-autocomplete>
+                              </no-ssr>
+                            </div>
+                          </div><br>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three" style="font-size: 14px;">Please drag the marker to the location of your space</h2>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div
+                              class="col-md-10 listing-input-div"
+                              style="width: 100%; height:50vh;"
+                            >
+                              <no-ssr>
+                                <Gmap-Map
+                                  style="height: 100%"
+                                  class="gmap"
+                                  :zoom="13"
+                                  :center="{lat: mapCenter.lat, lng: mapCenter.lng}"
+                                >
+                                  <Gmap-Marker
+                                    v-for="(marker, index) in markers"
+                                    :key="index"
+                                    :position="marker.position"
+                                  ></Gmap-Marker>
+                                  <Gmap-Marker
+                                    :icon="{ url: require('@/assets/icons/map-marker.png')}"
+                                    :draggable="true"
+                                    :clickable="true"
+                                    @dragend="resetCoordinates"
+                                    style="background-color: red; width: 200px;"
+                                    :position="{lat: this.Form.addressLatitude, lng: this.Form.addressLongitude,}"
+                                  ></Gmap-Marker>
+                                </Gmap-Map>
+                              </no-ssr>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </transition>
 
                       <!-- Page 6 : What amenities do you offer?-->
-                      <div class="form-section" style="width: 100%;" v-if="page == 6">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">What amenities do you offer?</h2>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="beds" class="btn btn-success amenities">
-                              <i class="fas fa-bed"></i> Beds
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="beds"
-                                class="badgebox"
-                                v-model="Form.amenities.beds"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="essentials" class="btn btn-success amenities">
-                              <i class="fas fa-briefcase"></i> Essentials
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="essentials"
-                                class="badgebox"
-                                v-model="Form.amenities.essentials"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="wifi" class="btn btn-success amenities">
-                              <i class="fas fa-wifi"></i> Wifi
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="wifi"
-                                class="badgebox"
-                                v-model="Form.amenities.wifi"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="desks" class="btn btn-success amenities">
-                              <i class="fas fa-table"></i> Desks
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="desks"
-                                class="badgebox"
-                                v-model="Form.amenities.desks"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="drawer" class="btn btn-success amenities">
-                              <i class="fas fa-archway"></i> Drawers
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="drawer"
-                                class="badgebox"
-                                v-model="Form.amenities.drawer"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="television" class="btn btn-success amenities">
-                              <i class="fas fa-tv"></i> TV
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="television"
-                                class="badgebox"
-                                v-model="Form.amenities.television"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="pool" class="btn btn-success amenities">
-                              <i class="fas fa-swimming-pool"></i> Pool
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="pool"
-                                class="badgebox"
-                                v-model="Form.amenities.pool"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="laundry" class="btn btn-success amenities">
-                              <i class="fas fa-tshirt"></i> Laundry
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="laundry"
-                                class="badgebox"
-                                v-model="Form.amenities.laundry"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="parking" class="btn btn-success amenities">
-                              <i class="fas fa-car"></i> Parking
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="parking"
-                                class="badgebox"
-                                v-model="Form.amenities.parking"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="elevator" class="btn btn-success amenities">
-                              <i class="fab fa-accessible-icon"></i> Elevator
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="elevator"
-                                class="badgebox"
-                                v-model="Form.amenities.elevator"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="hottub" class="btn btn-success amenities">
-                              <i class="fas fa-hot-tub"></i> Hot Tub
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="hottub"
-                                class="badgebox"
-                                v-model="Form.amenities.hottub"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="gym" class="btn btn-success amenities">
-                              <i class="fas fa-dumbbell"></i> Gym
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="gym"
-                                class="badgebox"
-                                v-model="Form.amenities.gym"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="firstaid" class="btn btn-warning amenities">
-                              <i class="fas fa-first-aid"></i> First Aid
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="firstaid"
-                                class="badgebox"
-                                v-model="Form.amenities.firstaid"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="fireextinguisher" class="btn btn-warning amenities">
-                              <i class="fas fa-fire-extinguisher"></i> Extinguisher
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="fireextinguisher"
-                                class="badgebox"
-                                v-model="Form.amenities.fireextinguisher"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <label for="locks" class="btn btn-warning amenities">
-                              <i class="fas fa-lock"></i> Locks
-                              <input
-                                type="checkbox"
-                                :value="true"
-                                id="locks"
-                                class="badgebox"
-                                v-model="Form.amenities.locks"
-                              >
-                              <span class="badge">&check;</span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Page 7 : Upload Images -->
-                      <div class="form-section" style="width: 100%;" v-if="page == 7">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">Set the scene</h2>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-10 listing-input-div">
-                            <input
-                              type="text"
-                              class="form-control-edit"
-                              style="border-radius: 1px;"
-                              placeholder="Title"
-                              v-model="Form.title"
-                            >
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-10 listing-input-div">
-                            <textarea
-                              class="form-control-edit"
-                              style="border-radius: 1px;"
-                              placeholder="Describe your place"
-                              rows="4"
-                              maxlength="200"
-                              minlength="1500"
-                              v-model="Form.description"
-                            ></textarea>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-10 listing-input-div">
-                            <div class="row" style="width: 100%;">
-                              <div class="col-sm-6 imgUp">
-                                <div class="imagePreview">
-                                  <img style="width: 100%;" v-if="imageUrl" :src="imageUrl">
-                                </div>
-                                <label
-                                  class="btn default-button"
-                                  style="border-radius: 0px 0px 1px 1px;"
-                                >
-                                  Upload
-                                  <input
-                                    type="file"
-                                    class="img"
-                                    value="Upload Photo"
-                                    style="width: 0px;height: 0px;overflow: hidden;"
-                                    @change="onFileChange"
-                                  >
-                                </label>
-                              </div>
-                              <i class="fa fa-plus imgAdd"></i>
+                      <transition name="fade">
+                        <div class="form-section" style="width: 100%;" v-if="page == 6">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">What amenities do you offer?</h2>
                             </div>
                           </div>
-                        </div><br>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">Set the price</h2>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-1"></div>
-                          <div class="col-md-2 listing-input-div">
-                            <select class="form-control-edit" v-model="Form.priceCurrency">
-                              <option :value="null">Currency</option>
-                              <option value="ZW$">RTGS $</option>
-                              <option value="US$">US $</option>
-                              <option value="SAR">SA R</option>
-                              <option value="BWP">BW P</option>
-                              <option value="GB£">GB £</option>
-                              <option value="EU€">EU €</option>
-                            </select>
-                          </div>
-                          <div class="col-md-2 listing-input-div">
-                            <input
-                              type="number"
-                              class="form-control-edit"
-                              style="border-radius: 1px;"
-                              placeholder="Price"
-                              v-model="Form.priceValue"
-                            >
-                          </div>
-                          <div class="col-md-3 listing-input-div">
-                            <select class="form-control-edit" v-model="Form.priceMethod">
-                              <option :value="null">Pricing Method</option>
-                              <option value="perHead">per Person</option>
-                              <option value="perRoom">per Room</option>
-                              <option value="fullHouse">Full House</option>
-                            </select>
-                          </div>
-                          <div class="col-md-2 listing-input-div">
-                            <select class="form-control-edit" v-model="Form.priceTime">
-                              <option :value="null">Unit Time</option>
-                              <option value="Week">per Week</option>
-                              <option value="Month">per Month</option>
-                              <option value="Semester">per Semester</option>
-                              <option value="Year">per Year</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
 
-                      <!-- Page 8 : Confirmation Page -->
-                      <div class="form-section" style="width: 100%;" v-if="page == 8">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">Confirm and Add listing</h2>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-4"></div>
-                          <div class="col-md-4 listing-input-div">
-                            <p style="font-size: 12px; text-align: center;">
-                              Please click to confirm that your information is correct and complies
-                              with our terms and conditions.
-                            </p>
-                            <div class="agree" style="text-align: center;">
-                              <label style="font-size: 2.5em;">
-                                <input type="checkbox" value checked required>
-                                <span class="cr">
-                                  <i class="cr-icon fa fa-check"></i>
-                                </span>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="beds" class="btn btn-success amenities">
+                                <i class="fas fa-bed"></i> Beds
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="beds"
+                                  class="badgebox"
+                                  v-model="Form.amenities.beds"
+                                >
+                                <span class="badge">&check;</span>
                               </label>
                             </div>
-
-                            <br>
-                            <button
-                              class="default-button"
-                              style="width: 95%;"
-                              v-on:click.prevent="addListing"
-                              v-if="page == 8"
-                            >Add Listing</button>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="essentials" class="btn btn-success amenities">
+                                <i class="fas fa-briefcase"></i> Essentials
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="essentials"
+                                  class="badgebox"
+                                  v-model="Form.amenities.essentials"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="wifi" class="btn btn-success amenities">
+                                <i class="fas fa-wifi"></i> Wifi
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="wifi"
+                                  class="badgebox"
+                                  v-model="Form.amenities.wifi"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-md-4"></div>
-                      </div>
 
-                      <!-- Page 9 : Response Page -->
-                      <div class="form-section" style="width: 100%;" v-if="page == 9 && submitted">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h2 class="subheading-three">Your Listing has been added</h2>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="desks" class="btn btn-success amenities">
+                                <i class="fas fa-table"></i> Desks
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="desks"
+                                  class="badgebox"
+                                  v-model="Form.amenities.desks"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="drawer" class="btn btn-success amenities">
+                                <i class="fas fa-archway"></i> Drawers
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="drawer"
+                                  class="badgebox"
+                                  v-model="Form.amenities.drawer"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="television" class="btn btn-success amenities">
+                                <i class="fas fa-tv"></i> TV
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="television"
+                                  class="badgebox"
+                                  v-model="Form.amenities.television"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="alert alert-success">
-                              Your listing has successfully been added.
+
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="pool" class="btn btn-success amenities">
+                                <i class="fas fa-swimming-pool"></i> Pool
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="pool"
+                                  class="badgebox"
+                                  v-model="Form.amenities.pool"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="laundry" class="btn btn-success amenities">
+                                <i class="fas fa-tshirt"></i> Laundry
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="laundry"
+                                  class="badgebox"
+                                  v-model="Form.amenities.laundry"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="parking" class="btn btn-success amenities">
+                                <i class="fas fa-car"></i> Parking
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="parking"
+                                  class="badgebox"
+                                  v-model="Form.amenities.parking"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="elevator" class="btn btn-success amenities">
+                                <i class="fab fa-accessible-icon"></i> Elevator
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="elevator"
+                                  class="badgebox"
+                                  v-model="Form.amenities.elevator"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="hottub" class="btn btn-success amenities">
+                                <i class="fas fa-hot-tub"></i> Hot Tub
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="hottub"
+                                  class="badgebox"
+                                  v-model="Form.amenities.hottub"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="gym" class="btn btn-success amenities">
+                                <i class="fas fa-dumbbell"></i> Gym
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="gym"
+                                  class="badgebox"
+                                  v-model="Form.amenities.gym"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="firstaid" class="btn btn-warning amenities">
+                                <i class="fas fa-first-aid"></i> First Aid
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="firstaid"
+                                  class="badgebox"
+                                  v-model="Form.amenities.firstaid"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="fireextinguisher" class="btn btn-warning amenities">
+                                <i class="fas fa-fire-extinguisher"></i> Extinguisher
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="fireextinguisher"
+                                  class="badgebox"
+                                  v-model="Form.amenities.fireextinguisher"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <label for="locks" class="btn btn-warning amenities">
+                                <i class="fas fa-lock"></i> Locks
+                                <input
+                                  type="checkbox"
+                                  :value="true"
+                                  id="locks"
+                                  class="badgebox"
+                                  v-model="Form.amenities.locks"
+                                >
+                                <span class="badge">&check;</span>
+                              </label>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </transition>
+
+                      <!-- Page 7 : Upload Images -->
+                      <transition name="fade">
+                        <div class="form-section" style="width: 100%;" v-if="page == 7">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">Set the scene</h2>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10 listing-input-div">
+                              <input
+                                type="text"
+                                class="form-control-edit"
+                                style="border-radius: 1px;"
+                                placeholder="Title"
+                                v-model="Form.title"
+                              >
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10 listing-input-div">
+                              <textarea
+                                class="form-control-edit"
+                                style="border-radius: 1px;"
+                                placeholder="Describe your place"
+                                rows="4"
+                                maxlength="200"
+                                minlength="1500"
+                                v-model="Form.description"
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10 listing-input-div">
+                              <div class="row" style="width: 100%;">
+                                <div class="col-sm-6 imgUp">
+                                  <div class="imagePreview">
+                                    <img style="width: 100%;" v-if="imageUrl" :src="imageUrl">
+                                  </div>
+                                  <label
+                                    class="btn default-button"
+                                    style="border-radius: 0px 0px 1px 1px;"
+                                  >
+                                    Upload
+                                    <input
+                                      type="file"
+                                      class="img"
+                                      value="Upload Photo"
+                                      style="width: 0px;height: 0px;overflow: hidden;"
+                                      @change="onFileChange"
+                                    >
+                                  </label>
+                                </div>
+                                <i class="fa fa-plus imgAdd"></i>
+                              </div>
+                            </div>
+                          </div><br>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">Set the price</h2>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2 listing-input-div">
+                              <select class="form-control-edit" v-model="Form.priceCurrency">
+                                <option :value="null">Currency</option>
+                                <option value="ZW$">RTGS $</option>
+                                <option value="US$">US $</option>
+                                <option value="SAR">SA R</option>
+                                <option value="BWP">BW P</option>
+                                <option value="GB£">GB £</option>
+                                <option value="EU€">EU €</option>
+                              </select>
+                            </div>
+                            <div class="col-md-2 listing-input-div">
+                              <input
+                                type="number"
+                                class="form-control-edit"
+                                style="border-radius: 1px;"
+                                placeholder="Price"
+                                v-model="Form.priceValue"
+                              >
+                            </div>
+                            <div class="col-md-3 listing-input-div">
+                              <select class="form-control-edit" v-model="Form.priceMethod">
+                                <option :value="null">Pricing Method</option>
+                                <option value="perHead">per Person</option>
+                                <option value="perRoom">per Room</option>
+                                <option value="fullHouse">Full House</option>
+                              </select>
+                            </div>
+                            <div class="col-md-2 listing-input-div">
+                              <select class="form-control-edit" v-model="Form.priceTime">
+                                <option :value="null">Unit Time</option>
+                                <option value="Week">per Week</option>
+                                <option value="Month">per Month</option>
+                                <option value="Semester">per Semester</option>
+                                <option value="Year">per Year</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </transition>
+
+                      <!-- Page 8 : Confirmation Page -->
+                      <transition name="fade">
+                        <div class="form-section" style="width: 100%;" v-if="page == 8">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">Confirm and Add listing</h2>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4 listing-input-div">
+                              <p style="font-size: 12px; text-align: center;">
+                                Please click to confirm that your information is correct and complies
+                                with our terms and conditions.
+                              </p>
+                              <div class="agree" style="text-align: center;">
+                                <label style="font-size: 2.5em;">
+                                  <input type="checkbox" value checked required>
+                                  <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                </label>
+                              </div>
+
+                              <br>
+                              <button
+                                class="default-button"
+                                style="width: 95%; margin-top: 10px;"
+                                v-on:click.prevent="addListing"
+                                v-if="page == 8"
+                              >Add Listing</button>
+                            </div>
+                          </div>
+                          <div class="col-md-4"></div>
+                        </div>
+                      </transition>
+
+                      <!-- Page 9 : Response Page -->
+                      <transition name="fade">
+                        <div class="form-section" style="width: 100%;" v-if="page == 9 && submitted">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h2 class="subheading-three">Your Listing has been added</h2>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="alert alert-success">
+                                Your listing has successfully been added.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </transition>
 
                       <div class="row" style="margin-top: 50px;">
                         <div class="col-md-12" style="width: 100%;">
@@ -1105,6 +1199,27 @@ export default {
         totalRoomCount: null,
         city: null,
         suburb: null,
+        universities: {
+          "AfricaUniversity": false,
+          "BinduraUniversityofScienceEducation": false,
+          "CatholicUniversityinZimbabwe": false,
+          "ChinhoyiUniversityofTechnology": false,
+          "GreatZimbabweUniversity": false,
+          "GwandaStateUniversity": false,
+          "HarareInstituteofTechnology": false,
+          "LupaneStateUniversity": false,
+          "ManicalandUniversityofScienceandTechnology": false,
+          "MaronderaUniversityofAgriculturalSciencesandTechnology": false,
+          "MidlandsStateUniversity": false,
+          "NationalUniversityofScienceandTechnology": false,
+          "ReformedChurchUniversity": false,
+          "SolusiUniversity": false,
+          "SouthernAfricaMethodistUniversity": false,
+          "UniversityofZimbabwe": false,
+          "WomensUniversityinAfrica": false,
+          "ZimbabweEzekielGutiUniversity": false,
+          "ZimbabweOpenUniversity": false
+        },
         specificSpaceType: null,
         isDedicated: null,
         onBehalf: null,
@@ -1407,6 +1522,11 @@ export default {
 
 .gmap {
   width: 99%;
+}
+
+.agree{
+  width: 100%;
+  height: 18px;
 }
 
 .agree label:after {

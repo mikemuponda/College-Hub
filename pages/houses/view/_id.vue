@@ -17,6 +17,11 @@
                 <button on:click="deleteHouse(some_house_id_here)">delete</button>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-12">
+                {{house}}
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-md-3 dashboard-greeting-display">
