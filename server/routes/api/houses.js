@@ -75,6 +75,12 @@ router.post('/house/:id', async (req, res) => {
 	}
 })
 
+//Get one house by city
+router.post('/city/:id', async (req, res) => {
+  const houses = await loadHouses()
+  return res.send(await houses.find({ city: req.params.id}).toArray())
+})
+
 //Get houses by owner
 router.post('/owner/:id', async (req, res) => {
   const houses = await loadHouses()

@@ -117,23 +117,27 @@ export const actions = {
     })
   },
 
-  async editProfile({commit}, {id, firstname, lastname, email, password, sex, dob, phone, isSeeker}){
+  async editProfile({commit}, {id, firstname, lastname, email, password, sex, dob, phone, isSeeker, city, university}){
     var url = '/users/profile/edit/' + id
     var form = {}
-    if(firstname != '')
+    if(firstname != '' && firstname != null)
       form["firstname"] = firstname;
-    if(lastname != '')
+    if(lastname != '' && lastname != null)
       form["lastname"] = lastname;
-    if(email != '')
+    if(email != '' && email != null)
       form["email"] = email;
-    if(password != '')
+    if(password != '' && password != null)
       form["password"] = password;
-    if(sex != '')
+    if(sex != '' && sex != null)
       form["sex"] = sex;
-    if(dob != '')
+    if(dob != '' && dob != null)
       form["dob"] = dob;
-    if(phone != '')
+    if(phone != '' && phone != null)
       form["phone"] = phone;
+    if(city != '' && city != null)
+      form["city"] = city;
+    if(university != '' && university != null)
+      form["university"] = university;
     if(isSeeker)
       form["isSeeker"] = isSeeker;
     else
@@ -181,6 +185,16 @@ export const actions = {
 
   async getHousesByID({commit}, {id}){
     var url = '/houses/owner/' + id
+    try {
+      return await axios.post(url, {id})
+    } catch (error) {
+      return "404"
+      throw error
+    }
+  },
+
+  async getHousesByCity({commit}, {id}){
+    var url = '/houses/city/' + id
     try {
       return await axios.post(url, {id})
     } catch (error) {
