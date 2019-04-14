@@ -71,7 +71,7 @@
                           <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit" v-model="Form.city">
+                              <select class="form-control-edit" v-model="Form.city" @change="resetSurbub">
                                 <option :value="null">City</option>
                                 <option value="Harare">Harare</option>
                                 <option value="Bulawayo">Bulawayo</option>
@@ -93,14 +93,26 @@
                                 <option v-if="Form.city=='Harare'" value="Avenues">Avenues</option>
                                 <option v-if="Form.city=='Harare'" value="Avondale">Avondale</option>
                                 <option v-if="Form.city=='Harare'" value="Belgravia">Belgravia</option>
+                                <option v-if="Form.city=='Harare'" value="Belvedere">Belvedere</option>
                                 <option v-if="Form.city=='Harare'" value="Borrowdale">Borrowdale</option>
                                 <option v-if="Form.city=='Harare'" value="CBD">CBD</option>
+                                <option v-if="Form.city=='Harare'" value="Cranborne">Cranborne</option>
                                 <option v-if="Form.city=='Harare'" value="Emerald Hill">Emerald Hill</option>
                                 <option v-if="Form.city=='Harare'" value="Groom Bridge">Groom Bridge</option>
                                 <option v-if="Form.city=='Harare'" value="Gunhill">Gunhill</option>
+                                <option v-if="Form.city=='Harare'" value="Hatfield">Hatfield</option>
                                 <option v-if="Form.city=='Harare'" value="Kensington">Kensington</option>
+                                <option v-if="Form.city=='Harare'" value="Manresa">Manresa</option>
                                 <option v-if="Form.city=='Harare'" value="Milton Park">Milton Park</option>
                                 <option v-if="Form.city=='Harare'" value="Mount Pleasant">Mount Pleasant</option>
+                                <option v-if="Form.city=='Harare'" value="Ridgeview">Ridgeview</option>
+                                <option v-if="Form.city=='Harare'" value="Sunningdale">Sunningdale</option>
+
+                                <option v-if="Form.city=='Bulawayo'" value="Morningside">Morningside</option>
+                                <option v-if="Form.city=='Bulawayo'" value="Pumula South">Pumula South</option>
+                                <option v-if="Form.city=='Bulawayo'" value="Selborne Park">Selborne Park</option>
+                                <option v-if="Form.city=='Bulawayo'" value="South World">South World</option>
+                                <option v-if="Form.city=='Bulawayo'" value="Sunninghill">Sunninghill</option>
                               </select>
                             </div>
                           </div>
@@ -111,7 +123,7 @@
 
                               <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
                                 <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" v-model="Form.universities.UniversityofZimbabwe" :value="true">
+                                  <input type="checkbox" @change="addUni('University of Zimbabwe')">
                                   <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                   </span>
@@ -121,7 +133,7 @@
 
                               <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
                                 <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" v-model="Form.universities.HarareInstituteofTechnology" :value="true">
+                                  <input type="checkbox" @change="addUni('Harare Institute of Technology')">
                                   <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                   </span>
@@ -131,7 +143,7 @@
 
                               <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
                                 <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" v-model="Form.universities.WomensUniversityinAfrica" :value="true">
+                                  <input type="checkbox" @change="addUni('Womens University in Africa')">
                                   <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                   </span>
@@ -141,7 +153,7 @@
 
                               <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
                                 <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" v-model="Form.universities.ZimbabweOpenUniversity" :value="true">
+                                  <input type="checkbox" @change="addUni('Zimbabwe Open University')">
                                   <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                   </span>
@@ -151,7 +163,7 @@
 
                               <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
                                 <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" v-model="Form.universities.CatholicUniversityinZimbabwe" :value="true">
+                                  <input type="checkbox" @change="addUni('Catholic University in Zimbabwe')">
                                   <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                   </span>
@@ -161,12 +173,23 @@
 
                               <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
                                 <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" v-model="Form.universities.SouthernAfricaMethodistUniversity" :value="true">
+                                  <input type="checkbox" @change="addUni('Southern Africa Methodist University')">
                                   <span class="cr">
                                     <i class="cr-icon fa fa-check"></i>
                                   </span>
                                 </label>
                                 <p style="float: left;">Southern Africa Methodist University</p>
+                              </div><br>
+
+
+                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Bulawayo'">
+                                <label style="font-size: 1em; float: left;">
+                                  <input type="checkbox" @change="addUni('National University of Science and Technology')">
+                                  <span class="cr">
+                                    <i class="cr-icon fa fa-check"></i>
+                                  </span>
+                                </label>
+                                <p style="float: left;">National University of Science and Technology</p>
                               </div><br>
                               
                             </div>
@@ -1193,33 +1216,14 @@ export default {
       errors: [],
       page: 1,
       submitted: false,
+      uniCounter: 0,
       Form: {
         owner: null,
         spaceType: null,
         totalRoomCount: null,
         city: null,
         suburb: null,
-        universities: {
-          "AfricaUniversity": false,
-          "BinduraUniversityofScienceEducation": false,
-          "CatholicUniversityinZimbabwe": false,
-          "ChinhoyiUniversityofTechnology": false,
-          "GreatZimbabweUniversity": false,
-          "GwandaStateUniversity": false,
-          "HarareInstituteofTechnology": false,
-          "LupaneStateUniversity": false,
-          "ManicalandUniversityofScienceandTechnology": false,
-          "MaronderaUniversityofAgriculturalSciencesandTechnology": false,
-          "MidlandsStateUniversity": false,
-          "NationalUniversityofScienceandTechnology": false,
-          "ReformedChurchUniversity": false,
-          "SolusiUniversity": false,
-          "SouthernAfricaMethodistUniversity": false,
-          "UniversityofZimbabwe": false,
-          "WomensUniversityinAfrica": false,
-          "ZimbabweEzekielGutiUniversity": false,
-          "ZimbabweOpenUniversity": false
-        },
+        universities: [],
         specificSpaceType: null,
         isDedicated: null,
         onBehalf: null,
@@ -1286,11 +1290,14 @@ export default {
           this.errors.push(
             'Please select the suburb in which your space is located'
           )
+        if(this.uniCounter <= 0)
+          this.errors.push('Please select at least one university from ' + this.Form.city)
         if (
           this.Form.spaceType &&
           this.Form.totalRoomCount &&
           this.Form.city &&
-          this.Form.suburb
+          this.Form.suburb &&
+          this.uniCounter >= 1
         ) {
           this.page = this.page + 1
           this.errors = []
@@ -1430,7 +1437,26 @@ export default {
         }
       }
       e.preventDefault()
+    },
+    addUni(uni){
+      var index = this.Form.universities.indexOf(uni)
+      if (index >= 0) {
+        this.Form.universities.splice(index, 1);
+        uni = null
+        this.uniCounter = this.uniCounter - 1
+      }
+      if(uni != null){
+        this.Form.universities.push(uni)
+        this.uniCounter = this.uniCounter + 1
+      }
+    },
+    resetSurbub(){
+      console.log(this.Form.universities)
+      this.Form.surbub = null
+      this.uniCounter = 0
+      this.Form.universities = []
     }
+    
   },
   async mounted() {
     this.$nextTick(() => {this.$nuxt.$loading.start()})
