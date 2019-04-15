@@ -180,18 +180,9 @@
                           <label for="city">City</label>
                         </div>
                         <div class="col-md-6">
-                          <select id="city" class="form-control-edit" v-model="Form.city">
+                          <select id="city" class="form-control-edit" v-model="Form.city" @change="displayVarsities()">
                             <option :value="null">Select City</option>
-                            <option value="Harare">Harare</option>
-                            <option value="Bulawayo">Bulawayo</option>
-                            <option value="Gweru">Gweru</option>
-                            <option value="Mutare">Mutare</option>
-                            <option value="Masvingo">Masvingo</option>
-                            <option value="Marondera">Marondera</option>
-                            <option value="Chinhoyi">Chinhoyi</option>
-                            <option value="Bindura">Bindura</option>
-                            <option value="Gwanda">Gwanda</option>
-                            <option value="Lupane">Lupane</option>
+                            <option :value="city" v-for="city in cities" :key="city">{{city}}</option>
                           </select>
                         </div>
                       </div>
@@ -202,27 +193,8 @@
                         <div class="col-md-6">
                           <select id="university" class="form-control-edit" v-model="Form.university">
                             <option :value="null">Select University</option>
-                            <option v-if="Form.city=='Harare'" value="University of Zimbabwe">University of Zimbabwe</option>
-                            <option v-if="Form.city=='Harare'" value="Harare Institute of Technology">Harare Institute of Technology</option>
-                            <option v-if="Form.city=='Harare'" value="Women's University in Africa">Women's University in Africa</option>
-                            <option v-if="Form.city=='Harare'" value="Zimbabwe Open University">Zimbabwe Open University</option>
-                            <option v-if="Form.city=='Harare'" value="Catholic University in Zimbabwe">Catholic University in Zimbabwe</option>
-                            <option v-if="Form.city=='Harare'" value="Southern Africa Methodist University">Southern Africa Methodist University</option>
-                            <option v-if="Form.city=='Bulawayo'" value="National University of Science and Technology">National University of Science and Technology</option>
-                            <option v-if="Form.city=='Bulawayo'" value="Solusi University">Solusi University</option>
-                            <option v-if="Form.city=='Bulawayo'" value="Gwanda State University">Gwanda State University</option>
-                            <option v-if="Form.city=='Gweru'" value="Midlands State University">Midlands State University</option>
-                            <option v-if="Form.city=='Mutare'" value="Africa University">Africa University</option>
-                            <option v-if="Form.city=='Mutare'" value="Manicaland University of Science and Technology">Manicaland University of Science and Technology</option>
-                            <option v-if="Form.city=='Masvingo'" value="Great Zimbabwe University">Great Zimbabwe University</option>
-                            <option v-if="Form.city=='Masvingo'" value="Reformed Church University">Reformed Church University</option>
-                            <option v-if="Form.city=='Marondera'" value="Marondera University of Agricultural Sciences and Technology">Marondera University of Agricultural Sciences and Technology</option>
-                            <option v-if="Form.city=='Marondera'" value="Women's University in Africa">Women's University in Africa</option>
-                            <option v-if="Form.city=='Chinhoyi'" value="Chinhoyi University of Technology">Chinhoyi University of Technology</option>
-                            <option v-if="Form.city=='Bindura'" value="Bindura University of Science Education">Bindura University of Science Education</option>
-                            <option v-if="Form.city=='Bindura'" value="Zimbabwe Ezekiel Guti University">Zimbabwe Ezekiel Guti University</option>
-                            <option v-if="Form.city=='Gwanda'" value="Gwanda State University">Gwanda State University</option>
-                            <option v-if="Form.city=='Lupane'" value="Lupane State University">Lupane State University</option>
+                            <option :value="university" v-for="university in universities" :key="university">{{university}}</option>
+                            
                           </select>
                         </div>
                       </div>
@@ -420,6 +392,9 @@ export default {
       accountType: null,
       submitErrors: [],
       seeker: null,
+      fullLocale: {},
+      cities: [],
+      universities: [],
       Form: {
         id: this.$route.params.id,
         firstname: null,
@@ -439,24 +414,47 @@ export default {
     }
   },
   async mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start()
-    })
+    this.$nextTick(() => { this.$nuxt.$loading.start() })
     try {
-      this.userProfile = await this.$store.dispatch('getProfile', {
-        id: this.$route.params.id
-      })
+      this.userProfile = await this.$store.dispatch('getProfile', { id: this.$route.params.id })
       this.userProfile = this.userProfile.data.user
+      var locale = await this.$store.dispatch('getAllLocales')
+      this.fullLocale = locale.data[0]
+      this.cities = Object.getOwnPropertyNames(this.fullLocale.Zimbabwe.city)
+      this.cities.pop()
     } catch (e) {
       this.error = e.message
     }
-    this.$nextTick(() => {
-      setTimeout(() => this.$nuxt.$loading.finish(), 0)
-    })
+    this.$nextTick(() => { setTimeout(() => this.$nuxt.$loading.finish(), 0) })
   },
   methods: {
     date(date) {
       return new Date(date)
+    },
+    displayVarsities(){
+      this.universities = []
+      if(this.Form.city ==  "Harare")
+        this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
+      else if(this.Form.city ==  "Bulawayo")
+        this.universities = this.fullLocale.Zimbabwe.city.Bulawayo.universities
+      else if(this.Form.city ==  "Gweru")
+        this.universities = this.fullLocale.Zimbabwe.city.Gweru.universities
+      else if(this.Form.city ==  "Mutare")
+        this.universities = this.fullLocale.Zimbabwe.city.Mutare.universities
+      else if(this.Form.city ==  "Masvingo")
+        this.universities = this.fullLocale.Zimbabwe.city.Masvingo.universities
+      else if(this.Form.city ==  "Marondera")
+        this.universities = this.fullLocale.Zimbabwe.city.Marondera.universities
+      else if(this.Form.city ==  "Chinhoyi")
+        this.universities = this.fullLocale.Zimbabwe.city.Chinhoyi.universities
+      else if(this.Form.city ==  "Bindura")
+        this.universities = this.fullLocale.Zimbabwe.city.Bindura.universities
+      else if(this.Form.city ==  "Gwanda")
+        this.universities = this.fullLocale.Zimbabwe.city.Gwanda.universities
+      else if(this.Form.city ==  "Lupane")
+        this.universities = this.fullLocale.Zimbabwe.city.Lupane.universities
+      else if(this.Form.city ==  "Zvishavane")
+        this.universities = this.fullLocale.Zimbabwe.city.Zvishavane.universities 
     },
     edit: function(e) {
       this.displayEdit = true

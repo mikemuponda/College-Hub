@@ -243,6 +243,15 @@ export const actions = {
     }
   },
 
+  async getAllLocales({commit},){
+    var url = '/data/get/locales'
+    try {
+      return await axios.post(url)
+    } catch (error) {
+      return "404"
+    }
+  },
+
 
 
 }

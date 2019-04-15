@@ -205,7 +205,8 @@ module.exports = {
     '~/server/routes/api',
     '~/server/routes/api/houses',
     '~/server/routes/api/contact',
-    '~/server/routes/api/health'
+    '~/server/routes/api/health',
+    '~/server/routes/api/admin',
   ],
 
   sitemap: {
