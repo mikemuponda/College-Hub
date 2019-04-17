@@ -411,7 +411,7 @@ input:valid~label {
   border: none;
   width: 100%;
   cursor: pointer;
-  box-shadow:inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+  box-shadow: inset 0 -0.6em 1em -0.35em rgba(0, 0, 0, 0.17), inset 0 0.6em 2em -0.3em rgba(255, 255, 255, 0.15), inset 0 0 0em 0.05em rgba(255, 255, 255, 0.12);
 }
 
 .default-button-small {
@@ -434,7 +434,7 @@ input:valid~label {
   -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
   box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
-  box-shadow:inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+  box-shadow: inset 0 -0.6em 1em -0.35em rgba(0, 0, 0, 0.17), inset 0 0.6em 2em -0.3em rgba(255, 255, 255, 0.15), inset 0 0 0em 0.05em rgba(255, 255, 255, 0.12);
 
 }
 
@@ -805,10 +805,10 @@ input:valid~label {
   border-radius: 0;
   font-size: 15px;
   background: linear-gradient(-135deg, rgb(63, 81, 181), rgb(233, 30, 99));
-  background: -webkit-linear-gradient(-135deg,rgb(63, 81, 181),rgb(233, 30, 99));
+  background: -webkit-linear-gradient(-135deg, rgb(63, 81, 181), rgb(233, 30, 99));
 }
 
-.profile-img .file:hover{
+.profile-img .file:hover {
   opacity: 0.8;
   cursor: pointer;
 }
@@ -940,11 +940,30 @@ input:valid~label {
   font-size: 12px;
 }
 
+.taxiMapDisplay {
+  border-radius: 2px 2px 2px 2px;
+  background: #ffffff;
+  text-align: left;
+  margin-left: 5px;
+  float: right;
+  width: 100%;
+  height: 300px;
+  -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+}
 
-.fade-enter-active, .fade-leave-active {
+
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+  {
   opacity: 0;
 }
 
