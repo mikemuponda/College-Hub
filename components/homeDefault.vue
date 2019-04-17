@@ -22,111 +22,113 @@
             </div>
           </div>
         </div>
-        <div class="row nopadding" v-else>
-          <div class="col-md-4" style="text-align: center;">
-            <h2
-              class="section-subtitle-grey"
-              v-if="currentLocation != null"
-            >Find Accomodation in {{currentLocation}}</h2>
-            <div style="width: 100%;">
-              <div class="section search-form-sec">
-                <div class="container">
-                  <form
-                    action="#"
-                    method="post"
-                    novalidate="novalidate"
-                    style="padding: 0 0.8rem 0 0.8rem;"
-                  >
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="row">
-                          <div class="col-lg-8 col-md-8 col-sm-12 p-0">
-                            <select id="suburb" class="form-control search-slt" v-model="Accommodation.suburb">
-                              <option :value="null">Select Suburb</option>
-                              <option :value="suburb" v-for="suburb in suburbs" :key="suburb">{{suburb}}</option>
-                            </select>
-                          </div>
-                          <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-                            <button type="button" class="btn wrn-btn" @click="Search()">Search</button>
+        <div style="width: 100%;" v-else>
+          <div class="row nopadding" >
+            <div class="col-md-4" style="text-align: center;">
+              <h2
+                class="section-subtitle-grey"
+                v-if="currentLocation != null"
+              >Find Accomodation in {{currentLocation}}</h2>
+              <div style="width: 100%;">
+                <div class="section search-form-sec">
+                  <div class="container">
+                    <form
+                      action="#"
+                      method="post"
+                      novalidate="novalidate"
+                      style="padding: 0 0.8rem 0 0.8rem;"
+                    >
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-12 p-0">
+                              <select id="suburb" class="form-control search-slt" v-model="Accommodation.suburb">
+                                <option :value="null">Select Suburb</option>
+                                <option :value="suburb" v-for="suburb in suburbs" :key="suburb">{{suburb}}</option>
+                              </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 p-0">
+                              <button type="button" class="default-button wrn-btn" @click="Search()">Search</button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-8">
-            <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
-              <NuxtLink
-                :to="'/houses/view/' + house._id"
-                :title="house.title"
-                style="width: 100%; color: #000;"
-              >
-                <div class="row">
-                  <div class="col-md-4">
-                    <img
-                      src="/houses/house-one.jpeg"
-                      :alt="house.title"
-                      :title="house.title"
-                      class="recommended-house-image"
-                    >
-                  </div>
-                  <div class="col-md-5">
-                    <h3 class="section-subtitle">{{house.title}}</h3>
-                    <p class="section-small-text">{{house.suburb}}, {{house.city}}</p>
-                    <p class="section-description">{{house.description}}</p>
-                    <p class="time-estimate">
-                      <i class="fas fa-clock"></i> Estimated: 25 minutes to The University of Zimbabwe
-                    </p>
-                  </div>
-                  <div class="col-md-3 amenities">
-                    <h3 class="section-subtitle" style="font-size: 14px;">
-                      <strong>{{house.priceCurrency}}{{house.priceValue}}/{{house.priceTime}}</strong>
+            <div class="col-md-8">
+              <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
+                <NuxtLink
+                  :to="'/houses/view/' + house._id"
+                  :title="house.title"
+                  style="width: 100%; color: #000;"
+                >
+                  <div class="row">
+                    <div class="col-md-4">
+                      <img
+                        src="/houses/house-one.jpeg"
+                        :alt="house.title"
+                        :title="house.title"
+                        class="recommended-house-image"
+                      >
+                    </div>
+                    <div class="col-md-5">
+                      <h3 class="section-subtitle">{{house.title}}</h3>
+                      <p class="section-small-text">{{house.suburb}}, {{house.city}}</p>
+                      <p class="section-description">{{house.description}}</p>
+                      <p class="time-estimate">
+                        <i class="fas fa-clock"></i> Estimated: 25 minutes to The University of Zimbabwe
+                      </p>
+                    </div>
+                    <div class="col-md-3 amenities">
+                      <h3 class="section-subtitle" style="font-size: 14px;">
+                        <strong>{{house.priceCurrency}}{{house.priceValue}}/{{house.priceTime}}</strong>
+                        <br>
+                        <span
+                          v-if="house.priceMethod == 'perHead'"
+                          style="font-size: 12px; color: #606060;"
+                        >per Person</span>
+                        <span
+                          v-else-if="house.priceMethod == 'perRoom'"
+                          style="font-size: 12px; color: #606060;"
+                        >per Room</span>
+                        <span
+                          v-else-if="house.priceMethod == 'fullHouse'"
+                          style="font-size: 12px; color: #606060;"
+                        >Full House</span>
+                        <span v-else style="font-size: 12px; color: #606060;">{{house.priceMethod}}</span>
+                      </h3>
                       <br>
-                      <span
-                        v-if="house.priceMethod == 'perHead'"
-                        style="font-size: 12px; color: #606060;"
-                      >per Person</span>
-                      <span
-                        v-else-if="house.priceMethod == 'perRoom'"
-                        style="font-size: 12px; color: #606060;"
-                      >per Room</span>
-                      <span
-                        v-else-if="house.priceMethod == 'fullHouse'"
-                        style="font-size: 12px; color: #606060;"
-                      >Full House</span>
-                      <span v-else style="font-size: 12px; color: #606060;">{{house.priceMethod}}</span>
-                    </h3>
-                    <br>
-                    <div class="row nopadding" style="width: 100%">
-                      <div class="col-md-12 nopadding">
-                        <p class="section-small-text">
-                          UZ (10 minutes)
-                          <i class="fas fa-graduation-cap"></i>
-                        </p>
-                        <p class="section-small-text" v-if="house.amenities.beds">
-                          {{house.bedroomcount}} Bedrooms
-                          <i class="fas fa-bed"></i>
-                        </p>
-                        <p class="section-small-text" v-if="house.amenities.essentials">
-                          Essentials
-                          <i class="fas fa-briefcase"></i>
-                        </p>
-                        <p class="section-small-text" v-if="house.amenities.wifi">
-                          Wifi
-                          <i class="fas fa-wifi"></i>
-                        </p>
-                        <p class="section-small-text" v-if="house.amenities.desks">
-                          Desks
-                          <i class="fas fa-table"></i>
-                        </p>
+                      <div class="row nopadding" style="width: 100%">
+                        <div class="col-md-12 nopadding">
+                          <p class="section-small-text">
+                            UZ (10 minutes)
+                            <i class="fas fa-graduation-cap"></i>
+                          </p>
+                          <p class="section-small-text" v-if="house.amenities.beds">
+                            {{house.bedroomcount}} Bedrooms
+                            <i class="fas fa-bed"></i>
+                          </p>
+                          <p class="section-small-text" v-if="house.amenities.essentials">
+                            Essentials
+                            <i class="fas fa-briefcase"></i>
+                          </p>
+                          <p class="section-small-text" v-if="house.amenities.wifi">
+                            Wifi
+                            <i class="fas fa-wifi"></i>
+                          </p>
+                          <p class="section-small-text" v-if="house.amenities.desks">
+                            Desks
+                            <i class="fas fa-table"></i>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </NuxtLink>
+                </NuxtLink>
+              </div>
             </div>
           </div>
         </div>
@@ -238,6 +240,10 @@ export default {
               this.errors.push(e)
             })
         })
+      }else{
+        await axios.get('api2/', function(response) {
+            this.currentLocation = response.city
+        }, "jsonp");
       }
 
       var locale = await this.$store.dispatch('getAllLocales')

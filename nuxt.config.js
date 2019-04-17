@@ -150,7 +150,7 @@ module.exports = {
       },
       {
         rel: 'stylesheet',
-        href: "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        href: "//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       },
       {
         rel: 'stylesheet',
@@ -226,7 +226,8 @@ module.exports = {
     proxy: true,
   },
   proxy: {
-    '/api/': { target: 'https://maps.googleapis.com', pathRewrite: {'^/api/': ''} }
+    '/api/': { target: 'https://maps.googleapis.com', pathRewrite: {'^/api/': ''} },
+    '/api2/': { target: 'https://ipinfo.io', pathRewrite: {'^/api2/': ''} }
   },
 
   build: {},

@@ -61,7 +61,7 @@
                 <br>
                 <br>
                 <NuxtLink :to="'/create-account'" title="Create Account">
-                  <button class="create-account">Create Account</button>
+                  <button class="create-account" style="font-size: 15px;">Create Account</button>
                 </NuxtLink>
               </div>
             </form>
@@ -73,7 +73,7 @@
     <div class="container-fluid nopadding">
       <div class="row">
         <div class="col-md-12">
-          <recommended/>
+          <homeDefault/>
         </div>
       </div>
     </div>
@@ -81,11 +81,11 @@
 </template>
 
 <script>
-import recommended from '@/components/recommended'
+import homeDefault from '@/components/homeDefault'
 
 export default {
   components: {
-    recommended: recommended
+    homeDefault: homeDefault
   },
   data() {
     return {

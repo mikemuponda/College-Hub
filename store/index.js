@@ -250,15 +250,6 @@ export const actions = {
     } catch (error) {
       return "404"
     }
-  },
-
-  async getUserLocation({commit, state}, {lat, lng}){
-    var url = '/api/maps/api/geocode/json?latlng=' + lat + ', ' + lng + '&key=AIzaSyD1Fwk2m7irxzQntMAqYY-aIjnTQUII0bI'
-    try {
-      return await axios.get(url)
-    } catch (error) {
-      return error
-    }
   }
 
 }
