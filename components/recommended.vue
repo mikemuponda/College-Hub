@@ -3,8 +3,9 @@
     <div class="section">
       <div class="container-fluid">
         <div class="row nopadding">
-          <div class="col-md-12">
-            <h3 class="section-title">Recommended</h3>
+          <div class="col-md-12" style="text-align: center;">
+            <h3 class="section-title">Looking for Accomodation?</h3>
+            <h2 class="section-subtitle-grey">Get started finding accomodation now</h2>
           </div>
         </div>
         <div class="row" v-if="errors.length">
@@ -22,13 +23,42 @@
           </div>
         </div>
         <div class="row nopadding" v-else>
-          <div class="col-md-9" style="width: 100%;">
-            <div
-              class="row recommended-card"
-              v-for="(house, index) in houses"
-              :key="index"
-              style="width: 100%;"
-            >
+          <div class="col-md-4" style="text-align: center;">
+            <h2
+              class="section-subtitle-grey"
+              v-if="currentLocation != null"
+            >Find Accomodation in {{currentLocation}}</h2>
+            <div style="width: 100%;">
+              <div class="section search-form-sec">
+                <div class="container">
+                  <form
+                    action="#"
+                    method="post"
+                    novalidate="novalidate"
+                    style="padding: 0 0.8rem 0 0.8rem;"
+                  >
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="row">
+                          <div class="col-lg-8 col-md-8 col-sm-12 p-0">
+                            <select id="suburb" class="form-control search-slt" v-model="Accommodation.suburb">
+                              <option :value="null">Select Suburb</option>
+                              <option :value="suburb" v-for="suburb in suburbs" :key="suburb">{{suburb}}</option>
+                            </select>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 p-0">
+                            <button type="button" class="btn wrn-btn" @click="Search()">Search</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
               <NuxtLink
                 :to="'/houses/view/' + house._id"
                 :title="house.title"
@@ -99,10 +129,6 @@
               </NuxtLink>
             </div>
           </div>
-
-          <div class="col-md-3">
-            <defaultAdsColumn/>
-          </div>
         </div>
       </div>
     </div>
@@ -111,30 +137,116 @@
 
 <script>
 import defaultAdsColumn from '@/components/defaultAdsColumn'
+import houseSearchByCity from '@/components/houseSearchByCity'
+import axios from 'axios'
 export default {
   components: {
-    defaultAdsColumn: defaultAdsColumn
+    defaultAdsColumn: defaultAdsColumn,
+    houseSearchByCity: houseSearchByCity
   },
   data() {
     return {
       houses: [],
-      errors: []
+      errors: [],
+      currentLocation: null,
+      suburbs: [],
+      fullLocale: null,
+      Accommodation: {
+        suburb: '',
+        city: ''
+      }
+    }
+  },
+  methods: {
+    displaySuburbs() {
+      this.suburbs = []
+      if (this.currentLocation == 'Harare')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
+      else if (this.currentLocation == 'Bulawayo')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Bulawayo.suburbs
+      else if (this.currentLocation == 'Gweru')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Gweru.suburbs
+      else if (this.currentLocation == 'Mutare')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Mutare.suburbs
+      else if (this.currentLocation == 'Masvingo')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Masvingo.suburbs
+      else if (this.currentLocation == 'Marondera')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Marondera.suburbs
+      else if (this.currentLocation == 'Chinhoyi')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Chinhoyi.suburbs
+      else if (this.currentLocation == 'Bindura')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Bindura.suburbs
+      else if (this.currentLocation == 'Gwanda')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Gwanda.suburbs
+      else if (this.currentLocation == 'Lupane')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Lupane.suburbs
+      else if (this.currentLocation == 'Zvishavane')
+        this.suburbs = this.fullLocale.Zimbabwe.city.Zvishavane.suburbs
+      else this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
+    },
+    Search(){
+      this.Accommodation.city = this.currentLocation
+      window.location.href = '/houses/find/?city=' + this.Accommodation.city + '&suburb=' + this.Accommodation.suburb
     }
   },
   async mounted() {
     var housesArr = null
     try {
-      if ( (housesArr = await this.$store.dispatch('getHouses', {id: 'allhouses'})))
+      if (
+        (housesArr = await this.$store.dispatch('getHouses', {
+          id: 'allhouses'
+        }))
+      )
         if (housesArr == '404')
           this.errors.push('Houses could not be retrieved')
         else {
-          var index = null;
+          var index = null
           var houses = housesArr.data
-          for(index in houses){
-            if(houses[index].status == 'Active')
+          for (index in houses) {
+            if (houses[index].status == 'Active')
               this.houses.push(houses[index])
           }
         }
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          var API =
+            'api/maps/api/geocode/json?latlng=' +
+            position.coords.latitude +
+            ',' +
+            position.coords.longitude +
+            '&key=' +
+            process.env.googleMapsKey
+          axios
+            .get(API)
+            .then(response => {
+              this.currentLocation =
+                response.data.results[
+                  response.data.results.length - 3
+                ].formatted_address
+              this.currentLocation = this.currentLocation.split(', ')
+              if (this.currentLocation.length)
+                this.currentLocation = this.currentLocation[
+                  this.currentLocation.length - 2
+                ]
+              if (this.currentLocation.includes('/')) {
+                this.currentLocation = this.currentLocation.split('/')
+                this.currentLocation = this.currentLocation[
+                  this.currentLocation.length - 1
+                ]
+              }
+            })
+            .catch(e => {
+              this.errors.push(e)
+            })
+        })
+      }
+
+      var locale = await this.$store.dispatch('getAllLocales')
+      this.fullLocale = locale.data[0]
+      this.cities = Object.getOwnPropertyNames(this.fullLocale.Zimbabwe.city)
+      this.cities.pop()
+      this.displaySuburbs()
     } catch (e) {
       this.errors.push(e.message)
     }

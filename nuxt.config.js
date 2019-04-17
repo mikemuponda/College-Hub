@@ -222,7 +222,12 @@ module.exports = {
     routes: routes
   },
 
-  axios: {},
+  axios: {
+    proxy: true,
+  },
+  proxy: {
+    '/api/': { target: 'https://maps.googleapis.com', pathRewrite: {'^/api/': ''} }
+  },
 
   build: {},
 }

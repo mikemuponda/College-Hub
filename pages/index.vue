@@ -8,20 +8,17 @@
       <userDashboard/>
     </div>
     
-    <recommended/>
   </div>
 </template>
 
 <script>
-import recommended from '@/components/recommended'
-import userDashboard from '@/components/userDashboard'
 import login from '@/components/login'
+import userDashboard from '@/components/userDashboard'
 
 export default {
   components: {
     Login: login,
-    recommended: recommended,
-    userDashboard: userDashboard
+    userDashboard: userDashboard,
   },
   head() {
     return {

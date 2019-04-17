@@ -69,11 +69,24 @@
         </div>
       </div>
     </div>
+
+    <div class="container-fluid nopadding">
+      <div class="row">
+        <div class="col-md-12">
+          <recommended/>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import recommended from '@/components/recommended'
+
 export default {
+  components: {
+    recommended: recommended
+  },
   data() {
     return {
       formError: null,

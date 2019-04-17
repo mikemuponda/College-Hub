@@ -689,10 +689,10 @@ input:valid~label {
 }
 
 .section-title {
-  font-weight: 400;
-  font-size: 24px;
+  font-weight: 350;
+  font-size: 28px;
   color: #000000;
-  padding: 15px;
+  padding-top: 30px;
 }
 
 .recommended-card {
@@ -705,6 +705,15 @@ input:valid~label {
   color: #000000;
   word-spacing: 1px;
   padding: 15px 0px 0px 0px;
+  margin-bottom: 0px;
+}
+
+.section-subtitle-grey {
+  font-weight: 300;
+  font-size: 18px;
+  color: #746e6e;
+  word-spacing: 1px;
+  padding: 5px 0px 60px 0px;
   margin-bottom: 0px;
 }
 
