@@ -137,12 +137,10 @@
 
 <script>
 import defaultAdsColumn from '@/components/defaultAdsColumn'
-import houseSearchByCity from '@/components/houseSearchByCity'
 import axios from 'axios'
 export default {
   components: {
-    defaultAdsColumn: defaultAdsColumn,
-    houseSearchByCity: houseSearchByCity
+    defaultAdsColumn: defaultAdsColumn
   },
   data() {
     return {
