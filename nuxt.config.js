@@ -55,6 +55,11 @@ module.exports = {
         content: 'Collegehub provides services that facilitate a smooth transition into college life and allow students to create the best experiences at college.'
       },
       {
+        hid: 'google-site-verification',
+        name: 'google-site-verification',
+        content: process.env.googleVerificationKey
+      },
+      {
         hid: 'keywords',
         name: 'keywords',
         content: 'Collegehub, College, Accommodation, Rent a House, University, UZ, University of Zimbabwe, Harare, Lekkahub'
@@ -170,6 +175,10 @@ module.exports = {
     },
     {
       src: "~/plugins/vue2-flip-countdown.js",
+      ssr: false
+    },
+    {
+      src: "~/plugins/google-analytics.js",
       ssr: false
     }
   ],

@@ -54,7 +54,7 @@ router.get('/sitemap.xml', async (req, res) => {
 			url: '/profile/' + allUsers[i].username,
 			changefreq: 'daily',
 			lastmodrealtime: true,
-			priority: 0.7
+			priority: 0.6
 		}
 		routes.push(routeObject);
 	}
