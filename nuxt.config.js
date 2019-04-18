@@ -1,14 +1,7 @@
 const pkg = require('./package')
 require('dotenv').config()
-
 const bodyParser = require('body-parser')
 const session = require('express-session')
-const appRoutes = require('./routes.json')
-const axios = require('axios');
-
-//var allUsers = axios.get('https://www.collegehub.co.zw/users/allusers')
-var allUsers = appRoutes
-var routes = []
 
 let PWAIcons = [16, 120, 144, 152, 192, 384, 512].map(size => {
   return {
@@ -17,14 +10,6 @@ let PWAIcons = [16, 120, 144, 152, 192, 384, 512].map(size => {
     type: 'image/png'
   }
 })
-
-for (var i = 0; i < allUsers.length; i++) {
-  routeObject = {
-    'url': '/profile/' + allUsers[i].username,
-    'changefreq': 'daily'
-  }
-  routes.push(routeObject);
-}
 
 module.exports = {
   mode: 'universal',
@@ -41,7 +26,6 @@ module.exports = {
     'bootstrap-vue/nuxt',
     '@nuxtjs/workbox',
     '@nuxtjs/manifest',
-    '@nuxtjs/sitemap',
     '@nuxtjs/dotenv',
   ],
 
@@ -200,27 +184,13 @@ module.exports = {
         maxAge: 6000000
       }
     }),
-    // Api middleware
-    // We add /api/login & /api/logout routes
     '~/server/routes/api',
     '~/server/routes/api/houses',
     '~/server/routes/api/contact',
     '~/server/routes/api/health',
     '~/server/routes/api/admin',
+    '~/server/routes/sitemap',
   ],
-
-  sitemap: {
-    path: '/sitemap.xml',
-    hostname: 'https://www.collegehub.co.zw',
-    cacheTime: 1000 * 60 * 15,
-    gzip: true,
-    generate: false, // Enable me when using nuxt generate
-    exclude: [
-      '/secret',
-      '/admin/**'
-    ],
-    routes: routes
-  },
 
   axios: {
     proxy: true,

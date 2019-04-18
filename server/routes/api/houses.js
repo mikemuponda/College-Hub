@@ -2,8 +2,6 @@ const express = require('express')
 const mongodb = require('mongodb')
 const sgMail = require('@sendgrid/mail')
 const multer = require('multer');
-const fs = require('fs')
-const path = require('path')
 const router = express.Router()
 const app = express()
 
