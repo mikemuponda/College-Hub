@@ -5,7 +5,10 @@
         <div class="row nopadding">
           <div class="col-md-12" style="text-align: center;">
             <h3 class="section-title">Looking for Accomodation?</h3>
-            <h2 class="section-subtitle-grey" v-if="currentLocation != null">Get started finding accomodation in {{currentLocation}}</h2>
+            <h2
+              class="section-subtitle-grey"
+              v-if="currentLocation != null"
+            >Get started finding accomodation in {{currentLocation}}</h2>
             <h2 class="section-subtitle-grey" v-else>Get started finding accomodation now</h2>
           </div>
         </div>
@@ -53,11 +56,7 @@
                               :value="currentLocation"
                             >{{currentLocation}}</option>
                             <option v-else :value="null">Choose City</option>
-                            <option
-                              :value="city"
-                              v-for="city in cities"
-                              :key="city"
-                            >{{city}}</option>
+                            <option :value="city" v-for="city in cities" :key="city">{{city}}</option>
                           </select>
                         </div>
                         <div style="height: 60px;">
@@ -182,12 +181,20 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="container">
-                  <img src="/img/collegehub-hamburger.png" style="width: 60%;" title="Find Restaurants" alt="Find Restaurants"/>
+                  <img
+                    src="/img/collegehub-hamburger.png"
+                    style="width: 60%;"
+                    title="Find Restaurants"
+                    alt="Find Restaurants"
+                  >
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="container">
-                  <h2 class="section-subtitle-grey" style="color: #000; margin-top: 40px; padding-bottom: 20px;">Pick a Restaurant</h2>
+                  <h2
+                    class="section-subtitle-grey"
+                    style="color: #000; margin-top: 40px; padding-bottom: 20px;"
+                  >Pick a Restaurant</h2>
                   <div class="section search-form-sec">
                     <form
                       action="#"
@@ -212,7 +219,6 @@
                               <option value="Chicken Inn">Chicken Inn</option>
                               <option value="Nandos">Nandos</option>
                               <option value="Pizza Inn">Pizza Inn</option>
-                              
                             </select>
                           </div>
                           <div style="height: 60px;">
@@ -342,6 +348,51 @@
                       </GmapMap>
                     </no-ssr>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="padding-top: 100px;">
+          <div class="col-md-12" style="text-align: center;">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="section-title">Feeling bored?</h3>
+                <h2
+                  class="section-subtitle-grey"
+                  v-if="currentLocation != null"
+                >Get a listing of all upcoming events in {{currentLocation}}</h2>
+                <h2
+                  class="section-subtitle-grey"
+                  v-else
+                >Get a listing of all upcoming events in your area</h2>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4 dashboard-greeting-display" v-for="x in 9" :key="x">
+                  <NuxtLink :to="'/events/view/event1'" title="View Event" style="color: #606060;">
+                    <div class="row nopadding feature">
+                      <div class="nopadding" style="width: 40%; float: left;">
+                        <img
+                          class="img-fluid mb-3 mb-md-0 feature-img"
+                          src="/img/collegehub-coding.jpeg"
+                          alt="View Event"
+                        >
+                      </div>
+                      <div style="width: 60%; float: left;">
+                        <p
+                          class="feature-heading"
+                          style="padding-bottom: 0px; margin-bottom: 0px;"
+                        >Hackathon at HIT</p>
+                        <p
+                          class="feature-text"
+                          style="padding-top: 0px; margin-top: 0px;"
+                        >Compete with the finest developers in Harare?</p>
+                      </div>
+                    </div>
+                  </NuxtLink>
                 </div>
               </div>
             </div>
