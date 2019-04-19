@@ -191,7 +191,7 @@
                           <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-12 p-0">
                               <select
-                                id="suburb"
+                                id="taxi"
                                 class="form-control search-slt"
                                 v-model="Accommodation.suburb"
                               >
