@@ -175,6 +175,83 @@
           <div class="col-md-12" style="text-align: center;">
             <div class="row">
               <div class="col-md-12">
+                <h3 class="section-title">Feeling hungry?</h3>
+                <h2 class="section-subtitle-grey">Choose from 13 restaurants close to you</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="container">
+                  <img src="/img/collegehub-hamburger.png" style="width: 60%;" title="Find Restaurants" alt="Find Restaurants"/>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="container">
+                  <h2 class="section-subtitle-grey" style="color: #000; margin-top: 40px; padding-bottom: 20px;">Pick a Restaurant</h2>
+                  <div class="section search-form-sec">
+                    <form
+                      action="#"
+                      method="post"
+                      novalidate="novalidate"
+                      style="padding: 0 0.8rem 0 0.8rem;"
+                    >
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div style="height: 60px;">
+                            <label
+                              for="restuarantName"
+                              style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
+                            >Restaurant:</label>
+                            <select
+                              id="restuarantName"
+                              class="form-control search-slt"
+                              v-model="Restaurant.name"
+                              style="float: left; width: 68%;"
+                            >
+                              <option :value="null">Choose Restaurant</option>
+                              <option value="Chicken Inn">Chicken Inn</option>
+                              <option value="Nandos">Nandos</option>
+                              <option value="Pizza Inn">Pizza Inn</option>
+                              
+                            </select>
+                          </div>
+                          <div style="height: 60px;">
+                            <label
+                              for="RestaurantMenu"
+                              style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
+                            >Menu:</label>
+                            <select
+                              id="RestaurantMenu"
+                              class="form-control search-slt"
+                              v-model="Restaurant.menu"
+                              style="float: left; width: 68%;"
+                            >
+                              <option :value="null">Menu</option>
+                              <option value="Burger Menu">Burger Menu</option>
+                            </select>
+                          </div>
+
+                          <div>
+                            <button
+                              type="button"
+                              style="border-radius: 2px;"
+                              class="default-button wrn-btn"
+                            >Order</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+          <div class="col-md-12" style="text-align: center;">
+            <div class="row">
+              <div class="col-md-12">
                 <h3 class="section-title">Need to go Somewhere?</h3>
                 <h2 class="section-subtitle-grey">There are 6 Taxis close to your Location</h2>
               </div>
@@ -297,6 +374,10 @@ export default {
       Taxi: {
         from: null,
         to: null
+      },
+      Restaurant: {
+        name: null,
+        menu: null
       },
       TaxiMapmarkers: [{ position: { lat: -17.82422, lng: 31.049363 } }],
       userCurrentCoord: {
