@@ -150,10 +150,72 @@
             <div class="row">
               <div class="col-md-12">
                 <h3 class="section-title">Need to go Somewhere?</h3>
-                <h2 class="section-subtitle-grey">Get a Taxi</h2>
+                <h2 class="section-subtitle-grey">There are 6 Taxis close to your Location</h2>
               </div>
             </div>
             <div class="row">
+              <div class="col-md-6">
+                <h2 class="section-subtitle-grey" style="color: #000;">Select your destination</h2>
+                <div class="section search-form-sec">
+                  <form
+                    action="#"
+                    method="post"
+                    novalidate="novalidate"
+                    style="padding: 0 0.8rem 0 0.8rem;"
+                  >
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div style="height: 60px;">
+                          <label
+                            for="taxiFrom"
+                            style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
+                          >From:</label>
+                          <select
+                            id="taxiFrom"
+                            class="form-control search-slt"
+                            v-model="Taxi.from"
+                            style="float: left; width: 68%;"
+                          >
+                            <option :value="null">Current Location</option>
+                            <option
+                              :value="suburb"
+                              v-for="suburb in suburbs"
+                              :key="suburb"
+                            >{{suburb}}</option>
+                          </select>
+                        </div>
+                        <div style="height: 60px;">
+                          <label
+                            for="taxiTo"
+                            style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
+                          >To:</label>
+                          <select
+                            id="taxiTo"
+                            class="form-control search-slt"
+                            v-model="Taxi.to"
+                            style="float: left; width: 68%;"
+                          >
+                            <option :value="null">Select Suburb</option>
+                            <option
+                              :value="suburb"
+                              v-for="suburb in suburbs"
+                              :key="suburb"
+                            >{{suburb}}</option>
+                          </select>
+                        </div>
+                        
+                        <div>
+                          <button
+                            type="button"
+                            style="border-radius: 2px;"
+                            class="default-button wrn-btn"
+                          >Go</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
               <div class="col-md-6">
                 <div class="taxiMapDisplay">
                   <no-ssr>
@@ -175,53 +237,11 @@
                   </no-ssr>
                 </div>
               </div>
-              <div class="col-md-6">
-                <h2 class="section-subtitle-grey" style="color: #000; padding-bottom: 0px;">There are 6 Taxis close to your Location</h2>
-                <h2 class="section-subtitle-grey" style="font-size: 15px;">Hurry select your destination</h2>
-                <div class="section search-form-sec">
-                  <div class="container">
-                    <form
-                      action="#"
-                      method="post"
-                      novalidate="novalidate"
-                      style="padding: 0 0.8rem 0 0.8rem;"
-                    >
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-12 p-0">
-                              <select
-                                id="taxi"
-                                class="form-control search-slt"
-                                v-model="Accommodation.suburb"
-                              >
-                                <option :value="null">Select Suburb</option>
-                                <option
-                                  :value="suburb"
-                                  v-for="suburb in suburbs"
-                                  :key="suburb"
-                                >{{suburb}}</option>
-                              </select>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-                              <button
-                                type="button"
-                                class="default-button wrn-btn"
-                              >Go</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <adsbygoogle />
   </div>
 </template>
 
@@ -240,8 +260,12 @@ export default {
       suburbs: [],
       fullLocale: null,
       Accommodation: {
-        suburb: '',
+        suburb: null,
         city: ''
+      },
+      Taxi: {
+        from: null,
+        to: null
       },
       TaxiMapmarkers: [{ position: { lat: -17.82422, lng: 31.049363 } }],
       userCurrentCoord: {
