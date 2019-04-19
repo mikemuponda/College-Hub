@@ -221,6 +221,7 @@
         </div>
       </div>
     </div>
+    <adsbygoogle />
   </div>
 </template>
 

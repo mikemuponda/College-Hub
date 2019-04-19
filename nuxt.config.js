@@ -27,7 +27,8 @@ module.exports = {
     '@nuxtjs/workbox',
     '@nuxtjs/manifest',
     '@nuxtjs/dotenv',
-    ['@nuxtjs/google-tag-manager', { id: process.env.googleTagManagerID }]
+    ['@nuxtjs/google-tag-manager', { id: process.env.googleTagManagerID }],
+    ['@nuxtjs/google-adsense', {id: process.env.googleAdSenseKey}]
   ],
 
   manifest: {
