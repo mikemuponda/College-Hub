@@ -24,7 +24,7 @@
         </div>
         <div style="width: 100%;" v-else>
           <div class="row nopadding">
-            <div class="col-md-4" style="text-align: center;">
+            <div class="col-md-5" style="text-align: center;">
               <h2
                 class="section-subtitle-grey"
                 v-if="currentLocation != null"
@@ -70,7 +70,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-7">
               <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
                 <NuxtLink
                   :to="'/houses/view/' + house._id"
@@ -90,9 +90,6 @@
                       <h3 class="section-subtitle">{{house.title}}</h3>
                       <p class="section-small-text">{{house.suburb}}, {{house.city}}</p>
                       <p class="section-description">{{house.description}}</p>
-                      <p class="time-estimate">
-                        <i class="fas fa-clock"></i> Estimated: 25 minutes to The University of Zimbabwe
-                      </p>
                     </div>
                     <div class="col-md-3 amenities">
                       <h3 class="section-subtitle" style="font-size: 14px;">
