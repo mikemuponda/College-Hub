@@ -5,7 +5,8 @@
         <div class="row nopadding">
           <div class="col-md-12" style="text-align: center;">
             <h3 class="section-title">Looking for Accomodation?</h3>
-            <h2 class="section-subtitle-grey">Get started finding accomodation now</h2>
+            <h2 class="section-subtitle-grey" v-if="currentLocation != null">Get started finding accomodation in {{currentLocation}}</h2>
+            <h2 class="section-subtitle-grey" v-else>Get started finding accomodation now</h2>
           </div>
         </div>
         <div class="row" v-if="errors.length">
@@ -25,118 +26,146 @@
         <div style="width: 100%;" v-else>
           <div class="row nopadding">
             <div class="col-md-5" style="text-align: center;">
-              <h2
-                class="section-subtitle-grey"
-                v-if="currentLocation != null"
-              >Find Accomodation in {{currentLocation}}</h2>
               <div style="width: 100%;">
                 <div class="section search-form-sec">
-                  <div class="container">
-                    <form
-                      action="#"
-                      method="post"
-                      novalidate="novalidate"
-                      style="padding: 0 0.8rem 0 0.8rem;"
-                    >
-                      <div class="row">
-                        <div class="col-lg-12">
-                          <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-12 p-0">
-                              <select
-                                id="suburb"
-                                class="form-control search-slt"
-                                v-model="Accommodation.suburb"
-                              >
-                                <option :value="null">Select Suburb</option>
-                                <option
-                                  :value="suburb"
-                                  v-for="suburb in suburbs"
-                                  :key="suburb"
-                                >{{suburb}}</option>
-                              </select>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-                              <button
-                                type="button"
-                                class="default-button wrn-btn"
-                                @click="Search()"
-                              >Search</button>
-                            </div>
-                          </div>
+                  <form
+                    action="#"
+                    method="post"
+                    novalidate="novalidate"
+                    style="padding: 0 0.8rem 0 0.8rem;"
+                  >
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div style="height: 60px;">
+                          <label
+                            for="accomodationCity"
+                            style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
+                          >Change City:</label>
+                          <select
+                            id="accomodationCity"
+                            class="form-control search-slt"
+                            v-model="Accommodation.city"
+                            style="float: left; width: 68%;"
+                            @change="displaySuburbs()"
+                          >
+                            <option
+                              v-if="currentLocation != null"
+                              :value="currentLocation"
+                            >{{currentLocation}}</option>
+                            <option v-else :value="null">Choose City</option>
+                            <option
+                              :value="city"
+                              v-for="city in cities"
+                              :key="city"
+                            >{{city}}</option>
+                          </select>
+                        </div>
+                        <div style="height: 60px;">
+                          <label
+                            for="accomodationSuburb"
+                            style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
+                          >Suburb:</label>
+                          <select
+                            id="accomodationSuburb"
+                            class="form-control search-slt"
+                            v-model="Accommodation.suburb"
+                            style="float: left; width: 68%;"
+                          >
+                            <option :value="null">Select Suburb</option>
+                            <option
+                              :value="suburb"
+                              v-for="suburb in suburbs"
+                              :key="suburb"
+                            >{{suburb}}</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <button
+                            type="button"
+                            style="border-radius: 2px;"
+                            class="default-button wrn-btn"
+                            @click="Search()"
+                          >Find</button>
                         </div>
                       </div>
-                    </form>
-                  </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
             <div class="col-md-7">
-              <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
-                <NuxtLink
-                  :to="'/houses/view/' + house._id"
-                  :title="house.title"
-                  style="width: 100%; color: #000;"
-                >
-                  <div class="row">
-                    <div class="col-md-4">
-                      <img
-                        src="/houses/house-one.jpeg"
-                        :alt="house.title"
-                        :title="house.title"
-                        class="recommended-house-image"
-                      >
-                    </div>
-                    <div class="col-md-5">
-                      <h3 class="section-subtitle">{{house.title}}</h3>
-                      <p class="section-small-text">{{house.suburb}}, {{house.city}}</p>
-                      <p class="section-description">{{house.description}}</p>
-                    </div>
-                    <div class="col-md-3 amenities">
-                      <h3 class="section-subtitle" style="font-size: 14px;">
-                        <strong>{{house.priceCurrency}}{{house.priceValue}}/{{house.priceTime}}</strong>
+              <div class="container">
+                <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
+                  <NuxtLink
+                    :to="'/houses/view/' + house._id"
+                    :title="house.title"
+                    style="width: 100%; color: #000;"
+                  >
+                    <div class="row">
+                      <div class="col-md-4">
+                        <img
+                          src="/houses/house-one.jpeg"
+                          :alt="house.title"
+                          :title="house.title"
+                          class="recommended-house-image"
+                        >
+                      </div>
+                      <div class="col-md-5">
+                        <h3 class="section-subtitle">{{house.title}}</h3>
+                        <p class="section-small-text">{{house.suburb}}, {{house.city}}</p>
+                        <p class="section-description">{{house.description}}</p>
+                      </div>
+                      <div class="col-md-3 amenities">
+                        <h3 class="section-subtitle" style="font-size: 14px;">
+                          <strong>{{house.priceCurrency}}{{house.priceValue}}/{{house.priceTime}}</strong>
+                          <br>
+                          <span
+                            v-if="house.priceMethod == 'perHead'"
+                            style="font-size: 12px; color: #606060;"
+                          >per Person</span>
+                          <span
+                            v-else-if="house.priceMethod == 'perRoom'"
+                            style="font-size: 12px; color: #606060;"
+                          >per Room</span>
+                          <span
+                            v-else-if="house.priceMethod == 'fullHouse'"
+                            style="font-size: 12px; color: #606060;"
+                          >Full House</span>
+                          <span
+                            v-else
+                            style="font-size: 12px; color: #606060;"
+                          >{{house.priceMethod}}</span>
+                        </h3>
                         <br>
-                        <span
-                          v-if="house.priceMethod == 'perHead'"
-                          style="font-size: 12px; color: #606060;"
-                        >per Person</span>
-                        <span
-                          v-else-if="house.priceMethod == 'perRoom'"
-                          style="font-size: 12px; color: #606060;"
-                        >per Room</span>
-                        <span
-                          v-else-if="house.priceMethod == 'fullHouse'"
-                          style="font-size: 12px; color: #606060;"
-                        >Full House</span>
-                        <span v-else style="font-size: 12px; color: #606060;">{{house.priceMethod}}</span>
-                      </h3>
-                      <br>
-                      <div class="row nopadding" style="width: 100%">
-                        <div class="col-md-12 nopadding">
-                          <p class="section-small-text">
-                            UZ (10 minutes)
-                            <i class="fas fa-graduation-cap"></i>
-                          </p>
-                          <p class="section-small-text" v-if="house.amenities.beds">
-                            {{house.bedroomcount}} Bedrooms
-                            <i class="fas fa-bed"></i>
-                          </p>
-                          <p class="section-small-text" v-if="house.amenities.essentials">
-                            Essentials
-                            <i class="fas fa-briefcase"></i>
-                          </p>
-                          <p class="section-small-text" v-if="house.amenities.wifi">
-                            Wifi
-                            <i class="fas fa-wifi"></i>
-                          </p>
-                          <p class="section-small-text" v-if="house.amenities.desks">
-                            Desks
-                            <i class="fas fa-table"></i>
-                          </p>
+                        <div class="row nopadding" style="width: 100%">
+                          <div class="col-md-12 nopadding">
+                            <p class="section-small-text">
+                              UZ (10 minutes)
+                              <i class="fas fa-graduation-cap"></i>
+                            </p>
+                            <p class="section-small-text" v-if="house.amenities.beds">
+                              {{house.bedroomcount}} Bedrooms
+                              <i class="fas fa-bed"></i>
+                            </p>
+                            <p class="section-small-text" v-if="house.amenities.essentials">
+                              Essentials
+                              <i class="fas fa-briefcase"></i>
+                            </p>
+                            <p class="section-small-text" v-if="house.amenities.wifi">
+                              Wifi
+                              <i class="fas fa-wifi"></i>
+                            </p>
+                            <p class="section-small-text" v-if="house.amenities.desks">
+                              Desks
+                              <i class="fas fa-table"></i>
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </NuxtLink>
+                  </NuxtLink>
+                </div>
               </div>
             </div>
           </div>
@@ -152,86 +181,90 @@
             </div>
             <div class="row">
               <div class="col-md-6">
-                <h2 class="section-subtitle-grey" style="color: #000;">Select your destination</h2>
-                <div class="section search-form-sec">
-                  <form
-                    action="#"
-                    method="post"
-                    novalidate="novalidate"
-                    style="padding: 0 0.8rem 0 0.8rem;"
-                  >
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div style="height: 60px;">
-                          <label
-                            for="taxiFrom"
-                            style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
-                          >From:</label>
-                          <select
-                            id="taxiFrom"
-                            class="form-control search-slt"
-                            v-model="Taxi.from"
-                            style="float: left; width: 68%;"
-                          >
-                            <option :value="null">Current Location</option>
-                            <option
-                              :value="suburb"
-                              v-for="suburb in suburbs"
-                              :key="suburb"
-                            >{{suburb}}</option>
-                          </select>
-                        </div>
-                        <div style="height: 60px;">
-                          <label
-                            for="taxiTo"
-                            style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
-                          >To:</label>
-                          <select
-                            id="taxiTo"
-                            class="form-control search-slt"
-                            v-model="Taxi.to"
-                            style="float: left; width: 68%;"
-                          >
-                            <option :value="null">Select Suburb</option>
-                            <option
-                              :value="suburb"
-                              v-for="suburb in suburbs"
-                              :key="suburb"
-                            >{{suburb}}</option>
-                          </select>
-                        </div>
-                        
-                        <div>
-                          <button
-                            type="button"
-                            style="border-radius: 2px;"
-                            class="default-button wrn-btn"
-                          >Go</button>
+                <div class="container">
+                  <h2 class="section-subtitle-grey" style="color: #000;">Select your destination</h2>
+                  <div class="section search-form-sec">
+                    <form
+                      action="#"
+                      method="post"
+                      novalidate="novalidate"
+                      style="padding: 0 0.8rem 0 0.8rem;"
+                    >
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div style="height: 60px;">
+                            <label
+                              for="taxiFrom"
+                              style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
+                            >From:</label>
+                            <select
+                              id="taxiFrom"
+                              class="form-control search-slt"
+                              v-model="Taxi.from"
+                              style="float: left; width: 68%;"
+                            >
+                              <option :value="null">Current Location</option>
+                              <option
+                                :value="suburb"
+                                v-for="suburb in suburbs"
+                                :key="suburb"
+                              >{{suburb}}</option>
+                            </select>
+                          </div>
+                          <div style="height: 60px;">
+                            <label
+                              for="taxiTo"
+                              style="float: left; width: 30%; margin-right: 2%; margin-top: 10px;"
+                            >To:</label>
+                            <select
+                              id="taxiTo"
+                              class="form-control search-slt"
+                              v-model="Taxi.to"
+                              style="float: left; width: 68%;"
+                            >
+                              <option :value="null">Select Suburb</option>
+                              <option
+                                :value="suburb"
+                                v-for="suburb in suburbs"
+                                :key="suburb"
+                              >{{suburb}}</option>
+                            </select>
+                          </div>
+
+                          <div>
+                            <button
+                              type="button"
+                              style="border-radius: 2px;"
+                              class="default-button wrn-btn"
+                            >Go</button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="taxiMapDisplay">
-                  <no-ssr>
-                    <GmapMap
-                      :center="userCurrentCoord"
-                      :zoom="18"
-                      map-type-id="terrain"
-                      style="width: 100%; height: 100%"
-                    >
-                      <GmapMarker
-                        :key="index"
-                        v-for="(m, index) in TaxiMapmarkers"
-                        :position="m.position"
-                        :clickable="true"
-                        :draggable="true"
-                        @click="center=m.position"
-                      />
-                    </GmapMap>
-                  </no-ssr>
+                <div class="container">
+                  <div class="taxiMapDisplay">
+                    <no-ssr>
+                      <GmapMap
+                        :center="userCurrentCoord"
+                        :zoom="18"
+                        map-type-id="terrain"
+                        style="width: 100%; height: 100%"
+                      >
+                        <GmapMarker
+                          :key="index"
+                          v-for="(m, index) in TaxiMapmarkers"
+                          :position="m.position"
+                          :clickable="true"
+                          :draggable="true"
+                          @click="center=m.position"
+                        />
+                      </GmapMap>
+                    </no-ssr>
+                  </div>
                 </div>
               </div>
             </div>
@@ -254,11 +287,12 @@ export default {
       houses: [],
       errors: [],
       currentLocation: null,
+      cities: [],
       suburbs: [],
       fullLocale: null,
       Accommodation: {
         suburb: null,
-        city: ''
+        city: null
       },
       Taxi: {
         from: null,
@@ -274,32 +308,31 @@ export default {
   methods: {
     displaySuburbs() {
       this.suburbs = []
-      if (this.currentLocation == 'Harare')
+      if (this.Accommodation.city == 'Harare')
         this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
-      else if (this.currentLocation == 'Bulawayo')
+      else if (this.Accommodation.city == 'Bulawayo')
         this.suburbs = this.fullLocale.Zimbabwe.city.Bulawayo.suburbs
-      else if (this.currentLocation == 'Gweru')
+      else if (this.Accommodation.city == 'Gweru')
         this.suburbs = this.fullLocale.Zimbabwe.city.Gweru.suburbs
-      else if (this.currentLocation == 'Mutare')
+      else if (this.Accommodation.city == 'Mutare')
         this.suburbs = this.fullLocale.Zimbabwe.city.Mutare.suburbs
-      else if (this.currentLocation == 'Masvingo')
+      else if (this.Accommodation.city == 'Masvingo')
         this.suburbs = this.fullLocale.Zimbabwe.city.Masvingo.suburbs
-      else if (this.currentLocation == 'Marondera')
+      else if (this.Accommodation.city == 'Marondera')
         this.suburbs = this.fullLocale.Zimbabwe.city.Marondera.suburbs
-      else if (this.currentLocation == 'Chinhoyi')
+      else if (this.Accommodation.city == 'Chinhoyi')
         this.suburbs = this.fullLocale.Zimbabwe.city.Chinhoyi.suburbs
-      else if (this.currentLocation == 'Bindura')
+      else if (this.Accommodation.city == 'Bindura')
         this.suburbs = this.fullLocale.Zimbabwe.city.Bindura.suburbs
-      else if (this.currentLocation == 'Gwanda')
+      else if (this.Accommodation.city == 'Gwanda')
         this.suburbs = this.fullLocale.Zimbabwe.city.Gwanda.suburbs
-      else if (this.currentLocation == 'Lupane')
+      else if (this.Accommodation.city == 'Lupane')
         this.suburbs = this.fullLocale.Zimbabwe.city.Lupane.suburbs
-      else if (this.currentLocation == 'Zvishavane')
+      else if (this.Accommodation.city == 'Zvishavane')
         this.suburbs = this.fullLocale.Zimbabwe.city.Zvishavane.suburbs
       else this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
     },
     Search() {
-      this.Accommodation.city = this.currentLocation
       window.location.href =
         '/houses/find/?city=' +
         this.Accommodation.city +
@@ -381,6 +414,7 @@ export default {
       this.fullLocale = locale.data[0]
       this.cities = Object.getOwnPropertyNames(this.fullLocale.Zimbabwe.city)
       this.cities.pop()
+      this.Accommodation.city = this.currentLocation
       this.displaySuburbs()
     } catch (e) {
       this.errors.push(e.message)
