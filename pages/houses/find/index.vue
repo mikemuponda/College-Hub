@@ -83,24 +83,9 @@
                   <div class="col-md-12" style="width: 100%;">
                     <div class="taxiMapDisplay" style="width: 100%; margin-bottom: 20px;">
                       <no-ssr>
-                        <GmapMap
-                          :key="index"
-                          v-for="(m, index) in houses"
-                          :position="m.position"
-                          :center="mapCenter"
-                          :zoom="14"
-                          map-type-id="terrain"
-                          style="width: 100%; height: 100%"
-                        >
-                          <GmapMarker
-                            :key="index"
-                            v-for="(m, index) in houses"
-                            :position="m.position"
-                            :clickable="true"
-                            :draggable="true"
-                            @click="center=m.position"
-                          />
-                        </GmapMap>
+                        <google-map :center="mapCenter" :zoom="11.5" style="width: 100%; height: 100%">
+                          <google-marker v-for="m in houses" :key="m._id" :position="m.position" :clickable="true" @click="center=m.position"></google-marker>
+                        </google-map>
                       </no-ssr>
                     </div>
                     
