@@ -757,7 +757,7 @@
                                     :clickable="true"
                                     @dragend="resetCoordinates"
                                     style="background-color: red; width: 200px;"
-                                    :position="{lat: this.Form.addressLatitude, lng: this.Form.addressLongitude,}"
+                                    :position="{lat: this.Form.position.lat, lng: this.Form.position.lng,}"
                                   ></Gmap-Marker>
                                 </Gmap-Map>
                               </no-ssr>
@@ -1239,8 +1239,10 @@ export default {
         addressStreet: null,
         addressSuburb: null,
         addressTownship: null,
-        addressLatitude: -17.82422,
-        addressLongitude: 31.049363,
+        position: {
+          lat: -17.82422,
+          lng: 31.049363
+        },
         features: null,
         amenities: {
           beds: false,
@@ -1367,7 +1369,7 @@ export default {
           !this.Form.addressSuburb
         )
           this.errors.push('Please enter your full address')
-        if (this.Form.addressLatitude == null || this.addressLongitude == null)
+        if (this.Form.position.lat == null || this.Form.position.lng == null)
           this.errors.push('Please pinpoint your space on the Map')
         if (
           this.Form.addressHouseNumber &&
@@ -1410,14 +1412,14 @@ export default {
     },
     setPlace(place) {
       this.place = place
-      this.Form.addressLatitude = this.place.geometry.location.lat()
-      this.Form.addressLongitude = this.place.geometry.location.lng()
-      this.mapCenter.lat = this.Form.addressLatitude
-      this.mapCenter.lng = this.Form.addressLongitude
+      this.Form.position.lat = this.place.geometry.location.lat()
+      this.Form.position.lng = this.place.geometry.location.lng()
+      this.mapCenter.lat = this.Form.position.lat
+      this.mapCenter.lng = this.Form.position.lng
     },
     resetCoordinates(place){
-      this.Form.addressLatitude = place.latLng.lat()
-      this.Form.addressLongitude = place.latLng.lng()
+      this.Form.position.lat = place.latLng.lat()
+      this.Form.position.lng = place.latLng.lng()
     },
     onFileChange(e) {
       const file = e.target.files[0]
