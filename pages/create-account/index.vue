@@ -145,11 +145,6 @@
 <script>
 export default {
   middleware: 'auth-redirect',
-  head() {
-    return {
-      title: 'Collegehub | Create Account',
-    }
-  },
   data() {
     return {
       Form: {
@@ -231,6 +226,25 @@ export default {
     validEmail: function(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       return re.test(email)
+    }
+  },
+  head() {
+    return {
+      title: 'Create Account | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "Create an account and join other students using Collegehub - the premier platform for university students in Zimbabwe. Collegehub is the only service in Zimbabwe where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform."
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/create-account'
+        }
+      ],
     }
   }
 }

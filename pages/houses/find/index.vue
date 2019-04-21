@@ -181,11 +181,6 @@ export default {
     greetingColumn: greetingColumn,
     defaultAdsColumn: defaultAdsColumn
   },
-  head() {
-    return {
-      title: 'Collegehub | Find a house'
-    }
-  },
   data() {
     return {
       userProfile: '',
@@ -305,6 +300,25 @@ export default {
     this.$nextTick(() => {
       setTimeout(() => this.$nuxt.$loading.finish(), 0)
     })
+  },
+  head() {
+    return {
+      title: 'Find Accommodation | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Find and compare exclusive accomodation options available at your university. Collegehub offers a world class platform that helps you find accommodation that best meets your needs. Collegehub is the premier service for students in Zimbabwe.'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/houses/find'
+        }
+      ],
+    }
   }
 }
 </script>

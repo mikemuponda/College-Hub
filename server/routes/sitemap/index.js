@@ -33,41 +33,50 @@ router.get('/sitemap.xml', async (req, res) => {
 	var routes = []
 	var routeObject = {}
 
-	routes.push({url: '/', changefreq: 'weekly', priority: 1, lastmodrealtime: true})
-	routes.push({url: '/about', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/contact', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/create-account', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/forgot-password', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/privacy-policy', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/services', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/team', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/terms-and-conditions', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/houses/find', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/houses/list', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/restaurants/find', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/restaurants/list', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/taxi/find', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
-	routes.push({url: '/taxi/list', changefreq: 'weekly', priority: 0.8, lastmodrealtime: true})
+	routes.push({url: '/', changefreq: 'weekly', priority: 1})
+	routes.push({url: '/services', changefreq: 'weekly', priority: 0.9})
+	routes.push({url: '/houses/find', changefreq: 'weekly', priority: 0.9})
+	routes.push({url: '/taxi/find', changefreq: 'weekly', priority: 0.9})
+	routes.push({url: '/restaurants/find', changefreq: 'weekly', priority: 0.9})
+	routes.push({url: '/events/find', changefreq: 'weekly', priority: 0.9})
+	routes.push({url: '/marketplace/products-and-services', changefreq: 'weekly', priority: 0.9})
 
-	for (var i = 0; i < allUsers.length; i++) {
-		routeObject = {
-			url: '/profile/' + allUsers[i].username,
-			changefreq: 'daily',
-			lastmodrealtime: true,
-			priority: 0.6
-		}
-		routes.push(routeObject);
-	}
+	routes.push({url: '/houses/list', changefreq: 'weekly', priority: 0.8})
+	routes.push({url: '/restaurants/list', changefreq: 'weekly', priority: 0.8})
+	routes.push({url: '/taxi/list', changefreq: 'weekly', priority: 0.8})
+	routes.push({url: '/events/list', changefreq: 'weekly', priority: 0.8})
+	routes.push({url: '/marketplace/list-products-and-services', changefreq: 'weekly', priority: 0.8})
+
+	routes.push({url: '/about', changefreq: 'weekly', priority: 0.8})
+	routes.push({url: '/create-account', changefreq: 'weekly', priority: 0.8})
+
 
 	for (var i = 0; i < allHouses.length; i++) {
 		routeObject = {
 			url: '/houses/view/' + allHouses[i]._id,
 			changefreq: 'daily',
 			lastmodrealtime: true,
+			priority: 0.8
+		}
+		routes.push(routeObject);
+	}
+
+	routes.push({url: '/contact', changefreq: 'weekly', priority: 0.7, lastmodrealtime: true})
+
+	for (var i = 0; i < allUsers.length; i++) {
+		routeObject = {
+			url: '/profile/' + allUsers[i].username,
+			changefreq: 'daily',
+			lastmodrealtime: true,
 			priority: 0.7
 		}
 		routes.push(routeObject);
 	}
+
+	routes.push({url: '/team', changefreq: 'weekly', priority: 0.7})
+	routes.push({url: '/forgot-password', changefreq: 'weekly', priority: 0.6})
+	routes.push({url: '/privacy-policy', changefreq: 'weekly', priority: 0.6, lastmodrealtime: true})
+	routes.push({url: '/terms-and-conditions', changefreq: 'weekly', priority: 0.6, lastmodrealtime: true})
 
 	sitemapData = sitemap.createSitemap ({
 		hostname: 'https://www.collegehub.co.zw',

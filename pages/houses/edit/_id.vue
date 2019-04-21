@@ -5,3 +5,21 @@
 		</div>
 	</div>
 </template>
+
+<script>
+export default {
+	head() {
+    return {
+      title: 'Edit House Name | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Edit your house'
+        },
+      ],
+    }
+  }
+}
+</script>
+

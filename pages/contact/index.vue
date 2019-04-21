@@ -166,11 +166,6 @@ export default {
   components: {
     defaultAdsColumn: defaultAdsColumn
   },
-  head() {
-    return {
-      title: 'Collegehub | Contact'
-    }
-  },
   data() {
     return {
       contactForm: {
@@ -206,6 +201,25 @@ export default {
     this.$nextTick(() => {
       setTimeout(() => this.$nuxt.$loading.finish(), 400)
     })
+  },
+  head() {
+    return {
+      title: 'Contact Us | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Contact us for further assistance or Information. The team at Collegehub Zimbabwe is here to assist. We provide the only service in Zimbabwe where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform. Hearing from our users would be great.'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/contact/'
+        }
+      ],
+    }
   }
 }
 </script>

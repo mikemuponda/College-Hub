@@ -32,8 +32,8 @@ module.exports = {
   ],
 
   manifest: {
-    name: 'Collegehub',
-    short_name: 'Collegehub',
+    name: 'Collegehub Zimbabwe',
+    short_name: 'Collegehub Zimbabwe',
     display: 'standalone',
     start_url: 'https://www.collegehub.co.zw/',
     theme_color: '#9400D3',
@@ -45,7 +45,7 @@ module.exports = {
   head: {
     meta: [{
         charset: 'utf-8',
-        title: 'Collegehub'
+        title: 'Collegehub Zimbabwe'
       },
       {
         name: 'viewport',
@@ -54,23 +54,18 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: 'Collegehub provides services that facilitate a smooth transition into college life and allow students to create the best experiences at college.'
+        content: 'Collegehub is the only service in Zimbabwe where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform.'
       },
       {
         hid: 'google-site-verification',
         name: 'google-site-verification',
         content: process.env.googleVerificationKey
       },
-      {
-        hid: 'keywords',
-        name: 'keywords',
-        content: 'Collegehub, College, Accommodation, Rent a House, University, UZ, University of Zimbabwe, Harare, Lekkahub'
-      },
 
       {
         hid: 'og:site_name',
         property: 'og:site_name',
-        content: 'Collegehub'
+        content: 'Collegehub Zimbabwe'
       },
       {
         hid: 'og:type',
@@ -80,12 +75,12 @@ module.exports = {
       {
         hid: 'og:title',
         property: 'og:title',
-        content: 'Collegehub'
+        content: 'Collegehub Zimbabwe'
       },
       {
         hid: 'og:description',
         property: 'og:description',
-        content: 'Collegehub provides services that facilitate a smooth transition into college life and allow students to create the best experiences at college.'
+        content: 'Collegehub is the only service in Zimbabwe where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform.'
       },
       {
         hid: 'og:url',
@@ -131,7 +126,7 @@ module.exports = {
       {
         hid: 'twitter:image:alt',
         property: 'twitter:image:alt',
-        content: 'Collegehub'
+        content: 'Collegehub Zimbabwe'
       },
     ],
     link: [{

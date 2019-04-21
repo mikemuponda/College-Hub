@@ -47,7 +47,9 @@ export default {
       userProfile: '',
       house: null,
       errors: null,
-      houseExists: null
+      houseExists: null,
+      title: 'View House',
+      description: 'Find and compare exclusive accomodation options available at your university. Collegehub offers a world class platform that helps you find accommodation that best meets your needs. Collegehub is the premier service for students in Zimbabwe.',
     }
   },
   methods: {
@@ -90,7 +92,7 @@ export default {
       }
     }
   },
-  async mounted() {
+  async created() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start()
     })
@@ -103,6 +105,8 @@ export default {
       else if (this.houseExists.data.message == '404') this.houseExists = false
       else {
         this.house = this.houseExists.data.house
+        this.title = this.house.title
+        this.description = this.house.description
         this.houseExists = true
       }
     } catch (e) {
@@ -111,6 +115,25 @@ export default {
     this.$nextTick(() => {
       setTimeout(() => this.$nuxt.$loading.finish(), 0)
     })
+  },
+  head() {
+    return {
+      title: this.house.title + ' | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.house.description
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/houses/view/' + this.house._id
+        }
+      ],
+    }
   }
 }
 </script>

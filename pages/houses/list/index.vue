@@ -1205,11 +1205,6 @@ export default {
     greetingColumn: greetingColumn,
     defaultAdsColumn: defaultAdsColumn
   },
-  head() {
-    return {
-      title: 'Collegehub | List your house'
-    }
-  },
   data() {
     return {
       userProfile: '',
@@ -1472,6 +1467,25 @@ export default {
       this.error = e.message
     }
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
+  },
+  head() {
+    return {
+      title: 'List Space | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'List your space on Collegehub in less than a minute and host students to generate revenue. Collegehub is the premier service for accommodation listing for students in Zimbabwe.'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/houses/list'
+        }
+      ],
+    }
   }
 }
 </script>

@@ -36,11 +36,6 @@
 
 <script>
 export default {
-  head() {
-    return {
-      title: 'Collegehub | Your Account has been confirmed',
-    }
-  },
   data() {
     return {
       error: null
@@ -65,6 +60,25 @@ export default {
   created() {
     this.confirm()
   },
+  head() {
+    return {
+      title: 'Confirm Your Account | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Confirm your account to have access to a range of services that Collegehub provides. Collegehub Zimbabwe offers easy access to accomodation, taxis restaurants, upcoming events, and a marketplace for buying and selling'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/confirm-signup/'
+        }
+      ],
+    }
+  }
 }
 </script>
 

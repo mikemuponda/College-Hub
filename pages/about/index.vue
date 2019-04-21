@@ -168,7 +168,7 @@
                       <p
                         class="about-us-p"
                         style="text-align: center"
-                      >"To provide reliable and time efficient services to college students globally"</p>
+                      >"To provide reliable and time efficient services to college students"</p>
                     </div>
                   </div>
                 </div>
@@ -219,11 +219,6 @@ export default {
   components: {
     defaultAdsColumn: defaultAdsColumn
   },
-  head() {
-    return {
-      title: 'Collegehub | About Us'
-    }
-  },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start()
@@ -231,6 +226,25 @@ export default {
     this.$nextTick(() => {
       setTimeout(() => this.$nuxt.$loading.finish(), 400)
     })
+  },
+  head() {
+    return {
+      title: 'About Us | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Collegehub is all about providing a world class platform to students in Zimbabwe that offers easy access to accomodation, taxis restaurants, upcoming events, and a marketplace for buying and selling'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/about/'
+        }
+      ],
+    }
   }
 }
 </script>
