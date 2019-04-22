@@ -61,6 +61,11 @@ module.exports = {
         content: process.env.googleVerificationKey
       },
       {
+        hid: 'msvalidate.01',
+        name: 'msvalidate.01',
+        content: '93A88C81BF4966C4AFB3FF8ABA2DE845'
+      },
+      {
         hid: 'robots',
         name: 'robots',
         content: 'all,index,follow'
