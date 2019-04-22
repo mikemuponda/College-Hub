@@ -49,7 +49,7 @@ export default {
       errors: null,
       houseExists: null,
       title: 'View House',
-      description: 'Find and compare exclusive accomodation options available at your university. Collegehub offers a world class platform that helps you find accommodation that best meets your needs. Collegehub is the premier service for students in Zimbabwe.',
+      description: 'Collegehub is the only service in Zimbabwe where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform.'
     }
   },
   methods: {
@@ -92,10 +92,9 @@ export default {
       }
     }
   },
+
   async mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start()
-    })
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
     try {
       this.houseExists = await this.$store.dispatch('getOneHouse', {
         id: this.$route.params.id
@@ -112,25 +111,34 @@ export default {
     } catch (e) {
       this.errors.push(e.message)
     }
-    this.$nextTick(() => {
-      setTimeout(() => this.$nuxt.$loading.finish(), 0)
-    })
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   },
+
+  async asyncData ({ store, params, context }) {
+    if(process.server){
+      const house = await store.dispatch('getHouseFuck', {id: params.id})
+      return{
+        title: house.data.house.title,
+        description: house.data.house.description
+      }
+    }
+  },
+
   head() {
     return {
-      title: this.house.title + ' | Collegehub Zimbabwe',
+      title: this.title + ' | Collegehub Zimbabwe',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.house.description
-        },
+          content: this.description
+        }
       ],
       link: [
         {
           hid: 'canonical',
           rel: 'canonical',
-          href: 'https://www.collegehub.co.zw/houses/view/' + this.house._id
+          href: 'https://www.collegehub.co.zw/houses/view/' + this.$route.params.id
         }
       ],
     }

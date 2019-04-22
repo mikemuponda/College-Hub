@@ -208,8 +208,17 @@ export const actions = {
     try {
       return await axios.post(url, {id})
     } catch (error) {
-      return "404"
+      return error
       throw error
+    }
+  },
+
+  async getHouseFuck({commit}, {id}){
+    var url = 'http://localhost:8080/houses/house/' + id
+    try {
+      return await axios.post(url, {id})
+    } catch (error) {
+      return error
     }
   },
   

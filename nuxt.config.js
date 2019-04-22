@@ -61,6 +61,11 @@ module.exports = {
         name: 'google-site-verification',
         content: process.env.googleVerificationKey
       },
+      {
+        hid: 'robots',
+        name: 'robots',
+        content: 'index,archive,follow'
+      },
 
       {
         hid: 'og:site_name',

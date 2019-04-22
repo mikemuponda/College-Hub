@@ -64,10 +64,7 @@ router.post('/house/:id', async (req, res) => {
   const houses = await loadHouses()
   var house = null
   if (house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id)})) {
-    if(req.xhr)
-      return res.send({house})
-    else
-      return res.status(403).json({message: 'Not Authorised'})
+    return res.send({house})
   }else{
 		return res.status(401).json({message: 'House could not be found'})
 	}
