@@ -522,13 +522,11 @@ export default {
     }
   },
   async asyncData ({ store, params, context }) {
-    if(process.server){
-      const user = await store.dispatch('getProfileforMeta', {id: params.id})
-      return{
-        title: user.data.user.firstname + ' ' + user.data.user.lastname,
-        description: 'View ' + user.data.user.firstname + ' ' + user.data.user.lastname + ' on Collegehub; The premier service for university students in Zimbabwe',
-        metaImage: user.data.user.profileImage.path
-      }
+    const user = await store.dispatch('getProfileforMeta', {id: params.id})
+    return{
+      title: user.data.user.firstname + ' ' + user.data.user.lastname,
+      description: 'View ' + user.data.user.firstname + ' ' + user.data.user.lastname + ' on Collegehub; The premier service for university students in Zimbabwe',
+      metaImage: user.data.user.profileImage.path 
     }
   },
   head() {

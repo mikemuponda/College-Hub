@@ -115,12 +115,10 @@ export default {
   },
 
   async asyncData ({ store, params, context }) {
-    if(process.server){
-      const house = await store.dispatch('getHouseFuck', {id: params.id})
-      return{
-        title: house.data.house.title,
-        description: house.data.house.description
-      }
+    const house = await store.dispatch('getHouseFuck', {id: params.id})
+    return{
+      title: house.data.house.title,
+      description: house.data.house.description
     }
   },
 
