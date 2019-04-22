@@ -4,8 +4,8 @@
       <div style="margin-top: 50px; width: 100%; margin-bottom: 20px;">
         <div class="row">
           <div class="col-md-6" style="text-align: center; margin-top: 10%; margin-bottom: 25%;">
-            <h1 class="title">Collegehub</h1>
-            <h2 class="subtitle">Making College Life Simple</h2>
+            <h1 class="title">Collegehub Zimbabwe</h1>
+            <h2 class="subtitle">The premier service for university students</h2>
           </div>
           <div class="col-md-6">
             <div class="col-md-10 login-card">

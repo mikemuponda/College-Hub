@@ -110,11 +110,6 @@ export default {
   components: {
     defaultAdsColumn: defaultAdsColumn
   },
-  head() {
-    return {
-      title: 'Collegehub | Privacy Policy'
-    }
-  },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start()
@@ -122,6 +117,25 @@ export default {
     this.$nextTick(() => {
       setTimeout(() => this.$nuxt.$loading.finish(), 400)
     })
+  },
+  head() {
+    return {
+      title: 'Privacy Policy | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'As the premier service for students in Zimbabwe, it is Collegehubs policy to respect your privacy regarding any information that may be collected while operating this website. For further questions please contact us.'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/privacy-policy/'
+        }
+      ],
+    }
   }
 }
 </script>

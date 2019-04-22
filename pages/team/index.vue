@@ -431,11 +431,6 @@
 
 <script>
 export default {
-  head() {
-    return {
-      title: 'Collegehub | Team'
-    }
-  },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start()
@@ -443,6 +438,25 @@ export default {
     this.$nextTick(() => {
       setTimeout(() => this.$nuxt.$loading.finish(), 400)
     })
+  },
+  head() {
+    return {
+      title: 'Team | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'The team at Collegehub is available to give the best experiences to university students in Zimbabwe. Collegehub is the premier service for univerisity students in Zimbabwe.'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/team'
+        }
+      ],
+    }
   }
 }
 </script>

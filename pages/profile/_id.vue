@@ -410,7 +410,10 @@ export default {
       },
       profileImage: null,
       uploadFieldName: 'profileImage',
-      imageUrl: null
+      imageUrl: null,
+      title: 'View Profile',
+      description: 'Collegehub is the only service in Zimbabwe where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform.',
+      metaImage: '/img/logo.png'
     }
   },
   async mounted() {
@@ -518,37 +521,43 @@ export default {
       }
     }
   },
+  async asyncData ({ store, params, context }) {
+    if(process.server){
+      const user = await store.dispatch('getProfileforMeta', {id: params.id})
+      return{
+        title: user.data.user.firstname + ' ' + user.data.user.lastname,
+        description: 'View ' + user.data.user.firstname + ' ' + user.data.user.lastname + ' on Collegehub; The premier service for university students in Zimbabwe',
+        metaImage: user.data.user.profileImage.path
+      }
+    }
+  },
   head() {
     return {
-      title: 'Collegehub | ' + this.$route.params.id,
+      title: this.title + ' | Collegehub Zimbabwe',
       link: [
         {
           hid: 'canonical',
           rel: 'canonical',
-          href: 'https://www.lekkahub.com/' + this.$route.params.id
+          href: 'https://www.collegehub.co.zw/' + this.$route.params.id
         }
       ],
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content:
-            this.$route.params.id +
-            "'s account on Collegehub. Collegehub provides services that facilate college life."
+          content: this.description
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          content:
-            this.$route.params.id +
-            "'s account on Collegehub. Collegehub provides services that facilate college life."
+          content: this.description
         },
         {
           hid: 'og:url',
           property: 'og:url',
-          content: 'https://www.collegehub.co.zw'
+          href: 'https://www.collegehub.co.zw/' + this.$route.params.id
         },
-        { hid: 'og:image', property: 'og:image', content: '/img/logo.png' }
+        { hid: 'og:image', property: 'og:image', content: this.metaImage }
       ]
     }
   }

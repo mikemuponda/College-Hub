@@ -110,6 +110,21 @@ export const actions = {
     }
   },
 
+  async getProfileforMeta({commit}, {id}){
+    var url = 'http://localhost:8080/users/profile/' + id
+    try {
+      return await axios.post(url, {id})
+    } catch (error) {
+      return error
+      if (error.response && error.response.status === 401){
+        throw new Error("This account may not have been confirmed yet.")
+      }else{
+        throw new Error("Unknown Error")
+      }
+      throw error
+    }
+  },
+
   async profileImage({commit}, {formData, id}){
     axios.post( '/users/profile/upload/image/' + id, formData, {
       headers: {'Content-Type': 'multipart/form-data'}

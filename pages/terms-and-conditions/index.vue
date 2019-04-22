@@ -172,11 +172,6 @@ export default {
   components: {
     defaultAdsColumn: defaultAdsColumn
   },
-  head() {
-    return {
-      title: 'Collegehub | Terms and Conditions'
-    }
-  },
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start()
@@ -184,6 +179,25 @@ export default {
     this.$nextTick(() => {
       setTimeout(() => this.$nuxt.$loading.finish(), 400)
     })
+  },
+  head() {
+    return {
+      title: 'Terms and Conditions | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'These Website Standard Terms and Conditions written on this webpage shall manage your use of the website. These Terms will be applied fully and affect to your use of this Website. Collegehub is the premier service for university students in Zimbabwe'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/terms-and-conditions'
+        }
+      ],
+    }
   }
 }
 </script>

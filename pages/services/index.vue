@@ -97,14 +97,28 @@ export default {
   components: {
     defaultAdsColumn: defaultAdsColumn
   },
-  head() {
-    return {
-      title: 'Collegehub | Services',
-    }
-  },
   mounted() {
     this.$nextTick(() => {this.$nuxt.$loading.start()})
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
+  },
+  head() {
+    return {
+      title: 'Services | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Collegehub offers a world class platform for university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform. Try one of our services and we bet you will not regret'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/services/'
+        }
+      ],
+    }
   }
 }
 </script>

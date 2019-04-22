@@ -308,7 +308,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'Find and compare exclusive accomodation options available at your university. Collegehub offers a world class platform that helps you find accommodation that best meets your needs. Collegehub is the premier service for students in Zimbabwe.'
+          content: 'Looking for accomodation? Find and compare exclusive accomodation options available at your university. Collegehub offers a world class platform that helps you find accommodation that best meets your needs. Collegehub is the premier service for students in Zimbabwe.'
         },
       ],
       link: [

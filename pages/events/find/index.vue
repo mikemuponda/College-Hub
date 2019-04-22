@@ -13,7 +13,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'Get a listing of all upcoming events at your university or elsewhere in Zimbabwe. From conferences, concerts, hangouts, hackathons, parties, you name them all. Collegehub is the students premier service for event listing'
+          content: 'Feeling bored? Get a listing of all upcoming events at your university or elsewhere in Zimbabwe. From conferences, concerts, hangouts, hackathons, parties, you name them all. Collegehub is the students premier service for event listing'
         },
       ],
       link: [

@@ -8,7 +8,7 @@
             <div class="col-md-12 login-card">
               <form @submit.prevent="submitEmail">
                 <div class="col-lg-12 logo-capsul">
-                  <h2 class="heading">Reset Password</h2>
+                  <h1 class="heading">Forgot Password?</h1>
                 </div>
                 <div class="row">
                   <div v-if="notification.length" class="col-md-12 alert alert-success">
@@ -92,7 +92,7 @@ export default {
   },
   head() {
     return {
-      title: 'Forgot Password? Reset it! | Collegehub Zimbabwe',
+      title: 'Forgot Password? | Collegehub Zimbabwe',
       meta: [
         {
           hid: 'description',

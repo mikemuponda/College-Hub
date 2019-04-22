@@ -76,11 +76,6 @@
 
 <script>
 export default {
-  head() {
-    return {
-      title: 'Collegehub | Reset Password',
-    }
-  },
   data() {
     return {
       id: this.$route.params.id,
@@ -115,6 +110,25 @@ export default {
           this.errors.push(e.message)
         }
       }
+    }
+  },
+  head() {
+    return {
+      title: 'Reset your Password | Collegehub Zimbabwe',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Hurry, reset your password and join thousands of other students on Collegehub.'
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: 'https://www.collegehub.co.zw/reset-password/' + this.id
+        }
+      ],
     }
   }
 }

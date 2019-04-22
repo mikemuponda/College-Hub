@@ -64,7 +64,7 @@ module.exports = {
       {
         hid: 'robots',
         name: 'robots',
-        content: 'index,archive,follow'
+        content: 'all,index,follow'
       },
 
       {
