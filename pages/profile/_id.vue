@@ -527,7 +527,15 @@ export default {
       return{
         title: user.data.user.firstname + ' ' + user.data.user.lastname,
         description: 'View ' + user.data.user.firstname + ' ' + user.data.user.lastname + ' on Collegehub; The premier service for university students in Zimbabwe',
-        metaImage: user.data.user.profileImage.path
+        metaImage: user.data.user.profileImage.path,
+        userProfile: {
+          username: user.data.user.username,
+          firstname: user.data.user.firstname,
+          lastname: user.data.user.lastname,
+          sex: user.data.user.sex,
+          createdAt: user.data.user.createdAt,
+          city: user.data.user.city
+        }
       }
     }
   },

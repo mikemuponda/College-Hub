@@ -116,12 +116,6 @@ export const actions = {
       return await axios.post(url, {id})
     } catch (error) {
       return error
-      if (error.response && error.response.status === 401){
-        throw new Error("This account may not have been confirmed yet.")
-      }else{
-        throw new Error("Unknown Error")
-      }
-      throw error
     }
   },
 
@@ -244,6 +238,15 @@ export const actions = {
     } catch (error) {
       return "404"
       throw error
+    }
+  },
+
+  async getAllHousesAsync({commit}){
+    var url = 'http://localhost:8080/houses/allhouses'
+    try {
+      return await axios.post(url)
+    } catch (error) {
+      return error
     }
   },
 

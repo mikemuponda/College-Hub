@@ -119,7 +119,8 @@ export default {
       const house = await store.dispatch('getHouseFuck', {id: params.id})
       return{
         title: house.data.house.title,
-        description: house.data.house.description
+        description: house.data.house.description,
+        house: house.data.house
       }
     }
   },

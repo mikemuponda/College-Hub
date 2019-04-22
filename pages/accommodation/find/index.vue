@@ -83,7 +83,7 @@
                   <div class="col-md-12" style="width: 100%;">
                     <div class="taxiMapDisplay" style="width: 100%; margin-bottom: 20px;">
                       <no-ssr>
-                        <google-map :center="mapCenter" :zoom="11.5" style="width: 100%; height: 100%">
+                        <google-map :center="mapCenter" :zoom="11" style="width: 100%; height: 100%">
                           <google-marker v-for="m in houses" :key="m._id" :position="m.position" :clickable="true" @click="center=m.position"></google-marker>
                         </google-map>
                       </no-ssr>
@@ -91,7 +91,7 @@
                     
                     <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
                       <NuxtLink
-                        :to="'/houses/view/' + house._id"
+                        :to="'/accommodation/view/' + house._id"
                         :title="house.title"
                         style="width: 100%; color: #000;"
                       >
@@ -301,6 +301,14 @@ export default {
       setTimeout(() => this.$nuxt.$loading.finish(), 0)
     })
   },
+  async asyncData ({ store, params, context }) {
+    if(process.server){
+      const houses = await store.dispatch('getAllHousesAsync')
+      return{
+        houses: houses.data
+      }
+    }
+  },
   head() {
     return {
       title: 'Find Accommodation | Collegehub Zimbabwe',
@@ -315,7 +323,7 @@ export default {
         {
           hid: 'canonical',
           rel: 'canonical',
-          href: 'https://www.collegehub.co.zw/houses/find'
+          href: 'https://www.collegehub.co.zw/accommodation/find'
         }
       ],
     }

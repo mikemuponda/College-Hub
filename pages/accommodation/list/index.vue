@@ -1482,7 +1482,7 @@ export default {
         {
           hid: 'canonical',
           rel: 'canonical',
-          href: 'https://www.collegehub.co.zw/houses/list'
+          href: 'https://www.collegehub.co.zw/accommodation/list'
         }
       ],
     }

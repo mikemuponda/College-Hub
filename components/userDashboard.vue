@@ -8,7 +8,7 @@
         <div class="col-md-10">
           <div class="row">
             <div class="col-md-4 dashboard-greeting-display">
-              <NuxtLink :to="'/houses/find'" title="List your house" style="color: #606060;">
+              <NuxtLink :to="'/accommodation/find'" title="List your house" style="color: #606060;">
                 <div class="row nopadding feature">
                   <div class="nopadding" style="width: 40%; float: left;">
                     <img
@@ -64,7 +64,7 @@
 
           <div class="row">
             <div class="col-md-4 dashboard-greeting-display">
-              <NuxtLink :to="'/houses/list'" title="List your house" style="color: #606060;">
+              <NuxtLink :to="'/accommodation/list'" title="List your house" style="color: #606060;">
                 <div class="row nopadding feature">
                   <div class="nopadding" style="width: 40%; float: left;">
                     <img
@@ -254,7 +254,7 @@
                         <div class="row">
                           <div class="col-md-3"></div>
                           <div class="col-md-6">
-                            <NuxtLink :to="'/houses/list'" title="List Your House">
+                            <NuxtLink :to="'/accommodation/list'" title="List Your House">
                               <button
                                 style="margin-bottom: 30px;"
                                 class="default-button"
@@ -344,12 +344,12 @@
                                   <div class="col-md-12">
                                     <div class="row">
                                       <div class="col-md-3">
-                                        <NuxtLink :to="'/houses/view/' + house._id" title="View">
+                                        <NuxtLink :to="'/accommodation/view/' + house._id" title="View">
                                           <button class="default-button-small button-green">View</button>
                                         </NuxtLink>
                                       </div>
                                       <div class="col-md-3">
-                                        <NuxtLink :to="'/houses/edit/' + house._id" title="Edit">
+                                        <NuxtLink :to="'/accommodation/edit/' + house._id" title="Edit">
                                           <button class="default-button-small button-blue">Edit</button>
                                         </NuxtLink>
                                       </div>
@@ -374,7 +374,7 @@
                           <div class="row nopadding add-house">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
-                              <NuxtLink :to="'/houses/list'" title="Add another house">
+                              <NuxtLink :to="'/accommodation/list'" title="Add another house">
                                 <button class="default-button">Add another house</button>
                               </NuxtLink>
                             </div>

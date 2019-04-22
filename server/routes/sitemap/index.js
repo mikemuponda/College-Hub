@@ -35,13 +35,13 @@ router.get('/sitemap.xml', async (req, res) => {
 
 	routes.push({url: '/', changefreq: 'weekly', priority: 1})
 	routes.push({url: '/services', changefreq: 'weekly', priority: 0.9})
-	routes.push({url: '/houses/find', changefreq: 'weekly', priority: 0.9})
+	routes.push({url: '/accommodation/find', changefreq: 'weekly', priority: 0.9})
 	routes.push({url: '/taxi/find', changefreq: 'weekly', priority: 0.9})
 	routes.push({url: '/restaurants/find', changefreq: 'weekly', priority: 0.9})
 	routes.push({url: '/events/find', changefreq: 'weekly', priority: 0.9})
 	routes.push({url: '/marketplace/products-and-services', changefreq: 'weekly', priority: 0.9})
 
-	routes.push({url: '/houses/list', changefreq: 'weekly', priority: 0.8})
+	routes.push({url: '/accommodation/list', changefreq: 'weekly', priority: 0.8})
 	routes.push({url: '/restaurants/list', changefreq: 'weekly', priority: 0.8})
 	routes.push({url: '/taxi/list', changefreq: 'weekly', priority: 0.8})
 	routes.push({url: '/events/list', changefreq: 'weekly', priority: 0.8})
@@ -53,7 +53,7 @@ router.get('/sitemap.xml', async (req, res) => {
 
 	for (var i = 0; i < allHouses.length; i++) {
 		routeObject = {
-			url: '/houses/view/' + allHouses[i]._id,
+			url: '/accommodation/view/' + allHouses[i]._id,
 			changefreq: 'daily',
 			lastmodrealtime: true,
 			priority: 0.8

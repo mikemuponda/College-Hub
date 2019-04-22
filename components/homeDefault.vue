@@ -97,7 +97,7 @@
               <div class="container">
                 <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
                   <NuxtLink
-                    :to="'/houses/view/' + house._id"
+                    :to="'/accommodation/view/' + house._id"
                     :title="house.title"
                     style="width: 100%; color: #000;"
                   >
@@ -537,7 +537,7 @@ export default {
     },
     Search() {
       window.location.href =
-        '/houses/find/?city=' +
+        '/accommodation/find/?city=' +
         this.Accommodation.city +
         '&suburb=' +
         this.Accommodation.suburb
