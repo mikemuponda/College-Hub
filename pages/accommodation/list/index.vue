@@ -71,48 +71,15 @@
                           <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-5 listing-input-div">
-                              <select class="form-control-edit" v-model="Form.city" @change="resetSurbub">
-                                <option :value="null">City</option>
-                                <option value="Harare">Harare</option>
-                                <option value="Bulawayo">Bulawayo</option>
-                                <option value="Gweru">Gweru</option>
-                                <option value="Mutare">Mutare</option>
-                                <option value="Masvingo">Masvingo</option>
-                                <option value="Marondera">Marondera</option>
-                                <option value="Chinhoyi">Chinhoyi</option>
-                                <option value="Bindura">Bindura</option>
-                                <option value="Gwanda">Gwanda</option>
-                                <option value="Lupane">Lupane</option>
+                              <select class="form-control-edit" v-model="Form.city" @change="displayCityData()">
+                                <option :value="null">Select City</option>
+                                <option v-for="city in cities" :value="city" :key="city">{{city}}</option>
                               </select>
                             </div>
                             <div class="col-md-5 listing-input-div">
                               <select class="form-control-edit" v-model="Form.suburb">
-                                <option :value="null">Suburb</option>
-                                <option v-if="Form.city=='Harare'" value="Alexandra Park">Alexandra Park</option>
-                                <option v-if="Form.city=='Harare'" value="Arundale">Arundale</option>
-                                <option v-if="Form.city=='Harare'" value="Avenues">Avenues</option>
-                                <option v-if="Form.city=='Harare'" value="Avondale">Avondale</option>
-                                <option v-if="Form.city=='Harare'" value="Belgravia">Belgravia</option>
-                                <option v-if="Form.city=='Harare'" value="Belvedere">Belvedere</option>
-                                <option v-if="Form.city=='Harare'" value="Borrowdale">Borrowdale</option>
-                                <option v-if="Form.city=='Harare'" value="CBD">CBD</option>
-                                <option v-if="Form.city=='Harare'" value="Cranborne">Cranborne</option>
-                                <option v-if="Form.city=='Harare'" value="Emerald Hill">Emerald Hill</option>
-                                <option v-if="Form.city=='Harare'" value="Groom Bridge">Groom Bridge</option>
-                                <option v-if="Form.city=='Harare'" value="Gunhill">Gunhill</option>
-                                <option v-if="Form.city=='Harare'" value="Hatfield">Hatfield</option>
-                                <option v-if="Form.city=='Harare'" value="Kensington">Kensington</option>
-                                <option v-if="Form.city=='Harare'" value="Manresa">Manresa</option>
-                                <option v-if="Form.city=='Harare'" value="Milton Park">Milton Park</option>
-                                <option v-if="Form.city=='Harare'" value="Mount Pleasant">Mount Pleasant</option>
-                                <option v-if="Form.city=='Harare'" value="Ridgeview">Ridgeview</option>
-                                <option v-if="Form.city=='Harare'" value="Sunningdale">Sunningdale</option>
-
-                                <option v-if="Form.city=='Bulawayo'" value="Morningside">Morningside</option>
-                                <option v-if="Form.city=='Bulawayo'" value="Pumula South">Pumula South</option>
-                                <option v-if="Form.city=='Bulawayo'" value="Selborne Park">Selborne Park</option>
-                                <option v-if="Form.city=='Bulawayo'" value="South World">South World</option>
-                                <option v-if="Form.city=='Bulawayo'" value="Sunninghill">Sunninghill</option>
+                                <option :value="null"> Select Suburb</option>
+                                <option v-for="suburb in suburbs" :value="suburb" :key="suburb">{{suburb}}</option>
                               </select>
                             </div>
                           </div>
@@ -120,78 +87,18 @@
                           <div class="row" style="margin-top: 20px;">
                             <div class="col-md-1"></div>
                             <div class="col-md-11">
+                              <div class="row">
+                                <div class="agree" style="text-align: center; height: 30px; margin-left: 20px;" v-for="university in universities" :value="university" :key="university">
+                                  <label style="font-size: 1em; float: left;">
+                                    <input type="checkbox" @change="addUni(university)">
+                                    <span class="cr">
+                                      <i class="cr-icon fa fa-check"></i>
+                                    </span>
+                                  </label>
+                                  <p style="float: left;">{{university}}</p>
+                                </div>
+                              </div>
 
-                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
-                                <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" @change="addUni('University of Zimbabwe')">
-                                  <span class="cr">
-                                    <i class="cr-icon fa fa-check"></i>
-                                  </span>
-                                </label>
-                                <p style="float: left;">University of Zimbabwe</p>
-                              </div><br>
-
-                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
-                                <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" @change="addUni('Harare Institute of Technology')">
-                                  <span class="cr">
-                                    <i class="cr-icon fa fa-check"></i>
-                                  </span>
-                                </label>
-                                <p style="float: left;">Harare Institute of Technology</p>
-                              </div><br>
-
-                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
-                                <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" @change="addUni('Womens University in Africa')">
-                                  <span class="cr">
-                                    <i class="cr-icon fa fa-check"></i>
-                                  </span>
-                                </label>
-                                <p style="float: left;">Women's University in Africa</p>
-                              </div><br>
-
-                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
-                                <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" @change="addUni('Zimbabwe Open University')">
-                                  <span class="cr">
-                                    <i class="cr-icon fa fa-check"></i>
-                                  </span>
-                                </label>
-                                <p style="float: left;">Zimbabwe Open University</p>
-                              </div><br>
-
-                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
-                                <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" @change="addUni('Catholic University in Zimbabwe')">
-                                  <span class="cr">
-                                    <i class="cr-icon fa fa-check"></i>
-                                  </span>
-                                </label>
-                                <p style="float: left;">Catholic University in Zimbabwe</p>
-                              </div><br>
-
-                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Harare'">
-                                <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" @change="addUni('Southern Africa Methodist University')">
-                                  <span class="cr">
-                                    <i class="cr-icon fa fa-check"></i>
-                                  </span>
-                                </label>
-                                <p style="float: left;">Southern Africa Methodist University</p>
-                              </div><br>
-
-
-                              <div class="agree" style="text-align: center; margin-left: 5px;" v-if="Form.city=='Bulawayo'">
-                                <label style="font-size: 1em; float: left;">
-                                  <input type="checkbox" @change="addUni('National University of Science and Technology')">
-                                  <span class="cr">
-                                    <i class="cr-icon fa fa-check"></i>
-                                  </span>
-                                </label>
-                                <p style="float: left;">National University of Science and Technology</p>
-                              </div><br>
-                              
                             </div>
                           </div>
                         </div>
@@ -1212,6 +1119,10 @@ export default {
       page: 1,
       submitted: false,
       uniCounter: 0,
+      fullLocale: null,
+      cities: [],
+      suburbs: [],
+      universities: [],
       Form: {
         owner: null,
         spaceType: null,
@@ -1272,6 +1183,47 @@ export default {
     }
   },
   methods: {
+    displayCityData() {
+      this.suburbs = []
+      this.universities = []
+      if (this.Form.city == 'Harare') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
+      } else if (this.Form.city == 'Bulawayo') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Bulawayo.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Bulawayo.universities
+      } else if (this.Form.city == 'Gweru') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Gweru.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Gweru.universities
+      } else if (this.Form.city == 'Mutare') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Mutare.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Mutare.universities
+      } else if (this.Form.city == 'Masvingo') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Masvingo.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Masvingo.universities
+      } else if (this.Form.city == 'Marondera') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Marondera.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Marondera.universities
+      } else if (this.Form.city == 'Chinhoyi') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Chinhoyi.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Chinhoyi.universities
+      } else if (this.Form.city == 'Bindura') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Bindura.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Bindura.universities
+      } else if (this.Form.city == 'Gwanda') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Gwanda.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Gwanda.universities
+      } else if (this.Form.city == 'Lupane') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Lupane.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Lupane.universities
+      } else if (this.Form.city == 'Zvishavane') {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Zvishavane.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Zvishavane.universities
+      } else {
+        this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
+        this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
+      }
+    },
     nextPage: function(event) {
       if (this.page == 1) {
         this.errors = []
@@ -1447,22 +1399,18 @@ export default {
         this.uniCounter = this.uniCounter + 1
       }
     },
-    resetSurbub(){
-      console.log(this.Form.universities)
-      this.Form.surbub = null
-      this.uniCounter = 0
-      this.Form.universities = []
-    }
-    
   },
   async mounted() {
     this.$nextTick(() => {this.$nuxt.$loading.start()})
     try {
-      this.userProfile = await this.$store.dispatch('getProfile', {
-        id: this.$store.state.authUser.user.username
-      })
+      this.userProfile = await this.$store.dispatch('getProfile', {id: this.$store.state.authUser.user.username})
       this.userProfile = this.userProfile.data.user
       this.Form.owner = this.userProfile._id
+
+      var locale = await this.$store.dispatch('getAllLocales')
+      this.fullLocale = locale.data[0]
+      this.cities = Object.getOwnPropertyNames(this.fullLocale.Zimbabwe.city)
+      this.cities.pop()
     } catch (e) {
       this.error = e.message
     }
