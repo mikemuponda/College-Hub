@@ -192,6 +192,13 @@ export const actions = {
     }
   },
 
+  async uploadAccommodationImages({commit}, {formData, id}){
+    axios.post( '/houses/list/house/upload/' + id, formData, {
+      headers: {'Content-Type': 'multipart/form-data'}
+      }).then(function(){console.log('UPLOADED')}).catch(function(){console.log('FAILED')
+    })
+  },
+
   async getHousesByID({commit}, {id}){
     var url = '/houses/owner/' + id
     try {

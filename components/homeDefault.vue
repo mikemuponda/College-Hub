@@ -103,12 +103,25 @@
                   >
                     <div class="row">
                       <div class="col-md-4">
-                        <img
-                          src="/houses/house-one.jpeg"
-                          :alt="house.title"
-                          :title="house.title"
-                          class="recommended-house-image"
-                        >
+                        <div>
+                          <b-carousel
+                            :id="house._id"
+                            :interval="0"
+                            controls
+                            indicators
+                            background="#ababab"
+                            img-width="100%"
+                            img-height="100%"
+                            style="text-shadow: 1px 1px 2px #333;"
+                          >
+                            <b-carousel-slide
+                              v-for="(image, index) in house.accommodationImages"
+                              :key="index"
+                              :alt="house.title"
+                              :img-src="image.path"
+                            ></b-carousel-slide> 
+                          </b-carousel>
+                        </div>
                       </div>
                       <div class="col-md-5">
                         <h3 class="section-subtitle">{{house.title}}</h3>
@@ -404,13 +417,18 @@
             <div class="row">
               <div class="col-md-12">
                 <h3 class="section-title">Marketplace</h3>
-                <h2 class="section-subtitle-grey" >Buy and sell goods and services to other college students</h2>
+                <h2
+                  class="section-subtitle-grey"
+                >Buy and sell goods and services to other college students</h2>
               </div>
             </div>
             <div class="container">
               <div class="row">
                 <div class="col-md-4">
-                  <h2 class="section-title" style="font-size: 16px; margin-bottom: 30px; font-weight: 450;">Sell something</h2>
+                  <h2
+                    class="section-title"
+                    style="font-size: 16px; margin-bottom: 30px; font-weight: 450;"
+                  >Sell something</h2>
                   <div class="section search-form-sec">
                     <form
                       action="#"
@@ -421,10 +439,20 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div style="height: 60px;">
-                            <input type="text" class="form-control search-slt" v-model="Selling.productName" placeholder="What are you selling"/>
+                            <input
+                              type="text"
+                              class="form-control search-slt"
+                              v-model="Selling.productName"
+                              placeholder="What are you selling"
+                            >
                           </div>
                           <div style="height: 60px;">
-                            <input type="text" class="form-control search-slt" v-model="Selling.price" placeholder="Price"/>
+                            <input
+                              type="text"
+                              class="form-control search-slt"
+                              v-model="Selling.price"
+                              placeholder="Price"
+                            >
                           </div>
 
                           <div>
@@ -440,7 +468,10 @@
                   </div>
                 </div>
                 <div class="col-md-8">
-                  <h2 class="section-title" style="font-size: 16px; margin-bottom: 30px; font-weight: 450;">Buy something</h2>
+                  <h2
+                    class="section-title"
+                    style="font-size: 16px; margin-bottom: 30px; font-weight: 450;"
+                  >Buy something</h2>
                   <div class="row">
                     <div class="col-md-4" v-for="x in 3" :key="x">
                       <NuxtLink
@@ -449,10 +480,20 @@
                         style="width: 100%; color: #000;"
                       >
                         <div class="item-box" style="margin-top: 0px; border-radius: 4px;">
-                          <img src="/img/collegehub-phone-buy.png" title="Buy Iphone" alt="Buy Iphone" style="width: 100%;"/>
+                          <img
+                            src="/img/collegehub-phone-buy.png"
+                            title="Buy Iphone"
+                            alt="Buy Iphone"
+                            style="width: 100%;"
+                          >
                           <div style="width: 100%; text-align: left; padding: 0px 10px 10px 10px;">
-                            <p class="section-title" style="font-size: 14px; font-weight: 450; margin: 0px; padding-top: 0px;">64GB Iphone 8</p>
-                            <p style="font-size: 12px; color: #aaa; font-weight: 400; margin: 0px;">$400 &middot; {{currentLocation}} &middot; Posted {{x}} hours ago</p>
+                            <p
+                              class="section-title"
+                              style="font-size: 14px; font-weight: 450; margin: 0px; padding-top: 0px;"
+                            >64GB Iphone 8</p>
+                            <p
+                              style="font-size: 12px; color: #aaa; font-weight: 400; margin: 0px;"
+                            >$400 &middot; {{currentLocation}} &middot; Posted {{x}} hours ago</p>
                           </div>
                         </div>
                       </NuxtLink>
@@ -463,8 +504,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
@@ -546,7 +585,11 @@ export default {
   async mounted() {
     var housesArr = null
     try {
-      if (housesArr = await this.$store.dispatch('getHouses', {id: 'allhouses'})){
+      if (
+        (housesArr = await this.$store.dispatch('getHouses', {
+          id: 'allhouses'
+        }))
+      ) {
         if (housesArr == '404')
           this.errors.push('Houses could not be retrieved')
         else {

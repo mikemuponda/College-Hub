@@ -1,9 +1,20 @@
 const express = require('express')
 const mongodb = require('mongodb')
 const sgMail = require('@sendgrid/mail')
-const multer = require('multer');
+const bodyParser = require("body-parser")
+const multer = require('multer')
+const aws = require('aws-sdk')
+const multerS3 = require('multer-s3')
 const router = express.Router()
 const app = express()
+
+aws.config.update({
+  secretAccessKey: process.env.awsSecretAccessKey,
+  accessKeyId: process.env.awsAccessKeyId,
+  region: process.env.awsRegion
+})
+
+const s3 = new aws.S3()
 
 const sendGridKey = process.env.sendGridKey
 sgMail.setApiKey(sendGridKey)
@@ -26,16 +37,67 @@ const loadHouses = async function () {
 router.post('/list/house', async (req, res) => {
 	const houses = await loadHouses()
 	var house = null
-	house = await houses.insertOne(req.body, function (err, result){
+	house = await houses.insertOne(req.body, function (err, response){
 		if(err)
       return res.status(401).json({message: 'Error Adding house'})
-		else
-      if(req.xhr)
-        return res.json({house})
-      else
-        return res.status(403).json({message: 'Not Authorised'})
+		else{
+      return res.json(response.ops)
+    }   
 	})
 })
+
+
+
+//Image Upload
+
+ 
+var upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'collegehub',
+    acl: 'public-read',
+    key: function (req, file, cb) {
+      cb(null, 'AccomodationImages/' + Date.now().toString() + file.originalname)
+    }
+  })
+})
+
+router.post('/list/house/upload/:id', upload.any(), async (req, res, next) => {
+  const houses = await loadHouses()
+  var house = null
+  var accommodationImages = []
+  var i = 0
+  for(i = 0; i < req.files.length; i++){
+    accommodationImages.push({
+        "fieldname": req.files[i].fieldname,
+        "originalname": req.files[i].originalname,
+        "encoding": req.files[i].encoding,
+        "mimetype": req.files[i].mimetype,
+        "size": req.files[i].size,
+        "bucket": req.files[i].bucket,
+        "key": req.files[i].key,
+        "acl": req.files[i].acl,
+        "contentType": req.files[i].contentType,
+        "contentDisposition": req.files[i].contentDisposition,
+        "storageClass": req.files[i].storageClass,
+        "serverSideEncryption": req.files[i].serverSideEncryption,
+        "location": req.files[i].location,
+        "etag": req.files[i].etag,
+        "path": "https://s3.amazonaws.com/collegehub/" + req.files[i].key
+    })
+  }
+  let params = {accommodationImages}
+  await houses.findOneAndUpdate(
+    {"_id": new mongodb.ObjectID(req.params.id)},
+    {$set: Object.assign(params)},
+    {upsert: true,}
+  )
+  house = await houses.findOne({ "_id": new mongodb.ObjectID(req.params.id)})
+  return res.json({house})
+
+})
+
+
 
 //Edit a house
 router.post('/house/edit/:id', async (req, res) => {
