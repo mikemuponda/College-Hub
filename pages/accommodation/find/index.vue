@@ -25,7 +25,7 @@
                   </div>
                   <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
                     <div class="col-md-12 nopadding">
-                      <select class="form-control search-slt" style="border-radius: 4px;" v-model="Form.university">
+                      <select class="form-control search-slt" style="border-radius: 4px;" v-model="Form.university" @change="displayByUniversity()">
                         <option :value="null">Select University</option>
                         <option
                           :value="university"
@@ -37,11 +37,11 @@
                   </div>
                   <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
                     <div class="col-md-12 nopadding">
-                      <select class="form-control search-slt" style="border-radius: 4px;" v-model="Form.suburb">
+                      <select class="form-control search-slt" style="border-radius: 4px;" v-model="Form.suburb" @change="displayBySuburb()">
                         <option :value="null">Select Suburb</option>
                         <option
-                          :value="suburb"
                           v-for="suburb in suburbs"
+                          :value="suburb"
                           :key="suburb"
                         >{{suburb}}</option>
                       </select>
@@ -54,9 +54,6 @@
                   </div>
                 </form>
               </div>
-            </div>
-            <div class="container-fluid adsOnPCOnly">
-              <adsbygoogle/>
             </div>
           </div>
         </div>
@@ -97,12 +94,25 @@
                       >
                         <div class="row">
                           <div class="col-md-4">
-                            <img
-                              src="/houses/house-one.jpeg"
-                              :alt="house.title"
-                              :title="house.title"
-                              class="recommended-house-image"
-                            >
+                              <no-ssr>
+                                <b-carousel
+                                  :id="house._id"
+                                  :interval="0"
+                                  controls
+                                  indicators
+                                  background="#ababab"
+                                  img-width="100%"
+                                  img-height="100%"
+                                  style="text-shadow: 1px 1px 2px #333;"
+                                >
+                                  <b-carousel-slide
+                                    v-for="(image, index) in house.accommodationImages"
+                                    :key="index"
+                                    :alt="house.title"
+                                    :img-src="image.path"
+                                  ></b-carousel-slide> 
+                                </b-carousel>
+                              </no-ssr>
                           </div>
                           <div class="col-md-5">
                             <h3 class="section-subtitle">{{house.title}}</h3>
@@ -165,9 +175,6 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 adsColumn">
-          <defaultAdsColumn/>
-        </div>
       </div>
     </div>
   </div>
@@ -175,11 +182,9 @@
 
 <script>
 import greetingColumn from '@/components/defaultGreetingColumn'
-import defaultAdsColumn from '@/components/defaultAdsColumn'
 export default {
   components: {
     greetingColumn: greetingColumn,
-    defaultAdsColumn: defaultAdsColumn
   },
   data() {
     return {
@@ -243,18 +248,52 @@ export default {
         this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
         this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
       }
+      this.Form.suburb = null
+      this.Form.university = null
       this.search()
     },
+    displayBySuburb(){
+      this.search()
+      if(this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null){
+        var index, tempArr = [];
+        for(index in this.houses){
+          if(this.houses[index].suburb == this.Form.suburb){
+            tempArr.push(this.houses[index])
+          }
+        }
+      }
+      this.houses = tempArr
+      if (!this.houses.length) {
+        this.errors = []
+        this.errors.push('Currently no houses in ' + this.Form.suburb + ' are listed')
+      }
+    },
+    displayByUniversity(){
+      this.search()
+      if(this.Form.university && this.Form.university != 'null' && this.Form.university != null){
+        var index, tempArr = [];
+        for(index in this.houses){
+          if(this.houses[index].universities.includes(this.Form.university)){
+            tempArr.push(this.houses[index])
+          }
+        }
+      }
+      this.houses = tempArr
+      if (!this.houses.length) {
+        this.errors = []
+        this.errors.push('Currently no houses close to ' + this.Form.university + ' are listed')
+      }
+    },
+    
     async search() {
       if (this.Form.city != null) {
         this.errors = []
         var tempHouses = await this.$store.dispatch('getHousesByCity', {id: this.Form.city})
         this.houses = tempHouses.data
-        this.mapCenter = this.houses[0].position
         if (!this.houses.length) {
-          this.errors.push(
-            'Currently no houses in ' + this.Form.city + ' are listed'
-          )
+          this.errors.push('Currently no houses in ' + this.Form.city + ' are listed')
+        }else{
+           this.mapCenter = this.houses[0].position
         }
       }
     }

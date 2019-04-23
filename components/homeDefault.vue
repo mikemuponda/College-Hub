@@ -585,11 +585,7 @@ export default {
   async mounted() {
     var housesArr = null
     try {
-      if (
-        (housesArr = await this.$store.dispatch('getHouses', {
-          id: 'allhouses'
-        }))
-      ) {
+      if ((housesArr = await this.$store.dispatch('getHouses', {id: 'allhouses'}))) {
         if (housesArr == '404')
           this.errors.push('Houses could not be retrieved')
         else {
