@@ -302,7 +302,7 @@ export default {
       }
       this.Form.suburb = null
       this.Form.university = null
-      this.search(this.Form.price)
+      this.search()
     },
     displayBySuburb() {
       this.search()
@@ -320,7 +320,6 @@ export default {
         this.errors = []
         this.errors.push('Currently no houses in ' + this.Form.suburb + ' are listed')
       }
-      this.search(this.Form.price)
     },
     displayByUniversity() {
       this.search()
@@ -337,7 +336,6 @@ export default {
         this.errors = []
         this.errors.push('Currently no houses close to ' + this.Form.university + ' are listed')
       }
-      this.search(this.Form.price)
     },
 
     async search() {
