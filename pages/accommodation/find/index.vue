@@ -25,7 +25,12 @@
                   </div>
                   <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
                     <div class="col-md-12 nopadding">
-                      <select class="form-control search-slt" style="border-radius: 4px;" v-model="Form.university" @change="displayByUniversity()">
+                      <select
+                        class="form-control search-slt"
+                        style="border-radius: 4px;"
+                        v-model="Form.university"
+                        @change="displayByUniversity()"
+                      >
                         <option :value="null">Select University</option>
                         <option
                           :value="university"
@@ -37,19 +42,40 @@
                   </div>
                   <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
                     <div class="col-md-12 nopadding">
-                      <select class="form-control search-slt" style="border-radius: 4px;" v-model="Form.suburb" @change="displayBySuburb()">
+                      <select
+                        class="form-control search-slt"
+                        style="border-radius: 4px;"
+                        v-model="Form.suburb"
+                        @change="displayBySuburb()"
+                      >
                         <option :value="null">Select Suburb</option>
-                        <option
-                          v-for="suburb in suburbs"
-                          :value="suburb"
-                          :key="suburb"
-                        >{{suburb}}</option>
+                        <option v-for="suburb in suburbs" :value="suburb" :key="suburb">{{suburb}}</option>
                       </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 nopadding">
+                      <no-ssr>
+                        <VueSlideBar
+                          v-model="priceChange"
+                          :min="0"
+                          :max="400"
+                          :processStyle="slider.processStyle"
+                          :lineHeight="slider.lineHeight"
+                          :tooltipStyles="{ backgroundColor: 'purple', borderColor: 'purple' }"
+                        >
+                        </VueSlideBar>
+                      </no-ssr>
                     </div>
                   </div>
                   <div class="row housefilterbutton" style="margin-top: 5px; margin-bottom: 5px;">
                     <div class="col-md-12 nopadding">
-                      <button style="border-radius: 4px;" type="button" @click="search()" class="default-button wrn-btn">Filter</button>
+                      <button
+                        style="border-radius: 4px;"
+                        type="button"
+                        @click="search()"
+                        class="default-button wrn-btn"
+                      >Filter</button>
                     </div>
                   </div>
                 </form>
@@ -80,12 +106,23 @@
                   <div class="col-md-12" style="width: 100%;">
                     <div class="taxiMapDisplay" style="width: 100%; margin-bottom: 20px;">
                       <no-ssr>
-                        <google-map :center="mapCenter" :zoom="11" style="width: 100%; height: 100%">
-                          <google-marker v-for="m in houses" :key="m._id" :position="m.position" :clickable="true" @click="center=m.position"></google-marker>
+                        <google-map
+                          :center="mapCenter"
+                          :zoom="11"
+                          style="width: 100%; height: 100%"
+                        >
+                          <google-marker
+                            v-for="m in houses"
+                            :key="m._id"
+                            :position="m.position"
+                            :clickable="true"
+                            :icon="{ url: require('@/assets/icons/house-marker.png')}"
+                            @click="center=m.position"
+                          ></google-marker>
                         </google-map>
                       </no-ssr>
                     </div>
-                    
+
                     <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
                       <NuxtLink
                         :to="'/accommodation/view/' + house._id"
@@ -94,25 +131,25 @@
                       >
                         <div class="row">
                           <div class="col-md-4">
-                              <no-ssr>
-                                <b-carousel
-                                  :id="house._id"
-                                  :interval="0"
-                                  controls
-                                  indicators
-                                  background="#ababab"
-                                  img-width="100%"
-                                  img-height="100%"
-                                  style="text-shadow: 1px 1px 2px #333;"
-                                >
-                                  <b-carousel-slide
-                                    v-for="(image, index) in house.accommodationImages"
-                                    :key="index"
-                                    :alt="house.title"
-                                    :img-src="image.path"
-                                  ></b-carousel-slide> 
-                                </b-carousel>
-                              </no-ssr>
+                            <no-ssr>
+                              <b-carousel
+                                :id="house._id"
+                                :interval="0"
+                                controls
+                                indicators
+                                background="#ababab"
+                                img-width="100%"
+                                img-height="100%"
+                                style="text-shadow: 1px 1px 2px #333;"
+                              >
+                                <b-carousel-slide
+                                  v-for="(image, index) in house.accommodationImages"
+                                  :key="index"
+                                  :alt="house.title"
+                                  :img-src="image.path"
+                                ></b-carousel-slide>
+                              </b-carousel>
+                            </no-ssr>
                           </div>
                           <div class="col-md-5">
                             <h3 class="section-subtitle">{{house.title}}</h3>
@@ -184,27 +221,42 @@
 import greetingColumn from '@/components/defaultGreetingColumn'
 export default {
   components: {
-    greetingColumn: greetingColumn,
+    greetingColumn: greetingColumn
   },
   data() {
     return {
       userProfile: '',
       errors: [],
       houses: [],
+      priceChange: 0,
       Form: {
         city: null,
         university: null,
-        suburb: null
+        suburb: null,
+        Price: null
       },
       fullLocale: null,
       cities: null,
       suburbs: null,
       universities: null,
-      locationCookie: null,
+      maxPrice: null,
       mapCenter: {
         lat: -17.82422,
         lng: 31.049363
+      },
+      slider: {
+        lineHeight: 7,
+        processStyle: {
+          backgroundColor: 'purple'
+        }
       }
+    }
+  },
+  watch: {
+    priceChange: function(val) {
+      this.priceChange = val
+      this.Form.Price = val
+      this.search(val)
     }
   },
   methods: {
@@ -250,14 +302,15 @@ export default {
       }
       this.Form.suburb = null
       this.Form.university = null
-      this.search()
+      this.search(this.Form.price)
     },
-    displayBySuburb(){
+    displayBySuburb() {
       this.search()
-      if(this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null){
-        var index, tempArr = [];
-        for(index in this.houses){
-          if(this.houses[index].suburb == this.Form.suburb){
+      if (this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null) {
+        var index,
+          tempArr = []
+        for (index in this.houses) {
+          if (this.houses[index].suburb == this.Form.suburb) {
             tempArr.push(this.houses[index])
           }
         }
@@ -267,13 +320,14 @@ export default {
         this.errors = []
         this.errors.push('Currently no houses in ' + this.Form.suburb + ' are listed')
       }
+      this.search(this.Form.price)
     },
-    displayByUniversity(){
+    displayByUniversity() {
       this.search()
-      if(this.Form.university && this.Form.university != 'null' && this.Form.university != null){
-        var index, tempArr = [];
-        for(index in this.houses){
-          if(this.houses[index].universities.includes(this.Form.university)){
+      if (this.Form.university && this.Form.university != 'null' && this.Form.university != null) {
+        var index, tempArr = []
+        for (index in this.houses) {
+          if (this.houses[index].universities.includes(this.Form.university)) {
             tempArr.push(this.houses[index])
           }
         }
@@ -283,8 +337,9 @@ export default {
         this.errors = []
         this.errors.push('Currently no houses close to ' + this.Form.university + ' are listed')
       }
+      this.search(this.Form.price)
     },
-    
+
     async search() {
       if (this.Form.city != null) {
         this.errors = []
@@ -292,21 +347,42 @@ export default {
         this.houses = tempHouses.data
         if (!this.houses.length) {
           this.errors.push('Currently no houses in ' + this.Form.city + ' are listed')
-        }else{
-           this.mapCenter = this.houses[0].position
+        } else {
+          this.mapCenter = this.houses[0].position
+        }
+      }
+    },
+    async search(price) {
+      if (this.Form.city != null) {
+        this.errors = []
+        var tempHouses = await this.$store.dispatch('getHousesByCity', {id: this.Form.city})
+        this.houses = tempHouses.data
+        if (!this.houses.length) {
+          this.errors.push('Currently no houses in ' + this.Form.city + ' are listed')
+        } else {
+          this.mapCenter = this.houses[0].position
+          var index, tempArr = []
+          for (index in this.houses) {
+            if (parseInt(this.houses[index].priceValue) <= this.Form.Price) {
+              tempArr.push(this.houses[index])
+            }
+          }
+          
+          this.houses = tempArr
+          if (!this.houses.length) {
+            this.errors = []
+            this.errors.push('Available houses in ' + this.Form.city + 'are all above $' + this.Form.Price)
+          }
         }
       }
     }
   },
   async mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start()
-    })
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.priceChange = 100
     if (this.$store.state.authUser) {
       try {
-        this.userProfile = await this.$store.dispatch('getProfile', {
-          id: this.$store.state.authUser.user.username
-        })
+        this.userProfile = await this.$store.dispatch('getProfile', {id: this.$store.state.authUser.user.username})
         this.userProfile = this.userProfile.data.user
       } catch (e) {
         this.error = e.message
@@ -320,12 +396,12 @@ export default {
     this.cities.pop()
 
     if (this.$route.query.city && this.$route.query.city != null) {
-      if(this.cities.includes(this.$route.query.city)){
+      if (this.cities.includes(this.$route.query.city)) {
         this.Form.city = this.$route.query.city
-      }else{
+      } else {
         this.Form.city = 'Harare'
       }
-    }else{
+    } else {
       this.Form.city = 'Harare'
     }
     if (this.$route.query.suburb && this.$route.query.suburb != null) {
@@ -336,14 +412,12 @@ export default {
     }
     this.displayCityData()
     this.search()
-    this.$nextTick(() => {
-      setTimeout(() => this.$nuxt.$loading.finish(), 0)
-    })
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   },
-  async asyncData ({ store, params, context }) {
-    if(process.server){
+  async asyncData({ store, params, context }) {
+    if (process.server) {
       const houses = await store.dispatch('getAllHousesAsync')
-      return{
+      return {
         houses: houses.data
       }
     }
@@ -355,8 +429,9 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'Looking for accomodation? Find and compare exclusive accomodation options available at your university. Collegehub offers a world class platform that helps you find accommodation that best meets your needs. Collegehub is the premier service for students in Zimbabwe.'
-        },
+          content:
+            'Looking for accomodation? Find and compare exclusive accomodation options available at your university. Collegehub offers a world class platform that helps you find accommodation that best meets your needs. Collegehub is the premier service for students in Zimbabwe.'
+        }
       ],
       link: [
         {
@@ -364,7 +439,7 @@ export default {
           rel: 'canonical',
           href: 'https://www.collegehub.co.zw/accommodation/find'
         }
-      ],
+      ]
     }
   }
 }
@@ -372,16 +447,16 @@ export default {
 
 <style>
 @media only screen and (min-width: 756px) {
-  .housefilterbutton{
+  .housefilterbutton {
     display: none;
   }
-  .adsColumn{
+  .adsColumn {
     display: none;
   }
 }
 
 @media only screen and (max-width: 756px) {
-  .adsOnPCOnly{
+  .adsOnPCOnly {
     display: none;
   }
 }

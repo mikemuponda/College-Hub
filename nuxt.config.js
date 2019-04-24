@@ -186,6 +186,10 @@ module.exports = {
     {
       src: "~/plugins/google-analytics.js",
       ssr: false
+    },
+    {
+      src: "~/plugins/vue-slide-bar.js",
+      ssr: false
     }
   ],
 

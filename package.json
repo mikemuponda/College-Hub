@@ -40,6 +40,7 @@
     "vue": "^2.6.10",
     "vue-burger-menu": "^2.0.1",
     "vue-server-renderer": "^2.6.10",
+    "vue-slide-bar": "^1.1.9",
     "vue-template-compiler": "^2.6.10",
     "vue2-flip-countdown": "^0.5.3",
     "vue2-google-maps": "^0.10.6"
