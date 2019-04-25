@@ -73,7 +73,7 @@
                       <button
                         style="border-radius: 4px;"
                         type="button"
-                        @click="search()"
+                        @click="searchByCity()"
                         class="default-button wrn-btn"
                       >Filter</button>
                     </div>
@@ -226,8 +226,8 @@ export default {
   data() {
     return {
       userProfile: '',
-      errors: [],
       houses: [],
+      errors: [],
       priceChange: 0,
       Form: {
         city: null,
@@ -256,7 +256,7 @@ export default {
     priceChange: function(val) {
       this.priceChange = val
       this.Form.Price = val
-      this.search(val)
+      this.searchByPrice()
     }
   },
   methods: {
@@ -302,11 +302,11 @@ export default {
       }
       this.Form.suburb = null
       this.Form.university = null
-      this.search()
+      this.searchByCity()
     },
     displayBySuburb() {
-      this.search()
       if (this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null) {
+        this.searchByCity()
         var index,
           tempArr = []
         for (index in this.houses) {
@@ -322,8 +322,8 @@ export default {
       }
     },
     displayByUniversity() {
-      this.search()
       if (this.Form.university && this.Form.university != 'null' && this.Form.university != null) {
+        this.searchByCity()
         var index, tempArr = []
         for (index in this.houses) {
           if (this.houses[index].universities.includes(this.Form.university)) {
@@ -338,11 +338,18 @@ export default {
       }
     },
 
-    async search() {
+    async searchByCity() {
       if (this.Form.city != null) {
         this.errors = []
-        var tempHouses = await this.$store.dispatch('getHousesByCity', {id: this.Form.city})
-        this.houses = tempHouses.data
+        if (this.Form.city && this.Form.city != 'null' && this.Form.city != null) {
+          var index;
+          this.houses = []
+          for(index in this.allHousesGlobal){
+            if(this.allHousesGlobal[index].city == this.Form.city){
+              this.houses.push(this.allHousesGlobal[index])
+            }
+          }
+        }
         if (!this.houses.length) {
           this.errors.push('Currently no houses in ' + this.Form.city + ' are listed')
         } else {
@@ -350,28 +357,19 @@ export default {
         }
       }
     },
-    async search(price) {
-      if (this.Form.city != null) {
-        this.errors = []
-        var tempHouses = await this.$store.dispatch('getHousesByCity', {id: this.Form.city})
-        this.houses = tempHouses.data
-        if (!this.houses.length) {
-          this.errors.push('Currently no houses in ' + this.Form.city + ' are listed')
-        } else {
-          this.mapCenter = this.houses[0].position
-          var index, tempArr = []
-          for (index in this.houses) {
-            if (parseInt(this.houses[index].priceValue) <= this.Form.Price) {
-              tempArr.push(this.houses[index])
-            }
-          }
-          
-          this.houses = tempArr
-          if (!this.houses.length) {
-            this.errors = []
-            this.errors.push('Available houses in ' + this.Form.city + 'are all above $' + this.Form.Price)
-          }
+    async searchByPrice() {
+      this.searchByCity()
+      var tempHouses = this.houses
+      this.houses = []
+      var index
+      for (index in tempHouses) {
+        if (parseInt(tempHouses[index].priceValue) <= this.Form.Price) {
+          this.houses.push(tempHouses[index])
         }
+      }
+      if (!this.houses.length) {
+        this.errors = []
+        this.errors.push('Available houses in ' + this.Form.city + ' are all above $' + this.Form.Price)
       }
     }
   },
@@ -408,15 +406,15 @@ export default {
     if (this.$route.query.university && this.$route.query.university != null) {
       this.Form.university = this.$route.query.university
     }
+    this.houses = this.allHousesGlobal
     this.displayCityData()
-    this.search()
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   },
   async asyncData({ store, params, context }) {
     if (process.server) {
-      const houses = await store.dispatch('getAllHousesAsync')
+      const allHousesGlobal = await store.dispatch('getAllHousesAsync')
       return {
-        houses: houses.data
+        allHousesGlobal: allHousesGlobal.data
       }
     }
   },
