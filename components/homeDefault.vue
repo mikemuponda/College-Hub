@@ -84,7 +84,7 @@
                             type="button"
                             style="border-radius: 2px;"
                             class="default-button wrn-btn"
-                            @click="Search()"
+                            @click="searchAccommodation()"
                           >Find</button>
                         </div>
                       </div>
@@ -574,12 +574,10 @@ export default {
         this.suburbs = this.fullLocale.Zimbabwe.city.Zvishavane.suburbs
       else this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
     },
-    Search() {
-      window.location.href =
-        '/accommodation/find/?city=' +
-        this.Accommodation.city +
-        '&suburb=' +
-        this.Accommodation.suburb
+    searchAccommodation() {
+      if(this.Accommodation.suburb == 'null' || this.Accommodation.suburb == null)
+        this.Accommodation.suburb = 'allsuburbs'
+      window.location.href = '/accommodation/find/?city=' + this.Accommodation.city + '&suburb=' + this.Accommodation.suburb
     }
   },
   async mounted() {

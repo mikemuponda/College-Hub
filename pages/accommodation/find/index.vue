@@ -48,7 +48,9 @@
                         v-model="Form.suburb"
                         @change="displayBySuburb()"
                       >
-                        <option :value="null">Select Suburb</option>
+                        <option v-if="Form.suburb && Form.suburb != 'null' && Form.suburb != null && Form.suburb != 'allsuburbs'" :value="Form.suburb">{{Form.suburb}}</option>
+                        <option v-else :value="null">Select Suburb</option>
+                        <option value="allsuburbs">All Suburbs</option>
                         <option v-for="suburb in suburbs" :value="suburb" :key="suburb">{{suburb}}</option>
                       </select>
                     </div>
@@ -66,16 +68,6 @@
                         >
                         </VueSlideBar>
                       </no-ssr>
-                    </div>
-                  </div>
-                  <div class="row housefilterbutton" style="margin-top: 5px; margin-bottom: 5px;">
-                    <div class="col-md-12 nopadding">
-                      <button
-                        style="border-radius: 4px;"
-                        type="button"
-                        @click="searchByCity()"
-                        class="default-button wrn-btn"
-                      >Filter</button>
                     </div>
                   </div>
                 </form>
@@ -300,13 +292,13 @@ export default {
         this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
         this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
       }
+      this.displayBySuburb()
       this.Form.suburb = null
       this.Form.university = null
-      this.searchByCity()
     },
     displayBySuburb() {
-      if (this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null) {
-        this.searchByCity()
+      this.searchByCity()
+      if (this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null && this.Form.suburb != 'allsuburbs') {
         var index,
           tempArr = []
         for (index in this.houses) {
@@ -314,16 +306,17 @@ export default {
             tempArr.push(this.houses[index])
           }
         }
+        this.houses = tempArr
       }
-      this.houses = tempArr
-      if (!this.houses.length) {
+      
+      if (this.houses.length < 1) {
         this.errors = []
         this.errors.push('Currently no houses in ' + this.Form.suburb + ' are listed')
       }
     },
     displayByUniversity() {
+      this.displayBySuburb()
       if (this.Form.university && this.Form.university != 'null' && this.Form.university != null) {
-        this.searchByCity()
         var index, tempArr = []
         for (index in this.houses) {
           if (this.houses[index].universities.includes(this.Form.university)) {
@@ -334,7 +327,7 @@ export default {
       this.houses = tempArr
       if (!this.houses.length) {
         this.errors = []
-        this.errors.push('Currently no houses close to ' + this.Form.university + ' are listed')
+        this.errors.push('Currently no houses close to ' + this.Form.university + ' from ' + this.Form.suburb + ' are listed. Try choosing a different suburb')
       }
     },
 
@@ -358,7 +351,7 @@ export default {
       }
     },
     async searchByPrice() {
-      this.searchByCity()
+      this.displayBySuburb()
       var tempHouses = this.houses
       this.houses = []
       var index
@@ -390,24 +383,28 @@ export default {
     this.fullLocale = locale.data[0]
     this.cities = Object.getOwnPropertyNames(this.fullLocale.Zimbabwe.city)
     this.cities.pop()
-
+    this.Form.city = 'Harare'
+    this.Form.suburb = 'allsuburbs'
+    this.houses = this.allHousesGlobal
+    this.displayCityData()
+    
     if (this.$route.query.city && this.$route.query.city != null) {
       if (this.cities.includes(this.$route.query.city)) {
         this.Form.city = this.$route.query.city
-      } else {
-        this.Form.city = 'Harare'
       }
-    } else {
-      this.Form.city = 'Harare'
     }
     if (this.$route.query.suburb && this.$route.query.suburb != null) {
-      this.Form.suburb = this.$route.query.suburb
+      if (this.suburbs.includes(this.$route.query.suburb)) {
+        this.Form.suburb = this.$route.query.suburb
+        this.displayCityData()
+      }else if(this.$route.query.suburb == 'allsuburbs'){
+        this.Form.suburb = this.$route.query.suburb
+      }
     }
     if (this.$route.query.university && this.$route.query.university != null) {
       this.Form.university = this.$route.query.university
     }
-    this.houses = this.allHousesGlobal
-    this.displayCityData()
+    
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   },
   async asyncData({ store, params, context }) {
