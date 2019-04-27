@@ -1,9 +1,9 @@
 <template>
   <div style="width: 100%;">
-    <div class="nav" style="background-color: #ffffff; padding-bottom: 5px;">
-      <nav class="navbar-expand-lg navbar-light bg-light" style="margin-left: 10px;">
-        <NuxtLink :to="'/'" class="navbar-brand" title="College Hub" style="margin-top: 35px; ">
-          <strong>CollegeHub</strong>
+    <div class="nav" style="background-color: #F8F8F8; padding-bottom: 5px;">
+      <nav class="navbar-expand-lg navbar-light bg-light" style="margin-left: 10px; background-color: #F8F8F8;">
+        <NuxtLink :to="'/'" class="navbar-brand" title="College Hub" style="margin-top: 15px; background-color: #F8F8F8; font-weight: 450; font-size: 16px; color: #3A003A;">
+          <img src="/logo.png" title="Home" alt="Home" style="height: 50px; margin-top: 0px; margin-left: 10px;"/>&nbsp;COLLEGEHUB
         </NuxtLink>
       </nav>
     </div>
