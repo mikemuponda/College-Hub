@@ -1,6 +1,14 @@
 <template>
   <div style="width: 100%;">
-		Find Event
+	<div class="row">
+    <div class="col-md-12">
+      hello worldhdshsfvdjhbfd 
+      dsgvjhskhdvsd
+      sdvhvjshb
+      <div class="item-box">
+        <h1 class="title-events">hubert nyabadza</h1></div>
+    </div>
+  </div>
 	</div>
 </template>
 
@@ -27,3 +35,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.title-events {
+  font-size:22px;
+}
+</style>
