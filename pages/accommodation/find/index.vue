@@ -2,9 +2,6 @@
   <div style="width: 100%; background: #eee; padding-bottom: 20px;">
     <div class="container-fluid" style="margin-bottom: 20px;">
       <div class="row">
-        <div class="col-md-2 dashboard-greeting-display" v-if="userProfile != false">
-          <greetingColumn/>
-        </div>
         <div class="col-md-3 dashboard-greeting-display">
           <div class="item-box">
             <div class="section search-form-sec">
@@ -75,7 +72,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-9">
           <div class="container">
             <div class="row default-user-panel" style="margin-top: 5px;">
               <div style="margin-top: 20px; width: 100%;"></div>
