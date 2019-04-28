@@ -29,8 +29,12 @@ router.use((req, res, next) => {
 
 //Load Houses From MongoDB
 const loadHouses = async function () {
+  try{
   const client = await mongodb.MongoClient.connect(process.env.database, {useNewUrlParser: true})
   return client.db('collegehub').collection('houses')
+  } catch (e){
+    console.log(e);
+  }
 }
 
 //Add a house

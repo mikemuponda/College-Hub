@@ -29,8 +29,12 @@ router.use((req, res, next) => {
 
 //Load Users From MongoDB
 const loadUsers = async function () {
+  try{
   const client = await mongodb.MongoClient.connect(process.env.database, {useNewUrlParser: true})
   return client.db('collegehub').collection('users')
+  }catch(e){
+    console.log(e);
+  }
 }
 
 //Account Signup

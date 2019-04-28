@@ -20,8 +20,12 @@ router.use((req, res, next) => {
 
 //Load Houses From MongoDB
 const loadLocale = async function () {
+  try{
   const client = await mongodb.MongoClient.connect(process.env.database, {useNewUrlParser: true})
   return client.db('collegehub').collection('locale')
+  }catch(e){
+    console.log(e);
+  }
 }
 
 //Add a Data

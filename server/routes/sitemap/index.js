@@ -15,8 +15,10 @@ router.use((req, res, next) => {
 })
 
 const loadUsers = async function () {
+	try{
   const client = await mongodb.MongoClient.connect(process.env.database, {useNewUrlParser: true})
-  return client.db('collegehub').collection('users')
+	return client.db('collegehub').collection('users')
+	}catch(e){console.log(e);}
 }
 
 const loadHouses = async function () {
