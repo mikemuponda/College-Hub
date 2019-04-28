@@ -252,10 +252,25 @@
                           <div class="col-md-12">
                             <div class="row">
                               <div class="col-md-4 rental-image-div">
-                                <div
-                                  class="ratio img-responsive img-circle resizeHouseimage"
-                                  style="background-image: url(/houses/collegehub-alexandra.jpeg); margin-top: 10px;"
-                                ></div>
+                                <div style="margin-top: 10px;">
+                                  <b-carousel
+                                    :id="house._id"
+                                    :interval="0"
+                                    controls
+                                    indicators
+                                    background="#ffffff"
+                                    img-width="100%"
+                                    img-height="100%"
+                                    style="height: 120px; overflow: hidden; border-radius: 1px;"
+                                  >
+                                    <b-carousel-slide
+                                      v-for="(image, index) in house.accommodationImages"
+                                      :key="index"
+                                      :alt="house.title"
+                                      :img-src="image.path"
+                                    ></b-carousel-slide> 
+                                  </b-carousel>
+                                </div>
                               </div>
                               <div class="col-md-8">
                                 <div class="row">
@@ -313,8 +328,13 @@
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row" style="width: 100%;">
+                              <div class="col-md-12">
                                 <div class="row">
-                                  <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                  <div class="col-md-12" style="text-align: center;">
                                     <p style="color: #00FF00; font-weight: 400;">{{house.status}}</p>
                                   </div>
                                 </div>

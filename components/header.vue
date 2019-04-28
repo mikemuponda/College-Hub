@@ -2,7 +2,7 @@
   <div style="width: 100%;">
     <div class="nav" style="background-color: #F8F8F8; padding-bottom: 5px;">
       <nav class="navbar-expand-lg navbar-light bg-light" style="margin-left: 10px; background-color: #F8F8F8;">
-        <NuxtLink :to="'/'" class="navbar-brand" title="College Hub" style="margin-top: 15px; background-color: #F8F8F8; font-weight: 450; font-size: 16px; color: #3A003A;">
+        <NuxtLink :to="'/'" class="navbar-brand" title="College Hub" style="margin-top: 15px; background-color: #F8F8F8; font-weight: 350; font-size: 16px; color: #8B008B; text-shadow: 0.5px 0.5px 1px #333;">
           <img src="/logo.png" title="Home" alt="Home" style="height: 50px; margin-top: 0px; margin-left: 10px;"/>&nbsp;COLLEGEHUB
         </NuxtLink>
       </nav>

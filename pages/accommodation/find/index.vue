@@ -126,10 +126,10 @@
                                 :interval="0"
                                 controls
                                 indicators
-                                background="#ababab"
+                                background="#ffffff"
                                 img-width="100%"
                                 img-height="100%"
-                                style="text-shadow: 1px 1px 2px #333;"
+                                style="height: 180px; overflow: hidden;"
                               >
                                 <b-carousel-slide
                                   v-for="(image, index) in house.accommodationImages"
