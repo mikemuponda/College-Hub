@@ -643,7 +643,12 @@ input:valid~label {
 
 .feed {
   width: 100%;
-  border-bottom: 0.5px solid #ccc;
+  border-bottom: 1px solid #bbb;
+  opacity: 0.95
+}
+
+.feed:hover{
+  opacity: 1
 }
 
 @media only screen and (min-width: 756px) {

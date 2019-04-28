@@ -189,10 +189,7 @@ router.post('/logout', (req, res) => {
 //Get All Users
 router.post('/allusers', async (req, res) => {
   const users = await loadUsers()
-  if(req.xhr)
-    return res.send(await users.find({}).toArray())
-  else
-    return res.status(403).json({message: 'Not Authorised'})
+  return res.send(await users.find({}).toArray())
 })
 
 //Delete User
@@ -325,6 +322,55 @@ router.post('/profile/edit/username/:id', async (req, res) => {
     res.status(401).json({
       message: 'User Not Found or has not yet confirmed'
     })
+  }
+})
+
+
+//Request to rent
+//http://localhost:8080/users/accommodation/request/5caa84dc4134c0a0739306ab
+router.post('/accommodation/request/:id', async (req, res) => {
+  const users = await loadUsers()
+  var user
+  if(user = await users.findOne({ _id: new mongodb.ObjectID(req.params.id)})){
+    let newRequest = {
+      requestID: req.body.reqID,
+      requestedHouseID: req.body.houseID,
+      requestStatus: 'pending',
+      requestedDate: new Date(),
+      statusDateUpdate: null 
+    }
+
+    if(user.isConfirmed == true){
+      var temp = []
+      if(user.hasOwnProperty('allRequests')){
+        temp = user.allRequests
+      }
+      var requested = false, index
+      for(index in temp){
+        if(temp[index].requestedHouseID == newRequest.requestedHouseID){
+          requested = true
+        }
+      }
+
+      if(requested)
+        return res.status(401).json({message: 'Request already exist'})
+      else{
+        temp.push(newRequest)
+        let params = {
+          allRequests: []
+        }
+        if(await users.findOneAndUpdate({_id: new mongodb.ObjectID(req.params.id)}, {$set: Object.assign(params)}, {upsert: true,})){
+          user = await users.findOne({_id: new mongodb.ObjectID(req.params.id)})
+          return res.json({user})
+        }else{
+          return res.status(401).json({message: 'Request Could not be made'})
+        }
+      }
+    }else{
+      return res.status(401).json({message: 'Cannot Request to Rent. Account has not been confirmed yet'})
+    }
+  }else{
+    return res.status(401).json({message: 'User has not yet confirmed account'})
   }
 })
 

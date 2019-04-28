@@ -40,8 +40,7 @@ const loadHouses = async function () {
 //Add a house
 router.post('/list/house', async (req, res) => {
 	const houses = await loadHouses()
-	var house = null
-	house = await houses.insertOne(req.body, function (err, response){
+	await houses.insertOne(req.body, function (err, response){
 		if(err)
       return res.status(401).json({message: 'Error Adding house'})
 		else{
@@ -153,6 +152,44 @@ router.post('/owner/:id', async (req, res) => {
       res.send(housesOwnned)
   else
     res.status(401).json({message: 'House could not be found'})
+})
+
+//Request to rent
+router.post('/house/request/:id', async (req, res) => {
+  const houses = await loadHouses()
+  var house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id)})
+  let newRequest = {
+    requestID: req.body.reqID,
+    requester: req.body.requester,
+    requestedHouseID: req.params.id,
+    requestStatus: 'pending',
+    requestedDate: new Date(),
+    statusDateUpdate: null 
+  }
+  var temp = []
+  if(house.hasOwnProperty('allRequests')){
+    temp = house.allRequests
+  }
+  var requested = false, index
+  for(index in temp){
+    if(temp[index].requester == newRequest.requester){
+      requested = true
+    }
+  }
+  if(requested)
+    return res.status(401).json({message: 'Request already exist'})
+  else{
+    temp.push(newRequest)
+    let params = {
+      allRequests: temp
+    }
+    if(await houses.findOneAndUpdate({_id: new mongodb.ObjectID(req.params.id)}, {$set: Object.assign(params)}, {upsert: true,})){
+      house = await houses.findOne({_id: new mongodb.ObjectID(req.params.id)})
+      return res.json({house})
+    }else{
+      return res.status(401).json({message: 'House could not be found'})
+    }
+  }
 })
 
 //Delete House by ID

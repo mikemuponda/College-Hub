@@ -238,8 +238,8 @@ export const actions = {
     }
   },
   
-  async getHouses({commit}, {id}){
-    var url = '/houses/' + id
+  async getHouses({commit}){
+    var url = '/houses/allhouses'
     try {
       return await axios.post(url)
     } catch (error) {

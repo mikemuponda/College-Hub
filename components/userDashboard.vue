@@ -139,100 +139,78 @@
 
                 <div style="width: 100%;" v-else>
                   <div class="forSeekers" style="width: 100%" v-if="userProfile.isSeeker">
-                    <div class="row nopadding" style="width: 100%;">
-                      <div class="col-md-12 inner-title-sec">
-                        <h2>Rental Requests</h2>
+                    <div class="row" v-if="userProfile.allRequests.length == 0">
+                      <div style="width: 100%; padding-top: 40px; padding-bottom: 40px; text-align: center;">
+                        <p style="margin-top: 30px; color: #000;" class="subheading" >It looks like you haven't made any requests to rent</p>
+                        <div class="row nopadding add-house">
+                          <div class="col-md-4"></div>
+                          <div class="col-md-4">
+                            <button class="default-button" @click="searchAccommodation()">Find Accommodation</button>
+                          </div>
+                          <div class="col-md-4"></div>
+                        </div>
                       </div>
                     </div>
-
-                    <div class="row nopadding feed">
-                      <div class="col-md-12">
-                        <div class="rental-image-div" style="width: 20%; float: left;">
-                          <div
-                            class="ratio img-responsive img-circle"
-                            style="background-image: url(/houses/collegehub-alexandra.jpeg);"
-                          ></div>
+                    <div class="row" v-else>
+                      <div class="row nopadding" style="width: 100%;">
+                        <div class="col-md-12 inner-title-sec">
+                          <h2>Rental Requests</h2>
                         </div>
-                        <div class="-div" style="width: 80%; float: left;">
-                          <div class="row">
-                            <div class="col-md-8">
-                              <h3 class="section-subtitle">Avondale, Harare</h3>
-                              <p
-                                class="section-small-text"
-                              >King George Street &#8811; Avondale &#8811; Harare</p>
-                              <div class="section-amenities">
-                                <div style="width: 50%; float: left;">
-                                  <p class="section-small-text">
-                                    <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
-                                  </p>
-                                  <p class="section-small-text">
-                                    <i class="fas fa-wifi"></i>Wifi
-                                  </p>
-                                </div>
-                                <div style="width: 50%; float: left;">
-                                  <p class="section-small-text">
-                                    <i class="fas fa-bed"></i>
-                                    2 Bedrooms
-                                  </p>
-                                  <p class="section-small-text">
-                                    <i class="fas fa-couch"></i>
-                                    Furnished
-                                  </p>
+                      </div>
+
+                      <div class="row nopadding feed">
+                        <div class="col-md-12">
+                          <div class="rental-image-div" style="width: 20%; float: left;">
+                            <div
+                              class="ratio img-responsive img-circle"
+                              style="background-image: url(/houses/collegehub-alexandra.jpeg);"
+                            ></div>
+                          </div>
+                          <div class="-div" style="width: 80%; float: left;">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <h3 class="section-subtitle">Avondale, Harare</h3>
+                                <p
+                                  class="section-small-text"
+                                >King George Street &#8811; Avondale &#8811; Harare</p>
+                                <div class="section-amenities">
+                                  <div style="width: 50%; float: left;">
+                                    <p class="section-small-text">
+                                      <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
+                                    </p>
+                                    <p class="section-small-text">
+                                      <i class="fas fa-wifi"></i>Wifi
+                                    </p>
+                                  </div>
+                                  <div style="width: 50%; float: left;">
+                                    <p class="section-small-text">
+                                      <i class="fas fa-bed"></i>
+                                      2 Bedrooms
+                                    </p>
+                                    <p class="section-small-text">
+                                      <i class="fas fa-couch"></i>
+                                      Furnished
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            <div class="col-md-4">
-                              <div class="rental-alert">
-                                <h2 class="success">Approved</h2>
+                              <div class="col-md-4">
+                                <div class="rental-alert">
+                                  <h2 class="success">Approved</h2>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div class="row nopadding feed">
-                      <div class="col-md-12">
-                        <div class="rental-image-div" style="width: 20%; float: left;">
-                          <div
-                            class="ratio img-responsive img-circle"
-                            style="background-image: url(/houses/house-four.jpeg);"
-                          ></div>
-                        </div>
-                        <div class="-div" style="width: 80%; float: left;">
-                          <div class="row">
-                            <div class="col-md-8">
-                              <h3 class="section-subtitle">Avenues, Harare</h3>
-                              <p
-                                class="section-small-text"
-                              >Baines Street &#8811; Avenues &#8811; Harare</p>
-                              <div class="section-amenities">
-                                <div style="width: 50%; float: left;">
-                                  <p class="section-small-text">
-                                    <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
-                                  </p>
-                                  <p class="section-small-text">
-                                    <i class="fas fa-wifi"></i>Wifi
-                                  </p>
-                                </div>
-                                <div style="width: 50%; float: left;">
-                                  <p class="section-small-text">
-                                    <i class="fas fa-bed"></i>
-                                    1 Bedroom
-                                  </p>
-                                  <p class="section-small-text">
-                                    <i class="fas fa-couch"></i>
-                                    Furnished
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              <div class="rental-alert">
-                                <h2 class="danger">Disapproved</h2>
-                              </div>
-                            </div>
+                      <div style="width: 100%; padding-top: 40px; padding-bottom: 40px; text-align: center;">
+                        <div class="row nopadding add-house">
+                          <div class="col-md-4"></div>
+                          <div class="col-md-4">
+                            <button class="default-button" @click="searchAccommodation()">Request More</button>
                           </div>
+                          <div class="col-md-4"></div>
                         </div>
                       </div>
                     </div>
@@ -274,10 +252,25 @@
                           <div class="col-md-12">
                             <div class="row">
                               <div class="col-md-4 rental-image-div">
-                                <div
-                                  class="ratio img-responsive img-circle resizeHouseimage"
-                                  style="background-image: url(/houses/collegehub-alexandra.jpeg); margin-top: 10px;"
-                                ></div>
+                                <div style="margin-top: 10px;">
+                                  <b-carousel
+                                    :id="house._id"
+                                    :interval="0"
+                                    controls
+                                    indicators
+                                    background="#ffffff"
+                                    img-width="100%"
+                                    img-height="100%"
+                                    style="height: 120px; overflow: hidden; border-radius: 1px;"
+                                  >
+                                    <b-carousel-slide
+                                      v-for="(image, index) in house.accommodationImages"
+                                      :key="index"
+                                      :alt="house.title"
+                                      :img-src="image.path"
+                                    ></b-carousel-slide> 
+                                  </b-carousel>
+                                </div>
                               </div>
                               <div class="col-md-8">
                                 <div class="row">
@@ -335,8 +328,13 @@
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row" style="width: 100%;">
+                              <div class="col-md-12">
                                 <div class="row">
-                                  <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                  <div class="col-md-12" style="text-align: center;">
                                     <p style="color: #00FF00; font-weight: 400;">{{house.status}}</p>
                                   </div>
                                 </div>
@@ -416,6 +414,9 @@ export default {
     }
   },
   methods: {
+    searchAccommodation() {
+      window.location.href = '/accommodation/find/?city=' + this.userProfile.city + '&suburb=allsuburbs'
+    },
     async changeHouseStatus(id){
       var index = this.housesOwned.findIndex(house => house._id === id)
       var newStatus = null
