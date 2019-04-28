@@ -113,11 +113,7 @@
                     </div>
 
                     <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
-                      <NuxtLink
-                        :to="'/accommodation/view/' + house._id"
-                        :title="house.title"
-                        style="width: 100%; color: #000;"
-                      >
+                      <div class="houseDisplayed" @click="redirect('/accommodation/view/' + house._id)" :title="house.title" style="width: 100%; color: #000;">
                         <div class="row">
                           <div class="col-md-4">
                             <no-ssr>
@@ -193,7 +189,7 @@
                             </div>
                           </div>
                         </div>
-                      </NuxtLink>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -249,7 +245,9 @@ export default {
     }
   },
   methods: {
-    onchange() {},
+    redirect(path) {
+      window.location.href = path
+    },
     displayCityData() {
       this.suburbs = []
       if (this.Form.city == 'Harare') {
@@ -436,6 +434,9 @@ export default {
 </script>
 
 <style>
+.houseDisplayed:hover{
+  cursor: pointer;
+}
 @media only screen and (min-width: 756px) {
   .housefilterbutton {
     display: none;

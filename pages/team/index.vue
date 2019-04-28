@@ -18,7 +18,7 @@
                         <img class="img-fluid" src="/img/team/bright.jpeg" title="Bright Zenda" alt="Bright Zenda">
                       </p>
                       <h4 class="card-title">Bright Zenda</h4>
-                      <p class="card-text">Co-Founder and CEO</p>
+                      <p class="card-text">Co-Founder | CEO</p>
                       <a href="#" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
                       </a>
@@ -336,10 +336,10 @@
                   <div class="card">
                     <div class="card-body text-center">
                       <p>
-                        <img class="img-fluid" src="/img/team/tinashe.jpg" title="Tinashe Zvihwati" alt="Tinashe Zvihwati">
+                        <img class="img-fluid" src="/img/team/tinashe.png" title="Tinashe Zvihwati" alt="Tinashe Zvihwati">
                       </p>
                       <h4 class="card-title">Tinashe Zvihwati</h4>
-                      <p class="card-text">Co-founder and Tech Lead </p>
+                      <p class="card-text">Co-Founder | Tech Lead </p>
                       <a href="#" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
                       </a>
@@ -351,26 +351,9 @@
                     <div class="card-body text-center mt-4">
                       <h4 class="card-title">Tinashe Zvihwati</h4>
                       <p class="card-text">
-                        <i class="fa fa-code"/>
-                         <strong>Tinashe is a full stack developer at Collegehub.
+                         Tinashe is a full stack developer at Collegehub.
                            He contributes his expertise on Frontend and Backend developement, Server and Database management as well as SEO and Optimization.
-                           He has 6 years of experience in web development.
-                         </strong><i class="fa fa-code"/><br>
-                        Tinashe is a member of
-                        <a
-                          href="https://www.lekkahub.com"
-                          target="_blank"
-                          rel="noopener"
-                          title="Lekkahub"
-                        >Lekkahub</a> group
-                        of developers. Visit his
-                        <a
-                          href="https://www.iamtinashe.io"
-                          target="_blank"
-                          rel="noopener"
-                          title="Tinashe's website"
-                        >website</a> or follow the links below to learn more
-                        about his work.
+                           He has 6 years of experience in web development. 
                       </p>
                       <ul class="list-inline">
                         <li class="list-inline-item">
@@ -436,7 +419,7 @@
                         <img class="img-fluid" src="/img/team/mike.jpg" title="Mike Muponda" alt="Mike Muponda">
                       </p>
                       <h4 class="card-title">Mike Muponda</h4>
-                      <p class="card-text">Developer and Strategist</p>
+                      <p class="card-text">Developer | Strategist</p>
                       <a href="#" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
                       </a>

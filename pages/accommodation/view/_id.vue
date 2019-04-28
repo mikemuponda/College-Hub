@@ -1,9 +1,9 @@
 <template>
-  <div style="width: 100%; background: #eee;">
+  <div style="width: 100%; background: #eee;" class="display-house">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-9">
-          <div class="item-box" style="margin-top: 10px;">
+          <div class="item-box" style="margin-top: 10px; padding-top: 0px;">
             <div class="row">
               <div class="col-md-12">
                 <div class="row nopadding">
@@ -223,29 +223,29 @@ export default {
 </script>
 
 <style>
-ul {
+.display-house ul {
   list-style: none;
 }
 
-ul li:before {
+.display-house ul li:before {
   content: '✓';
 }
-.col-md-6{
+.display-house .col-md-6{
 overflow: hidden;
 }
-.col-md-3{
+.display-house .col-md-3{
   overflow: hidden;
 }
-.accommodation-images {
+.display-house .accommodation-images {
   border: 0.5px solid black;
   overflow: hidden;
   filter: brightness(0.98);
   transition: transform .8s ease;
 }
-.accommodation-images:hover {
+.display-house .accommodation-images:hover {
   transform: scale(1.04);
   filter: brightness(1.2);
-
+  cursor: pointer;
 }
 </style>
 

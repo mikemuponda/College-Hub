@@ -443,12 +443,10 @@ input:valid~label {
   background-color: rgb(255, 252, 251);
   background: linear-gradient(-60deg,#f8f6f6a9 30%, #e0e6e0  70%);
 	color: black;
-	
 	border: 1px solid #dcdcdc;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	
   cursor: default;
   font-family: roboto;
 	font-size: 14px;
@@ -456,9 +454,11 @@ input:valid~label {
 	text-align: center;
 	height: 27px;
 	line-height: 27px;
-	min-width: 40%;
+  width: 80%;
+  margin-left: 10%;
 	padding: 0 8px;
-	text-decoration: none;
+  text-decoration: none;
+  margin-top: 5px;
 }
 .custom-button:hover {
   transition: 0.4s;
