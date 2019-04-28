@@ -18,8 +18,12 @@ router.use((req, res, next) => {
 
 //Load Users From MongoDB
 const loadContactInfo = async function () {
+  try{
   const client = await mongodb.MongoClient.connect(process.env.database, {useNewUrlParser: true})
   return client.db('collegehub').collection('contactMessages')
+  }catch(e){
+    console.log(e);
+  }
 }
 
 //Send Message

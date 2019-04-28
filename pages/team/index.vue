@@ -18,7 +18,7 @@
                         <img class="img-fluid" src="/img/team/bright.jpeg" title="Bright Zenda" alt="Bright Zenda">
                       </p>
                       <h4 class="card-title">Bright Zenda</h4>
-                      <p class="card-text">CEO and Co-Founder</p>
+                      <p class="card-text">Co-Founder and CEO</p>
                       <a href="#" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
                       </a>
@@ -30,8 +30,7 @@
                     <div class="card-body text-center mt-4">
                       <h4 class="card-title">Bright Zenda</h4>
                       <p class="card-text">
-                        Bright is the CEO and Co-founder of Collegehub. An innovative young man who is passionate about bringing community
-                        transformation. Bright is a medical trainee at the University of Zimbabwe. He vice chairs Achievers Trust, a students' initiative.
+                        Bright is a young entrepreneur whose goal is to make the world a better place especially through technology. He brings to the team leadership qualities and his role is to make sure Collegehub becomes one of the best services in the country and to bring quality user experience.
                       </p>
                       <ul class="list-inline">
                         <li class="list-inline-item">
@@ -337,10 +336,10 @@
                   <div class="card">
                     <div class="card-body text-center">
                       <p>
-                        <img class="img-fluid" src="/img/team/tinashe.png" title="Tinashe Zvihwati" alt="Tinashe Zvihwati">
+                        <img class="img-fluid" src="/img/team/tinashe.jpg" title="Tinashe Zvihwati" alt="Tinashe Zvihwati">
                       </p>
                       <h4 class="card-title">Tinashe Zvihwati</h4>
-                      <p class="card-text">Developer</p>
+                      <p class="card-text">Co-founder and Tech Lead </p>
                       <a href="#" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
                       </a>
@@ -352,7 +351,11 @@
                     <div class="card-body text-center mt-4">
                       <h4 class="card-title">Tinashe Zvihwati</h4>
                       <p class="card-text">
-                        <i class="fa fa-code"/><strong>The guru behind the service</strong><i class="fa fa-code"/><br>
+                        <i class="fa fa-code"/>
+                         <strong>Tinashe is a full stack developer at Collegehub.
+                           He contributes his expertise on Frontend and Backend developement, Server and Database management as well as SEO and Optimization.
+                           He has 6 years of experience in web development.
+                         </strong><i class="fa fa-code"/><br>
                         Tinashe is a member of
                         <a
                           href="https://www.lekkahub.com"
@@ -422,6 +425,63 @@
             </div>
           </div>
           <!-- ./Team member -->
+          <!-- ./Team member -->
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+              <div class="mainflip">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p>
+                        <img class="img-fluid" src="/img/team/mike.jpg" title="Mike Muponda" alt="Mike Muponda">
+                      </p>
+                      <h4 class="card-title">Mike Muponda</h4>
+                      <p class="card-text">Developer and Strategist</p>
+                      <a href="#" class="btn btn-primary btn-sm">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="backside">
+                  <div class="card">
+                    <div class="card-body text-center mt-4">
+                      <h4 class="card-title">Mike Muponda</h4>
+                      <p class="card-text">
+                        Mike is a prospective software developer transitioning from traditional non-web programming to full stack programming.
+                        His role is to assist in the planning, development and maintenance of Collegehub. He also oversees strategy for the company
+                        ensuring the organization maintains a competetive edge as well as finding ways to expand the company portfolio and services offered.
+                      </p>
+                      <ul class="list-inline">
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="github"
+                            href="https://github.com/mikemuponda"
+                          >
+                            <i class="fa fa-github"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            href="https://www.linkedin.com/in/mike-muponda-5b3035a5/"
+                            target="_blank"
+                            rel="noopener"
+                            title="Linkedin"
+                          >
+                            <i class="fa fa-linkedin"/>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
