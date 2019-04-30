@@ -65,6 +65,7 @@ export default {
         })
         this.userProfile = null
         await this.$store.dispatch('logout')
+        window.location.href = '/'
       } catch (e) {
         this.formError = e.message
       }
