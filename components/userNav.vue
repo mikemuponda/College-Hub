@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%;">
-    <div class="row dashboard-nav">
+    <div class="row dashboard-nav" style="margin-top: 80px;">
       <div class="col-md-12">
         <div class="dir">
           <NuxtLink :to="'/'" title="Dashboard">

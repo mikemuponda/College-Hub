@@ -1,6 +1,6 @@
 <template>
-  <div style="width: 100%">
-    <div class="container-fluid" style="background: #eee;">
+  <div style="width: 100%; margin-top: 80px;">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-12" style="text-align: center;">
           <div

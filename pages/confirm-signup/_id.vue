@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;">
+  <div style="width: 100%; margin-top: 80px;">
     <div class="container">
       <div class="row">
         <div class="section col-md-12 notification-container-box">

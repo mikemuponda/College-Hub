@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;">
+  <div style="width: 100%; margin-top: 80px;">
     <div class="container">
       <div style="margin: 20px 0 20px 0; border-radius: 1px;">
         <div class="row">

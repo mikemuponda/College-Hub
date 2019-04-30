@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;">
+  <div style="width: 100%; margin-top: 80px;">
     <!-- Team -->
     <section id="team" class="pb-5">
       <div class="container">

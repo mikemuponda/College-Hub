@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;">
+  <div style="width: 100%; margin-top: 130px;">
     <div class="container">
       <div class="signup-form">
         <form @submit.prevent="signUpHandler" autocomplete="off">
