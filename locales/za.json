@@ -1,0 +1,14 @@
+{
+    "locale": {
+          "name": "South Africa",
+          "shortName": "ZA",
+          "city": [
+              {
+                  "name": "Johannesburg",
+                  "suburb": ["Alexandra, Belgravia"],
+                  "university": ["University of Zimbabwe", "Woman's University in Africa"],
+                  "position": {"lat": -17.813615, "lng": 31.054794}
+              }
+          ]
+      }
+  }
