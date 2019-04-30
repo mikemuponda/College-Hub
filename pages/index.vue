@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%;">
-    <div v-if="!$store.state.authUser">
+    <div v-if="!$store.state.authUser" style="width: 100%; margin-top: 130px;">
       <Login/>
     </div>
 
