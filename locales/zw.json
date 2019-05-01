@@ -2,21 +2,185 @@
   "locale": {
 		"name": "Zimbabwe",
 		"shortName": "ZWE",
-		"city": [
+		"position": {"lat": -18.9507967, "lng": 24.6539963},
+		"cities": [
 			{
 				"name": "Harare",
-				"suburb": ["Alexandra, Belgravia"],
-				"university": ["University of Zimbabwe", "Woman's University in Africa"],
+				"shortName": "HRE",
+				"suburbs": ["Alexandra Park", "Arundale", "Avenues", "Avondale", "Belgravia", "Belvedere", "Borrowdale", "City Centre", "Cranborne", "Emerald Hill", "Groom Bridge", "Gunhill", "Hatfield", "Kensington Park", "Manresa", "Milton Park", "Mount Pleasant", "Ridgeview", "Sunningdale"],
+				"universities": [
+					{
+						"name": "University of Zimbabwe",
+						"shortName": "UZ",
+						"position": {"lat": -17.31, "lng": 24.65}
+					},
+					{
+						"name": "Harare Institute of Technology",
+						"shortName": "HIT",
+						"position": {"lat": -17.31, "lng": 24.65}
+					},
+					{
+						"name": "Women's University in Africa",
+						"shortName": "WUA",
+						"position": {"lat": -17.31, "lng": 24.65}
+					},
+					{
+						"name": "Zimbabwe Open University",
+						"shortName": "ZOU",
+						"position": {"lat": -17.31, "lng": 24.65}
+					},
+					{
+						"name": "Catholic University in Zimbabwe",
+						"shortName": "CUZ",
+						"position": {"lat": -17.31, "lng": 24.65}
+					},
+					{
+						"name": "Southern Africa Methodist University",
+						"shortName": "SAMU",
+						"position": {"lat": -17.31, "lng": 24.65}
+						}
+				],
+				"polytechs": ["Harare Polytech"],
 				"position": {"lat": -17.813615, "lng": 31.054794}
 			},
 			{
 				"name": "Bulawayo",
-				"suburb": ["Riverside", "Sellbourne Park"],
-				"university": ["National University of Science and Technology"],
+				"shortName": "BYO",
+				"suburbs": ["City Centre", "Cowdry Park", "Entumbane", "Hillside", "Ilanda", "Khumalo", "Kylan", "Mahatshula", "Matshamhlope", "Morning Side", "Mpopomo", "Mzilikaz", "Newlands", "Redstone", "Riverside", "Sellbourne Park", "Sunningdale"],
+				"universities": [
+					{
+						"name": "National University of Science and Technology",
+						"shortName": "NUST",
+						"position": {"lat": -20, "lng": 30}
+					},
+					{
+						"name": "Solusi University",
+						"shortName": "SU",
+						"position": {"lat": -20, "lng": 30}
+					},
+					{
+						"name": "Lupane State University",
+						"shortName": "LSU",
+						"position": {"lat": -20, "lng": 30}
+					},
+					{
+						"name": "Catholic University in Zimbabwe",
+						"shortName": "CUZ",
+						"position": {"lat": -20, "lng": 30}
+					}
+				],
+				"polytechs": ["Bulawayo Polytech", "Hillside Teachers College"],
 				"position": {"lat": -20.141858, "lng": 28.585516}
 			},
 			{
-				"name": "Gweru"
+				"name": "Gweru",
+				"shortName": "",
+				"suburbs": ["Ascot", "Atholene", "Bluehills", "City Centre", "Dalesford", "Lundi Park", "Mkoba", "Nashville", "Nehosho", "Senga", "Shamrock Park", "Sundowns", "Mambo", "Monomotapa"],
+				"universities": [
+					{
+						"name": "Midlands State University",
+						"shortName": "MSU",
+						"position": {"lat": -20, "lng": 30}
+					}
+				],
+				"polytechs": ["Gweru Polytech"],
+				"position": {"lat": -19.479364, "lng": 29.837882}
+			},
+			{
+				"name": "Mutare",
+				"shortName": "",
+				"suburbs": ["Avenues", "Chikanga", "City Centre", "Darlington", "Florida", "Greenside", "Madanza", "Murambi", "Palmerston", "Utopia", "Westlea", "Yoevil"],
+				"universities": [
+					{
+						"name": "Africa University",
+						"shortName": "AU",
+						"position": {"lat": -23, "lng": 22}
+					},
+					{
+						"name": "Manicaland University of Science and Technology",
+						"shortName": "MUST",
+						"position": {"lat": -23, "lng": 22}
+					},
+					{
+						"name": "Zimbabwe Open University",
+						"shortName": "ZOU",
+						"position": {"lat": -23, "lng": 22}
+					}
+				],
+				"polytechs": ["Mutare Polytech", "Mutare Teachers College"],
+				"position": {"lat": -18.975718, "lng": 32.661465}
+			},
+			{
+				"name": "Masvingo",
+				"shortName": "",
+				"suburbs": [""],
+				"universities": [
+					{
+						"name": "Great Zimbabwe University",
+						"shortName": "GZU",
+						"position": {"lat": -23, "lng": 22}
+					},
+					{
+						"name": "Reformed Church University",
+						"shortName": "RCU",
+						"position": {"lat": -23, "lng": 22}
+					},
+					{
+						"name": "Zimbabwe Open University",
+						"shortName": "ZOU",
+						"position": {"lat": -23, "lng": 22}
+					}
+				],
+				"polytechs": [""],
+				"position": {"lat": -20.084628, "lng": 30.842183}
+			},
+			{
+				"name": "Marondera",
+				"shortName": "",
+				"suburbs": [""],
+				"universities": ["Marondera University of Agricultural Sciences and Technology", "Women's University in Africa" ],
+				"polytechs": [""],
+				"position": {"lat": -17.789916, "lng": 31.041579}
+			},
+			{
+				"name": "Chinhoyi",
+				"shortName": "",
+				"suburbs": [""],
+				"universities": ["Chinhoyi University of Technology"],
+				"polytechs": [""],
+				"position": {"lat": -17.360411, "lng": 30.199312}
+			},
+			{
+				"name": "Bindura",
+				"shortName": "",
+				"suburbs": [""],
+				"universities": ["Bindura University of Science Education", "Zimbabwe Ezekiel Guti University", "Zimbabwe Open University"],
+				"polytechs": [""],
+				"position": {"lat": -17.315034, "lng": 31.344840}
+			},
+			{
+				"name": "Gwanda",
+				"shortName": "",
+				"suburbs": [""],
+				"universities": ["Gwanda State University"],
+				"polytechs": [""],
+				"position": {"lat": -20.939594, "lng": 29.015979}
+			},
+			{
+				"name": "Lupane",
+				"shortName": "",
+				"suburbs": [""],
+				"universities": ["Lupane State University"],
+				"polytechs": [""],
+				"position": {"lat": -18.935231, "lng": 27.769798}
+			},
+			{
+				"name": "Zvishavane",
+				"shortName": "",
+				"suburbs": [""],
+				"universities": ["Midlands State University"],
+				"polytechs": [""],
+				"position": {"lat": -20.310847, "lng": 30.055579}
 			}
 		]
 	}
