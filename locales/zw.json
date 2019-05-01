@@ -12,31 +12,43 @@
 					{
 						"name": "University of Zimbabwe",
 						"shortName": "UZ",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -17.31, "lng": 24.65}
 					},
 					{
 						"name": "Harare Institute of Technology",
 						"shortName": "HIT",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -17.31, "lng": 24.65}
 					},
 					{
 						"name": "Women's University in Africa",
 						"shortName": "WUA",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -17.31, "lng": 24.65}
 					},
 					{
 						"name": "Zimbabwe Open University",
 						"shortName": "ZOU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -17.31, "lng": 24.65}
 					},
 					{
 						"name": "Catholic University in Zimbabwe",
 						"shortName": "CUZ",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -17.31, "lng": 24.65}
 					},
 					{
 						"name": "Southern Africa Methodist University",
 						"shortName": "SAMU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -17.31, "lng": 24.65}
 						}
 				],
@@ -51,21 +63,29 @@
 					{
 						"name": "National University of Science and Technology",
 						"shortName": "NUST",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -20, "lng": 30}
 					},
 					{
 						"name": "Solusi University",
 						"shortName": "SU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -20, "lng": 30}
 					},
 					{
 						"name": "Lupane State University",
 						"shortName": "LSU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -20, "lng": 30}
 					},
 					{
 						"name": "Catholic University in Zimbabwe",
 						"shortName": "CUZ",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -20, "lng": 30}
 					}
 				],
@@ -80,6 +100,8 @@
 					{
 						"name": "Midlands State University",
 						"shortName": "MSU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -20, "lng": 30}
 					}
 				],
@@ -94,16 +116,22 @@
 					{
 						"name": "Africa University",
 						"shortName": "AU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -23, "lng": 22}
 					},
 					{
 						"name": "Manicaland University of Science and Technology",
 						"shortName": "MUST",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -23, "lng": 22}
 					},
 					{
 						"name": "Zimbabwe Open University",
 						"shortName": "ZOU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -23, "lng": 22}
 					}
 				],
@@ -118,16 +146,22 @@
 					{
 						"name": "Great Zimbabwe University",
 						"shortName": "GZU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -23, "lng": 22}
 					},
 					{
 						"name": "Reformed Church University",
 						"shortName": "RCU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -23, "lng": 22}
 					},
 					{
 						"name": "Zimbabwe Open University",
 						"shortName": "ZOU",
+						"phone": "",
+						"address": "",
 						"position": {"lat": -23, "lng": 22}
 					}
 				],
@@ -138,7 +172,22 @@
 				"name": "Marondera",
 				"shortName": "",
 				"suburbs": [""],
-				"universities": ["Marondera University of Agricultural Sciences and Technology", "Women's University in Africa" ],
+				"universities": [
+					{
+						"name": "Marondera University of Agricultural Sciences and Technology",
+						"shortName": "MUAST",
+						"phone": "",
+						"address": "",
+						"position": {"lat": -17, "lng": 20}
+					},
+					{
+						"name": "Women's University in Africa",
+						"shortName": "WUA",
+						"phone": "",
+						"address": "",
+						"position": {"lat": -17, "lng": 20}
+					}
+				],
 				"polytechs": [""],
 				"position": {"lat": -17.789916, "lng": 31.041579}
 			},
@@ -146,7 +195,15 @@
 				"name": "Chinhoyi",
 				"shortName": "",
 				"suburbs": [""],
-				"universities": ["Chinhoyi University of Technology"],
+				"universities": [
+					{
+						"name": "Chinhoyi University of Technology",
+						"shortName": "CUT",
+						"phone": "",
+						"address": "",
+						"position": {"lat": -17, "lng": 20}
+					}
+				],
 				"polytechs": [""],
 				"position": {"lat": -17.360411, "lng": 30.199312}
 			},
@@ -154,7 +211,29 @@
 				"name": "Bindura",
 				"shortName": "",
 				"suburbs": [""],
-				"universities": ["Bindura University of Science Education", "Zimbabwe Ezekiel Guti University", "Zimbabwe Open University"],
+				"universities": [
+					{
+						"name": "Bindura University of Science Education",
+						"shortName": "BUSE",
+						"phone": "",
+						"address": "",
+						"position": {"lat": -17, "lng": 20}
+					},
+					{
+						"name": "Zimbabwe Ezekiel Guti University",
+						"shortName": "ZEGU",
+						"phone": "",
+						"address": "",
+						"position": {"lat": -17, "lng": 20}
+					},
+					{
+						"name": "Zimbabwe Open University",
+						"shortName": "ZOU",
+						"phone": "",
+						"address": "",
+						"position": {"lat": -17, "lng": 20}
+					}
+				],
 				"polytechs": [""],
 				"position": {"lat": -17.315034, "lng": 31.344840}
 			},
@@ -162,7 +241,15 @@
 				"name": "Gwanda",
 				"shortName": "",
 				"suburbs": [""],
-				"universities": ["Gwanda State University"],
+				"universities": [
+					{
+						"name": "Gwanda State University",
+						"shortName": "GSU",
+						"phone": "",
+						"address": "",
+						"position": {"lat": -17, "lng": 20}
+					}
+				],
 				"polytechs": [""],
 				"position": {"lat": -20.939594, "lng": 29.015979}
 			},
@@ -170,7 +257,15 @@
 				"name": "Lupane",
 				"shortName": "",
 				"suburbs": [""],
-				"universities": ["Lupane State University"],
+				"universities": [
+					{
+						"name": "Lupane State University",
+						"shortName": "LSU",
+						"phone": "",
+						"address": "",
+						"position": {"lat": -17, "lng": 20}
+					}
+				],
 				"polytechs": [""],
 				"position": {"lat": -18.935231, "lng": 27.769798}
 			},
@@ -178,7 +273,15 @@
 				"name": "Zvishavane",
 				"shortName": "",
 				"suburbs": [""],
-				"universities": ["Midlands State University"],
+				"universities": [
+					{
+						"name": "Midlands State University",
+						"shortName": "MSU",
+						"phone": "",
+						"address": "",
+						"position": {"lat": -17, "lng": 20}
+					}
+				],
 				"polytechs": [""],
 				"position": {"lat": -20.310847, "lng": 30.055579}
 			}
