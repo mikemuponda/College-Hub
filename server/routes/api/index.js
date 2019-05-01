@@ -6,6 +6,7 @@ const aws = require('aws-sdk')
 const multerS3 = require('multer-s3')
 const router = express.Router()
 const app = express()
+const url = process.env.URL
 require('dotenv').config()
 
 aws.config.update({
@@ -52,7 +53,7 @@ router.post('/signup', async (req, res) => {
       cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Please confirm your email',
-      html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="https://www.lekkahub.com/confirm-signup/' + key + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
+      html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="' + url + '/confirm-signup/' + key + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
     }
     if(sgMail.send(msg)){
       await users.insertOne({
@@ -71,10 +72,9 @@ router.post('/signup', async (req, res) => {
         createdAt: new Date()
       })
     }
-    if(req.xhr)
+
       return res.status(201).json({message: 'Your account has been created. A confirmation email has been sent to ' + req.body.email})
-    else
-      return res.status(403).json({message: 'Not Authorised'})
+    
   }
 })
 
@@ -98,10 +98,7 @@ router.post('/confirm-signup/:id', async (req, res) => {
     sgMail.send(msg)
     var user = await users.findOne({"confirmationKey": req.params.id})
     if (user.isConfirmed){
-      if(req.xhr)
-        return res.json({user})
-      else
-        return res.status(403).json({message: 'Not Authorised'})
+      return res.json({user})
     }else {
       res.status(400).json({message: 'Does not exist!'})
     }
@@ -116,10 +113,9 @@ router.post('/login', async (req, res) => {
   var user = null;
   if (user = await users.findOne({"email": req.body.email,"password": req.body.password})) {
     req.session.authUser = {user: user}
-    if(req.xhr)
+
       return res.json({user})
-    else
-      return res.status(403).json({message: 'Not Authorised'})
+    
   }
   res.status(401).json({message: 'Incorrect login credentials'})
 })
@@ -141,13 +137,10 @@ router.post('/forgot-password', async (req, res) => {
       cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Reset Your Password',
-      html: '<h2>Hi, ' + user.firstname + '</h2><p>It seems you forgot your password. Please <a href="https://www.lekkahub.com/reset-password/' + key + '" title="Collegehub">clicking this link</a> to reset your password.</p><p>Regards</p>',
+      html: '<h2>Hi, ' + user.firstname + '</h2><p>It seems you forgot your password. Please <a href="' + url + '/reset-password/' + key + '" title="Collegehub">clicking this link</a> to reset your password.</p><p>Regards</p>',
     }
     sgMail.send(msg)
-    if(req.xhr)
       return res.status(201).json({message: 'A Reset Passwoord email has been sent to your email'})
-    else
-      return res.status(403).json({message: 'Not Authorised'})
   } else {
     res.status(400).json({message: 'Email does not exist!'})
   }
@@ -168,13 +161,10 @@ router.post('/reset-password/:id', async (req, res) => {
       cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Reset Your Password',
-      html: '<h2>Hi, ' + user.firstname + '</h2><p>Your password has been reset. Your new password is: <strong>'+ req.body.password +'</strong>.<br>Go to <a href="https://www.lekkahub.com" title="Collegehub">Collegehub</a> and login.</p><p>Regards</p>',
+      html: '<h2>Hi, ' + user.firstname + '</h2><p>Your password has been reset. Your new password is: <strong>'+ req.body.password +'</strong>.<br>Go to <a href="' + url + '" title="Collegehub">Collegehub</a> and login.</p><p>Regards</p>',
     }
     sgMail.send(msg)
-    if(req.xhr)
-      return res.status(201).json({message: 'Password successfully reset!'})
-    else
-      return res.status(403).json({message: 'Not Authorised'})
+    return res.status(201).json({message: 'Password successfully reset!'})
   } else {
     res.status(401).json({message: 'Email does not exist!'})
   }
@@ -206,10 +196,7 @@ router.post('/profile/:id', async (req, res) => {
   const users = await loadUsers()
   var user = null
   if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
-    if(req.xhr)
-      return res.json({user})
-    else
-      return res.status(403).json({message: 'Not Authorised'})
+    return res.json({user})
   }else{
     return res.status(401).json({message: 'User Not Found or has not yet confirmed'})
   }
@@ -227,10 +214,7 @@ router.post('/profile/edit/:id', async (req, res) => {
     )
     var user = null
     if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
-      if(req.xhr)
-        return res.json({user})
-      else
-        return res.status(403).json({message: 'Not Authorised'})
+      return res.json({user})
     }
   }else{
     res.status(401).json({
@@ -287,10 +271,7 @@ router.post('/profile/upload/image/:id', upload.single('profileImage'), async (r
     {upsert: true,}
   )
   user = await users.findOne({ "username": req.params.id})
-  if(req.xhr)
     return res.json({user})
-  else
-    return res.status(403).json({message: 'Not Authorised'})
 })
 
 //Change Username
@@ -310,13 +291,10 @@ router.post('/profile/edit/username/:id', async (req, res) => {
         cc: "collegehubzw@gmail.com",
         from: 'Collegehub <noreply@collegehub.co.zw>',
         subject: 'Collegehub: Your Username has successfully been changed',
-        html: '<h2>Hi, ' + user.firstname + '</h2><p>Your username has successfully been changed to ' + user.username + '. Please follow <a href="https://www.lekkahub.com/profile/' + user.username + '" title="Profile">this link</a> to check out your profile</p><p>Regards</p>',
+        html: '<h2>Hi, ' + user.firstname + '</h2><p>Your username has successfully been changed to ' + user.username + '. Please follow <a href="' + url + '/profile/' + user.username + '" title="Profile">this link</a> to check out your profile</p><p>Regards</p>',
       }
       sgMail.send(msg)
-      if(req.xhr)
-        return res.json({user})
-      else
-        return res.status(403).json({message: 'Not Authorised'})
+      return res.json({user})
     }
   }else{
     res.status(401).json({

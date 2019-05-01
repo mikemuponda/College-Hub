@@ -1095,6 +1095,7 @@
 <script>
 import greetingColumn from '@/components/defaultGreetingColumn'
 import defaultAdsColumn from '@/components/defaultAdsColumn'
+import data from '~/locales/zw.json'
 
 export default {
   middleware: 'auth',
@@ -1109,7 +1110,7 @@ export default {
       page: 1,
       submitted: false,
       uniCounter: 0,
-      fullLocale: null,
+      locale: null,
       cities: [],
       suburbs: [],
       universities: [],
@@ -1178,42 +1179,14 @@ export default {
     displayCityData() {
       this.suburbs = []
       this.universities = []
-      if (this.Form.city == 'Harare') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
-      } else if (this.Form.city == 'Bulawayo') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Bulawayo.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Bulawayo.universities
-      } else if (this.Form.city == 'Gweru') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Gweru.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Gweru.universities
-      } else if (this.Form.city == 'Mutare') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Mutare.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Mutare.universities
-      } else if (this.Form.city == 'Masvingo') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Masvingo.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Masvingo.universities
-      } else if (this.Form.city == 'Marondera') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Marondera.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Marondera.universities
-      } else if (this.Form.city == 'Chinhoyi') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Chinhoyi.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Chinhoyi.universities
-      } else if (this.Form.city == 'Bindura') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Bindura.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Bindura.universities
-      } else if (this.Form.city == 'Gwanda') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Gwanda.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Gwanda.universities
-      } else if (this.Form.city == 'Lupane') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Lupane.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Lupane.universities
-      } else if (this.Form.city == 'Zvishavane') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Zvishavane.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Zvishavane.universities
-      } else {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
+      var index, i
+      for(index in this.locale.cities){
+        if(this.locale.cities[index].name == this.Accommodation.city){
+          this.suburbs = this.locale.cities[index].suburbs
+          for(i in this.locale.cities[index].universities){
+            this.universities.push(this.locale.cities[index].universities[i].name)
+          }
+        }
       }
     },
     nextPage: function(event) {
@@ -1410,12 +1383,18 @@ export default {
       this.Form.owner = this.userProfile._id
 
       var locale = await this.$store.dispatch('getAllLocales')
-      this.fullLocale = locale.data[0]
-      this.cities = Object.getOwnPropertyNames(this.fullLocale.Zimbabwe.city)
+      this.locale = locale.data[0]
+      this.cities = Object.getOwnPropertyNames(this.locale.Zimbabwe.city)
       this.cities.pop()
     } catch (e) {
       this.error = e.message
     }
+    this.locale = data.locale
+    var index
+    for(index in this.locale.cities){
+      this.cities.push(this.locale.cities[index].name)
+    }
+    this.displayCityData()
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   },
   head() {
