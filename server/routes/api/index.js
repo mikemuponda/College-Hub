@@ -113,9 +113,7 @@ router.post('/login', async (req, res) => {
   var user = null;
   if (user = await users.findOne({"email": req.body.email,"password": req.body.password})) {
     req.session.authUser = {user: user}
-
-      return res.json({user})
-    
+    return res.json({user})
   }
   res.status(401).json({message: 'Incorrect login credentials'})
 })
