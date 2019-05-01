@@ -293,50 +293,56 @@ export default {
     },
     byUniversity() {
       this.byCity()
-      if (this.Form.university && this.Form.university != 'null' && this.Form.university != null) {
-        var index, tempArr = []
-        for (index in this.houses) {
-          if (this.houses[index].universities.includes(this.Form.university)) {
-            tempArr.push(this.houses[index])
+      if(!this.errors || this.errors.length < 1){
+        if (this.Form.university && this.Form.university != 'null' && this.Form.university != null) {
+          var index, tempArr = []
+          for (index in this.houses) {
+            if (this.houses[index].universities.includes(this.Form.university)) {
+              tempArr.push(this.houses[index])
+            }
           }
-        }
-        this.houses = tempArr
-        if (!this.houses || !this.houses.length) {
-          this.errors = []
-          this.errors.push('Currently no houses close to ' + this.Form.university + ' from ' + this.Form.suburb + ' are listed. Try choosing a different suburb')
+          this.houses = tempArr
+          if (!this.houses || !this.houses.length) {
+            this.errors = []
+            this.errors.push('Currently no houses close to ' + this.Form.university + ' from ' + this.Form.suburb + ' are listed. Try choosing a different suburb')
+          }
         }
       }
     },
     bySuburb() {
       this.byCity()
-      if (this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null && this.Form.suburb != 'allsuburbs') {
-        var index,
-          tempArr = []
-        for (index in this.houses) {
-          if (this.houses[index].suburb == this.Form.suburb) {
-            tempArr.push(this.houses[index])
+      if(!this.errors || this.errors.length < 1){
+        if (this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null && this.Form.suburb != 'allsuburbs') {
+          var index,
+            tempArr = []
+          for (index in this.houses) {
+            if (this.houses[index].suburb == this.Form.suburb) {
+              tempArr.push(this.houses[index])
+            }
           }
-        }
-        this.houses = tempArr
-        if (!this.houses || this.houses.length < 1) {
-          this.errors = []
-          this.errors.push('Currently no houses in ' + this.Form.suburb + ' are listed')
+          this.houses = tempArr
+          if (!this.houses || this.houses.length < 1) {
+            this.errors = []
+            this.errors.push('Currently no houses in ' + this.Form.suburb + ' are listed')
+          }
         }
       }
     },
     byPrice() {
       this.byCity()
-      var tempHouses = this.houses
-      this.houses = []
-      var index
-      for (index in tempHouses) {
-        if (parseInt(tempHouses[index].priceValue) <= this.Form.Price) {
-          this.houses.push(tempHouses[index])
+      if(!this.errors || this.errors.length < 1){
+        var tempHouses = this.houses
+        this.houses = []
+        var index
+        for (index in tempHouses) {
+          if (parseInt(tempHouses[index].priceValue) <= this.Form.Price) {
+            this.houses.push(tempHouses[index])
+          }
         }
-      }
-      if (!this.houses || !this.houses.length) {
-        this.errors = []
-        this.errors.push('Available houses in ' + this.Form.city + ' are all above $' + this.Form.Price)
+        if (!this.houses || !this.houses.length) {
+          this.errors = []
+          this.errors.push('Available houses in ' + this.Form.city + ' are all above $' + this.Form.Price)
+        }
       }
     }
   },
@@ -371,7 +377,6 @@ export default {
       this.cities.push(this.locale.cities[index].name)
     }
     this.cityData()
-    
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   },
   async asyncData({ store, params, context }) {
