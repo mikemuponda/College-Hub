@@ -551,29 +551,12 @@ export default {
   methods: {
     displaySuburbs() {
       this.suburbs = []
-      if (this.Accommodation.city == 'Harare')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
-      else if (this.Accommodation.city == 'Bulawayo')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Bulawayo.suburbs
-      else if (this.Accommodation.city == 'Gweru')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Gweru.suburbs
-      else if (this.Accommodation.city == 'Mutare')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Mutare.suburbs
-      else if (this.Accommodation.city == 'Masvingo')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Masvingo.suburbs
-      else if (this.Accommodation.city == 'Marondera')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Marondera.suburbs
-      else if (this.Accommodation.city == 'Chinhoyi')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Chinhoyi.suburbs
-      else if (this.Accommodation.city == 'Bindura')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Bindura.suburbs
-      else if (this.Accommodation.city == 'Gwanda')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Gwanda.suburbs
-      else if (this.Accommodation.city == 'Lupane')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Lupane.suburbs
-      else if (this.Accommodation.city == 'Zvishavane')
-        this.suburbs = this.fullLocale.Zimbabwe.city.Zvishavane.suburbs
-      else this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
+      var index
+      for(index in this.locale.cities){
+        if(this.locale.cities[index].name == this.Accommodation.city){
+          this.suburbs = this.locale.cities[index].suburbs
+        }
+      }
     },
     searchAccommodation() {
       if(this.Accommodation.suburb == 'null' || this.Accommodation.suburb == null)
@@ -657,6 +640,8 @@ export default {
       if(this.currentLocation != null){
         if(this.cities.includes(this.currentLocation)){
           this.Accommodation.city = this.currentLocation
+        }else{
+          this.currentLocation = 'Harare'
         }
       }
       for(index in this.locale.cities){
