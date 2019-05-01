@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; background: #eee; padding-bottom: 20px;" v-bind:style="{'margin-top': '80px;'}">
+  <div style="width: 100%; background: #eee; padding-bottom: 20px; margin-top: 80px;">
     <div class="container-fluid" style="margin-bottom: 20px;">
       <div class="row">
         <div class="col-md-3 dashboard-greeting-display">
@@ -11,9 +11,9 @@
                     <div class="col-md-12 nopadding">
                       <select
                         class="form-control search-slt"
-                        v-model="Form.city"
-                        @change="displayCityData()"
                         style="border-radius: 4px;"
+                        v-model="Form.city"
+                        @change="search()"
                       >
                         <option :value="null">Select City</option>
                         <option :value="city" v-for="city in cities" :key="city">{{city}}</option>
@@ -26,7 +26,7 @@
                         class="form-control search-slt"
                         style="border-radius: 4px;"
                         v-model="Form.university"
-                        @change="displayByUniversity()"
+                        @change="byUniversity()"
                       >
                         <option :value="null">Select University</option>
                         <option
@@ -43,7 +43,7 @@
                         class="form-control search-slt"
                         style="border-radius: 4px;"
                         v-model="Form.suburb"
-                        @change="displayBySuburb()"
+                        @change="bySuburb()"
                       >
                         <option v-if="Form.suburb && Form.suburb != 'null' && Form.suburb != null && Form.suburb != 'allsuburbs'" :value="Form.suburb">{{Form.suburb}}</option>
                         <option v-else :value="null">Select Suburb</option>
@@ -204,6 +204,8 @@
 
 <script>
 import greetingColumn from '@/components/defaultGreetingColumn'
+import data from '~/locales/zw.json'
+
 export default {
   components: {
     greetingColumn: greetingColumn
@@ -220,10 +222,10 @@ export default {
         suburb: null,
         Price: null
       },
-      fullLocale: null,
-      cities: null,
-      suburbs: null,
-      universities: null,
+      locale: {},
+      cities: [],
+      suburbs: [],
+      universities: [],
       maxPrice: null,
       mapCenter: {
         lat: -17.82422,
@@ -241,92 +243,36 @@ export default {
     priceChange: function(val) {
       this.priceChange = val
       this.Form.Price = val
-      this.searchByPrice()
+      this.byPrice()
     }
   },
   methods: {
     redirect(path) {
       window.location.href = path
     },
-    displayCityData() {
+    search(){
+      this.errors = []
+      if(!this.errors || this.errors.length < 1)
+        this.cityData()
+      if(!this.errors || this.errors.length < 1)
+        this.byCity()
+    },
+    cityData() {
       this.suburbs = []
-      if (this.Form.city == 'Harare') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
-      } else if (this.Form.city == 'Bulawayo') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Bulawayo.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Bulawayo.universities
-      } else if (this.Form.city == 'Gweru') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Gweru.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Gweru.universities
-      } else if (this.Form.city == 'Mutare') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Mutare.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Mutare.universities
-      } else if (this.Form.city == 'Masvingo') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Masvingo.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Masvingo.universities
-      } else if (this.Form.city == 'Marondera') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Marondera.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Marondera.universities
-      } else if (this.Form.city == 'Chinhoyi') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Chinhoyi.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Chinhoyi.universities
-      } else if (this.Form.city == 'Bindura') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Bindura.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Bindura.universities
-      } else if (this.Form.city == 'Gwanda') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Gwanda.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Gwanda.universities
-      } else if (this.Form.city == 'Lupane') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Lupane.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Lupane.universities
-      } else if (this.Form.city == 'Zvishavane') {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Zvishavane.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Zvishavane.universities
-      } else {
-        this.suburbs = this.fullLocale.Zimbabwe.city.Harare.suburbs
-        this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
+      this.universities = []
+      var index, i
+      for(index in this.locale.cities){
+        if(this.locale.cities[index].name == this.Form.city){
+          this.suburbs = this.locale.cities[index].suburbs
+          for(i in this.locale.cities[index].universities){
+            this.universities.push(this.locale.cities[index].universities[i].name)
+          }
+        }
       }
-      this.displayBySuburb()
       this.Form.suburb = null
       this.Form.university = null
     },
-    displayBySuburb() {
-      this.searchByCity()
-      if (this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null && this.Form.suburb != 'allsuburbs') {
-        var index,
-          tempArr = []
-        for (index in this.houses) {
-          if (this.houses[index].suburb == this.Form.suburb) {
-            tempArr.push(this.houses[index])
-          }
-        }
-        this.houses = tempArr
-      }
-      
-      if (this.houses.length < 1) {
-        this.errors = []
-        this.errors.push('Currently no houses in ' + this.Form.suburb + ' are listed')
-      }
-    },
-    displayByUniversity() {
-      this.displayBySuburb()
-      if (this.Form.university && this.Form.university != 'null' && this.Form.university != null) {
-        var index, tempArr = []
-        for (index in this.houses) {
-          if (this.houses[index].universities.includes(this.Form.university)) {
-            tempArr.push(this.houses[index])
-          }
-        }
-      }
-      this.houses = tempArr
-      if (!this.houses.length) {
-        this.errors = []
-        this.errors.push('Currently no houses close to ' + this.Form.university + ' from ' + this.Form.suburb + ' are listed. Try choosing a different suburb')
-      }
-    },
-
-    async searchByCity() {
+    byCity() {
       if (this.Form.city != null) {
         this.errors = []
         if (this.Form.city && this.Form.city != 'null' && this.Form.city != null) {
@@ -338,15 +284,48 @@ export default {
             }
           }
         }
-        if (!this.houses.length) {
+        if (!this.houses || !this.houses.length) {
           this.errors.push('Currently no houses in ' + this.Form.city + ' are listed')
         } else {
           this.mapCenter = this.houses[0].position
         }
       }
     },
-    async searchByPrice() {
-      this.displayBySuburb()
+    byUniversity() {
+      this.byCity()
+      if (this.Form.university && this.Form.university != 'null' && this.Form.university != null) {
+        var index, tempArr = []
+        for (index in this.houses) {
+          if (this.houses[index].universities.includes(this.Form.university)) {
+            tempArr.push(this.houses[index])
+          }
+        }
+        this.houses = tempArr
+        if (!this.houses || !this.houses.length) {
+          this.errors = []
+          this.errors.push('Currently no houses close to ' + this.Form.university + ' from ' + this.Form.suburb + ' are listed. Try choosing a different suburb')
+        }
+      }
+    },
+    bySuburb() {
+      this.byCity()
+      if (this.Form.suburb && this.Form.suburb != 'null' && this.Form.suburb != null && this.Form.suburb != 'allsuburbs') {
+        var index,
+          tempArr = []
+        for (index in this.houses) {
+          if (this.houses[index].suburb == this.Form.suburb) {
+            tempArr.push(this.houses[index])
+          }
+        }
+        this.houses = tempArr
+        if (!this.houses || this.houses.length < 1) {
+          this.errors = []
+          this.errors.push('Currently no houses in ' + this.Form.suburb + ' are listed')
+        }
+      }
+    },
+    byPrice() {
+      this.byCity()
       var tempHouses = this.houses
       this.houses = []
       var index
@@ -355,7 +334,7 @@ export default {
           this.houses.push(tempHouses[index])
         }
       }
-      if (!this.houses.length) {
+      if (!this.houses || !this.houses.length) {
         this.errors = []
         this.errors.push('Available houses in ' + this.Form.city + ' are all above $' + this.Form.Price)
       }
@@ -374,27 +353,21 @@ export default {
     } else {
       this.userProfile = false
     }
-    var locale = await this.$store.dispatch('getAllLocales')
-    this.fullLocale = locale.data[0]
-    this.cities = Object.getOwnPropertyNames(this.fullLocale.Zimbabwe.city)
-    this.cities.pop()
     this.Form.city = 'Harare'
     this.Form.suburb = 'allsuburbs'
     this.houses = this.allHousesGlobal
-    this.displayCityData()
+    this.locale = data.locale
+    var index
+    for(index in this.locale.cities){
+      this.cities.push(this.locale.cities[index].name)
+    }
+    this.cityData()
     
     if (this.$route.query.city && this.$route.query.city != null) {
-      if (this.cities.includes(this.$route.query.city)) {
-        this.Form.city = this.$route.query.city
-      }
+      this.Form.city = this.$route.query.city
     }
     if (this.$route.query.suburb && this.$route.query.suburb != null) {
-      if (this.suburbs.includes(this.$route.query.suburb)) {
-        this.Form.suburb = this.$route.query.suburb
-        this.displayCityData()
-      }else if(this.$route.query.suburb == 'allsuburbs'){
-        this.Form.suburb = this.$route.query.suburb
-      }
+      this.Form.suburb = this.$route.query.suburb
     }
     if (this.$route.query.university && this.$route.query.university != null) {
       this.Form.university = this.$route.query.university
@@ -403,12 +376,10 @@ export default {
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   },
   async asyncData({ store, params, context }) {
-    if (process.server) {
-      const allHousesGlobal = await store.dispatch('getAllHousesAsync')
-      return {
-        allHousesGlobal: allHousesGlobal.data
-      }
-    }
+    const allHousesGlobal = await store.dispatch('getAllHousesAsync')
+    return {
+      allHousesGlobal: allHousesGlobal.data
+    } 
   },
   head() {
     return {
