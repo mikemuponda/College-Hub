@@ -512,6 +512,7 @@
 <script>
 import defaultAdsColumn from '@/components/defaultAdsColumn'
 import axios from 'axios'
+import data from '~/locales/zw.json'
 export default {
   components: {
     defaultAdsColumn: defaultAdsColumn
@@ -521,9 +522,9 @@ export default {
       houses: [],
       errors: [],
       currentLocation: null,
+      locale: {},
       cities: [],
       suburbs: [],
-      fullLocale: null,
       Accommodation: {
         suburb: null,
         city: null
@@ -647,12 +648,22 @@ export default {
         )
       }
 
-      var locale = await this.$store.dispatch('getAllLocales')
-      this.fullLocale = locale.data[0]
-      this.cities = Object.getOwnPropertyNames(this.fullLocale.Zimbabwe.city)
-      this.cities.pop()
-      this.Accommodation.city = this.currentLocation
-      this.displaySuburbs()
+      this.Accommodation.city = 'Harare'
+      this.locale = data.locale
+      var index
+      for(index in this.locale.cities){
+        this.cities.push(this.locale.cities[index].name)
+      }
+      if(this.currentLocation != null){
+        if(this.cities.includes(this.currentLocation)){
+          this.Accommodation.city = this.currentLocation
+        }
+      }
+      for(index in this.locale.cities){
+        if(this.locale.cities[index].name == this.Accommodation.city){
+          this.suburbs = this.locale.cities[index].suburbs
+        }
+      }
     } catch (e) {
       this.errors.push(e.message)
     }

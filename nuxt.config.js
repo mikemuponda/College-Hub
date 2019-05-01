@@ -2,7 +2,6 @@ const pkg = require('./package')
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const session = require('express-session')
-
 let PWAIcons = [16, 120, 144, 152, 192, 384, 512].map(size => {
   return {
     src: `/icon.png`,
