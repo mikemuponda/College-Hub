@@ -944,8 +944,6 @@
                                         Drag your image(s) here<br> or click to browse
                                       </p>
                                   </div>
-
-                                
                               </div>
                             </div>
                           </div><br>

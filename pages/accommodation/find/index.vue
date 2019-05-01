@@ -359,15 +359,13 @@ export default {
     } else {
       this.userProfile = false
     }
-    this.Form.city = 'Harare'
-    this.Form.suburb = 'allsuburbs'
-    if (this.$route.query.city && this.$route.query.city != null) {
+    if (this.$route.query.city && this.$route.query.city != null && this.$route.query.city != 'null') {
       this.Form.city = this.$route.query.city
     }
-    if (this.$route.query.suburb && this.$route.query.suburb != null) {
+    if (this.$route.query.suburb && this.$route.query.suburb != null && this.$route.query.suburb != 'null') {
       this.Form.suburb = this.$route.query.suburb
     }
-    if (this.$route.query.university && this.$route.query.university != null) {
+    if (this.$route.query.university && this.$route.query.university != null && this.$route.query.university != 'null') {
       this.Form.university = this.$route.query.university
     }
     this.houses = this.allHousesGlobal
@@ -378,6 +376,10 @@ export default {
     }
     this.cityData()
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
+  },
+  created(){
+    this.Form.city = 'Harare'
+    this.Form.suburb = 'allsuburbs'
   },
   async asyncData({ store, params, context }) {
     const allHousesGlobal = await store.dispatch('getAllHousesAsync')
