@@ -355,14 +355,6 @@ export default {
     }
     this.Form.city = 'Harare'
     this.Form.suburb = 'allsuburbs'
-    this.houses = this.allHousesGlobal
-    this.locale = data.locale
-    var index
-    for(index in this.locale.cities){
-      this.cities.push(this.locale.cities[index].name)
-    }
-    this.cityData()
-    
     if (this.$route.query.city && this.$route.query.city != null) {
       this.Form.city = this.$route.query.city
     }
@@ -372,6 +364,13 @@ export default {
     if (this.$route.query.university && this.$route.query.university != null) {
       this.Form.university = this.$route.query.university
     }
+    this.houses = this.allHousesGlobal
+    this.locale = data.locale
+    var index
+    for(index in this.locale.cities){
+      this.cities.push(this.locale.cities[index].name)
+    }
+    this.cityData()
     
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0)})
   },
