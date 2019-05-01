@@ -139,7 +139,7 @@
 
                 <div style="width: 100%;" v-else>
                   <div class="forSeekers" style="width: 100%" v-if="userProfile.isSeeker">
-                    <div class="row" v-if="userProfile.allRequests && userProfile.allRequests.length == 0">
+                    <div class="row" v-if="!userProfile.allRequests || userProfile.allRequests.length == 0">
                       <div style="width: 100%; padding-top: 40px; padding-bottom: 40px; text-align: center;">
                         <p style="margin-top: 30px; color: #000;" class="subheading" >It looks like you haven't made any requests to rent</p>
                         <div class="row nopadding add-house">
