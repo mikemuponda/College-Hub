@@ -118,10 +118,7 @@ router.post('/house/edit/:id', async (req, res) => {
 //Get All Houses
 router.post('/allhouses', async (req, res) => {
   const houses = await loadHouses()
-  if(req.xhr)
-    return res.send(await houses.find({}).toArray())
-  else
-    return res.status(403).json({message: 'Not Authorised'})
+  return res.send(await houses.find({}).toArray())
 })
 
 //Get one house by id

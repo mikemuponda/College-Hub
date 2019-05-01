@@ -174,11 +174,10 @@ export default {
         this.houseExists = false;
       else if (this.houseExists.data.message == "404") this.houseExists = false;
       else {
-        this.house = this.houseExists.data.house;
-        this.title = this.house.title;
-        this.description = this.house.description;
-        this.houseExists = true;
-        console.log(this.house);
+        this.house = this.houseExists.data.house
+        this.title = this.house.title
+        this.description = this.house.description
+        this.houseExists = true
       }
     } catch (e) {
       this.errors.push(e.message);
@@ -189,13 +188,11 @@ export default {
   },
 
   async asyncData({ store, params, context }) {
-    if (process.server) {
-      const house = await store.dispatch("getHouseFuck", { id: params.id });
-      return {
-        title: house.data.house.title,
-        description: house.data.house.description,
-        house: house.data.house
-      };
+    const house = await store.dispatch("getHouseFuck", { id: params.id });
+    return {
+      title: house.data.house.title,
+      description: house.data.house.description,
+      house: house.data.house
     }
   },
 

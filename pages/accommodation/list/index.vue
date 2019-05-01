@@ -1181,7 +1181,7 @@ export default {
       this.universities = []
       var index, i
       for(index in this.locale.cities){
-        if(this.locale.cities[index].name == this.Accommodation.city){
+        if(this.locale.cities[index].name == this.Form.city){
           this.suburbs = this.locale.cities[index].suburbs
           for(i in this.locale.cities[index].universities){
             this.universities.push(this.locale.cities[index].universities[i].name)
@@ -1381,11 +1381,6 @@ export default {
       this.userProfile = await this.$store.dispatch('getProfile', {id: this.$store.state.authUser.user.username})
       this.userProfile = this.userProfile.data.user
       this.Form.owner = this.userProfile._id
-
-      var locale = await this.$store.dispatch('getAllLocales')
-      this.locale = locale.data[0]
-      this.cities = Object.getOwnPropertyNames(this.locale.Zimbabwe.city)
-      this.cities.pop()
     } catch (e) {
       this.error = e.message
     }
