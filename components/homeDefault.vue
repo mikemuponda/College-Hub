@@ -591,44 +591,20 @@ export default {
             }
           }
           this.TaxiMapmarkers.push(position)
-          var API =
-            'api/maps/api/geocode/json?latlng=' +
-            this.userCurrentCoord.lat +
-            ',' +
-            this.userCurrentCoord.lng +
-            '&key=' +
-            process.env.googleMapsKey
-          axios
-            .get(API)
-            .then(response => {
-              this.currentLocation =
-                response.data.results[
-                  response.data.results.length - 3
-                ].formatted_address
-              this.currentLocation = this.currentLocation.split(', ')
-              if (this.currentLocation.length)
-                this.currentLocation = this.currentLocation[
-                  this.currentLocation.length - 2
-                ]
-              if (this.currentLocation.includes('/')) {
-                this.currentLocation = this.currentLocation.split('/')
-                this.currentLocation = this.currentLocation[
-                  this.currentLocation.length - 1
-                ]
-              }
-            })
-            .catch(e => {
-              this.errors.push(e)
-            })
+          var API = 'api/maps/api/geocode/json?latlng=' + this.userCurrentCoord.lat + ',' + this.userCurrentCoord.lng + '&key=' + process.env.googleMapsKey
+          axios.get(API).then(response => {
+            this.currentLocation = response.data.results[response.data.results.length - 3].formatted_address
+            this.currentLocation = this.currentLocation.split(', ')
+            if (this.currentLocation.length)
+              this.currentLocation = this.currentLocation[this.currentLocation.length - 2]
+            if (this.currentLocation.includes('/')) {
+              this.currentLocation = this.currentLocation.split('/')
+              this.currentLocation = this.currentLocation[this.currentLocation.length - 1]
+            }
+          }).catch(e => {
+            this.errors.push(e)
+          })
         })
-      } else {
-        await axios.get(
-          'api2/',
-          function(response) {
-            this.currentLocation = response.city
-          },
-          'jsonp'
-        )
       }
 
       this.Accommodation.city = 'Harare'
@@ -644,11 +620,7 @@ export default {
           this.currentLocation = 'Harare'
         }
       }
-      for(index in this.locale.cities){
-        if(this.locale.cities[index].name == this.Accommodation.city){
-          this.suburbs = this.locale.cities[index].suburbs
-        }
-      }
+      this.displaySuburbs()
     } catch (e) {
       this.errors.push(e.message)
     }

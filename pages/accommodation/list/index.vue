@@ -1365,19 +1365,11 @@ export default {
       this.imageUrl = URL.createObjectURL(file)
     },
     filesChange(fieldName, fileList) {
-        // handle file changes
-        this.formData = new FormData();
-
-        if (!fileList.length) return;
-
-        // append the files to FormData
-        Array
-          .from(Array(fileList.length).keys())
-          .map(x => {
-            this.formData.append(fieldName, fileList[x], fileList[x].name);
-          });
-
-       
+      this.formData = new FormData();
+      if (!fileList.length) return;
+      Array.from(Array(fileList.length).keys()).map(x => {
+        this.formData.append(fieldName, fileList[x], fileList[x].name)
+      }) 
     },
     async addListing(e) {
       if (!this.errors.length) {
