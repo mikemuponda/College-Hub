@@ -317,10 +317,8 @@ export default {
       var id = this.$route.params.id
       try {
         this.error = null
-        await this.$store.dispatch('emailConfirm', { id: id })
-        if(!this.userProfile){
-          this.error = 'User could not be found. Please contact Support'
-        }
+        var data = await this.$store.dispatch('emailConfirm', { id: id })
+        this.userProfile = data.user
       } catch (e) {
         this.error = e.message
       }
@@ -351,7 +349,6 @@ export default {
     }
   },
   created() {
-    this.userProfile = this.$store.state.authUser.user
     this.confirm()
     this.locale = data.locale
     var index

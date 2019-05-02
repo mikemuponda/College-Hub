@@ -84,6 +84,7 @@ export const actions = {
     try {
       const {data} =  await axios.post(url, {id})
       commit('SET_USER', data)
+      return data
     } catch (error) {
       if (error.response && error.response.status === 400){
         throw new Error("User Could not be found")

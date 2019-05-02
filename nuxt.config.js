@@ -215,7 +215,8 @@ module.exports = {
   },
   proxy: {
     '/api/': { target: 'https://maps.googleapis.com', pathRewrite: {'^/api/': ''} },
-    '/api2/': { target: 'https://ipinfo.io', pathRewrite: {'^/api2/': ''} }
+    '/api2/': { target: 'https://ipinfo.io', pathRewrite: {'^/api2/': ''} },
+    '/img/': {target: 'https://s3.amazonaws.com/collegehub', pathRewrite: {'^/img/': ''}}
   },
 
   build: {},

@@ -94,7 +94,7 @@ router.post('/confirm-signup/:id', async (req, res) => {
       subject: 'Collegehub: Your email account has been confirmed',
       html: '<h2>Hello, ' + user.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
     }
-    sgMail.send(msg)
+    //sgMail.send(msg)
     var user = await users.findOne({"confirmationKey": req.params.id})
     if (user.isConfirmed){
       req.session.authUser = {user: user}
@@ -260,7 +260,8 @@ router.post('/profile/upload/image/:id', upload.single('profileImage'), async (r
       },
       "location": req.file.location,
       "etag": req.file.etag,
-      "path": "https://s3.amazonaws.com/collegehub/" + req.file.key
+      "path": "/img/" + req.file.key,
+      "absoluteExternalPath": "https://s3.amazonaws.com/collegehub/" + req.file.key
     }
   }
   await users.findOneAndUpdate(
