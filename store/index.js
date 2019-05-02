@@ -83,9 +83,7 @@ export const actions = {
   async emailConfirm({commit}, {id}) {
     var url = '/users/confirm-signup/' + id
     try {
-      const {data} = await axios.post(url, {id})
-      commit('SET_USER', data)
-      commit('SET_USER', null)
+      return await axios.post(url, {id})
     } catch (error) {
       if (error.response && error.response.status === 400){
         throw new Error("User Could not be found")
@@ -126,7 +124,7 @@ export const actions = {
     })
   },
 
-  async editProfile({commit}, {id, firstname, lastname, email, password, sex, dob, phone, isSeeker, city, university}){
+  async editProfile({commit}, {id, firstname, lastname, email, password, sex, dob, phone, isSeeker, accountType, services, city, university, bio}){
     var url = '/users/profile/edit/' + id
     var form = {}
     if(firstname != '' && firstname != null)
@@ -147,6 +145,12 @@ export const actions = {
       form["city"] = city;
     if(university != '' && university != null)
       form["university"] = university;
+    if(accountType != '' && accountType != null)
+      form["accountType"] = accountType;
+    if(services != '' && services != null)
+      form["services"] = services;
+    if(bio != '' && bio != null)
+      form["bio"] = bio;
     if(isSeeker)
       form["isSeeker"] = isSeeker;
     else
