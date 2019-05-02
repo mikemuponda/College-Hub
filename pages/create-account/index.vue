@@ -33,23 +33,6 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 input" style="color: #000; font-weight: 500;">
-                <p>{{ accountType }}</p>
-              </div>
-              <div class="col-md-6 input">
-                <select
-                  v-model="seeker"
-                  @change="onChange($event)"
-                  class="custom-select form-control"
-                  required="required"
-                >
-                  <option :value="null">Account Type</option>
-                  <option value="1">Finding Accomodation</option>
-                  <option value="2">Sharing a House</option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
               <div class="col-md-6  input" style="padding-left: 10px;">
                 <input
                   type="text"
@@ -152,13 +135,11 @@ export default {
         lastname: '',
         username: '',
         email: '',
-        password: '',
-        isSeeker: null
+        password: ''
       },
       confirm_password: '',
       errors: [],
       formError: null,
-      seeker: null,
       accountType: 'Choose Option:',
       created: null
     }
@@ -168,15 +149,6 @@ export default {
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
   },
   methods: {
-    onChange($event) {
-      if (this.seeker == 1) {
-        this.Form.isSeeker = true
-        this.accountType = 'Searching for a house to rent'
-      } else if (this.seeker == 2) {
-        this.Form.isSeeker = false
-        this.accountType = 'Sharing available house to rent'
-      }
-    },
     signUpHandler: async function(e) {
       this.errors = []
       this.created = false
@@ -208,8 +180,7 @@ export default {
             lastname: this.Form.lastname,
             username: this.Form.username.replace(/\s/g, ''),
             email: this.Form.email.replace(/\s/g, ''),
-            password: this.Form.password.replace(/\s/g, ''),
-            isSeeker: this.Form.isSeeker
+            password: this.Form.password.replace(/\s/g, '')
           })
           this.Form.lastname = ''
           this.Form.username = ''

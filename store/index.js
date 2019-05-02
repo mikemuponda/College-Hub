@@ -65,9 +65,9 @@ export const actions = {
   },
 
 
-  async signUp({commit}, {firstname, lastname, username, email, password, isSeeker}) {
+  async signUp({commit}, {firstname, lastname, username, email, password}) {
     try {
-      const {data} = await axios.post('/users/signup', {firstname, lastname, username, email, password, isSeeker})
+      const {data} = await axios.post('/users/signup', {firstname, lastname, username, email, password})
       commit('SET_USER', data)
       commit('SET_USER', null)
     } catch (error) {
@@ -124,7 +124,7 @@ export const actions = {
     })
   },
 
-  async editProfile({commit}, {id, firstname, lastname, email, password, sex, dob, phone, isSeeker, accountType, services, city, university, bio}){
+  async editProfile({commit}, {id, firstname, lastname, email, password, sex, dob, phone, accountType, services, city, university, bio}){
     var url = '/users/profile/edit/' + id
     var form = {}
     if(firstname != '' && firstname != null)
@@ -151,10 +151,6 @@ export const actions = {
       form["services"] = services;
     if(bio != '' && bio != null)
       form["bio"] = bio;
-    if(isSeeker)
-      form["isSeeker"] = isSeeker;
-    else
-      form["isSeeker"] = false;
 
     try {
       return await axios.post(url, form)
