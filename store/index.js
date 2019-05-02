@@ -23,7 +23,6 @@ export const actions = {
     try {
       const {data} = await axios.post('/users/login', {email, password})
       commit('SET_USER', data)
-      return {data}
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Incorrect login credentials')
@@ -83,7 +82,8 @@ export const actions = {
   async emailConfirm({commit}, {id}) {
     var url = '/users/confirm-signup/' + id
     try {
-      return await axios.post(url, {id})
+      const {data} =  await axios.post(url, {id})
+      commit('SET_USER', data)
     } catch (error) {
       if (error.response && error.response.status === 400){
         throw new Error("User Could not be found")

@@ -97,6 +97,7 @@ router.post('/confirm-signup/:id', async (req, res) => {
     sgMail.send(msg)
     var user = await users.findOne({"confirmationKey": req.params.id})
     if (user.isConfirmed){
+      req.session.authUser = {user: user}
       return res.json({user})
     }else {
       res.status(400).json({message: 'Does not exist!'})

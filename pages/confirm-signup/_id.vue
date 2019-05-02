@@ -228,7 +228,7 @@
                           class="default-button"
                           style="margin-top: 10px;"
                           value="Save"
-                          v-on:click="save()"
+                          v-on:click.prevent="save()"
                         >Save</button>
                       </div>
                       <div class="col-md-3"></div>
@@ -282,7 +282,6 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {this.$nuxt.$loading.start()})
-    this.confirm()
     this.Form.firstname = this.userProfile.firstname
     this.Form.lastname = this.userProfile.lastname
     this.Form.username = this.userProfile.username
@@ -318,11 +317,9 @@ export default {
       var id = this.$route.params.id
       try {
         this.error = null
-        this.userProfile = await this.$store.dispatch('emailConfirm', { id: id })
-        if(!this.userProfile.data){
+        await this.$store.dispatch('emailConfirm', { id: id })
+        if(!this.userProfile){
           this.error = 'User could not be found. Please contact Support'
-        }else{
-          this.userProfile = this.userProfile.data.user
         }
       } catch (e) {
         this.error = e.message
@@ -346,14 +343,15 @@ export default {
           if (this.profileImage)
             await this.$store.dispatch('profileImage', { formData: formData, id: this.userProfile.username})
           await this.$store.dispatch('editProfile', this.Form)
-          window.location.replace("/")
         } catch (e) {
           this.errors.push(e.message)
         }
+        window.location.replace("/")
       }
     }
   },
   created() {
+    this.userProfile = this.$store.state.authUser.user
     this.confirm()
     this.locale = data.locale
     var index
