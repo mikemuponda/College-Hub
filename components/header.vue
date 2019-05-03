@@ -155,7 +155,7 @@
   position: fixed;
   top: 0px;
   margin-top: 0px;
-  z-index: 100;
+  z-index: 10;
 }
 
 .non-scrolled{
@@ -223,18 +223,6 @@
 }
 .Nav-Desktop .profileImage img:hover{
   cursor: pointer;
-}
-
-.slide-fade-enter-active {
-  transition: all .3s ease;
-}
-.slide-fade-leave-active {
-  display: none;
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
 }
 
 .user-settings{
