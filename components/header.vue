@@ -21,37 +21,88 @@
       </nav>
     </div>
     <div class="Nav-Desktop">
-      <NuxtLink :to="'/'" title="Home" id="Home" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
-        <span>Home</span>
-      </NuxtLink>
-      <NuxtLink :to="'/about'" title="About Us" id="about" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
-        <span>About Us</span>
-      </NuxtLink>
-      <NuxtLink :to="'/services'" title="Services" id="services" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
-        <span>Services</span>
-      </NuxtLink>
-      <NuxtLink :to="'/team'" title="Team" id="team" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
-        <span>Team</span>
-      </NuxtLink>
-      <NuxtLink :to="'/blog'" title="Blog" id="Blog" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
-        <span>Blog</span>
-      </NuxtLink>
-      <NuxtLink :to="'/contact'" title="Contact" id="Contact" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
-        <span>Contact</span>
-      </NuxtLink>
-      <NuxtLink v-if="!$store.state.authUser && page != '/'" :to="'/'" title="Login" id="Login" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
-        <span>Login</span>
-      </NuxtLink>
-      <NuxtLink
-        v-if="!$store.state.authUser"
-        :to="'/create-account'"
-        title="Create Account"
-        id="Create"
-        class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]"
-        style="background-color: rgba(258, 258, 258, 0.2);"
-      >
-        <span>Create Account</span>
-      </NuxtLink>
+      <div class="links">
+        <NuxtLink :to="'/'" title="Home" id="Home" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
+          <span>Home</span>
+        </NuxtLink>
+        <NuxtLink :to="'/about'" title="About Us" id="about" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
+          <span>About Us</span>
+        </NuxtLink>
+        <NuxtLink :to="'/services'" title="Services" id="services" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
+          <span>Services</span>
+        </NuxtLink>
+        <NuxtLink :to="'/team'" title="Team" id="team" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
+          <span>Team</span>
+        </NuxtLink>
+        <NuxtLink :to="'/blog'" title="Blog" id="Blog" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
+          <span>Blog</span>
+        </NuxtLink>
+        <NuxtLink :to="'/contact'" title="Contact" id="Contact" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
+          <span>Contact</span>
+        </NuxtLink>
+        <NuxtLink v-if="!$store.state.authUser && page != '/'" :to="'/'" title="Login" id="Login" class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]">
+          <span>Login</span>
+        </NuxtLink>
+        <NuxtLink
+          v-if="!$store.state.authUser"
+          :to="'/create-account'"
+          title="Create Account"
+          id="Create"
+          class="nav-link" v-bind:class="[ scrolled ? 'nav-link-dt-scrolled' : 'nav-link-dt-non-scrolled' ]"
+          style="background-color: rgba(258, 258, 258, 0.2);"
+        >
+          <span>Create Account</span>
+        </NuxtLink>
+      </div>
+      <div class="profileImage" v-if="$store.state.authUser">
+        <img
+          title="Profile and Settings"
+          :alt="$store.state.authUser.user.firstname + ' ' + $store.state.authUser.user.lastname"
+          :src="$store.state.authUser.user.profileImage.path"
+          @click="show = !show"
+        />
+      </div>
+      <transition name="slide-fade" v-if="$store.state.authUser">
+        <div
+          class="user-settings item-box"
+          style="padding-left: 0px; padding-right: 0px;"
+          v-if="show"
+        >
+          <NuxtLink :to="{path: '/profile/' + $store.state.authUser.user.username}" title="Profile" id="Profile" class="nav-link user-link">
+            <div style="float: left; width: 15%;">
+              <i class="fas fa-user" style="font-size: 20px; margin-top: 5px;"></i>
+            </div>
+            <div style="float: left; width: 85%;">
+              {{$store.state.authUser.user.firstname}}  {{$store.state.authUser.user.lastname}}
+              <p style="font-weight: 400; color: #666;">@{{$store.state.authUser.user.firstname}}</p>
+            </div>
+          </NuxtLink>
+          <NuxtLink :to="'/notifications'" title="Notifications" id="Notifications" class="nav-link user-link">
+            <div style="float: left; width: 15%;">
+              <i class="fas fa-bell" style="font-size: 15px;"></i>
+            </div>
+            <div style="float: left; width: 85%;">
+              Notifications
+            </div>
+          </NuxtLink>
+          <NuxtLink :to="'/messages'" title="messages" id="messages" class="nav-link user-link">
+            <div style="float: left; width: 15%;">
+              <i class="fas fa-comment" style="font-size: 15px;"></i>
+            </div>
+            <div style="float: left; width: 85%;">
+              Messages
+            </div>
+          </NuxtLink>
+          <div title="Logout" class="nav-link user-link logout" @click="logout($store.state.authUser.user)">
+            <div style="float: left; width: 15%;">
+              <i class="fas fa-sign-out-alt" style="font-size: 15px;"></i>
+            </div>
+            <div style="float: left; width: 85%;">
+              Logout
+            </div>
+          </div>
+        </div>
+      </transition>
     </div>
     <div class="Nav-Mobile">
       <no-ssr>
@@ -104,8 +155,7 @@
   position: fixed;
   top: 0px;
   margin-top: 0px;
-  z-index: 10000;
-  font-variant: small-caps;
+  z-index: 100;
 }
 
 .non-scrolled{
@@ -119,12 +169,15 @@
   border-bottom: 0.5px solid #ccc;
   transition: 0.3s;
 }
-.Nav-Desktop{
-  float: left;
-  margin-top: 25px;
-  float: right;
-  margin-right: 20px;
+.nav {
+  width: 20%;
 }
+.Nav-Desktop{
+  margin-top: 25px;
+  float: left;
+  width: 80%;
+}
+
 .Nav-Desktop .nav-link{
   float: left;
   background-size: 100% 200%; 
@@ -157,19 +210,94 @@
     display: none;
   }
 }
+
+.Nav-Desktop .profileImage{
+  float: right;
+  margin-right: 2.5%;
+  width: 50px;
+}
+
+.Nav-Desktop .profileImage img{
+  border-radius: 50%;
+  width: 100%;
+}
+.Nav-Desktop .profileImage img:hover{
+  cursor: pointer;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.user-settings{
+  width: 200px;
+  float: right;
+  margin-right: 10px;
+  margin-top: 0px;
+  border-radius: 2px;
+  border: 0.5px solid #aaa;
+  color: #000;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px;
+}
+
+.user-settings .user-link{
+  color: #000;
+  font-size: 12px;
+  font-weight: 500;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.user-settings .user-link:hover{
+  background: #eee;
+}
+
+.user-settings .logout{
+  width: 100%;
+}
+.user-settings .logout:hover{
+  cursor: pointer;
+}
 </style>
 
 <script>
+import io from 'socket.io-client'
 export default {
   data () {
     return {
       scrolled: false,
-      page: null
-    };
+      page: null,
+      show: false,
+      socket: io(process.env.socketsIO),
+      userProfile: {},
+      errors: []
+    }
   },
   methods: {
     handleScroll () {
       this.scrolled = window.scrollY > 0;
+    },
+    async logout(user) {
+      this.userProfile = user
+      try {
+        this.socket.emit('ACTIVITY_FEED_LOGOUT', {user: this.userProfile,})
+        this.userProfile = null
+        await this.$store.dispatch('logout')
+        window.location.href = '/'
+      } catch (e) {
+        this.errors.push(e)
+      }
     }
   },
   mounted () {

@@ -180,7 +180,7 @@
                           <label for="city">City</label>
                         </div>
                         <div class="col-md-6">
-                          <select id="city" class="form-control-edit" v-model="Form.city" @change="displayVarsities()">
+                          <select id="city" class="form-control-edit" v-model="Form.city" @change="displayUniversities()">
                             <option :value="null">Select City</option>
                             <option :value="city" v-for="city in cities" :key="city">{{city}}</option>
                           </select>
@@ -380,6 +380,8 @@
 
 
 <script>
+import data from '~/locales/zw.json'
+
 export default {
   validate({ params }) {
     return true
@@ -392,7 +394,7 @@ export default {
       accountType: null,
       submitErrors: [],
       seeker: null,
-      fullLocale: {},
+      locale: {},
       cities: [],
       universities: [],
       Form: {
@@ -421,43 +423,32 @@ export default {
     try {
       this.userProfile = await this.$store.dispatch('getProfile', { id: this.$route.params.id })
       this.userProfile = this.userProfile.data.user
-      var locale = await this.$store.dispatch('getAllLocales')
-      this.fullLocale = locale.data[0]
-      this.cities = Object.getOwnPropertyNames(this.fullLocale.Zimbabwe.city)
-      this.cities.pop()
     } catch (e) {
       this.error = e.message
     }
     this.$nextTick(() => { setTimeout(() => this.$nuxt.$loading.finish(), 0) })
   },
+  created(){
+    this.locale = data.locale
+    var index
+    for(index in this.locale.cities){
+      this.cities.push(this.locale.cities[index].name)
+    }
+  },
   methods: {
     date(date) {
       return new Date(date)
     },
-    displayVarsities(){
+    displayUniversities(){
       this.universities = []
-      if(this.Form.city ==  "Harare")
-        this.universities = this.fullLocale.Zimbabwe.city.Harare.universities
-      else if(this.Form.city ==  "Bulawayo")
-        this.universities = this.fullLocale.Zimbabwe.city.Bulawayo.universities
-      else if(this.Form.city ==  "Gweru")
-        this.universities = this.fullLocale.Zimbabwe.city.Gweru.universities
-      else if(this.Form.city ==  "Mutare")
-        this.universities = this.fullLocale.Zimbabwe.city.Mutare.universities
-      else if(this.Form.city ==  "Masvingo")
-        this.universities = this.fullLocale.Zimbabwe.city.Masvingo.universities
-      else if(this.Form.city ==  "Marondera")
-        this.universities = this.fullLocale.Zimbabwe.city.Marondera.universities
-      else if(this.Form.city ==  "Chinhoyi")
-        this.universities = this.fullLocale.Zimbabwe.city.Chinhoyi.universities
-      else if(this.Form.city ==  "Bindura")
-        this.universities = this.fullLocale.Zimbabwe.city.Bindura.universities
-      else if(this.Form.city ==  "Gwanda")
-        this.universities = this.fullLocale.Zimbabwe.city.Gwanda.universities
-      else if(this.Form.city ==  "Lupane")
-        this.universities = this.fullLocale.Zimbabwe.city.Lupane.universities
-      else if(this.Form.city ==  "Zvishavane")
-        this.universities = this.fullLocale.Zimbabwe.city.Zvishavane.universities 
+      var index, i
+      for(index in this.locale.cities){
+        if(this.locale.cities[index].name == this.Form.city){
+          for(i in this.locale.cities[index].universities){
+            this.universities.push(this.locale.cities[index].universities[i].name)
+          }
+        }
+      }
     },
     edit: function(e) {
       this.displayEdit = true
