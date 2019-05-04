@@ -56,7 +56,7 @@
       </div>
       <div class="profileImage" v-if="$store.state.authUser">
         <img
-          v-if="$store.state.authUser.user.profileImage"
+          v-if="getProfImage($store.state.authUser.user.username)"
           title="Profile and Settings"
           :alt="$store.state.authUser.user.firstname + ' ' + $store.state.authUser.user.lastname"
           :src="$store.state.authUser.user.profileImage.path"
@@ -284,6 +284,15 @@ export default {
   methods: {
     handleScroll () {
       this.scrolled = window.scrollY > 0;
+    },
+    async getProfImage(username){
+      try {
+        this.userProfile = await this.$store.dispatch('getProfile', {id: username})
+        this.userProfile = this.userProfile.data.user
+      }catch(e){
+        this.errors.push(e)
+      }
+      return this.userProfile.profileImage.path
     },
     async logout(user) {
       this.userProfile = user

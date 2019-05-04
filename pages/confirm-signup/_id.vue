@@ -60,178 +60,185 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row nopadding" v-else>
-                    <div class="col-md-7">
-                      <div class="groupConfirm" style="margin-top: 30px;">
-                        <input
-                          v-model="Form.firstname"
-                          type="text"
-                          name="firstname"
-                          id="firstName"
-                          :placeholder="userProfile.firstname"
-                        >
-                        <span class="highlightConfirm"></span>
-                        <span class="barConfirm"></span>
-                        <label style="color: #000;" for="firstName">
-                          <span class="span-inputConfirm">First Name</span>
-                        </label>
+                  <div class="row" v-else>
+                    <div class="clo-md-12">
+                      <div class="profileIsSet" v-if="profileSet">
+                        Your profile has been set
                       </div>
-                      <div class="groupConfirm" style="margin-top: 30px;">
-                        <input
-                          v-model="Form.lastname"
-                          type="text"
-                          name="lastname"
-                          id="lastname"
-                          :placeholder="userProfile.lastname"
-                        >
-                        <span class="highlightConfirm"></span>
-                        <span class="barConfirm"></span>
-                        <label style="color: #000;" for="lastname">
-                          <span class="span-inputConfirm">Last Name</span>
-                        </label>
-                      </div>
-                      <div class="groupConfirm" style="margin-top: 30px;">
-                        <input
-                          v-model="Form.username"
-                          type="text"
-                          name="username"
-                          id="username"
-                          :placeholder="userProfile.username"
-                          readonly
-                        >
-                        <span class="highlightConfirm"></span>
-                        <span class="barConfirm"></span>
-                        <label style="color: #000; margin-top: -15px;" for="username">
-                          <span class="span-inputConfirm">Username</span>
-                        </label>
-                      </div>
-                      <div class="groupConfirm" style="margin-top: 30px;">
-                        <input
-                          v-model="Form.email"
-                          type="email"
-                          name="email"
-                          id="email"
-                          :placeholder="userProfile.email"
-                          readonly
-                        >
-                        <span class="highlightConfirm"></span>
-                        <span class="barConfirm"></span>
-                        <label style="color: #000; margin-top: -15px;" for="email">
-                          <span class="span-inputConfirm">Email</span>
-                        </label>
-                      </div>
-                      <div class="row nopadding">
-                        <div class="accountTypeRadio col-md-6">
-                          <input type="radio" name="radio" id="radio1" value="Student" class="radio" @change="accountType('Student')"/>
-                          <label for="radio1">Student</label>
+                      <div class="row nopadding" v-else>
+                        <div class="col-md-7">
+                          <div class="groupConfirm" style="margin-top: 30px;">
+                            <input
+                              v-model="Form.firstname"
+                              type="text"
+                              name="firstname"
+                              id="firstName"
+                              :placeholder="userProfile.firstname"
+                            >
+                            <span class="highlightConfirm"></span>
+                            <span class="barConfirm"></span>
+                            <label style="color: #000;" for="firstName">
+                              <span class="span-inputConfirm">First Name</span>
+                            </label>
+                          </div>
+                          <div class="groupConfirm" style="margin-top: 30px;">
+                            <input
+                              v-model="Form.lastname"
+                              type="text"
+                              name="lastname"
+                              id="lastname"
+                              :placeholder="userProfile.lastname"
+                            >
+                            <span class="highlightConfirm"></span>
+                            <span class="barConfirm"></span>
+                            <label style="color: #000;" for="lastname">
+                              <span class="span-inputConfirm">Last Name</span>
+                            </label>
+                          </div>
+                          <div class="groupConfirm" style="margin-top: 30px;">
+                            <input
+                              v-model="Form.username"
+                              type="text"
+                              name="username"
+                              id="username"
+                              :placeholder="userProfile.username"
+                              readonly
+                            >
+                            <span class="highlightConfirm"></span>
+                            <span class="barConfirm"></span>
+                            <label style="color: #000; margin-top: -15px;" for="username">
+                              <span class="span-inputConfirm">Username</span>
+                            </label>
+                          </div>
+                          <div class="groupConfirm" style="margin-top: 30px;">
+                            <input
+                              v-model="Form.email"
+                              type="email"
+                              name="email"
+                              id="email"
+                              :placeholder="userProfile.email"
+                              readonly
+                            >
+                            <span class="highlightConfirm"></span>
+                            <span class="barConfirm"></span>
+                            <label style="color: #000; margin-top: -15px;" for="email">
+                              <span class="span-inputConfirm">Email</span>
+                            </label>
+                          </div>
+                          <div class="row nopadding">
+                            <div class="accountTypeRadio col-md-6">
+                              <input type="radio" name="radio" id="radio1" value="Student" class="radio" @change="accountType('Student')"/>
+                              <label for="radio1">Student</label>
+                            </div>
+
+                            <div class="accountTypeRadio col-md-6">
+                              <input type="radio" name="radio" id="radio2" value="Service Provider" class="radio" @change="accountType('Service Provider')"/>
+                              <label for="radio2">Service Provider</label>
+                            </div>
+                          </div>
+
+                          <div class="row nopadding" v-if="Form.accountType && Form.accountType == 'Service Provider'">
+                            <div class="accountTypeRadio col-md-4">
+                              <input id="accommodation" type="checkbox" value="accommodation" v-model="accommodation" class="radio">
+                              <label for="accommodation" style="font-size: 9px;">Accommodation</label>
+                            </div>
+                            <div class="accountTypeRadio col-md-4">
+                              <input id="taxiOperator" type="checkbox" value="taxi" v-model="taxi" class="radio">
+                              <label for="taxiOperator" style="font-size: 9px;">Taxi</label>
+                            </div>
+                            <div class="accountTypeRadio col-md-4">
+                              <input id="restaurants" type="checkbox" value="restaurants" v-model="restaurants" class="radio">
+                              <label for="restaurants" style="font-size: 9px;">Restaurants</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-5">
+                          <div class="groupConfirm" style="margin-top: 30px;">
+                            <select v-model="Form.city" id="city" @change="displayUniversities()">
+                              <option :value="null">Select City</option>
+                              <option :value="city" v-for="city in cities" :key="city">{{city}}</option>
+                            </select>
+                            
+                            <span class="highlightConfirm"></span>
+                            <span class="barConfirm"></span>
+                            <label style="color: #000; margin-top: -20px;" for="city">
+                              <span class="span-inputConfirm">City</span>
+                            </label>
+                          </div>
+                          <div class="groupConfirm" style="margin-top: 30px;">
+                            <select v-model="Form.university" id="university">
+                              <option :value="null">Select University</option>
+                              <option :value="university" v-for="university in universities" :key="university">{{university}}</option>
+                            </select>
+                            
+                            <span class="highlightConfirm"></span>
+                            <span class="barConfirm"></span>
+                            <label style="color: #000; margin-top: -20px;" for="university">
+                              <span class="span-inputConfirm">University</span>
+                            </label>
+                          </div>
+                          <div class="groupConfirm" style="margin-top: 30px;">
+                            <input
+                              v-model="Form.phone"
+                              type="tel"
+                              name="mobile"
+                              id="mobile"
+                              placeholder="0777 777 777"
+                            >
+                            <span class="highlightConfirm"></span>
+                            <span class="barConfirm"></span>
+                            <label style="color: #000;" for="mobile">
+                              <span class="span-inputConfirm">Mobile Number</span>
+                            </label>
+                          </div>
+
+                          <div class="groupConfirm" style="margin-top: 30px;">
+                            <select v-model="Form.sex" id="sex">
+                              <option :value="null">Select Sex</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                              <option value="Other">Other</option>
+                            </select>
+                            
+                            <span class="highlightConfirm"></span>
+                            <span class="barConfirm"></span>
+                            <label style="color: #000; margin-top: -20px;" for="sex">
+                              <span class="span-inputConfirm">Sex</span>
+                            </label>
+                          </div>
+                          
+                          <div class="groupConfirm" style="margin-top: 30px;">
+                            <textarea
+                              v-model="Form.bio"
+                              name="bio"
+                              id="bio"
+                              placeholder="Short Description about yourself"
+                              rows="5"
+                              style="width: 100%; border-radius: 1px; border: 0.5px solid #aaa; font-size: 10px; padding: 5px;"
+                            >
+                              Enter your text here...
+                            </textarea>
+                            <span class="highlightConfirm"></span>
+                            <span class="barConfirm"></span>
+                            <label style="color: #000; margin-top: -20px;" for="bio">
+                              <span class="span-inputConfirm">Bio</span>
+                            </label>
+                          </div>
                         </div>
 
-                        <div class="accountTypeRadio col-md-6">
-                          <input type="radio" name="radio" id="radio2" value="Service Provider" class="radio" @change="accountType('Service Provider')"/>
-                          <label for="radio2">Service Provider</label>
+                        <div class="row" style="width: 100%;">
+                          <div class="col-md-3"></div>
+                          <div class="col-md-6">
+                            <button
+                              class="default-button"
+                              style="margin-top: 10px;"
+                              value="Save"
+                              v-on:click.prevent="save()"
+                            >Save</button>
+                          </div>
+                          <div class="col-md-3"></div>
                         </div>
                       </div>
-
-                      <div class="row nopadding" v-if="Form.accountType && Form.accountType == 'Service Provider'">
-                        <div class="accountTypeRadio col-md-4">
-                          <input id="accommodation" type="checkbox" value="accommodation" v-model="accommodation" class="radio">
-                          <label for="accommodation" style="font-size: 9px;">Accommodation</label>
-                        </div>
-                        <div class="accountTypeRadio col-md-4">
-                          <input id="taxiOperator" type="checkbox" value="taxi" v-model="taxi" class="radio">
-                          <label for="taxiOperator" style="font-size: 9px;">Taxi</label>
-                        </div>
-                        <div class="accountTypeRadio col-md-4">
-                          <input id="restaurants" type="checkbox" value="restaurants" v-model="restaurants" class="radio">
-                          <label for="restaurants" style="font-size: 9px;">Restaurants</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-5">
-                      <div class="groupConfirm" style="margin-top: 30px;">
-                        <select v-model="Form.city" id="city" @change="displayUniversities()">
-                          <option :value="null">Select City</option>
-                          <option :value="city" v-for="city in cities" :key="city">{{city}}</option>
-                        </select>
-                        
-                        <span class="highlightConfirm"></span>
-                        <span class="barConfirm"></span>
-                        <label style="color: #000; margin-top: -20px;" for="city">
-                          <span class="span-inputConfirm">City</span>
-                        </label>
-                      </div>
-                      <div class="groupConfirm" style="margin-top: 30px;">
-                        <select v-model="Form.university" id="university">
-                          <option :value="null">Select University</option>
-                          <option :value="university" v-for="university in universities" :key="university">{{university}}</option>
-                        </select>
-                        
-                        <span class="highlightConfirm"></span>
-                        <span class="barConfirm"></span>
-                        <label style="color: #000; margin-top: -20px;" for="university">
-                          <span class="span-inputConfirm">University</span>
-                        </label>
-                      </div>
-                      <div class="groupConfirm" style="margin-top: 30px;">
-                        <input
-                          v-model="Form.phone"
-                          type="tel"
-                          name="mobile"
-                          id="mobile"
-                          placeholder="0777 777 777"
-                        >
-                        <span class="highlightConfirm"></span>
-                        <span class="barConfirm"></span>
-                        <label style="color: #000;" for="mobile">
-                          <span class="span-inputConfirm">Mobile Number</span>
-                        </label>
-                      </div>
-
-                      <div class="groupConfirm" style="margin-top: 30px;">
-                        <select v-model="Form.sex" id="sex">
-                          <option :value="null">Select Sex</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                          <option value="Other">Other</option>
-                        </select>
-                        
-                        <span class="highlightConfirm"></span>
-                        <span class="barConfirm"></span>
-                        <label style="color: #000; margin-top: -20px;" for="sex">
-                          <span class="span-inputConfirm">Sex</span>
-                        </label>
-                      </div>
-                      
-                      <div class="groupConfirm" style="margin-top: 30px;">
-                        <textarea
-                          v-model="Form.bio"
-                          name="bio"
-                          id="bio"
-                          placeholder="Short Description about yourself"
-                          rows="5"
-                          style="width: 100%; border-radius: 1px; border: 0.5px solid #aaa; font-size: 10px; padding: 5px;"
-                        >
-                          Enter your text here...
-                        </textarea>
-                        <span class="highlightConfirm"></span>
-                        <span class="barConfirm"></span>
-                        <label style="color: #000; margin-top: -20px;" for="bio">
-                          <span class="span-inputConfirm">Bio</span>
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="row" style="width: 100%;">
-                      <div class="col-md-3"></div>
-                      <div class="col-md-6">
-                        <button
-                          class="default-button"
-                          style="margin-top: 10px;"
-                          value="Save"
-                          v-on:click.prevent="save()"
-                        >Save</button>
-                      </div>
-                      <div class="col-md-3"></div>
                     </div>
                   </div>
                 </div>
@@ -246,6 +253,7 @@
 
 <script>
 import data from '~/locales/zw.json'
+import io from 'socket.io-client'
 
 export default {
   data() {
@@ -262,6 +270,8 @@ export default {
       locale: {},
       cities: [],
       universities: [],
+      profileSet: false,
+      socket: io(process.env.socketsIO),
       Form: {
         id: null,
         firstname: null,
@@ -344,9 +354,21 @@ export default {
         } catch (e) {
           this.errors.push(e.message)
         }
-        window.location.replace("/")
+        this.profileSet = true
+        this.logout(this.$store.state.authUser.user)
       }
-    }
+    },
+    async logout(user) {
+      this.userProfile = user
+      try {
+        this.socket.emit('ACTIVITY_FEED_LOGOUT', {user: this.userProfile,})
+        this.userProfile = null
+				await this.$store.dispatch('logout')
+        window.location.href = '/'
+      } catch (e) {
+        this.errors.push(e)
+      }
+    },
   },
   created() {
     this.confirm()
