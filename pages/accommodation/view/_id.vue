@@ -1,33 +1,30 @@
 <template>
-  <div style="width: 100%; background: #eee;" class="display-house">
+  <div style="width: 100%; background: #eee; margin-top: 80px;" class="display-house">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-9">
           <div class="item-box" style="margin-top: 10px; padding-top: 0px;">
             <div class="row">
               <div class="col-md-12 padding-left:0px">
-                <div class="row nopadding">
+                <div class="row nopadding" v-if="house.accommodationImages.length">
                   <div class="col-md-6 nopadding">
                     <div style="width:100%; height:400px;" class="accommodation-images">
                       <img :src="house.accommodationImages[0].path" style="width:100%; height:100%">
                     </div>
                   </div>
-                  <div class="col-md-3 nopadding">
-                    <div style="width:100%; height:200px;" class="nopadding accommodation-images">
-                      <img :src="house.accommodationImages[1].path" style="width:100%; height:100%">
-                    </div>
-
-                    <div style="width:100%; height:200px;" class="nopadding accommodation-images">
-                      <img :src="house.accommodationImages[1].path" style="width:100%; height:100%">
-                    </div>
-                  </div>
-                  <div class="col-md-3 nopadding">
-                    <div style="width:100%; height:200px;" class="nopadding accommodation-images">
-                      <img :src="house.accommodationImages[1].path" style="width:100%; height:100%">
-                    </div>
-
-                    <div style="width:100%; height:200px;" class="nopadding accommodation-images">
-                      <img :src="house.accommodationImages[1].path" style="width:100%; height:100%">
+                  <div class="col-md-6 nopadding">
+                    <div
+                      style="height: 200px; float: left;"
+                      class="nopadding"
+                      v-for="(image, index) in accImages"
+                      :value="image"
+                      :key="image"
+                      :index="image"
+                      v-bind:style="{width: imageWidth + '%'}"
+                    >
+                      <div style="width:100%; height:100%;" class="nopadding accommodation-images">
+                        <img :title="index" :src="image.path" style="width:100%; height:100%">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -173,24 +170,23 @@ export default {
       house: null,
       errors: null,
       houseExists: null,
+      accImages: [],
+      imageHeight: 0,
+      imageWidth: 0,
       title: "View House",
-      description:
-        "Collegehub is the only service in Zimbabwe where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform."
+      description: "Collegehub is the only service in Zimbabwe where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform."
     };
   },
   methods: {
     async changeHouseStatus(id) {
       var index = this.housesOwned.findIndex(house => house._id === id);
       var newStatus = null;
-      if (this.housesOwned[index].status == "Suspended") newStatus = "Active";
-      else newStatus = "Suspended";
+      if (this.housesOwned[index].status == "Suspended")
+        newStatus = "Active";
+      else
+        newStatus = "Suspended";
       try {
-        if (
-          await this.$store.dispatch("changeHouseStatus", {
-            id: id,
-            status: newStatus
-          })
-        ) {
+        if (await this.$store.dispatch("changeHouseStatus", {id: id, status: newStatus})) {
           this.housesOwned[index].status = newStatus;
         }
       } catch (e) {
@@ -200,9 +196,7 @@ export default {
     async deleteHouse(id) {
       try {
         if (await this.$store.dispatch("deleteHouse", { id: id })) {
-          this.houseExists = await this.$store.dispatch("getHousesByID", {
-            id: this.userProfile._id
-          });
+          this.houseExists = await this.$store.dispatch("getHousesByID", {id: this.userProfile._id});
           if (this.houseExists.data.message == "House could not be found")
             this.houseExists = false;
           else if (this.houseExists.data.message == "404")
@@ -220,29 +214,40 @@ export default {
   },
 
   async mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start();
-    });
+    this.$nextTick(() => { this.$nuxt.$loading.start(); });
     try {
-      this.houseExists = await this.$store.dispatch("getOneHouse", {
-        id: this.$route.params.id
-      });
-
+      this.houseExists = await this.$store.dispatch("getOneHouse", { id: this.$route.params.id });
       if (this.houseExists.data.message == "House could not be found")
         this.houseExists = false;
-      else if (this.houseExists.data.message == "404") this.houseExists = false;
+      else if (this.houseExists.data.message == "404")
+        this.houseExists = false;
       else {
         this.house = this.houseExists.data.house
         this.title = this.house.title
         this.description = this.house.description
+        this.accImages = this.house.accommodationImages
+        if(this.accImages.length > 5){
+          this.accImages.splice(4, this.accImages.length - 5)
+        }
+        if(this.accImages.length == 1){
+          this.imageHeight = 100
+          this.imageWidth = 100
+        }else if(this.accImages.length == 2){
+          this.imageHeight = 100
+          this.imageWidth = 100
+        }else if(this.accImages.length == 3){
+          this.imageHeight = 100
+          this.imageWidth = 50
+        }else if(this.accImages.length == 4){
+          this.imageHeight = 100
+          this.imageWidth = 50
+        }
         this.houseExists = true
       }
     } catch (e) {
       this.errors.push(e.message);
     }
-    this.$nextTick(() => {
-      setTimeout(() => this.$nuxt.$loading.finish(), 0);
-    });
+    this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 0);});
   },
 
   async asyncData({ store, params, context }) {
