@@ -18,7 +18,7 @@
                       class="nopadding"
                       v-for="(image, index) in accImages"
                       :value="image"
-                      :key="image"
+                      :key="index"
                       :index="image"
                       v-bind:style="{width: imageWidth + '%'}"
                     >
@@ -28,17 +28,17 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" style="padding-top:20px;">
-                  <div class="col-md-3">
+                <div class="row" style="padding-top:20px;" v-if="$store.state.authUser">
+                  <div class="col-md-3" v-if="$store.state.authUser.user._id != house.owner">
                     <button class="custom-button">Request to rent</button>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3" v-if="$store.state.authUser.user._id == house.owner">
                     <button class="custom-button">Edit</button>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3" v-if="$store.state.authUser.user._id == house.owner">
                     <button class="custom-button" @click="changeHouseStatus(house._id)">Suspend</button>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3" v-if="$store.state.authUser.user._id == house.owner">
                     <button class="custom-button" @click="deleteHouse(house._id)">Delete</button>
                     <!--ADD Notification here -->
                   </div>
@@ -72,21 +72,42 @@
                       <li><strong>People Per Bedroom</strong>: <span>{{house.countperbedroom}}</span></li>
                       <li><strong>Study rooms</strong>: <span>{{house.studyroomcount}}</span></li>
                       <li><strong>Guests</strong>: <span>{{house.guestcount}}</span></li>
-                     </ul>
-                   
-                   </div>
-                   <hr>
-                      <div class="row" style="padding-left:35px">
-                            <h5 align="left" style="padding-left:0px;"><i class="fas fa-map-marker-alt"></i>&nbsp;Location </h5>
+                    </ul>
+                  </div>
+                  <hr>
+                  <div class="row" style="padding-left:35px">
+                    <h5 align="left" style="padding-left:0px;"><i class="fas fa-map-marker-alt"></i>&nbsp;Location </h5>
+                  </div>
+                  <div class="row">
+                    <ul class="non-ticked">
+                      <li><strong>City</strong>: {{house.city}}</li>
+                      <li><strong>Suburb</strong>: {{house.suburb}}</li>
+                      <hr  width="18%">
+                      <li><strong>Nearby Universities</strong>: {{house.universities.toString()}}</li>
+                    </ul>   
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="taxiMapDisplay" style="width: 100%; margin-bottom: 20px;">
+                        <no-ssr>
+                          <google-map
+                            :center="markers[0].position"
+                            :zoom="11"
+                            style="width: 100%; height: 100%"
+                          >
+                            <google-marker
+                              v-for="m in markers"
+                              :key="m._id"
+                              :position="m.position"
+                              :clickable="true"
+                              :icon="{ url: require('@/assets/icons/house-marker.png')}"
+                              @click="center=m.position"
+                            ></google-marker>
+                          </google-map>
+                        </no-ssr>
                       </div>
-                      <div class="row">
-                           <ul class="non-ticked">
-                                <li><strong>City</strong>: {{house.city}}</li>
-                                <li><strong>Suburb</strong>: {{house.suburb}}</li>
-                              <hr  width="18%">
-                                <li><strong>Nearby Universities</strong>: {{house.universities.toString()}}</li>
-                          </ul>   
-                      </div> 
+                    </div>
+                  </div>
                  </div>
                  <div class="col-md-4">
                    <div class="item-box nopadding" style="text-align: left; border: 0.5px solid #aaa;">
@@ -252,10 +273,13 @@ export default {
 
   async asyncData({ store, params, context }) {
     const house = await store.dispatch("getHouseFuck", { id: params.id });
+    const markers = []
+    markers.push(house.data.house)
     return {
       title: house.data.house.title,
       description: house.data.house.description,
-      house: house.data.house
+      house: house.data.house,
+      markers: markers
     }
   },
 
