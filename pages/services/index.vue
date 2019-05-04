@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;">
+  <div style="width: 100%; margin-top: 80px;">
 		<section id="services" class="pb-5">
       <div class="container">
         <div class="row">

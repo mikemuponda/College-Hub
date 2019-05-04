@@ -65,13 +65,18 @@ export default {
 	width: 100%;
 	background: #fff;
 	border-top: 0.5px solid #ccc;
-	height: 40px;
+	height: 50px;
 }
 
 .menuDiv{
 	float: left;
 	width: 20%;
 	text-align: center;
+	margin-top: 10px;
+}
+
+.menuDiv i{
+	color: #aaa;
 }
 .sideMenu{
 	position: fixed;

@@ -176,6 +176,7 @@
   margin-top: 25px;
   float: left;
   width: 80%;
+  height: 48px;
 }
 
 .Nav-Desktop .nav-link{
