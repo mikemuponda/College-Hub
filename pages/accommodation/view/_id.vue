@@ -53,9 +53,9 @@
                  <hr> 
                 <div class="row">
                  <div class="col-md-12">
-                  <h6 style="padding-left:30px;"><i class="fas fa-info-circle"></i>&nbsp;&nbsp;Description</h6>
+                  <h6 style="padding-left:30px;"><i style="color:black;" class="fas fa-info-circle"></i>&nbsp;&nbsp;Description</h6>
                   
-                      <p style="padding-left:30px; color:#a7234f">{{house.description}}</p>
+                      <p style="padding-left:30px; color:#a7234f">"{{house.description}}"</p>
                   </div>
                 </div>
 
@@ -76,7 +76,7 @@
                   </div>
                   <hr>
                   <div class="row" style="padding-left:35px">
-                    <h5 align="left" style="padding-left:0px;"><i class="fas fa-map-marker-alt"></i>&nbsp;Location </h5>
+                    <h5 align="left" style="padding-left:0px;"><i style="color:red;" class="fas fa-map-marker-alt"></i>&nbsp;Location </h5>
                   </div>
                   <div class="row">
                     <ul class="non-ticked">
