@@ -56,9 +56,17 @@
       </div>
       <div class="profileImage" v-if="$store.state.authUser">
         <img
+          v-if="$store.state.authUser.user.profileImage"
           title="Profile and Settings"
           :alt="$store.state.authUser.user.firstname + ' ' + $store.state.authUser.user.lastname"
           :src="$store.state.authUser.user.profileImage.path"
+          @click="show = !show"
+        />
+        <img
+          v-else
+          title="Profile and Settings"
+          :alt="$store.state.authUser.user.firstname + ' ' + $store.state.authUser.user.lastname"
+          src="/img/profileImages/user.png"
           @click="show = !show"
         />
       </div>

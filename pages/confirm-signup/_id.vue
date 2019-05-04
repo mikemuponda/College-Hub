@@ -122,7 +122,7 @@
                       </div>
                       <div class="row nopadding">
                         <div class="accountTypeRadio col-md-6">
-                          <input type="radio" name="radio" id="radio1" value="Student" class="radio" @change="accountType('Student')" checked/>
+                          <input type="radio" name="radio" id="radio1" value="Student" class="radio" @change="accountType('Student')"/>
                           <label for="radio1">Student</label>
                         </div>
 
