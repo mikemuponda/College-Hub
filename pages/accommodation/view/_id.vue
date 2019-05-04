@@ -5,7 +5,7 @@
         <div class="col-md-9">
           <div class="item-box" style="margin-top: 10px; padding-top: 0px;">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12 padding-left:0px">
                 <div class="row nopadding">
                   <div class="col-md-6 nopadding">
                     <div style="width:100%; height:400px;" class="accommodation-images">
@@ -47,46 +47,104 @@
                   </div>
                 </div>
                 <!--Extra info section-->
-                <div class="row" style="padding-top:20px;">
-                 <div class="col-md-3">
-                   <h6>About this property</h6>
-                   <ul class="list-tick">
-                       <li>Owner           {{house.owner}}</li>
-                       <li>Space Type      {{house.spaceType}}</li>
-                       <li>Rooms    {{house.totalRoomCount}}</li>
-                      <li> </li>
-                    </ul>
-
-                    <h6>Location</h6>
-                      <ul class="list-tick">
-                       <li>City           {{house.owner}}</li>
-                       <li> Nearby Universities    {{house.universities}}</li>
-                      <li> </li>
-                       <li>     </li>
-                    </ul>
-                 </div>
-
-                 <div class="col-md-3">
-                   <h6>Ammenities</h6>
-                   <ul class="list-tick">
-                     <!--house.ammenties[i] returns true or false but we want yes or no -->
-                       <li>Furnishing           {{house.furnishStatus}}</li>
-                       <li>beds   {{house.amenities[0]}}</li>
-                       <li>essentials  {{house.amenities[1]}}</li>
-                       <li>wifi {{house.amenities[2]}}</li>
-                       <li>drawers  {{house.amenities[3]}}</li>
-                       <li>television  {{house.amenities[4]}}</li>
-                       <li>pool  {{house.amenities[5]}}</li>
-                       <li>laundry  {{house.amenities[6]}}</li>
-                       <li>parking  {{house.amenities[7]}}</li>
-                       <li>elevator  {{house.amenities[8]}}</li>
-                       <li>hottub {{house.amenities[9]}}</li>
-                      <li> </li>
-                    </ul>
-                 </div>
+                <div class="row" style="padding-top:30px; padding-bottom:10px;padding-left:20px;">
+                     <h5 align="center" style="padding-left:10px; color:#a7234f">About this property</h5>
+                </div>
+                <div class="row" >
+                   <h6 style="padding-left:40px;text:bold;"><i class="far fa-eye"></i>&nbsp;&nbsp;Status<span style="font-size: 13pt;color:green;">: &nbsp; {{house.status}}</span></h6>
+                </div>
+                 <hr> 
+                <div class="row">
+                 <div class="col-md-12">
+                  <h6 style="padding-left:30px;"><i class="fas fa-info-circle"></i>&nbsp;&nbsp;Description</h6>
+                  
+                      <p style="padding-left:30px; color:#a7234f">{{house.description}}</p>
+                  </div>
                 </div>
 
-                <div class="row">.col-md-</div>
+                 <hr>
+                  <div class=row>
+                 <div class="col-md-8">
+                  
+                  <div class="row">
+                    <ul class="non-ticked">
+                      <li><strong>Owner</strong>: <span>{{house.owner}}</span></li>
+                      <li><strong>Space Type</strong>: <span>{{house.spaceType}}</span></li>
+                      <li><strong>Room Count</strong>: <span>{{house.totalRoomCount}}</span></li>
+                      <li><strong>Bedrooms</strong>: <span>{{house.bedroomcount}}</span></li>
+                      <li><strong>People Per Bedroom</strong>: <span>{{house.countperbedroom}}</span></li>
+                      <li><strong>Study rooms</strong>: <span>{{house.studyroomcount}}</span></li>
+                      <li><strong>Guests</strong>: <span>{{house.guestcount}}</span></li>
+                     </ul>
+                   
+                   </div>
+                   <hr>
+                      <div class="row" style="padding-left:35px">
+                            <h5 align="left" style="padding-left:0px;"><i class="fas fa-map-marker-alt"></i>&nbsp;Location </h5>
+                      </div>
+                      <div class="row">
+                           <ul class="non-ticked">
+                                <li><strong>City</strong>: {{house.city}}</li>
+                                <li><strong>Suburb</strong>: {{house.suburb}}</li>
+                              <hr  width="18%">
+                                <li><strong>Nearby Universities</strong>: {{house.universities.toString()}}</li>
+                          </ul>   
+                      </div> 
+                 </div>
+                 <div class="col-md-4">
+                   <div class="item-box nopadding" style="text-align: left; border: 0.5px solid #aaa;">
+                        <div class="row nopadding" style="background: #eee;">
+                          <p style="color:#a7234f; padding: 20px; font-weight: 400; font-size: 20px;">Price</p>
+                        </div>
+                        <div class="row">
+                          <p style="padding: 40px; font-weight: 300; font-size: 42px;">{{house.priceCurrency}}<span style="color:green">{{house.priceValue}}.00</span> 
+                            <br><i class="far fa-user"></i><span style="font-size: 15pt;"> &nbsp; {{house.priceMethod}}/per {{house.priceTime}}</span></br>
+                          </p>
+                        </div>
+                        <hr>
+                      </div>
+                  </div>
+                </div>
+               <div class="row" style="padding-left:35px;padding-top:20px;">
+                  <h5>Ammenities &nbsp;<i class="fas fa-arrow-circle-right" ></i></h5>
+               </div>
+            <div class="col-md-12" style="padding-left:40px; padding-right:40px;">
+              <div class="row" style="border:1px solid maroon; border-radius:30px;">
+                   <div class="col-md-4" style="padding-top:10px; margin:0;">
+                       <ul class="ticked">
+                      <!--house.ammenties[i] returns true or false but we want yes or no -->
+                      <li><i class="fas fa-couch"></i>&nbsp;{{house.furnishStatus}}</li>
+                      <li><i class="fas fa-bed"></i>&nbsp;beds {{house.amenities[0]}}</li>
+                      <li><i class="fas fa-heart"></i>&nbsp;essentials {{house.amenities[1]}}</li>
+                      <li><i class="fas fa-wifi"></i>&nbsp;wifi {{house.amenities[2]}}</li>
+                      <li><i class="fas fa-minus"></i>&nbsp;desks {{house.amenities[3]}}</li>
+                      <li><i class="fas fa-box"></i>&nbsp;drawers {{house.amenities[4]}}</li>
+                      <li><i class="fas fa-tv"></i>&nbsp;television {{house.amenities[5]}}</li>
+                       </ul>
+                   </div>
+
+                   <div class="col-md-4" style="padding-top:10px; margin:0;">
+                    <ul class="ticked">
+                      <li><i class="fas fa-swimming-pool"></i>&nbsp;swimming pool{{house.amenities[6]}}</li>
+                      <li><i class="fas fa-tshirt"></i>&nbsp;laundry {{house.amenities[7]}}</li>
+                      <li><i class="fas fa-parking"></i>&nbsp;parking {{house.amenities[8]}}</li>
+                      <li><i class="fas fa-arrow-circle-up"></i>&nbsp;elevator {{house.amenities[9]}}</li>
+                      <li><i class="fas fa-hot-tub"></i>&nbsp;hottub {{house.amenities[10]}}</li>
+                    </ul>
+                   </div>
+
+                   <div class="col-md-4" style="padding-top:10px; margin:0;">
+                     <ul class="ticked">
+                      <li><i class="fas fa-dumbbell"></i>&nbsp;gym{{house.amenities[11]}}</li>
+                      <li><i class="fas fa-first-aid"></i>&nbsp;firstaid {{house.amenities[12]}}</li>
+                      <li><i class="fas fa-fire-extinguisher"></i>&nbsp;fire extinguisher {{house.amenities[8]}}</li>
+                      <li><i class="fas fa-lock"></i>&nbsp;locks {{house.amenities[9]}}</li>
+                    </ul>
+                   </div>
+                  </div>
+              </div>
+
+
               </div>
             </div>
           </div>
@@ -220,24 +278,43 @@ export default {
 </script>
 
 <style>
-.display-house ul {
-  list-style: none;
+.vl {
+  border-left: 1px solid maroon;
+  height: 80%;
+  left: 80%;
+  position:absolute;
+  overflow: hidden;
+}
+.li {
+    display: block;
+    width: 25%;
+    float: left;
+}
+.centered{
+   text-align: center;
+   display: inline-block;
 }
 
-.display-house ul li:before {
-  content: '✓';
+.non-ticked{
+  list-style: none;
 }
-.display-house .col-md-6{
-overflow: hidden;
+.ticked{
+  list-style: none;
 }
-.display-house .col-md-3{
+.ticked li:after {
+  content: "✓";
+}
+.display-house .col-md-6 {
+  overflow: hidden;
+}
+.display-house .col-md-3 {
   overflow: hidden;
 }
 .display-house .accommodation-images {
   border: 0.5px solid black;
   overflow: hidden;
   filter: brightness(0.98);
-  transition: transform .8s ease;
+  transition: transform 0.8s ease;
 }
 .display-house .accommodation-images:hover {
   transform: scale(1.04);
