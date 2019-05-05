@@ -278,6 +278,26 @@ export const actions = {
     }
   },
 
+  async userRequestToRent({commit}, Form){
+    var userURL = '/users/accommodation/request/' + Form.requesterID
+    try {
+      await axios.post(userURL, Form)
+    } catch (error) {
+      return error
+    }
+  },
+
+  async houseRequestToRent({commit}, Form){
+    var accommodationURL = '/houses/house/request/' + Form.houseID
+    var house
+    try {
+      house = await axios.post(accommodationURL, Form)
+      return house
+    } catch (error) {
+      return error
+    }
+  },
+
   async getAllLocales({commit},){
     var url = '/data/get/locales'
     try {
@@ -286,5 +306,4 @@ export const actions = {
       return "404"
     }
   }
-
 }

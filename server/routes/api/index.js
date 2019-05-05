@@ -304,13 +304,14 @@ router.post('/profile/edit/username/:id', async (req, res) => {
 
 
 //Request to rent
-//http://localhost:8080/users/accommodation/request/5caa84dc4134c0a0739306ab
+//http://localhost:8080/users/accommodation/request/5ccdf629ba8063019c0e7d07
 router.post('/accommodation/request/:id', async (req, res) => {
   const users = await loadUsers()
   var user
   if(user = await users.findOne({ _id: new mongodb.ObjectID(req.params.id)})){
     let newRequest = {
       requestID: req.body.reqID,
+      requester: req.body.requesterID,
       requestedHouseID: req.body.houseID,
       requestStatus: 'pending',
       requestedDate: new Date(),
@@ -328,21 +329,18 @@ router.post('/accommodation/request/:id', async (req, res) => {
           requested = true
         }
       }
+      temp.push(newRequest)
+      let params = {allRequests: temp }
 
-      if(requested)
-        return res.status(401).json({message: 'Request already exist'})
-      else{
-        temp.push(newRequest)
-        let params = {
-          allRequests: []
-        }
-        if(await users.findOneAndUpdate({_id: new mongodb.ObjectID(req.params.id)}, {$set: Object.assign(params)}, {upsert: true,})){
-          user = await users.findOne({_id: new mongodb.ObjectID(req.params.id)})
-          return res.json({user})
-        }else{
-          return res.status(401).json({message: 'Request Could not be made'})
-        }
+      if(requested == false){
+        await users.findOneAndUpdate(
+          {_id: new mongodb.ObjectID(req.params.id)},
+          {$set: Object.assign(params)},
+          {upsert: true}
+        )
       }
+      user = await users.findOne({_id: new mongodb.ObjectID(req.params.id)})
+      return res.json({user})
     }else{
       return res.status(401).json({message: 'Cannot Request to Rent. Account has not been confirmed yet'})
     }

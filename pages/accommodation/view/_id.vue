@@ -30,7 +30,8 @@
                 </div>
                 <div class="row" style="padding-top:20px;" v-if="$store.state.authUser">
                   <div class="col-md-3" v-if="$store.state.authUser.user._id != house.owner">
-                    <button class="custom-button">Request to rent</button>
+                    <p v-if="requested == true">Request Sent</p>
+                    <button v-else class="custom-button" @click.prevent="sendRequest()">Request to rent</button>
                   </div>
                   <div class="col-md-3" v-if="$store.state.authUser.user._id == house.owner">
                     <button class="custom-button">Edit</button>
@@ -188,17 +189,37 @@ export default {
   data() {
     return {
       userProfile: "",
-      house: null,
-      errors: null,
+      house: {},
+      errors: [],
       houseExists: null,
       accImages: [],
       imageHeight: 0,
       imageWidth: 0,
+      requested: false,
+      Form: {
+        reqID: null,
+        requesterID: null,
+        houseID: null
+      },
       title: "View House",
       description: "Collegehub is the only service in Zimbabwe where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace for buying and selling and can travel with great convenience using the taxi finder platform."
     };
   },
   methods: {
+    async sendRequest(){
+      this.Form.reqID = this.$store.state.authUser.user._id + this.house._id
+      this.Form.requesterID = this.$store.state.authUser.user._id
+      this.Form.houseID = this.house._id
+      try{
+        this.requested = true
+        var x = await this.$store.dispatch("houseRequestToRent", this.Form)
+        this.house = x.data.house
+        this.userProfile = await this.$store.dispatch("userRequestToRent", this.Form)
+        this.userProfile = this.userProfile.data  
+      }catch(e){
+        this.errors.push(e)
+      }
+    },
     async changeHouseStatus(id) {
       var index = this.housesOwned.findIndex(house => house._id === id);
       var newStatus = null;
@@ -262,6 +283,14 @@ export default {
         }else if(this.accImages.length == 4){
           this.imageHeight = 100
           this.imageWidth = 50
+        }
+        if(this.house.allRequests && this.$store.state.authUser){
+          var index
+          for(index in this.house.allRequests){
+            if(this.house.allRequests[index].requester == this.$store.state.authUser.user._id){
+              this.requested = true
+            }
+          }
         }
         this.houseExists = true
       }

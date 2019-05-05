@@ -152,13 +152,14 @@ router.post('/owner/:id', async (req, res) => {
 })
 
 //Request to rent
+//http://localhost:8080/houses/house/request/5cc9154cd3b7ae093481b099
 router.post('/house/request/:id', async (req, res) => {
   const houses = await loadHouses()
   var house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id)})
   let newRequest = {
     requestID: req.body.reqID,
-    requester: req.body.requester,
-    requestedHouseID: req.params.id,
+    requester: req.body.requesterID,
+    requestedHouseID: req.body.houseID,
     requestStatus: 'pending',
     requestedDate: new Date(),
     statusDateUpdate: null 
@@ -173,20 +174,17 @@ router.post('/house/request/:id', async (req, res) => {
       requested = true
     }
   }
-  if(requested)
-    return res.status(401).json({message: 'Request already exist'})
-  else{
-    temp.push(newRequest)
-    let params = {
-      allRequests: temp
-    }
-    if(await houses.findOneAndUpdate({_id: new mongodb.ObjectID(req.params.id)}, {$set: Object.assign(params)}, {upsert: true,})){
-      house = await houses.findOne({_id: new mongodb.ObjectID(req.params.id)})
-      return res.json({house})
-    }else{
-      return res.status(401).json({message: 'House could not be found'})
-    }
+  temp.push(newRequest)
+  let params = { allRequests: temp}
+  if(requested == false){
+    await houses.findOneAndUpdate(
+      {_id: new mongodb.ObjectID(req.params.id)},
+      {$set: Object.assign(params)},
+      {upsert: true}
+    )
   }
+  house = await houses.findOne({_id: new mongodb.ObjectID(req.params.id)})
+  return res.json({house})
 })
 
 //Delete House by ID
