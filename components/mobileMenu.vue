@@ -138,6 +138,8 @@ export default {
 	border: 0.5px solid #eee;
 	top: 0px;
 	margin-top: 79px;
+	margin-bottom: 46px;
+	padding-bottom: 0px;
 	border-radius: 0 4px 4px 0;
 	height: 75vh;
 	width: 57px;
