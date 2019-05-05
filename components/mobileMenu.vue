@@ -141,7 +141,7 @@ export default {
 	margin-bottom: 46px;
 	padding-bottom: 0px;
 	border-radius: 0 4px 4px 0;
-	height: 75vh;
+	height: 389px;
 	width: 57px;
 	text-align: center;
 }
