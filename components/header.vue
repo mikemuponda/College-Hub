@@ -56,7 +56,7 @@
       </div>
       <div class="profileImage" v-if="$store.state.authUser">
         <img
-          v-if="getProfImage($store.state.authUser.user.username)"
+          v-if="$store.state.authUser.user.profileImage"
           title="Profile and Settings"
           :alt="$store.state.authUser.user.firstname + ' ' + $store.state.authUser.user.lastname"
           :src="$store.state.authUser.user.profileImage.path"
@@ -99,6 +99,46 @@
             </div>
             <div style="float: left; width: 85%;">
               Messages
+            </div>
+          </NuxtLink>
+          <NuxtLink :to="'/accommodation'" title="Accommodation" id="Accommodation" class="nav-link user-link">
+            <div style="float: left; width: 15%;">
+              <i class="fas fa-warehouse" style="font-size: 15px;"></i>
+            </div>
+            <div style="float: left; width: 85%;">
+              Accommodation
+            </div>
+          </NuxtLink>
+          <NuxtLink :to="'/taxi'" title="Taxi" id="Taxi" class="nav-link user-link">
+            <div style="float: left; width: 15%;">
+              <i class="fas fa-taxi" style="font-size: 15px;"></i>
+            </div>
+            <div style="float: left; width: 85%;">
+              Taxi
+            </div>
+          </NuxtLink>
+          <NuxtLink :to="'/restaurants'" title="Restaurants" id="Restaurants" class="nav-link user-link">
+            <div style="float: left; width: 15%;">
+              <i class="fas fa-hamburger" style="font-size: 15px;"></i>
+            </div>
+            <div style="float: left; width: 85%;">
+              Restaurants
+            </div>
+          </NuxtLink>
+          <NuxtLink :to="'/marketplace'" title="Marketplace" id="Marketplace" class="nav-link user-link">
+            <div style="float: left; width: 15%;">
+              <i class="fas fa-store" style="font-size: 15px;"></i>
+            </div>
+            <div style="float: left; width: 85%;">
+              Marketplace
+            </div>
+          </NuxtLink>
+          <NuxtLink :to="'/events'" title="Events" id="Events" class="nav-link user-link">
+            <div style="float: left; width: 15%;">
+              <i class="fas fa-code" style="font-size: 15px;"></i>
+            </div>
+            <div style="float: left; width: 85%;">
+              Events
             </div>
           </NuxtLink>
           <div title="Logout" class="nav-link user-link logout" @click="logout($store.state.authUser.user)">
