@@ -158,45 +158,119 @@
                         </div>
                       </div>
 
-                      <div class="row nopadding feed">
-                        <div class="col-md-12">
-                          <div class="rental-image-div" style="width: 20%; float: left;">
-                            <div
-                              class="ratio img-responsive img-circle"
-                              style="background-image: url(/houses/collegehub-alexandra.jpeg);"
-                            ></div>
-                          </div>
-                          <div class="-div" style="width: 80%; float: left;">
+                      <div style="width: 100%;" v-if="requestedHouses && this.requestedHouses.length > 0">
+                        <div
+                          class="row nopadding feed"
+                          v-for="(house, index) in requestedHouses"
+                          :key="index"
+                        >
+                          <div class="col-md-12">
                             <div class="row">
+                              <div class="col-md-4 rental-image-div">
+                                <div style="margin-top: 10px;">
+                                  <b-carousel
+                                    :id="house._id"
+                                    :interval="0"
+                                    controls
+                                    indicators
+                                    background="#ffffff"
+                                    img-width="100%"
+                                    img-height="100%"
+                                    style="height: 120px; overflow: hidden; border-radius: 1px;"
+                                  >
+                                    <b-carousel-slide
+                                      v-for="(image, index) in house.accommodationImages"
+                                      :key="index"
+                                      :alt="house.title"
+                                      :img-src="image.path"
+                                    ></b-carousel-slide> 
+                                  </b-carousel>
+                                </div>
+                              </div>
                               <div class="col-md-8">
-                                <h3 class="section-subtitle">Avondale, Harare</h3>
-                                <p
-                                  class="section-small-text"
-                                >King George Street &#8811; Avondale &#8811; Harare</p>
-                                <div class="section-amenities">
-                                  <div style="width: 50%; float: left;">
-                                    <p class="section-small-text">
-                                      <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
-                                    </p>
-                                    <p class="section-small-text">
-                                      <i class="fas fa-wifi"></i>Wifi
-                                    </p>
-                                  </div>
-                                  <div style="width: 50%; float: left;">
-                                    <p class="section-small-text">
-                                      <i class="fas fa-bed"></i>
-                                      2 Bedrooms
-                                    </p>
-                                    <p class="section-small-text">
-                                      <i class="fas fa-couch"></i>
-                                      Furnished
-                                    </p>
+                                <div class="row">
+                                  <div class="col-md-12 houseMobileStyles">
+                                    <h3 class="section-subtitle">{{house.title}}</h3>
+                                    <p
+                                      class="section-small-text"
+                                    >{{house.addressSuburb}}, {{house.city}}</p>
+                                    <div style="width: 100%; margin-top: 10px;">
+                                      <p class="section-small-text">{{house.description}}</p>
+                                    </div>
+                                    <div class="section-amenities">
+                                      <div style="width: 50%; float: left;">
+                                        <p class="section-small-text" v-if="house.specificSpaceType == 'Apartment'">
+                                          <i class="fas fa-building"></i>
+                                          {{house.specificSpaceType}}
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.specificSpaceType == 'House'">
+                                          <i class="fas fa-home"></i>
+                                          {{house.specificSpaceType}}
+                                        </p>
+                                        <p class="section-small-text" v-else>
+                                          <i class="fas fa-hotel"></i>
+                                          {{house.specificSpaceType}}
+                                        </p>
+                                        <p class="section-small-text" v-if="house.amenities.wifi">
+                                          <i class="fas fa-wifi"></i> Wifi
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.essentials">
+                                          <i class="fas fa-briefcase"></i> Essentials
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.desks">
+                                          <i class="fas fa-table"></i> Desks
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.drawer">
+                                          <i class="fas fa-archway"></i> Drawers
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.television">
+                                            <i class="fas fa-tv"></i> TV
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.locks">
+                                            <i class="fas fa-lock"></i> Locks
+                                        </p>
+                                      </div>
+                                      <div style="width: 50%; float: left;">
+                                        <p class="section-small-text">
+                                          <i class="fas fa-bed"></i>
+                                          {{house.bedroomcount}} Bedrooms  
+                                        </p>
+                                        <p class="section-small-text">
+                                          <i class="fas fa-couch"></i>
+                                          {{house.furnishStatus}}
+                                        </p>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-md-4">
-                                <div class="rental-alert">
-                                  <h2 class="success">Approved</h2>
+                            </div>
+                            <hr>
+                            <div class="row" style="width: 100%;">
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-12" style="text-align: center;">
+                                    <p style="color: #00FF00; font-weight: 400;">{{house.status}}</p>
+                                  </div>
+                                </div>
+                                <div class="row" style="padding-bottom: 20px;">
+                                  <div class="col-md-12">
+                                    <div class="row">
+                                      <div class="col-md-3">
+                                        <NuxtLink :to="'/accommodation/view/' + house._id" title="View">
+                                          <button class="default-button-small button-green">View House</button>
+                                        </NuxtLink>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <NuxtLink :to="'/accommodation/view/' + house._id" title="View">
+                                          <button class="default-button-small button-blue">View Request</button>
+                                        </NuxtLink>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <button class="default-button-small button-red" v-on:click.prevent="cancelRequest(house._id)">Cancel Request</button>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -418,6 +492,9 @@ export default {
     searchAccommodation() {
       window.location.href = '/accommodation/find/?city=' + this.userProfile.city + '&suburb=allsuburbs'
     },
+    async cancelRequest(houseID){
+      console.log(houseID)
+    },
     async changeHouseStatus(id){
       var index = this.housesOwned.findIndex(house => house._id === id)
       var newStatus = null
@@ -460,7 +537,7 @@ export default {
       var index
       for(index in this.userProfile.allRequests){
         var request = await this.$store.dispatch('getOneHouse', { id: this.userProfile.allRequests[index].requestedHouseID })
-        this.requestedHouses.push(request.data)
+        this.requestedHouses.push(request.data.house)
       }
       if (this.userProfile.accountType != 'Student') {
         this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id })

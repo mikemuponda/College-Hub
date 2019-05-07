@@ -152,7 +152,7 @@ router.post('/owner/:id', async (req, res) => {
 })
 
 //Request to rent
-//http://localhost:8080/houses/house/request/5cc9154cd3b7ae093481b099
+//http://localhost:8080/houses/house/request/5cd126f65efaa45728d29a33
 router.post('/house/request/:id', async (req, res) => {
   const houses = await loadHouses()
   var house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id)})
