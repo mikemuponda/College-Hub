@@ -140,6 +140,7 @@
                 <div style="width: 100%;" v-else>
                   <div class="forSeekers" style="width: 100%" v-if="userProfile.accountType == 'Student'">
                     <div class="row" v-if="!userProfile.allRequests || userProfile.allRequests.length == 0">
+                      
                       <div style="width: 100%; padding-top: 40px; padding-bottom: 40px; text-align: center;">
                         <p style="margin-top: 30px; color: #000;" class="subheading" >It looks like you haven't made any requests to rent</p>
                         <div class="row nopadding add-house">
@@ -267,7 +268,15 @@
                                         </NuxtLink>
                                       </div>
                                       <div class="col-md-3">
-                                        <button class="default-button-small button-red" v-on:click.prevent="cancelRequest(house._id)">Cancel Request</button>
+                                        <a href="#open-modal"><button class="default-button-small button-red">Cancel Request</button></a>
+                                        <div id="open-modal" class="modal-window">
+                                          <div>
+                                            <a href="#modal-close" title="Close" class="modal-close">close &times;</a>
+                                            <h1>CSS Modal</h1>
+                                            <div>Are you sure you want to cancel request?</div>
+                                            <button class="default-button-small button-red" v-on:click.prevent="cancelRequest(house._id)">Yes</button>
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
