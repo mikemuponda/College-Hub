@@ -138,7 +138,7 @@
                 </div>
 
                 <div style="width: 100%;" v-else>
-                  <div class="forSeekers" style="width: 100%" v-if="userProfile.isSeeker">
+                  <div class="forSeekers" style="width: 100%" v-if="userProfile.accountType == 'Student'">
                     <div class="row" v-if="!userProfile.allRequests || userProfile.allRequests.length == 0">
                       <div style="width: 100%; padding-top: 40px; padding-bottom: 40px; text-align: center;">
                         <p style="margin-top: 30px; color: #000;" class="subheading" >It looks like you haven't made any requests to rent</p>
@@ -216,7 +216,7 @@
                     </div>
                   </div>
 
-                  <div class="forProviders" style="width: 100%" v-if="!userProfile.isSeeker">
+                  <div class="forProviders" style="width: 100%" v-else>
                     <div class="houseAvailable" style="width: 100%">
                       <div class="row nopadding" style="width: 100%;">
                         <div class="col-md-12 inner-title-sec">
@@ -411,6 +411,7 @@ export default {
       housesOwned: null,
       houseExists: null,
       errors: null,
+      requestedHouses: [],
     }
   },
   methods: {
@@ -429,7 +430,7 @@ export default {
           this.housesOwned[index].status = newStatus
         }
       } catch (e) {
-        this.errors.push(e.message)
+        this.errors.push(e)
       }
     },
     async deleteHouse(id){
@@ -447,23 +448,22 @@ export default {
           }
         }
       } catch (e) {
-        this.errors.push(e.message)
+        this.errors.push(e)
       }
     }
   },
   async mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start()
-    })
+    this.$nextTick(() => { this.$nuxt.$loading.start() })
     try {
-      this.userProfile = await this.$store.dispatch('getProfile', {
-        id: this.$store.state.authUser.user.username
-      })
+      this.userProfile = await this.$store.dispatch('getProfile', { id: this.$store.state.authUser.user.username })
       this.userProfile = this.userProfile.data.user
-      if (!this.userProfile.isSeeker) {
-        this.houseExists = await this.$store.dispatch('getHousesByID', {
-          id: this.userProfile._id
-        })
+      var index
+      for(index in this.userProfile.allRequests){
+        var request = await this.$store.dispatch('getOneHouse', { id: this.userProfile.allRequests[index].requestedHouseID })
+        this.requestedHouses.push(request.data)
+      }
+      if (this.userProfile.accountType != 'Student') {
+        this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id })
         if (this.houseExists.data.message == 'House could not be found')
           this.houseExists = false
         else if (this.houseExists.data.message == '404')
@@ -474,11 +474,9 @@ export default {
         }
       }
     } catch (e) {
-      this.errors.push(e.message)
+      this.errors.push(e)
     }
-    this.$nextTick(() => {
-      setTimeout(() => this.$nuxt.$loading.finish(), 0)
-    })
+    this.$nextTick(() => { setTimeout(() => this.$nuxt.$loading.finish(), 0) })
   }
 }
 </script>

@@ -200,6 +200,7 @@ export const actions = {
     })
   },
 
+  //OwnerID
   async getHousesByID({commit}, {id}){
     var url = '/houses/owner/' + id
     try {
