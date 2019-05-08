@@ -268,14 +268,14 @@
                                         <div id="cancel-request" class="modal-window">
                                           <div>
                                             <a href="#cancel-request-close" title="Close" class="modal-close">close &times;</a>
-                                            <div>Are you sure you want to cancel request?</div>
+                                            <div class="modal-text">Are you sure you want to cancel request?</div>
                                             <button class="default-button-small button-red" v-on:click.prevent="modifyRequest(house._id, 'Cancelled')">Yes</button>
                                           </div>
                                         </div>
                                         <div id="resend-request" class="modal-window">
                                           <div>
                                             <a href="#resend-request-close" title="Close" class="modal-close">close &times;</a>
-                                            <div>Are you sure you want to resend this request?</div>
+                                            <div class="modal-text">Are you sure you want to resend this request?</div>
                                             <button class="default-button-small button-red" v-on:click.prevent="modifyRequest(house._id, 'pending')">Yes</button>
                                           </div>
                                         </div>
@@ -294,7 +294,7 @@
                         <div class="row nopadding add-house">
                           <div class="col-md-4"></div>
                           <div class="col-md-4">
-                            <button class="default-button" @click="searchAccommodation()">Request More</button>
+                            <button class="default-button" @click="searchAccommodation()">Find Accommodation</button>
                           </div>
                           <div class="col-md-4"></div>
                         </div>
@@ -365,9 +365,6 @@
                                     <p
                                       class="section-small-text"
                                     >{{house.addressSuburb}}, {{house.city}}</p>
-                                    <div style="width: 100%; margin-top: 10px;">
-                                      <p class="section-small-text">{{house.description}}</p>
-                                    </div>
                                     <div class="section-amenities">
                                       <div style="width: 50%; float: left;">
                                         <p class="section-small-text" v-if="house.specificSpaceType == 'Apartment'">
@@ -438,13 +435,28 @@
                                         </NuxtLink>
                                       </div>
                                       <div class="col-md-3" v-if="house.status == 'Active'">
-                                        <button class="default-button-small button-yellow" v-on:click.prevent="changeHouseStatus(house._id)">Suspend</button>
+                                        <a href="#suspend-house"><button class="default-button-small button-yellow">Suspend</button></a>
                                       </div>
                                       <div class="col-md-3" v-else>
-                                        <button class="default-button-small button-green" v-on:click.prevent="changeHouseStatus(house._id)">Activate</button>
+                                        <a href="#suspend-house"><button class="default-button-small button-green">Activate</button></a>
                                       </div>
+          
+                                        <div id="suspend-house" class="modal-window">
+                                          <div>
+                                            <a href="#suspend-house-close" title="Close" class="modal-close">close &times;</a>
+                                            <div class="modal-text">Are you sure you want to change the status of your Space?</div>
+                                            <button class="default-button-small button-red" v-on:click.prevent="changeHouseStatus(house._id)">Yes, Change Status</button>
+                                          </div>
+                                        </div>
                                       <div class="col-md-3">
-                                        <button class="default-button-small button-red" v-on:click.prevent="deleteHouse(house._id)">Remove</button>
+                                        <a href="#delete-house" v-if="house.status == 'Active' || house.status == 'Suspended'"><button class="default-button-small button-red">Remove</button></a>
+                                        <div id="delete-house" class="modal-window">
+                                          <div>
+                                            <a href="#delete-house-close" title="Close" class="modal-close">close &times;</a>
+                                            <div class="modal-text">Are you sure you want to remove this listed Space?</div>
+                                            <button class="default-button-small button-red" v-on:click.prevent="deleteHouse(house._id)">Yes, Remove</button>
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -530,7 +542,9 @@ export default {
         var index
         for(index in this.userProfile.allRequests){
           var request = await this.$store.dispatch('getOneHouse', { id: this.userProfile.allRequests[index].requestedHouseID })
-          this.requestedHouses.push(request.data.house)
+          if(request.data && request.data.length > 0){
+            this.requestedHouses.push(request.data.house)
+          }   
         }
         if (this.userProfile.accountType != 'Student') {
           this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id })

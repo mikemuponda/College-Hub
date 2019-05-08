@@ -1058,6 +1058,10 @@ input:valid~label {
   color: #000;
 }
 
+.modal-text{
+  text-align: center;
+}
+
 .fa:hover {
   opacity: 0.2;
 }
