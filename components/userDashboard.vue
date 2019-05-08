@@ -168,7 +168,7 @@
                           <div class="col-md-12">
                             <div class="row">
                               <div class="col-md-4 rental-image-div">
-                                <div style="margin-top: 10px;">
+                                <div style="margin-top: 10px; margin-left: 10px;">
                                   <b-carousel
                                     :id="house._id"
                                     :interval="0"
@@ -195,9 +195,6 @@
                                     <p
                                       class="section-small-text"
                                     >{{house.addressSuburb}}, {{house.city}}</p>
-                                    <div style="width: 100%; margin-top: 10px;">
-                                      <p class="section-small-text">{{house.description}}</p>
-                                    </div>
                                     <div class="section-amenities">
                                       <div style="width: 50%; float: left;">
                                         <p class="section-small-text" v-if="house.specificSpaceType == 'Apartment'">
@@ -250,34 +247,40 @@
                             <div class="row" style="width: 100%;">
                               <div class="col-md-12">
                                 <div class="row">
-                                  <div class="col-md-12" style="text-align: center;">
-                                    <p style="color: #00FF00; font-weight: 400;">{{house.status}}</p>
+                                  <div class="col-md-12" style="text-align: center;" v-for="request in house.allRequests" :key="request.requestID">
+                                    <p style="font-weight: 400; font-size: 14px;" v-if="request.requester == userProfile._id">Request Status: {{request.requestStatus}}</p>
                                   </div>
                                 </div>
                                 <div class="row" style="padding-bottom: 20px;">
                                   <div class="col-md-12">
                                     <div class="row">
-                                      <div class="col-md-3">
+                                      <div class="col-md-1"></div>
+                                      <div class="col-md-4">
                                         <NuxtLink :to="'/accommodation/view/' + house._id" title="View">
                                           <button class="default-button-small button-green">View House</button>
                                         </NuxtLink>
                                       </div>
-                                      <div class="col-md-3">
-                                        <NuxtLink :to="'/accommodation/view/' + house._id" title="View">
-                                          <button class="default-button-small button-blue">View Request</button>
-                                        </NuxtLink>
-                                      </div>
-                                      <div class="col-md-3">
-                                        <a href="#open-modal"><button class="default-button-small button-red">Cancel Request</button></a>
-                                        <div id="open-modal" class="modal-window">
+                                      <div class="col-md-2"></div>
+                                      <div class="col-md-4" v-for="request in house.allRequests" :key="request.requestID">
+                                        <a href="#cancel-request" v-if="request.requester == userProfile._id && request.requestStatus == 'pending'"><button class="default-button-small button-red">Cancel Request</button></a>
+                                        <a href="#resend-request" v-else-if="request.requester == userProfile._id && request.requestStatus == 'Cancelled'"><button class="default-button-small button-red">Resend Request</button></a>
+                                        
+                                        <div id="cancel-request" class="modal-window">
                                           <div>
-                                            <a href="#modal-close" title="Close" class="modal-close">close &times;</a>
-                                            <h1>CSS Modal</h1>
+                                            <a href="#cancel-request-close" title="Close" class="modal-close">close &times;</a>
                                             <div>Are you sure you want to cancel request?</div>
-                                            <button class="default-button-small button-red" v-on:click.prevent="cancelRequest(house._id)">Yes</button>
+                                            <button class="default-button-small button-red" v-on:click.prevent="modifyRequest(house._id, 'Cancelled')">Yes</button>
+                                          </div>
+                                        </div>
+                                        <div id="resend-request" class="modal-window">
+                                          <div>
+                                            <a href="#resend-request-close" title="Close" class="modal-close">close &times;</a>
+                                            <div>Are you sure you want to resend this request?</div>
+                                            <button class="default-button-small button-red" v-on:click.prevent="modifyRequest(house._id, 'pending')">Yes</button>
                                           </div>
                                         </div>
                                       </div>
+                                      <div class="col-md-1"></div>
                                     </div>
                                   </div>
                                 </div>
@@ -501,9 +504,51 @@ export default {
     searchAccommodation() {
       window.location.href = '/accommodation/find/?city=' + this.userProfile.city + '&suburb=allsuburbs'
     },
-    async cancelRequest(houseID){
-      console.log(houseID)
+    async modifyRequest(houseID, action){
+      var index
+      for(index in this.userProfile.allRequests){
+        if(this.userProfile.allRequests[index].requestedHouseID == houseID){
+          this.userProfile.allRequests[index].requestStatus = action
+          try{
+            this.userProfile = await this.$store.dispatch('modifyRequestToRentUser', {Form: this.userProfile.allRequests[index]})
+            this.userProfile = this.userProfile.data.user
+            await this.$store.dispatch('modifyRequestToRentHouse', {Form: this.userProfile.allRequests[index]})
+          }catch(e){
+            this.errors.push(e)
+          }
+        }
+      }
+      this.getData()
     },
+
+    async getData(){
+      this.$nextTick(() => { this.$nuxt.$loading.start() })
+      this.requestedHouses = []
+       try {
+        this.userProfile = await this.$store.dispatch('getProfile', { id: this.$store.state.authUser.user.username })
+        this.userProfile = this.userProfile.data.user
+        var index
+        for(index in this.userProfile.allRequests){
+          var request = await this.$store.dispatch('getOneHouse', { id: this.userProfile.allRequests[index].requestedHouseID })
+          this.requestedHouses.push(request.data.house)
+        }
+        if (this.userProfile.accountType != 'Student') {
+          this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id })
+          if (this.houseExists.data.message == 'House could not be found')
+            this.houseExists = false
+          else if (this.houseExists.data.message == '404')
+            this.houseExists = false
+          else {
+            this.housesOwned = this.houseExists.data
+            this.houseExists = true
+          }
+        }
+      } catch (e) {
+        this.errors.push(e)
+      }
+      this.$nextTick(() => { setTimeout(() => this.$nuxt.$loading.finish(), 0) })
+    },
+    
     async changeHouseStatus(id){
       var index = this.housesOwned.findIndex(house => house._id === id)
       var newStatus = null
@@ -539,30 +584,7 @@ export default {
     }
   },
   async mounted() {
-    this.$nextTick(() => { this.$nuxt.$loading.start() })
-    try {
-      this.userProfile = await this.$store.dispatch('getProfile', { id: this.$store.state.authUser.user.username })
-      this.userProfile = this.userProfile.data.user
-      var index
-      for(index in this.userProfile.allRequests){
-        var request = await this.$store.dispatch('getOneHouse', { id: this.userProfile.allRequests[index].requestedHouseID })
-        this.requestedHouses.push(request.data.house)
-      }
-      if (this.userProfile.accountType != 'Student') {
-        this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id })
-        if (this.houseExists.data.message == 'House could not be found')
-          this.houseExists = false
-        else if (this.houseExists.data.message == '404')
-          this.houseExists = false
-        else {
-          this.housesOwned = this.houseExists.data
-          this.houseExists = true
-        }
-      }
-    } catch (e) {
-      this.errors.push(e)
-    }
-    this.$nextTick(() => { setTimeout(() => this.$nuxt.$loading.finish(), 0) })
+    this.getData()
   }
 }
 </script>

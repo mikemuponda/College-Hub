@@ -187,6 +187,40 @@ router.post('/house/request/:id', async (req, res) => {
   return res.json({house})
 })
 
+//Modify Request to Rent
+router.post('/modify/request/:id', async(req, res) => {
+  const houses = await loadHouses()
+  var house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id)})
+  var temp = []
+  if(house.hasOwnProperty('allRequests')){
+    temp = house.allRequests
+  }
+  var index
+  for(index in temp){
+    if(temp[index].requester == req.body.requester){
+      temp.splice(index, 1)
+    }
+  }
+  let newRequest = {
+    requestID: req.body.requestID,
+    requester: req.body.requester,
+    requestedHouseID: req.body.requestedHouseID,
+    requestStatus: req.body.requestStatus,
+    requestedDate: req.body.requestedDate,
+    statusDateUpdate: new Date() 
+  }
+  temp.push(newRequest)
+  let params = { allRequests: temp}
+  await houses.findOneAndUpdate(
+    {_id: new mongodb.ObjectID(req.params.id)},
+    {$set: Object.assign(params)},
+    {upsert: true}
+  )
+  
+  house = await houses.findOne({_id: new mongodb.ObjectID(req.params.id)})
+  return res.json({house})
+})
+
 //Delete House by ID
 router.delete('/delete/:id', async (req, res) => {
   const houses = await loadHouses()

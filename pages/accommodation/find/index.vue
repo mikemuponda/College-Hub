@@ -369,6 +369,11 @@ export default {
       this.Form.university = this.$route.query.university
     }
     this.houses = this.allHousesGlobal
+    if(this.houses && this.houses.length < 0){
+      var houseList = await store.dispatch('getAllHousesAsync')
+      this.houses = houseList.data
+    }
+    
     this.locale = data.locale
     var index
     for(index in this.locale.cities){

@@ -349,6 +349,47 @@ router.post('/accommodation/request/:id', async (req, res) => {
   }
 })
 
+router.post('/accommodation/cancel/request/:id', async(req, res) => {
+  const users = await loadUsers()
+  var user
+  if(user = await users.findOne({ _id: new mongodb.ObjectID(req.params.id)})){
+    if(user.isConfirmed == true){
+      var temp = []
+      if(user.hasOwnProperty('allRequests')){
+        temp = user.allRequests
+      }
+      var index
+      for(index in temp){
+        if(temp[index].requester == req.body.requester){
+          temp.splice(index, 1)
+        }
+      }
+      let newRequest = {
+        requestID: req.body.requestID,
+        requester: req.body.requester,
+        requestedHouseID: req.body.requestedHouseID,
+        requestStatus: req.body.requestStatus,
+        requestedDate: req.body.requestedDate,
+        statusDateUpdate: new Date() 
+      }
+      temp.push(newRequest)
+      let params = {allRequests: temp }
+
+      await users.findOneAndUpdate(
+        {_id: new mongodb.ObjectID(req.params.id)},
+        {$set: Object.assign(params)},
+        {upsert: true}
+      )
+      
+      user = await users.findOne({_id: new mongodb.ObjectID(req.params.id)})
+      return res.json({user})
+    }else{
+      return res.status(401).json({message: 'Cannot Request to Rent. Account has not been confirmed yet'})
+    }
+  }else{
+    return res.status(401).json({message: 'User has not yet confirmed account'})
+  }
+})
 
 
 

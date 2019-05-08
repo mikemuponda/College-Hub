@@ -299,6 +299,25 @@ export const actions = {
     }
   },
 
+  async modifyRequestToRentUser({commit}, {Form}){
+    var userURL = '/users/accommodation/cancel/request/' + Form.requester
+    try {
+      return await axios.post(userURL, Form)
+    } catch (error) {
+      return error
+    } 
+  },
+
+  async modifyRequestToRentHouse({commit}, {Form}){
+    var accommodationURL = '/houses/modify/request/' + Form.requestedHouseID
+
+    try {
+      return await axios.post(accommodationURL, Form)
+    } catch (error) {
+      return error
+    } 
+  },
+
   async getAllLocales({commit},){
     var url = '/data/get/locales'
     try {

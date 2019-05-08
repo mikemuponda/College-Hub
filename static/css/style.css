@@ -1034,6 +1034,8 @@ input:valid~label {
   padding: 2rem;
   background: #fff;
   color: #444;
+  border: 0.5px solid purple;
+  border-radius: 2px;
 }
 
 .modal-window header {
@@ -1054,11 +1056,6 @@ input:valid~label {
 
 .modal-close:hover {
   color: #000;
-}
-
-.modal-window h1 {
-  font-size: 150%;
-  margin: 0 0 15px;
 }
 
 .fa:hover {
