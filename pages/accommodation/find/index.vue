@@ -73,8 +73,8 @@
           </div>
         </div>
         <div class="col-md-9">
-          <div class="container">
-            <div class="row default-user-panel" style="margin-top: 5px;">
+          <div class="container-fluid">
+            <div class="row default-user-panel" style="margin-top: 5px; overflow: hidden;">
               <div style="margin-top: 20px; width: 100%;"></div>
               <div class="container-fluid">
                 <div class="row" v-if="errors.length">
@@ -92,12 +92,12 @@
                   </div>
                 </div>
                 <div class="row nopadding" v-else>
-                  <div class="col-md-12" style="width: 100%;">
-                    <div class="taxiMapDisplay" style="width: 100%; margin-bottom: 20px;">
+                  <div class="col-md-6" style="padding-left: 0px; width: 100%;">
+                    <div class="taxiMapDisplay" style="width: 100%; height: 460px; margin-bottom: 20px;">
                       <no-ssr>
                         <google-map
                           :center="mapCenter"
-                          :zoom="11"
+                          :zoom="12"
                           style="width: 100%; height: 100%"
                         >
                           <google-marker
@@ -111,81 +111,58 @@
                         </google-map>
                       </no-ssr>
                     </div>
-
-                    <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
-                      <div class="houseDisplayed" @click="redirect('/accommodation/view/' + house._id)" :title="house.title" style="width: 100%; color: #000;">
-                        <div class="row">
-                          <div class="col-md-4">
-                            <no-ssr>
-                              <b-carousel
-                                :id="house._id"
-                                :interval="0"
-                                controls
-                                indicators
-                                background="#ffffff"
-                                img-width="100%"
-                                img-height="100%"
-                                style="height: 180px; overflow: hidden;"
-                              >
-                                <b-carousel-slide
-                                  v-for="(image, index) in house.accommodationImages"
-                                  :key="index"
-                                  :alt="house.title"
-                                  :img-src="image.path"
-                                ></b-carousel-slide>
-                              </b-carousel>
-                            </no-ssr>
-                          </div>
-                          <div class="col-md-5">
-                            <h3 class="section-subtitle">{{house.title}}</h3>
-                            <p class="section-small-text">{{house.suburb}}, {{house.city}}</p>
-                            <p class="section-description">{{house.description}}</p>
-                          </div>
-                          <div class="col-md-3 amenities">
-                            <h3 class="section-subtitle" style="font-size: 14px;">
-                              <strong>{{house.priceCurrency}}{{house.priceValue}}/{{house.priceTime}}</strong>
-                              <br>
-                              <span
-                                v-if="house.priceMethod == 'perHead'"
-                                style="font-size: 12px; color: #606060;"
-                              >per Person</span>
-                              <span
-                                v-else-if="house.priceMethod == 'perRoom'"
-                                style="font-size: 12px; color: #606060;"
-                              >per Room</span>
-                              <span
-                                v-else-if="house.priceMethod == 'fullHouse'"
-                                style="font-size: 12px; color: #606060;"
-                              >Full House</span>
-                              <span
-                                v-else
-                                style="font-size: 12px; color: #606060;"
-                              >{{house.priceMethod}}</span>
-                            </h3>
-                            <br>
-                            <div class="row nopadding" style="width: 100%">
-                              <div class="col-md-12 nopadding">
-                                <p class="section-small-text">
-                                  UZ (10 minutes)
-                                  <i class="fas fa-graduation-cap"></i>
-                                </p>
-                                <p class="section-small-text" v-if="house.amenities.beds">
-                                  {{house.bedroomcount}} Bedrooms
-                                  <i class="fas fa-bed"></i>
-                                </p>
-                                <p class="section-small-text" v-if="house.amenities.essentials">
-                                  Essentials
-                                  <i class="fas fa-briefcase"></i>
-                                </p>
-                                <p class="section-small-text" v-if="house.amenities.wifi">
-                                  Wifi
-                                  <i class="fas fa-wifi"></i>
-                                </p>
-                                <p class="section-small-text" v-if="house.amenities.desks">
-                                  Desks
-                                  <i class="fas fa-table"></i>
-                                </p>
-                              </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="display-scroller" style="padding-left: 0px; padding-right: 0px;">
+                      <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
+                        <div class="houseDisplayed" @click="redirect('/accommodation/view/' + house._id)" :title="house.title" style="width: 100%; color: #000;">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <no-ssr>
+                                <b-carousel
+                                  :id="house._id"
+                                  :interval="0"
+                                  controls
+                                  indicators
+                                  background="#ffffff"
+                                  img-width="100%"
+                                  img-height="100%"
+                                  style="height: 90px; overflow: hidden;"
+                                >
+                                  <b-carousel-slide
+                                    v-for="(image, index) in house.accommodationImages"
+                                    :key="index"
+                                    :alt="house.title"
+                                    :img-src="image.path"
+                                  ></b-carousel-slide>
+                                </b-carousel>
+                              </no-ssr>
+                            </div>
+                            <div class="col-md-5 nopadding">
+                              <h3 class="subheading-four">{{house.title}}</h3>
+                              <p class="section-small-text">{{house.suburb}}, {{house.city}}</p>
+                            </div>
+                            <div class="col-md-3 nopadding amenities" style="text-align: left;">
+                              <h3 class="section-subtitle" style="font-size: 12px; padding-top: 0px;">
+                                <strong>{{house.priceCurrency}}{{house.priceValue}}/{{house.priceTime}}</strong>
+                                <br>
+                                <span
+                                  v-if="house.priceMethod == 'perHead'"
+                                  style="font-size: 12px; color: #606060;"
+                                >per Person</span>
+                                <span
+                                  v-else-if="house.priceMethod == 'perRoom'"
+                                  style="font-size: 12px; color: #606060;"
+                                >per Room</span>
+                                <span
+                                  v-else-if="house.priceMethod == 'fullHouse'"
+                                  style="font-size: 12px; color: #606060;"
+                                >Full House</span>
+                                <span
+                                  v-else
+                                  style="font-size: 12px; color: #606060;"
+                                >{{house.priceMethod}}</span>
+                              </h3>  
                             </div>
                           </div>
                         </div>
@@ -416,6 +393,13 @@ export default {
 </script>
 
 <style>
+.recommended-card{
+  height: 110px;
+}
+
+.height-controller{
+  height: 1000px;
+}
 .houseDisplayed:hover{
   cursor: pointer;
 }
@@ -425,6 +409,31 @@ export default {
   }
   .adsColumn {
     display: none;
+  }
+  .height-controller{
+    height: 500px;
+  }
+
+  .display-scroller{
+    height: 460px;
+    overflow-y: scroll;
+  }
+
+  .display-scroller::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+
+  .display-scroller::-webkit-scrollbar{
+    width: 12px;
+    background-color: #F5F5F5;
+  }
+
+  .display-scroller::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #D62929;
   }
 }
 
