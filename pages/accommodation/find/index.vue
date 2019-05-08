@@ -127,7 +127,7 @@
                                   background="#ffffff"
                                   img-width="100%"
                                   img-height="100%"
-                                  style="height: 90px; overflow: hidden;"
+                                  class="image-carousel"
                                 >
                                   <b-carousel-slide
                                     v-for="(image, index) in house.accommodationImages"
@@ -138,11 +138,11 @@
                                 </b-carousel>
                               </no-ssr>
                             </div>
-                            <div class="col-md-5 nopadding">
+                            <div class="col-md-5 displayMobile">
                               <h3 class="subheading-four">{{house.title}}</h3>
                               <p class="section-small-text">{{house.suburb}}, {{house.city}}</p>
                             </div>
-                            <div class="col-md-3 nopadding amenities" style="text-align: left;">
+                            <div class="col-md-3 amenities displayMobile" style="text-align: left;">
                               <h3 class="section-subtitle" style="font-size: 12px; padding-top: 0px;">
                                 <strong>{{house.priceCurrency}}{{house.priceValue}}/{{house.priceTime}}</strong>
                                 <br>
@@ -393,9 +393,6 @@ export default {
 </script>
 
 <style>
-.recommended-card{
-  height: 110px;
-}
 
 .height-controller{
   height: 1000px;
@@ -403,7 +400,7 @@ export default {
 .houseDisplayed:hover{
   cursor: pointer;
 }
-@media only screen and (min-width: 756px) {
+@media only screen and (min-width: 872px) {
   .housefilterbutton {
     display: none;
   }
@@ -412,6 +409,15 @@ export default {
   }
   .height-controller{
     height: 500px;
+  }
+
+  .recommended-card{
+    height: 110px;
+  }
+
+  .recommended-card .image-carousel{
+    height: 90px;
+    overflow: hidden;
   }
 
   .display-scroller{
@@ -439,7 +445,26 @@ export default {
   }
 }
 
-@media only screen and (max-width: 756px) {
+@media only screen and (max-width: 872px) {
+  .recommended-card{
+    height: 400px;
+  }
+  .recommended-card .image-carousel{
+    height: 300px;
+  }
+  .displayMobile{
+    background: #fff;
+    width: 95%;
+    margin-left: 15px;
+    padding-top: 7px;
+  }
+  .subheading-four {
+    font-size: 15px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+    font-weight: 420;
+  }
   .adsOnPCOnly {
     display: none;
   }
