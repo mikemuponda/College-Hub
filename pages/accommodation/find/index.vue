@@ -411,34 +411,34 @@ export default {
     height: 500px;
   }
 
-  .recommended-card{
+  .display-scroller .recommended-card{
     height: 110px;
   }
 
-  .recommended-card .image-carousel{
+  .display-scroller .recommended-card .image-carousel{
     height: 90px;
     overflow: hidden;
   }
 
-  .display-scroller{
+  .display-scroller .display-scroller{
     height: 460px;
     overflow-y: scroll;
     padding: 5px;
     margin: 0px;
   }
 
-  .display-scroller::-webkit-scrollbar-track{
+  .display-scroller .display-scroller::-webkit-scrollbar-track{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius: 10px;
     background-color: #F5F5F5;
   }
 
-  .display-scroller::-webkit-scrollbar{
+  .display-scroller .display-scroller::-webkit-scrollbar{
     width: 9px;
     background-color: #F5F5F5;
   }
 
-  .display-scroller::-webkit-scrollbar-thumb{
+  .display-scroller .display-scroller::-webkit-scrollbar-thumb{
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: purple;
@@ -446,19 +446,19 @@ export default {
 }
 
 @media only screen and (max-width: 872px) {
-  .recommended-card{
+  .display-scroller .recommended-card{
     height: 400px;
   }
-  .recommended-card .image-carousel{
+  .display-scroller .recommended-card .image-carousel{
     height: 300px;
   }
-  .displayMobile{
+  .display-scroller .displayMobile{
     background: #fff;
     width: 95%;
     margin-left: 15px;
     padding-top: 7px;
   }
-  .subheading-four {
+  .display-scroller .subheading-four {
     font-size: 15px;
     padding-bottom: 0px;
     margin-bottom: 0px;
