@@ -9,8 +9,7 @@
               style="visibility: visible; animation-name: fadeInUp;"
             >
               <h3 class="heading">About us</h3>
-              <p>We are a young company that provides online services to ease life at universities.</p>
-              <p>Collegehub Inc.</p>
+              <p>Collegehub is a platform where university students get easy access to accomodation, restaurants, listings of upcoming events, a marketplace and can travel with great convenience using the taxi finder service.</p>
               <a href="https://wa.me/263778011367" target="_blank" rel="noopener" title="WhatsApp">
                 <i class="fab fa-whatsapp"/>
               </a>
@@ -141,7 +140,7 @@
                 title="Lekkahub"
               >LEKKAHUB</a>
             </div>
-            <div class="col-md-6 footer-copyright">© 2019 Collegehub</div>
+            <div class="col-md-6 footer-copyright">® 2019 Collegehub</div>
           </div>
         </div>
       </div>
