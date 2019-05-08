@@ -112,9 +112,9 @@
                       </no-ssr>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="display-scroller" style="padding-left: 0px; padding-right: 0px;">
-                      <div class="row recommended-card" v-for="(house, index) in houses" :key="index">
+                  <div class="col-md-6 nopadding">
+                    <div class="display-scroller">
+                      <div class="row recommended-card" style="width: 98%; margin-left: 5px;" v-for="(house, index) in houses" :key="index">
                         <div class="houseDisplayed" @click="redirect('/accommodation/view/' + house._id)" :title="house.title" style="width: 100%; color: #000;">
                           <div class="row">
                             <div class="col-md-4">
@@ -417,6 +417,8 @@ export default {
   .display-scroller{
     height: 460px;
     overflow-y: scroll;
+    padding: 5px;
+    margin: 0px;
   }
 
   .display-scroller::-webkit-scrollbar-track{
@@ -426,14 +428,14 @@ export default {
   }
 
   .display-scroller::-webkit-scrollbar{
-    width: 12px;
+    width: 9px;
     background-color: #F5F5F5;
   }
 
   .display-scroller::-webkit-scrollbar-thumb{
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: #D62929;
+    background-color: purple;
   }
 }
 
