@@ -16,7 +16,7 @@ const loadArticles = async function() {
 }
 
 // Add an article
-router.post('/api/article', async(req, res) => {
+router.post('/article', async(req, res) => {
     const article = await loadArticles()
     await article.insertOne(req.body, function(err, response) {
         if (err)
@@ -28,7 +28,7 @@ router.post('/api/article', async(req, res) => {
 })
 
 //Get All Articles
-router.get('/api/allarticles', async(req, res) => {
+router.post('/allarticles', async(req, res) => {
     const articles = await loadArticles()
     return res.send(await articles.find({}).toArray())
 })
