@@ -301,6 +301,7 @@ export const actions = {
 
   async modifyRequestToRentUser({commit}, {Form}){
     var userURL = '/users/accommodation/cancel/request/' + Form.requester
+    console.log(Form)
     try {
       return await axios.post(userURL, Form)
     } catch (error) {

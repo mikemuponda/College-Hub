@@ -1163,6 +1163,8 @@ export default {
         priceMethod: null,
         priceTime: null,
         status: 'Active',
+        allRequests: [],
+        accommodationImages: [],
         createdAt: new Date(),
       },
       formData: null,

@@ -1022,7 +1022,7 @@ input:valid~label {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 999;
+  z-index: 10000;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: all 0.3s;

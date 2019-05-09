@@ -247,8 +247,8 @@
                             <div class="row" style="width: 100%;">
                               <div class="col-md-12">
                                 <div class="row">
-                                  <div class="col-md-12" style="text-align: center;" v-for="request in house.allRequests" :key="request.requestID">
-                                    <p style="font-weight: 400; font-size: 14px;" v-if="request.requester == userProfile._id">Request Status: {{request.requestStatus}}</p>
+                                  <div class="col-md-12" style="text-align: center;" v-for="request in userProfile.allRequests" :key="request.requestID">
+                                    <p style="font-weight: 400; font-size: 14px;" v-if="request.requester == userProfile._id && request.requestedHouseID == house._id">Request Status: {{request.requestStatus}}</p>
                                   </div>
                                 </div>
                                 <div class="row" style="padding-bottom: 20px;">
@@ -264,6 +264,7 @@
                                       <div class="col-md-4" v-for="request in house.allRequests" :key="request.requestID">
                                         <a href="#cancel-request" v-if="request.requester == userProfile._id && request.requestStatus == 'pending'"><button class="default-button-small button-red">Cancel Request</button></a>
                                         <a href="#resend-request" v-else-if="request.requester == userProfile._id && request.requestStatus == 'Cancelled'"><button class="default-button-small button-red">Resend Request</button></a>
+                                        <a href="#deleted-request" v-else-if="request.requester == userProfile._id && request.requestStatus == 'Deleted'"><button class="default-button-small button-red">Deleted House</button></a>
                                         
                                         <div id="cancel-request" class="modal-window">
                                           <div>
@@ -277,6 +278,12 @@
                                             <a href="#resend-request-close" title="Close" class="modal-close">close &times;</a>
                                             <div class="modal-text">Are you sure you want to resend this request?</div>
                                             <button class="default-button-small button-red" v-on:click.prevent="modifyRequest(house._id, 'pending')">Yes</button>
+                                          </div>
+                                        </div>
+                                        <div id="deleted-request" class="modal-window">
+                                          <div>
+                                            <a href="#deleted-request-close" title="Close" class="modal-close">close &times;</a>
+                                            <div class="modal-text">Unforntunately this house was deleted by the owner</div>
                                           </div>
                                         </div>
                                       </div>
@@ -534,7 +541,6 @@ export default {
     },
 
     async getData(){
-      this.$nextTick(() => { this.$nuxt.$loading.start() })
       this.requestedHouses = []
        try {
         this.userProfile = await this.$store.dispatch('getProfile', { id: this.$store.state.authUser.user.username })
@@ -542,7 +548,7 @@ export default {
         var index
         for(index in this.userProfile.allRequests){
           var request = await this.$store.dispatch('getOneHouse', { id: this.userProfile.allRequests[index].requestedHouseID })
-          if(request.data && request.data.length > 0){
+          if(request.data){
             this.requestedHouses.push(request.data.house)
           }   
         }
@@ -560,7 +566,6 @@ export default {
       } catch (e) {
         this.errors.push(e)
       }
-      this.$nextTick(() => { setTimeout(() => this.$nuxt.$loading.finish(), 0) })
     },
     
     async changeHouseStatus(id){
@@ -579,6 +584,20 @@ export default {
       }
     },
     async deleteHouse(id){
+      var i, j
+      for(i in this.housesOwned){
+        if(this.housesOwned[i].allRequests){
+          for(j in this.housesOwned[i].allRequests){
+            console.log('All Requests: ' + this.housesOwned[i].allRequests)
+            if(this.housesOwned[i].allRequests[j].requestedHouseID == id){
+              console.log('Matched Request: ' + this.housesOwned[i].allRequests[j])
+              this.housesOwned[i].allRequests[j].requestStatus = 'Deleted'
+              await this.$store.dispatch('modifyRequestToRentUser', {Form: this.housesOwned[i].allRequests[j]})
+            }
+          }
+        }
+      }
+
       try{
         if(await this.$store.dispatch('deleteHouse', {id: id})){
           this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id})
@@ -595,10 +614,13 @@ export default {
       } catch (e) {
         this.errors.push(e)
       }
+      
     }
   },
   async mounted() {
+    this.$nextTick(() => { this.$nuxt.$loading.start() })
     this.getData()
+    this.$nextTick(() => { setTimeout(() => this.$nuxt.$loading.finish(), 0) })
   }
 }
 </script>
