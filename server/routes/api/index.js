@@ -93,22 +93,26 @@ router.post('/confirm-signup/:id', async (req, res) => {
   const users = await loadUsers()
   var user = null
   if (user = await users.findOne({"confirmationKey": req.params.id})) {
-    await users.findOneAndUpdate(
-      {"confirmationKey": req.params.id},
-      {$set: {"isConfirmed": true}},
-      {upsert: true,}
-    )
-    const msg = {
-      to: user.email,
-      from: 'Collegehub <noreply@collegehub.co.zw>',
-      subject: 'Collegehub: Your email account has been confirmed',
-      html: '<h2>Hello, ' + user.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
+    if(user.isConfirmed == false){
+      await users.findOneAndUpdate(
+        {"confirmationKey": req.params.id},
+        {$set: {"isConfirmed": true}},
+        {upsert: true,}
+      )
+
+      const msg = {
+        to: user.email,
+        from: 'Collegehub <noreply@collegehub.co.zw>',
+        subject: 'Collegehub: Your email account has been confirmed',
+        html: '<h2>Hello, ' + user.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
+      }
+      sgMail.send(msg)
     }
+    
     
     var user = await users.findOne({"confirmationKey": req.params.id})
     if (user.isConfirmed){
       req.session.authUser = {user: user}
-      sgMail.send(msg)
       return res.json({user})
     }else {
       res.status(400).json({message: 'Does not exist!'})
