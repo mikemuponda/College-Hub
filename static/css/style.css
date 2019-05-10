@@ -81,6 +81,14 @@ body {
   padding: 20px;
 }
 
+.subheading-four {
+  font-size: 13px;
+  text-align: left;
+  color: #000000;
+  word-spacing: 1px;
+  font-weight: 420;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -750,7 +758,7 @@ input:valid~label {
 .section-small-text {
   font-weight: 420;
   font-size: 12px;
-  color: #696969;
+  color: #aaaaaa;
   padding: 0px 0px 0px 0px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -1005,6 +1013,61 @@ input:valid~label {
 .slide-fade-enter, .slide-fade-leave-to{
   transform: translateX(10px);
   opacity: 0;
+}
+
+.modal-window {
+  position: fixed;
+  background-color: rgba(200, 200, 200, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.modal-window:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-window>div {
+  width: 400px;
+  position: relative;
+  margin: 10% auto;
+  padding: 2rem;
+  background: #fff;
+  color: #444;
+  border: 0.5px solid purple;
+  border-radius: 2px;
+}
+
+.modal-window header {
+  font-weight: bold;
+}
+
+.modal-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.modal-text{
+  text-align: center;
 }
 
 .fa:hover {

@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; background: #eee; padding-bottom: 20px;">
+  <div style="width: 100%; background: #eee; padding-bottom: 20px; margin-top:80px;">
     <div class="container-fluid" style="margin-bottom: 20px;">
       <div class="row">
         <div class="col-md-2 dashboard-greeting-display">
@@ -1163,6 +1163,8 @@ export default {
         priceMethod: null,
         priceTime: null,
         status: 'Active',
+        allRequests: [],
+        accommodationImages: [],
         createdAt: new Date(),
       },
       formData: null,

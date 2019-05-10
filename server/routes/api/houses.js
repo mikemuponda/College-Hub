@@ -146,21 +146,26 @@ router.post('/owner/:id', async(req, res) => {
 })
 
 //Request to rent
-//http://localhost:8080/houses/house/request/5cc9154cd3b7ae093481b099
-router.post('/house/request/:id', async(req, res) => {
-    const houses = await loadHouses()
-    var house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id) })
-    let newRequest = {
-        requestID: req.body.reqID,
-        requester: req.body.requesterID,
-        requestedHouseID: req.body.houseID,
-        requestStatus: 'pending',
-        requestedDate: new Date(),
-        statusDateUpdate: null
-    }
-    var temp = []
-    if (house.hasOwnProperty('allRequests')) {
-        temp = house.allRequests
+//http://localhost:8080/houses/house/request/5cd126f65efaa45728d29a33
+router.post('/house/request/:id', async (req, res) => {
+  const houses = await loadHouses()
+  var house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id)})
+  let newRequest = {
+    requestID: req.body.reqID,
+    requester: req.body.requesterID,
+    requestedHouseID: req.body.houseID,
+    requestStatus: 'pending',
+    requestedDate: new Date(),
+    statusDateUpdate: null 
+  }
+  var temp = []
+  if(house.hasOwnProperty('allRequests')){
+    temp = house.allRequests
+  }
+  var requested = false, index
+  for(index in temp){
+    if(temp[index].requester == newRequest.requester){
+      requested = true
     }
     var requested = false,
         index
@@ -176,6 +181,40 @@ router.post('/house/request/:id', async(req, res) => {
     }
     house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id) })
     return res.json({ house })
+})
+
+//Modify Request to Rent
+router.post('/modify/request/:id', async(req, res) => {
+  const houses = await loadHouses()
+  var house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id)})
+  var temp = []
+  if(house.hasOwnProperty('allRequests')){
+    temp = house.allRequests
+  }
+  var index
+  for(index in temp){
+    if(temp[index].requester == req.body.requester){
+      temp.splice(index, 1)
+    }
+  }
+  let newRequest = {
+    requestID: req.body.requestID,
+    requester: req.body.requester,
+    requestedHouseID: req.body.requestedHouseID,
+    requestStatus: req.body.requestStatus,
+    requestedDate: req.body.requestedDate,
+    statusDateUpdate: new Date() 
+  }
+  temp.push(newRequest)
+  let params = { allRequests: temp}
+  await houses.findOneAndUpdate(
+    {_id: new mongodb.ObjectID(req.params.id)},
+    {$set: Object.assign(params)},
+    {upsert: true}
+  )
+  
+  house = await houses.findOne({_id: new mongodb.ObjectID(req.params.id)})
+  return res.json({house})
 })
 
 //Delete House by ID

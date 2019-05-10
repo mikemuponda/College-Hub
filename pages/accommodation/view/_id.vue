@@ -269,7 +269,7 @@ export default {
         this.description = this.house.description
         this.accImages = this.house.accommodationImages
         if(this.accImages.length > 5){
-          this.accImages.splice(4, this.accImages.length - 5)
+          this.accImages.splice(4, this.accImages.length - 4)
         }
         if(this.accImages.length == 1){
           this.imageHeight = 100

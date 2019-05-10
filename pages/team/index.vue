@@ -18,7 +18,7 @@
                         <img class="img-fluid" src="/img/team/bright.jpeg" title="Bright Zenda" alt="Bright Zenda">
                       </p>
                       <h4 class="card-title">Bright Zenda</h4>
-                      <p class="card-text">Co-Founder | CEO</p>
+                      <p class="card-text">Co-Founder | Operations Lead</p>
                       <a href="#" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
                       </a>
@@ -30,7 +30,7 @@
                     <div class="card-body text-center mt-4">
                       <h4 class="card-title">Bright Zenda</h4>
                       <p class="card-text">
-                        Bright is a young entrepreneur whose goal is to make the world a better place especially through technology. He brings to the team leadership qualities and his role is to make sure Collegehub becomes one of the best services in the country and to bring quality user experience.
+                        Bright is a young entrepreneur whose goal is to make the world a better place through technology. He brings to the team leadership qualities and his role is to ensure Collegehub becomes premier service for college students in the country.
                       </p>
                       <ul class="list-inline">
                         <li class="list-inline-item">
@@ -74,143 +74,8 @@
             </div>
           </div>
           <!-- ./Team member -->
-          <!-- Team member -->
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-              <div class="mainflip">
-                <div class="frontside">
-                  <div class="card">
-                    <div class="card-body text-center">
-                      <p>
-                        <img class="img-fluid" src="/img/team/tinashen.jpeg" title="Tinashe Nyamapfeni" alt="Tinashe Nyamapfeni">
-                      </p>
-                      <h4 class="card-title">Tinashe Nyamapfeni</h4>
-                      <p class="card-text">Chairperson</p>
-                      <a href="#" class="btn btn-primary btn-sm">
-                        <i class="fa fa-plus"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="backside">
-                  <div class="card">
-                    <div class="card-body text-center mt-4">
-                      <h4 class="card-title">Tinashe Nyamapfeni</h4>
-                      <p class="card-text">
-                        Tinashe is the chair at Collegehub. He facilitates in growth and service delivery.
-                        He is passionate about helping people especially through the medical field. He is
-                        a Medical and Surgery trainee at the University of Zimbabwe.
-                      </p>
-                      <ul class="list-inline">
-                        <li class="list-inline-item">
-                          <a
-                            class="social-icon text-xs-center"
-                            target="_blank"
-                            rel="noopener"
-                            title="Facebook"
-                            href="https://www.facebook.com/tinashe.nyamapfeni2"
-                          >
-                            <i class="fa fa-facebook"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a
-                            class="social-icon text-xs-center"
-                            target="_blank"
-                            href="mailto:tinashe.nyamapfeni@collegehub.co.zw"
-                            title="Email Tinashe"
-                          >
-                            <i class="fa fa-envelope"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a
-                            class="social-icon text-xs-center"
-                            href="https://wa.me/263774113701"
-                            target="_blank"
-                            rel="noopener"
-                            title="WhatsApp"
-                          >
-                            <i class="fa fa-whatsapp"/>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ./Team member -->
-          <!-- Team member -->
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-              <div class="mainflip">
-                <div class="frontside">
-                  <div class="card">
-                    <div class="card-body text-center">
-                      <p>
-                        <img class="img-fluid" src="/img/team/vincent.jpeg" title="Vincent Chabvonga" alt="Vincent Chabvonga">
-                      </p>
-                      <h4 class="card-title">Vincent Chabvonga</h4>
-                      <p class="card-text">Head Marketing</p>
-                      <a href="#" class="btn btn-primary btn-sm">
-                        <i class="fa fa-plus"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="backside">
-                  <div class="card">
-                    <div class="card-body text-center mt-4">
-                      <h4 class="card-title">Vincent Chabvonga</h4>
-                      <p
-                        class="card-text"
-                      >The head marketing at Collegehub. Vincent manages the marketing operations
-                       at Collegehub. He is also a trader on the ZSE. He is currently studying Medicine
-                       and Surgery at the University of Zimbabwe.</p>
-                      <ul class="list-inline">
-                        <li class="list-inline-item">
-                          <a
-                            class="social-icon text-xs-center"
-                            target="_blank"
-                            rel="noopener"
-                            title="Facebook"
-                            href="https://www.facebook.com/profile.php?id=100011633389334"
-                          >
-                            <i class="fa fa-facebook"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a
-                            class="social-icon text-xs-center"
-                            target="_blank"
-                            rel="noopener"
-                            title="Twitter"
-                            href="https://twitter.com/vince_daniel"
-                          >
-                            <i class="fa fa-twitter"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a
-                            class="social-icon text-xs-center"
-                            target="_blank"
-                            rel="noopener"
-                            title="Instagram"
-                            href="https://www.instagram.com/vincechabvonga/"
-                          >
-                            <i class="fa fa-instagram"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ./Team member -->
+
+
           <!-- Team member -->
           <div class="col-xs-12 col-sm-6 col-md-4">
             <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
@@ -222,7 +87,7 @@
                         <img class="img-fluid" src="/img/team/kudzie.jpeg" title="Kudzaishe Rudo Mabika" alt="Kudzaishe Rudo Mabika">
                       </p>
                       <h4 class="card-title">Kudzaishe Rudo Mabika</h4>
-                      <p class="card-text">Marketing</p>
+                      <p class="card-text">Digital Marketing Specialist</p>
                       <a href="#" class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i>
                       </a>
@@ -234,9 +99,7 @@
                     <div class="card-body text-center mt-4">
                       <h4 class="card-title">Kudzaishe Rudo Mabika</h4>
                       <p class="card-text">
-                        A radical Christian end time girl pursuing Matthew 6:33. Currently working for Stanbic Zimbabwe
-                        but going back to school soon. The goal is to add value to College Hub by bringing femininity to
-                        the team and being the voice of reason🤗
+                        Kudzie uses her experience to manage and coordinate all digital and marketing activites online. She initiates effective marketing campaigns online thereby improving awareness, and communication between Collegehub and its users.
                       </p>
                       <ul class="list-inline">
                         <li class="list-inline-item">
@@ -269,65 +132,8 @@
             </div>
           </div>
           <!-- ./Team member -->
-          <!-- Team member -->
-          <div class="col-xs-12 col-sm-6 col-md-4">
-            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-              <div class="mainflip">
-                <div class="frontside">
-                  <div class="card">
-                    <div class="card-body text-center">
-                      <p>
-                        <img class="img-fluid" src="/img/team/aldrin.jpeg" title="Aldrin Chitate" alt="Aldrin Chitate">
-                      </p>
-                      <h4 class="card-title">Aldrin Chitate</h4>
-                      <p class="card-text">Marketing</p>
-                      <a href="#" class="btn btn-primary btn-sm">
-                        <i class="fa fa-plus"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="backside">
-                  <div class="card">
-                    <div class="card-body text-center mt-4">
-                      <h4 class="card-title">Aldrin Chitate</h4>
-                      <p
-                        class="card-text"
-                      >What better way is there to contribute to society other than serving?
-                      This platform has offered me an opportunity to be of service to you,
-                      particularly the homeowner and home seeker. I look forward to a wonderful
-                      experience with all.</p>
-                      <ul class="list-inline">
-                        <li class="list-inline-item">
-                          <a
-                            class="social-icon text-xs-center"
-                            target="_blank"
-                            rel="noopener"
-                            title="Facebook"
-                            href="https://www.facebook.com/aldrin.drizzy"
-                          >
-                            <i class="fa fa-facebook"></i>
-                          </a>
-                        </li>
-                        <li class="list-inline-item">
-                          <a
-                            class="social-icon text-xs-center"
-                            target="_blank"
-                            rel="noopener"
-                            title="Twitter"
-                            href="https://twitter.com/AldrinChitate"
-                          >
-                            <i class="fa fa-twitter"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ./Team member -->
+
+
           <!-- Team member -->
           <div class="col-xs-12 col-sm-6 col-md-4">
             <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
@@ -408,7 +214,151 @@
             </div>
           </div>
           <!-- ./Team member -->
+
+
+          <!-- Team member -->
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+              <div class="mainflip">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p>
+                        <img class="img-fluid" src="/img/team/tinashen.jpeg" title="Tinashe Nyamapfeni" alt="Tinashe Nyamapfeni">
+                      </p>
+                      <h4 class="card-title">Tinashe Nyamapfeni</h4>
+                      <p class="card-text">Chairperson</p>
+                      <a href="#" class="btn btn-primary btn-sm">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="backside">
+                  <div class="card">
+                    <div class="card-body text-center mt-4">
+                      <h4 class="card-title">Tinashe Nyamapfeni</h4>
+                      <p class="card-text">
+                        Tinashe is the chair at Collegehub. He facilitates in growth and service delivery.
+                        He is passionate about helping people especially through the medical field. He is
+                        a Medical and Surgery trainee at the University of Zimbabwe.
+                      </p>
+                      <ul class="list-inline">
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="Facebook"
+                            href="https://www.facebook.com/tinashe.nyamapfeni2"
+                          >
+                            <i class="fa fa-facebook"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            href="mailto:tinashe.nyamapfeni@collegehub.co.zw"
+                            title="Email Tinashe"
+                          >
+                            <i class="fa fa-envelope"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            href="https://wa.me/263774113701"
+                            target="_blank"
+                            rel="noopener"
+                            title="WhatsApp"
+                          >
+                            <i class="fa fa-whatsapp"/>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- ./Team member -->
+
+
+
+          <!-- Team member -->
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+              <div class="mainflip">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p>
+                        <img class="img-fluid" src="/img/team/vincent.jpeg" title="Vincent Chabvonga" alt="Vincent Chabvonga">
+                      </p>
+                      <h4 class="card-title">Vincent Chabvonga</h4>
+                      <p class="card-text">Head Marketing</p>
+                      <a href="#" class="btn btn-primary btn-sm">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="backside">
+                  <div class="card">
+                    <div class="card-body text-center mt-4">
+                      <h4 class="card-title">Vincent Chabvonga</h4>
+                      <p
+                        class="card-text"
+                      >The head marketing at Collegehub. Vincent manages the marketing operations
+                       at Collegehub. He is also a trader on the ZSE. He is currently studying Medicine
+                       and Surgery at the University of Zimbabwe.</p>
+                      <ul class="list-inline">
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="Facebook"
+                            href="https://www.facebook.com/profile.php?id=100011633389334"
+                          >
+                            <i class="fa fa-facebook"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="Twitter"
+                            href="https://twitter.com/vince_daniel"
+                          >
+                            <i class="fa fa-twitter"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="Instagram"
+                            href="https://www.instagram.com/vincechabvonga/"
+                          >
+                            <i class="fa fa-instagram"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ./Team member -->
+
+
+          <!-- Team member -->
           <div class="col-xs-12 col-sm-6 col-md-4">
             <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
               <div class="mainflip">
@@ -465,6 +415,70 @@
               </div>
             </div>
           </div>
+          <!-- ./Team member -->
+
+
+          <!-- Team member -->
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+              <div class="mainflip">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p>
+                        <img class="img-fluid" src="/img/team/aldrin.jpeg" title="Aldrin Chitate" alt="Aldrin Chitate">
+                      </p>
+                      <h4 class="card-title">Aldrin Chitate</h4>
+                      <p class="card-text">Marketing</p>
+                      <a href="#" class="btn btn-primary btn-sm">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="backside">
+                  <div class="card">
+                    <div class="card-body text-center mt-4">
+                      <h4 class="card-title">Aldrin Chitate</h4>
+                      <p
+                        class="card-text"
+                      >What better way is there to contribute to society other than serving?
+                      This platform has offered me an opportunity to be of service to you,
+                      particularly the homeowner and home seeker. I look forward to a wonderful
+                      experience with all.</p>
+                      <ul class="list-inline">
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="Facebook"
+                            href="https://www.facebook.com/aldrin.drizzy"
+                          >
+                            <i class="fa fa-facebook"></i>
+                          </a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="social-icon text-xs-center"
+                            target="_blank"
+                            rel="noopener"
+                            title="Twitter"
+                            href="https://twitter.com/AldrinChitate"
+                          >
+                            <i class="fa fa-twitter"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ./Team member -->
+
+
         </div>
       </div>
     </section>

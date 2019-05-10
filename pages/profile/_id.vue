@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; margin-top: 80px;">
+  <div style="width: 100%; margin-top: 80px; background: #fff;">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12" style="text-align: center;">
@@ -54,7 +54,7 @@
                         >
                       </div>
                       <div class="profile-item-brief" style="text-align: left;">
-                        <p>Brief Description here</p>
+                        <p>{{userProfile.bio}}</p>
                       </div>
                     </div>
                   </div>
@@ -168,10 +168,10 @@
                           <label for="accountType">Account Type</label>
                         </div>
                         <div class="col-md-6">
-                          <select id="accountType" @change="onChange($event)" class="form-control-edit" v-model="seeker">
+                          <select id="accountType" class="form-control-edit" v-model="Form.accountType">
                             <option :value="null">Account Type</option>
-                            <option value="1">Finding Accomodation</option>
-                            <option value="2">Sharing a House</option>
+                            <option value="Student">Student</option>
+                            <option value="Service Provider">Service Provider</option>
                           </select>
                         </div>
                       </div>
@@ -327,11 +327,22 @@
                                 <label class="nopadding">Account Type:</label>
                               </div>
                               <div class="nopadding" style="width: 70%; float: left;">
-                                <p
-                                  class="nopadding"
-                                  v-if="userProfile.isSeeker"
-                                >Seeking Accomodation</p>
-                                <p class="nopadding" v-else>Providing Accomodation</p>
+                                <p class="nopadding" >{{userProfile.accountType}}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row nopadding" v-if="userProfile.accountType != 'Student'">
+                            <div
+                              class="col-md-12 nopadding"
+                              style="border-bottom: 0.5px solid #eee;"
+                            >
+                              <div class="nopadding" style="width: 30%; float: left;">
+                                <label class="nopadding">Service:</label>
+                              </div>
+                              <div class="nopadding" style="width: 70%; float: left;" v-for="(service, index) in userProfile.services" :key="index">
+                                <ul class="nopadding nouladding" v-for="value in Object.keys(service)" :key="value">
+                                  <li class="nopadding" style="list-style: none; font-size: 12px;">{{value}} </li>
+                                </ul>
                               </div>
                             </div>
                           </div>
@@ -408,7 +419,8 @@ export default {
         phone: null,
         isSeeker: null,
         university: null,
-        city: null
+        city: null,
+        accountType: null
       },
       profileImage: null,
       uploadFieldName: 'profileImage',

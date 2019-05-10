@@ -138,8 +138,9 @@
                 </div>
 
                 <div style="width: 100%;" v-else>
-                  <div class="forSeekers" style="width: 100%" v-if="userProfile.isSeeker">
+                  <div class="forSeekers" style="width: 100%" v-if="userProfile.accountType == 'Student'">
                     <div class="row" v-if="!userProfile.allRequests || userProfile.allRequests.length == 0">
+                      
                       <div style="width: 100%; padding-top: 40px; padding-bottom: 40px; text-align: center;">
                         <p style="margin-top: 30px; color: #000;" class="subheading" >It looks like you haven't made any requests to rent</p>
                         <div class="row nopadding add-house">
@@ -158,45 +159,137 @@
                         </div>
                       </div>
 
-                      <div class="row nopadding feed">
-                        <div class="col-md-12">
-                          <div class="rental-image-div" style="width: 20%; float: left;">
-                            <div
-                              class="ratio img-responsive img-circle"
-                              style="background-image: url(/houses/collegehub-alexandra.jpeg);"
-                            ></div>
-                          </div>
-                          <div class="-div" style="width: 80%; float: left;">
+                      <div style="width: 100%;" v-if="requestedHouses && this.requestedHouses.length > 0">
+                        <div
+                          class="row nopadding feed"
+                          v-for="(house, index) in requestedHouses"
+                          :key="index"
+                        >
+                          <div class="col-md-12">
                             <div class="row">
+                              <div class="col-md-4 rental-image-div">
+                                <div style="margin-top: 10px; margin-left: 10px;">
+                                  <b-carousel
+                                    :id="house._id"
+                                    :interval="0"
+                                    controls
+                                    indicators
+                                    background="#ffffff"
+                                    img-width="100%"
+                                    img-height="100%"
+                                    style="height: 120px; overflow: hidden; border-radius: 1px;"
+                                  >
+                                    <b-carousel-slide
+                                      v-for="(image, index) in house.accommodationImages"
+                                      :key="index"
+                                      :alt="house.title"
+                                      :img-src="image.path"
+                                    ></b-carousel-slide> 
+                                  </b-carousel>
+                                </div>
+                              </div>
                               <div class="col-md-8">
-                                <h3 class="section-subtitle">Avondale, Harare</h3>
-                                <p
-                                  class="section-small-text"
-                                >King George Street &#8811; Avondale &#8811; Harare</p>
-                                <div class="section-amenities">
-                                  <div style="width: 50%; float: left;">
-                                    <p class="section-small-text">
-                                      <i class="fas fa-graduation-cap"></i>UZ (10 minutes)
-                                    </p>
-                                    <p class="section-small-text">
-                                      <i class="fas fa-wifi"></i>Wifi
-                                    </p>
-                                  </div>
-                                  <div style="width: 50%; float: left;">
-                                    <p class="section-small-text">
-                                      <i class="fas fa-bed"></i>
-                                      2 Bedrooms
-                                    </p>
-                                    <p class="section-small-text">
-                                      <i class="fas fa-couch"></i>
-                                      Furnished
-                                    </p>
+                                <div class="row">
+                                  <div class="col-md-12 houseMobileStyles">
+                                    <h3 class="section-subtitle">{{house.title}}</h3>
+                                    <p
+                                      class="section-small-text"
+                                    >{{house.addressSuburb}}, {{house.city}}</p>
+                                    <div class="section-amenities">
+                                      <div style="width: 50%; float: left;">
+                                        <p class="section-small-text" v-if="house.specificSpaceType == 'Apartment'">
+                                          <i class="fas fa-building"></i>
+                                          {{house.specificSpaceType}}
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.specificSpaceType == 'House'">
+                                          <i class="fas fa-home"></i>
+                                          {{house.specificSpaceType}}
+                                        </p>
+                                        <p class="section-small-text" v-else>
+                                          <i class="fas fa-hotel"></i>
+                                          {{house.specificSpaceType}}
+                                        </p>
+                                        <p class="section-small-text" v-if="house.amenities.wifi">
+                                          <i class="fas fa-wifi"></i> Wifi
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.essentials">
+                                          <i class="fas fa-briefcase"></i> Essentials
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.desks">
+                                          <i class="fas fa-table"></i> Desks
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.drawer">
+                                          <i class="fas fa-archway"></i> Drawers
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.television">
+                                            <i class="fas fa-tv"></i> TV
+                                        </p>
+                                        <p class="section-small-text" v-else-if="house.amenities.locks">
+                                            <i class="fas fa-lock"></i> Locks
+                                        </p>
+                                      </div>
+                                      <div style="width: 50%; float: left;">
+                                        <p class="section-small-text">
+                                          <i class="fas fa-bed"></i>
+                                          {{house.bedroomcount}} Bedrooms  
+                                        </p>
+                                        <p class="section-small-text">
+                                          <i class="fas fa-couch"></i>
+                                          {{house.furnishStatus}}
+                                        </p>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-md-4">
-                                <div class="rental-alert">
-                                  <h2 class="success">Approved</h2>
+                            </div>
+                            <hr>
+                            <div class="row" style="width: 100%;">
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-12" style="text-align: center;" v-for="request in userProfile.allRequests" :key="request.requestID">
+                                    <p style="font-weight: 400; font-size: 14px;" v-if="request.requester == userProfile._id && request.requestedHouseID == house._id">Request Status: {{request.requestStatus}}</p>
+                                  </div>
+                                </div>
+                                <div class="row" style="padding-bottom: 20px;">
+                                  <div class="col-md-12">
+                                    <div class="row">
+                                      <div class="col-md-1"></div>
+                                      <div class="col-md-4">
+                                        <NuxtLink :to="'/accommodation/view/' + house._id" title="View">
+                                          <button class="default-button-small button-green">View House</button>
+                                        </NuxtLink>
+                                      </div>
+                                      <div class="col-md-2"></div>
+                                      <div class="col-md-4" v-for="request in house.allRequests" :key="request.requestID">
+                                        <a href="#cancel-request" v-if="request.requester == userProfile._id && request.requestStatus == 'pending'"><button class="default-button-small button-red">Cancel Request</button></a>
+                                        <a href="#resend-request" v-else-if="request.requester == userProfile._id && request.requestStatus == 'Cancelled'"><button class="default-button-small button-red">Resend Request</button></a>
+                                        <a href="#deleted-request" v-else-if="request.requester == userProfile._id && request.requestStatus == 'Deleted'"><button class="default-button-small button-red">Deleted House</button></a>
+                                        
+                                        <div id="cancel-request" class="modal-window">
+                                          <div>
+                                            <a href="#cancel-request-close" title="Close" class="modal-close">close &times;</a>
+                                            <div class="modal-text">Are you sure you want to cancel request?</div>
+                                            <button class="default-button-small button-red" v-on:click.prevent="modifyRequest(house._id, 'Cancelled')">Yes</button>
+                                          </div>
+                                        </div>
+                                        <div id="resend-request" class="modal-window">
+                                          <div>
+                                            <a href="#resend-request-close" title="Close" class="modal-close">close &times;</a>
+                                            <div class="modal-text">Are you sure you want to resend this request?</div>
+                                            <button class="default-button-small button-red" v-on:click.prevent="modifyRequest(house._id, 'pending')">Yes</button>
+                                          </div>
+                                        </div>
+                                        <div id="deleted-request" class="modal-window">
+                                          <div>
+                                            <a href="#deleted-request-close" title="Close" class="modal-close">close &times;</a>
+                                            <div class="modal-text">Unforntunately this house was deleted by the owner</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-1"></div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -208,7 +301,7 @@
                         <div class="row nopadding add-house">
                           <div class="col-md-4"></div>
                           <div class="col-md-4">
-                            <button class="default-button" @click="searchAccommodation()">Request More</button>
+                            <button class="default-button" @click="searchAccommodation()">Find Accommodation</button>
                           </div>
                           <div class="col-md-4"></div>
                         </div>
@@ -216,7 +309,7 @@
                     </div>
                   </div>
 
-                  <div class="forProviders" style="width: 100%" v-if="!userProfile.isSeeker">
+                  <div class="forProviders" style="width: 100%" v-else>
                     <div class="houseAvailable" style="width: 100%">
                       <div class="row nopadding" style="width: 100%;">
                         <div class="col-md-12 inner-title-sec">
@@ -279,9 +372,6 @@
                                     <p
                                       class="section-small-text"
                                     >{{house.addressSuburb}}, {{house.city}}</p>
-                                    <div style="width: 100%; margin-top: 10px;">
-                                      <p class="section-small-text">{{house.description}}</p>
-                                    </div>
                                     <div class="section-amenities">
                                       <div style="width: 50%; float: left;">
                                         <p class="section-small-text" v-if="house.specificSpaceType == 'Apartment'">
@@ -352,13 +442,28 @@
                                         </NuxtLink>
                                       </div>
                                       <div class="col-md-3" v-if="house.status == 'Active'">
-                                        <button class="default-button-small button-yellow" v-on:click.prevent="changeHouseStatus(house._id)">Suspend</button>
+                                        <a href="#suspend-house"><button class="default-button-small button-yellow">Suspend</button></a>
                                       </div>
                                       <div class="col-md-3" v-else>
-                                        <button class="default-button-small button-green" v-on:click.prevent="changeHouseStatus(house._id)">Activate</button>
+                                        <a href="#suspend-house"><button class="default-button-small button-green">Activate</button></a>
                                       </div>
+          
+                                        <div id="suspend-house" class="modal-window">
+                                          <div>
+                                            <a href="#suspend-house-close" title="Close" class="modal-close">close &times;</a>
+                                            <div class="modal-text">Are you sure you want to change the status of your Space?</div>
+                                            <button class="default-button-small button-red" v-on:click.prevent="changeHouseStatus(house._id)">Yes, Change Status</button>
+                                          </div>
+                                        </div>
                                       <div class="col-md-3">
-                                        <button class="default-button-small button-red" v-on:click.prevent="deleteHouse(house._id)">Remove</button>
+                                        <a href="#delete-house" v-if="house.status == 'Active' || house.status == 'Suspended'"><button class="default-button-small button-red">Remove</button></a>
+                                        <div id="delete-house" class="modal-window">
+                                          <div>
+                                            <a href="#delete-house-close" title="Close" class="modal-close">close &times;</a>
+                                            <div class="modal-text">Are you sure you want to remove this listed Space?</div>
+                                            <button class="default-button-small button-red" v-on:click.prevent="deleteHouse(house._id)">Yes, Remove</button>
+                                          </div>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -411,12 +516,58 @@ export default {
       housesOwned: null,
       houseExists: null,
       errors: null,
+      requestedHouses: [],
     }
   },
   methods: {
     searchAccommodation() {
       window.location.href = '/accommodation/find/?city=' + this.userProfile.city + '&suburb=allsuburbs'
     },
+    async modifyRequest(houseID, action){
+      var index
+      for(index in this.userProfile.allRequests){
+        if(this.userProfile.allRequests[index].requestedHouseID == houseID){
+          this.userProfile.allRequests[index].requestStatus = action
+          try{
+            this.userProfile = await this.$store.dispatch('modifyRequestToRentUser', {Form: this.userProfile.allRequests[index]})
+            this.userProfile = this.userProfile.data.user
+            await this.$store.dispatch('modifyRequestToRentHouse', {Form: this.userProfile.allRequests[index]})
+          }catch(e){
+            this.errors.push(e)
+          }
+        }
+      }
+      this.getData()
+    },
+
+    async getData(){
+      this.requestedHouses = []
+       try {
+        this.userProfile = await this.$store.dispatch('getProfile', { id: this.$store.state.authUser.user.username })
+        this.userProfile = this.userProfile.data.user
+        var index
+        for(index in this.userProfile.allRequests){
+          var request = await this.$store.dispatch('getOneHouse', { id: this.userProfile.allRequests[index].requestedHouseID })
+          if(request.data){
+            this.requestedHouses.push(request.data.house)
+          }   
+        }
+        if (this.userProfile.accountType != 'Student') {
+          this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id })
+          if (this.houseExists.data.message == 'House could not be found')
+            this.houseExists = false
+          else if (this.houseExists.data.message == '404')
+            this.houseExists = false
+          else {
+            this.housesOwned = this.houseExists.data
+            this.houseExists = true
+          }
+        }
+      } catch (e) {
+        this.errors.push(e)
+      }
+    },
+    
     async changeHouseStatus(id){
       var index = this.housesOwned.findIndex(house => house._id === id)
       var newStatus = null
@@ -429,10 +580,24 @@ export default {
           this.housesOwned[index].status = newStatus
         }
       } catch (e) {
-        this.errors.push(e.message)
+        this.errors.push(e)
       }
     },
     async deleteHouse(id){
+      var i, j
+      for(i in this.housesOwned){
+        if(this.housesOwned[i].allRequests){
+          for(j in this.housesOwned[i].allRequests){
+            console.log('All Requests: ' + this.housesOwned[i].allRequests)
+            if(this.housesOwned[i].allRequests[j].requestedHouseID == id){
+              console.log('Matched Request: ' + this.housesOwned[i].allRequests[j])
+              this.housesOwned[i].allRequests[j].requestStatus = 'Deleted'
+              await this.$store.dispatch('modifyRequestToRentUser', {Form: this.housesOwned[i].allRequests[j]})
+            }
+          }
+        }
+      }
+
       try{
         if(await this.$store.dispatch('deleteHouse', {id: id})){
           this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id})
@@ -447,38 +612,15 @@ export default {
           }
         }
       } catch (e) {
-        this.errors.push(e.message)
+        this.errors.push(e)
       }
+      
     }
   },
   async mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start()
-    })
-    try {
-      this.userProfile = await this.$store.dispatch('getProfile', {
-        id: this.$store.state.authUser.user.username
-      })
-      this.userProfile = this.userProfile.data.user
-      if (!this.userProfile.isSeeker) {
-        this.houseExists = await this.$store.dispatch('getHousesByID', {
-          id: this.userProfile._id
-        })
-        if (this.houseExists.data.message == 'House could not be found')
-          this.houseExists = false
-        else if (this.houseExists.data.message == '404')
-          this.houseExists = false
-        else {
-          this.housesOwned = this.houseExists.data
-          this.houseExists = true
-        }
-      }
-    } catch (e) {
-      this.errors.push(e.message)
-    }
-    this.$nextTick(() => {
-      setTimeout(() => this.$nuxt.$loading.finish(), 0)
-    })
+    this.$nextTick(() => { this.$nuxt.$loading.start() })
+    this.getData()
+    this.$nextTick(() => { setTimeout(() => this.$nuxt.$loading.finish(), 0) })
   }
 }
 </script>

@@ -200,6 +200,7 @@ export const actions = {
     })
   },
 
+  //OwnerID
   async getHousesByID({commit}, {id}){
     var url = '/houses/owner/' + id
     try {
@@ -296,6 +297,26 @@ export const actions = {
     } catch (error) {
       return error
     }
+  },
+
+  async modifyRequestToRentUser({commit}, {Form}){
+    var userURL = '/users/accommodation/cancel/request/' + Form.requester
+    console.log(Form)
+    try {
+      return await axios.post(userURL, Form)
+    } catch (error) {
+      return error
+    } 
+  },
+
+  async modifyRequestToRentHouse({commit}, {Form}){
+    var accommodationURL = '/houses/modify/request/' + Form.requestedHouseID
+
+    try {
+      return await axios.post(accommodationURL, Form)
+    } catch (error) {
+      return error
+    } 
   },
 
   async getAllLocales({commit},){
