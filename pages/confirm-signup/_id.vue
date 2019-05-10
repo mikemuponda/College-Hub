@@ -183,7 +183,7 @@
                               type="tel"
                               name="mobile"
                               id="mobile"
-                              placeholder="0777 777 777"
+                              :placeholder="userProfile.phone"
                             >
                             <span class="highlightConfirm"></span>
                             <span class="barConfirm"></span>

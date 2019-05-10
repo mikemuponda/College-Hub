@@ -1,13 +1,18 @@
 const express = require('express')
+require('dotenv').config()
 const mongodb = require('mongodb')
 const sgMail = require('@sendgrid/mail')
 const multer = require('multer')
 const aws = require('aws-sdk')
 const multerS3 = require('multer-s3')
+const urlShortener = require('node-url-shortener')
 const router = express.Router()
 const app = express()
 const url = process.env.URL
-require('dotenv').config()
+const client = require('twilio')(process.env.twilioSID, process.env.twilioAUTH);
+
+
+
 
 aws.config.update({
   secretAccessKey: process.env.awsSecretAccessKey,
@@ -48,32 +53,38 @@ router.post('/signup', async (req, res) => {
     res.status(409).json({message: 'Username is already in use'})
   } else {
     key = (Math.floor(1000 + Math.random() * 9000)) + '-' + req.body.email
-    const msg = {
-      to: req.body.email,
-      cc: "collegehubzw@gmail.com",
-      from: 'Collegehub <noreply@collegehub.co.zw>',
-      subject: 'Collegehub: Please confirm your email',
-      html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="' + url + '/confirm-signup/' + key + '" title="Collegehub">clicking this link</a></p><p>Regards</p>',
-    }
-    if(sgMail.send(msg)){
-      await users.insertOne({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        isConfirmed: false,
-        confirmationKey: key,
-        profileImage: null,
-        dob: null,
-        phone: null,
-        sex: null,
-        createdAt: new Date()
-      })
-    }
+    urlShortener.short('https://www.collegehub.co.zw/confirm-signup/' + key, function(err, shortURL){
+      const msg = {
+        to: req.body.email,
+        from: 'Collegehub <noreply@collegehub.co.zw>',
+        subject: 'Collegehub: Please confirm your email',
+        html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="' + shortURL + '" title="Collegehub">clicking this link</a></p><p>If you are having trouble clicking the link, please use the url <br>' + shortURL + '</p><p>Regards</p>',
+      }
+      const sms = {
+        from: '+12055765938',
+        body: 'Hello ' + req.body.firstname + '! Please verify your account by following: ' + shortURL,
+        to: req.body.phone
+      }
 
-      return res.status(201).json({message: 'Your account has been created. A confirmation email has been sent to ' + req.body.email})
+      client.messages.create(sms)
+      sgMail.send(msg)
+    })
     
+    await users.insertOne({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      isConfirmed: false,
+      confirmationKey: key,
+      profileImage: null,
+      dob: null,
+      phone: req.body.phone,
+      sex: null,
+      createdAt: new Date()
+    })
+    return res.status(201).json({message: 'Your account has been created. A confirmation email has been sent to ' + req.body.email}) 
   }
 })
 
@@ -89,12 +100,11 @@ router.post('/confirm-signup/:id', async (req, res) => {
     )
     const msg = {
       to: user.email,
-      cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Your email account has been confirmed',
       html: '<h2>Hello, ' + user.firstname + '</h2><p>Your email has successfully been confirmed</p><p>Regards</p></p><p>Collegehub</p>',
     }
-    //sgMail.send(msg)
+    sgMail.send(msg)
     var user = await users.findOne({"confirmationKey": req.params.id})
     if (user.isConfirmed){
       req.session.authUser = {user: user}
@@ -132,7 +142,6 @@ router.post('/forgot-password', async (req, res) => {
     )
     const msg = {
       to: user.email,
-      cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Reset Your Password',
       html: '<h2>Hi, ' + user.firstname + '</h2><p>It seems you forgot your password. Please <a href="' + url + '/reset-password/' + key + '" title="Collegehub">clicking this link</a> to reset your password.</p><p>Regards</p>',
@@ -156,7 +165,6 @@ router.post('/reset-password/:id', async (req, res) => {
     )
     const msg = {
       to: user.email,
-      cc: "collegehubzw@gmail.com",
       from: 'Collegehub <noreply@collegehub.co.zw>',
       subject: 'Collegehub: Reset Your Password',
       html: '<h2>Hi, ' + user.firstname + '</h2><p>Your password has been reset. Your new password is: <strong>'+ req.body.password +'</strong>.<br>Go to <a href="' + url + '" title="Collegehub">Collegehub</a> and login.</p><p>Regards</p>',
@@ -287,7 +295,7 @@ router.post('/profile/edit/username/:id', async (req, res) => {
     if (user = await users.findOne({ "email": req.params.id, "isConfirmed": true})) {
       const msg = {
         to: req.params.id,
-        cc: "collegehubzw@gmail.com",
+
         from: 'Collegehub <noreply@collegehub.co.zw>',
         subject: 'Collegehub: Your Username has successfully been changed',
         html: '<h2>Hi, ' + user.firstname + '</h2><p>Your username has successfully been changed to ' + user.username + '. Please follow <a href="' + url + '/profile/' + user.username + '" title="Profile">this link</a> to check out your profile</p><p>Regards</p>',

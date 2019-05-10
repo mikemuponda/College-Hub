@@ -189,6 +189,10 @@ module.exports = {
     {
       src: "~/plugins/vue-slide-bar.js",
       ssr: false
+    },
+    {
+      src: "~/plugins/vue-tel-input.js",
+      ssr: false
     }
   ],
 

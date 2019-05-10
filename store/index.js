@@ -64,9 +64,9 @@ export const actions = {
   },
 
 
-  async signUp({commit}, {firstname, lastname, username, email, password}) {
+  async signUp({commit}, {firstname, lastname, username, email, password, phone}) {
     try {
-      const {data} = await axios.post('/users/signup', {firstname, lastname, username, email, password})
+      const {data} = await axios.post('/users/signup', {firstname, lastname, username, email, password, phone})
       commit('SET_USER', data)
       commit('SET_USER', null)
     } catch (error) {

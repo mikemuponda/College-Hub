@@ -73,6 +73,22 @@
               </div>
             </div>
             <div class="row">
+              <div class="col-md-6 input" style="padding-left: 10px; font-size: 12px; font-weight: 400;">
+                Please write phone number without a 0 at the beginning.
+              </div>
+              <div class="col-md-6 input">
+                <no-ssr>
+                  <vue-tel-input
+                    @onInput="onInput"
+                    class="form-control"
+                    style="background-color: #fff;"
+                    required="required"
+                  >
+                  </vue-tel-input>
+                </no-ssr>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-md-6 input" style="padding-left: 10px;">
                 <input
                   type="password"
@@ -135,13 +151,19 @@ export default {
         lastname: '',
         username: '',
         email: '',
-        password: ''
+        password: '',
+        phone: null
       },
       confirm_password: '',
       errors: [],
       formError: null,
       accountType: 'Choose Option:',
-      created: null
+      created: null,
+      phone: {
+        number: '',
+        isValid: false,
+        country: undefined,
+      },
     }
   },
   mounted() {
@@ -149,10 +171,15 @@ export default {
     this.$nextTick(() => {setTimeout(() => this.$nuxt.$loading.finish(), 400)})
   },
   methods: {
+    onInput({ number, isValid, country }) {
+      this.phone.number = number
+      this.phone.isValid = isValid
+      this.phone.country = country && country.name
+      this.Form.phone = number.replace(/\s/g, '')
+    },
     signUpHandler: async function(e) {
       this.errors = []
       this.created = false
-
       if (!this.Form.firstname) {
         this.errors.push('First Name required.')
       }
@@ -161,6 +188,12 @@ export default {
       }
       if (!this.Form.username) {
         this.errors.push('Username required.')
+      }
+      if (!this.Form.phone) {
+        this.errors.push('Mobile Number is required.')
+      }
+      if (this.Form.phone.length != 13) {
+        this.errors.push('Please check if you have typed in your mobile number correctly. Do not write a 0 at the beginning')
       }
       if (!this.Form.email) {
         this.errors.push('Email required.')
@@ -180,11 +213,13 @@ export default {
             lastname: this.Form.lastname,
             username: this.Form.username.replace(/\s/g, ''),
             email: this.Form.email.replace(/\s/g, ''),
-            password: this.Form.password.replace(/\s/g, '')
+            password: this.Form.password.replace(/\s/g, ''),
+            phone: this.Form.phone
           })
           this.Form.lastname = ''
           this.Form.username = ''
           this.Form.password = ''
+          this.Form.phone = ''
           this.formError = null
           this.created = true
         } catch (e) {
