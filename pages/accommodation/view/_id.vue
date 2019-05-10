@@ -2,19 +2,19 @@
   <div style="width: 100%; background: #eee; margin-top: 80px;" class="display-house">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
           <div class="item-box" style="margin-top: 10px; padding-top: 0px;">
             <div class="row">
               <div class="col-md-12 padding-left:0px">
-                <div class="row nopadding" v-if="house.accommodationImages.length">
+                <div class="row nopadding houseimages" v-if="house.accommodationImages.length">
                   <div class="col-md-6 nopadding">
-                    <div style="width:100%; height:400px;" class="accommodation-images">
+                    <div style="width:100%; height:450px;" class="accommodation-images">
                       <img :src="house.accommodationImages[0].path" style="width:100%; height:100%">
                     </div>
                   </div>
-                  <div class="col-md-6 nopadding">
+                  <div class="col-md-6 nopadding" style="overflow: hidden;">
                     <div
-                      style="height: 200px; float: left;"
+                      style="height: 225px; float: left;"
                       class="nopadding"
                       v-for="(image, index) in accImages"
                       :value="image"
@@ -128,7 +128,7 @@
                   <h5>Ammenities &nbsp;<i class="fas fa-arrow-circle-right" ></i></h5>
                </div>
             <div class="col-md-12" style="padding-left:40px; padding-right:40px;">
-              <div class="row" style="border:1px solid maroon; border-radius:30px;">
+              <div class="row" style="border:1px solid maroon; border-radius:5px;">
                    <div class="col-md-4" style="padding-top:10px; margin:0;">
                        <ul class="ticked">
                       <!--house.ammenties[i] returns true or false but we want yes or no -->
@@ -167,9 +167,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-3 dashboard-greeting-display">
-          <defaultAdsColumn/>
         </div>
       </div>
     </div>
@@ -268,8 +265,8 @@ export default {
         this.title = this.house.title
         this.description = this.house.description
         this.accImages = this.house.accommodationImages
-        if(this.accImages.length > 5){
-          this.accImages.splice(4, this.accImages.length - 4)
+        if(this.accImages.length >= 5){
+          this.accImages.splice(4, 1)
         }
         if(this.accImages.length == 1){
           this.imageHeight = 100
@@ -362,22 +359,22 @@ export default {
 .ticked li:after {
   content: "✓";
 }
-.display-house .col-md-6 {
+
+.houseimages{
   overflow: hidden;
 }
-.display-house .col-md-3 {
-  overflow: hidden;
-}
+
 .display-house .accommodation-images {
-  border: 0.5px solid black;
-  overflow: hidden;
+  border: 0.5px solid #fff;
   filter: brightness(0.98);
   transition: transform 0.8s ease;
+  overflow: hidden;
 }
 .display-house .accommodation-images:hover {
   transform: scale(1.04);
   filter: brightness(1.2);
   cursor: pointer;
+  border: none;
 }
 </style>
 

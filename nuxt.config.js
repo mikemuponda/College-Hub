@@ -193,6 +193,10 @@ module.exports = {
     {
       src: "~/plugins/vue-tel-input.js",
       ssr: false
+    },
+    {
+      src: "~/plugins/vuedisqus.js",
+      ssr: false
     }
   ],
 

@@ -220,12 +220,8 @@ export default {
     defaultAdsColumn: defaultAdsColumn
   },
   mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start()
-    })
-    this.$nextTick(() => {
-      setTimeout(() => this.$nuxt.$loading.finish(), 400)
-    })
+    this.$nextTick(() => {this.$nuxt.$loading.start()})
+    this.$nextTick(() => { setTimeout(() => this.$nuxt.$loading.finish(), 400) })
   },
   head() {
     return {
