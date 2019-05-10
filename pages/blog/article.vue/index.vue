@@ -32,7 +32,9 @@
                     <p
                       class="article-text"
                     >Welcome to Collegehub Zimbabwe an online service for your daily convenience, from accommodation, taxi, restaurants and buying and selling we got you covered. In this blog I’m going to take you (Hubbers) through a history of how this company was started and also share with you our culture and goals. Before we dive deep into it, allow me to shift your attention to that opening quote by Robert L Peters. That statement fits well into our system at college hub. The website was designed in a unique way to offer the best user experience and to cater for the major concerns of our clients.</p>
-                    <p class="article-text">At College hub we value team work, we believe in our uniqueness and that we are unlimited in our potential if we combine our strengths and tackle a problem. We value greatly the idea of team work and we hope to see it cascade down to our users and partners. We appreciate diversity at Collegehub and we provide an environment where our colleagues, partners and clients can fully express their true self and flourish. Therefore at Collegehub we hope to share our values of diversity, unity, teamwork with our clients and together create a future full of endless possibilities</p>
+                    <p
+                      class="article-text"
+                    >At College hub we value team work, we believe in our uniqueness and that we are unlimited in our potential if we combine our strengths and tackle a problem. We value greatly the idea of team work and we hope to see it cascade down to our users and partners. We appreciate diversity at Collegehub and we provide an environment where our colleagues, partners and clients can fully express their true self and flourish. Therefore at Collegehub we hope to share our values of diversity, unity, teamwork with our clients and together create a future full of endless possibilities</p>
 
                     <p
                       class="article-text"
@@ -42,7 +44,7 @@
                       class="article-text"
                     >Our goal is to remove the burden from the student and carry it on their behalf. We appreciate how time is limited and we want to help the students access these services in an easy and efficient manner. Welcome once again Hubbers, we promise you a smooth journey with us and we have your back all the way.</p>
                   </div>
-                     <div class="col-md-2 mt-2"></div>
+                  <div class="col-md-2 mt-2"></div>
                 </div>
               </div>
             </div>
