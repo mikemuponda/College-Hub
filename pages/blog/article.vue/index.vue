@@ -26,7 +26,7 @@
                     <h6 class="section-subtitle-grey">A 10 min read</h6>-->
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" style="margin-bottom: 35px;">
                   <div class="col-md-2 mt-2"></div>
                   <div class="col-md-8 mt-2">
                     <p
@@ -45,6 +45,14 @@
                     >Our goal is to remove the burden from the student and carry it on their behalf. We appreciate how time is limited and we want to help the students access these services in an easy and efficient manner. Welcome once again Hubbers, we promise you a smooth journey with us and we have your back all the way.</p>
                   </div>
                   <div class="col-md-2 mt-2"></div>
+                </div>
+                <div class="row" style="margin-bottom: 35px;">
+                   <div class="col-md-2">
+                   
+                  </div>
+                  <div class="col-md-10">
+                    <button class="btn btn-primary">Previous</button>
+                  </div>
                 </div>
               </div>
             </div>

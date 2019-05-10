@@ -28,7 +28,7 @@
                     <div class="col-md-12">
                       <h4 class="text-center">{{article.title}}</h4>
                       <p>{{article.body}}</p>
-                      <button class="btn btn-default float-right">Read more...</button>
+                      <button class="btn btn-primary float-right">Read more...</button>
                     </div>
                   </div>
                 </NuxtLink>
