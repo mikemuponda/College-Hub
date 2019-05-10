@@ -156,7 +156,7 @@ router.post('/house/request/:id', async (req, res) => {
     requestedHouseID: req.body.houseID,
     requestStatus: 'pending',
     requestedDate: new Date(),
-    statusDateUpdate: null 
+    statusDateUpdate: null
   }
   var temp = []
   if(house.hasOwnProperty('allRequests')){
@@ -167,20 +167,18 @@ router.post('/house/request/:id', async (req, res) => {
     if(temp[index].requester == newRequest.requester){
       requested = true
     }
-    var requested = false,
-        index
-    for (index in temp) {
-        if (temp[index].requester == newRequest.requester) {
-            requested = true
-        }
-    }
-    temp.push(newRequest)
-    let params = { allRequests: temp }
-    if (requested == false) {
-        await houses.findOneAndUpdate({ _id: new mongodb.ObjectID(req.params.id) }, { $set: Object.assign(params) }, { upsert: true })
-    }
-    house = await houses.findOne({ _id: new mongodb.ObjectID(req.params.id) })
-    return res.json({ house })
+  }
+  temp.push(newRequest)
+  let params = { allRequests: temp}
+  if(requested == false){
+    await houses.findOneAndUpdate(
+      {_id: new mongodb.ObjectID(req.params.id)},
+      {$set: Object.assign(params)},
+      {upsert: true}
+    )
+  }
+  house = await houses.findOne({_id: new mongodb.ObjectID(req.params.id)})
+  return res.json({house})
 })
 
 //Modify Request to Rent
