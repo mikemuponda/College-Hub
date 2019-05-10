@@ -1,14 +1,16 @@
 <template>
   <div style="width:100%; margin-top: 80px;">
-    <section id="about" class="pb-5">
+    <section id="about" class="pb-4">
       <div class="container">
+      
         <div class="row">
-          <div class="col-md-12">
-            <div class="item-box">
-              <h1 class="heading-two">Blog</h1>
-            </div>
+          <div class="col-md-12" style="text-align: center; margin-top: 2%; margin-bottom: 3%;">
+            <h2
+              class="title"
+            >Welcome to our Blog</h2>
           </div>
         </div>
+      
         <div class="row">
           <div class="col-md-8 col-sm-8 col-xs-8">
             <div class="container">
@@ -19,14 +21,14 @@
               >
                 <NuxtLink
                   :to="'/blog/article/'"
-                  :title="'View Article'"
+                  :title="'Read Article'"
                   style="width: 100%; color: #000;"
                 >
                   <div class="row">
                     <div class="col-md-12">
-                      <h2 class="text-center">{{article.title}}</h2>
+                      <h4 class="text-center">{{article.title}}</h4>
                       <p>{{article.body}}</p>
-                      <button class="btn btn-default">Read more...</button>
+                      <button class="btn btn-default float-right">Read more...</button>
                     </div>
                   </div>
                 </NuxtLink>
@@ -98,20 +100,12 @@ export default {
     return {
       articles: [
         {
-          title: "This is our first article",
-          body: "Hear I am jus a full description"
+          title: "“Design creates culture, culture shapes values and values determine the future” Robert L Peters",
+          body: "Welcome to Collegehub Zimbabwe an online service for your daily convenience, from accommodation, taxi, restaurants and buying and selling we got you covered. In this blog I’m going to take you..."
         },
         {
-          title: "This is our second article",
-          body: "Hear I am jus a full description"
-        },
-        {
-          title: "This is our third article",
-          body: "Hear I am jus a full description"
-        },
-        {
-          title: "This is our fourth article",
-          body: "Hear I am jus a full description"
+          title: "“Design creates culture, culture shapes values and values determine the future” Robert L Peters",
+          body: "Welcome to Collegehub Zimbabwe an online service for your daily convenience, from accommodation, taxi, restaurants and buying and selling we got you covered. In this blog I’m going to take you......"
         }
       ]
     };
@@ -131,6 +125,7 @@ export default {
 .article {
   background: #fff;
   margin-top: 10px;
+  opacity: 0.9;
 }
 </style>
 
