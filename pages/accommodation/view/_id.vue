@@ -350,6 +350,9 @@ export default {
   },
 
   async created(){
+    if(this.fullHouse){
+      this.house = this.fullHouse
+    }
     try {
       this.houseOwnerProfile = await this.$store.dispatch('getProfilebyID', { id: this.house.owner })
       this.houseOwnerProfile = this.houseOwnerProfile.data.user
@@ -405,12 +408,13 @@ export default {
 
   async asyncData({ store, params, context }) {
     const house = await store.dispatch("getHouseFuck", { id: params.id });
+    const fullHouse = house.data.house
     const markers = []
     markers.push(house.data.house)
     return {
       title: house.data.house.title,
       description: house.data.house.description,
-      house: house.data.house,
+      fullHouse: house.data.house,
       markers: markers
     }
   },
