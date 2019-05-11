@@ -256,9 +256,7 @@
                                     <div class="row">
                                       <div class="col-md-1"></div>
                                       <div class="col-md-4">
-                                        <NuxtLink :to="'/accommodation/view/' + house._id" title="View">
-                                          <button class="default-button-small button-green">View House</button>
-                                        </NuxtLink>
+                                        <button class="default-button-small button-green" title="View" @click="redirect('/accommodation/view/' + house._id)">View House</button>
                                       </div>
                                       <div class="col-md-2"></div>
                                       <div class="col-md-4" v-for="request in house.allRequests" :key="request.requestID">
