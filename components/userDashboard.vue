@@ -432,9 +432,7 @@
                                   <div class="col-md-12">
                                     <div class="row">
                                       <div class="col-md-3">
-                                        <NuxtLink :to="'/accommodation/view/' + house._id" title="View">
-                                          <button class="default-button-small button-green">View</button>
-                                        </NuxtLink>
+                                        <button class="default-button-small button-green" title="View" @click="redirect('/accommodation/view/' + house._id)">View</button>
                                       </div>
                                       <div class="col-md-3">
                                         <NuxtLink :to="'/accommodation/edit/' + house._id" title="Edit">
@@ -520,6 +518,9 @@ export default {
     }
   },
   methods: {
+    redirect(path) {
+      window.location.href = path
+    },
     searchAccommodation() {
       window.location.href = '/accommodation/find/?city=' + this.userProfile.city + '&suburb=allsuburbs'
     },
