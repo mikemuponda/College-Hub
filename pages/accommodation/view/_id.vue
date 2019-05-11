@@ -362,7 +362,7 @@ export default {
   },
 
   async mounted() {
-    this.$nextTick(() => { this.$nuxt.$loading.start(); });
+    this.$nextTick(() => { this.$nuxt.$loading.start() })
     try {
       this.houseExists = await this.$store.dispatch("getOneHouse", { id: this.$route.params.id });
       if (this.houseExists.data.message == "House could not be found")
@@ -507,9 +507,9 @@ export default {
 }
 @media only screen and (min-width: 756px) {
   .ownerProfile{
-    position: absolute;
+    position: relative;
     width: 100%;
-    margin-top: -200px;
+    top: -200px;
     border: 1px solid purple;
   }
   .mobilehouseimages{
