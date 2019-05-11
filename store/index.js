@@ -109,6 +109,20 @@ export const actions = {
     }
   },
 
+  async getProfilebyID({commit}, {id}){
+    var url = '/users/user/' + id
+    try {
+      return await axios.post(url, {id})
+    } catch (error) {
+      if (error.response && error.response.status === 401){
+        throw new Error("This account may not have been confirmed yet.")
+      }else{
+        throw new Error("Unknown Error")
+      }
+      throw error
+    }
+  },
+
   async getProfileforMeta({commit}, {id}){
     var url = 'http://localhost:8080/users/profile/' + id
     try {
@@ -301,7 +315,6 @@ export const actions = {
 
   async modifyRequestToRentUser({commit}, {Form}){
     var userURL = '/users/accommodation/cancel/request/' + Form.requester
-    console.log(Form)
     try {
       return await axios.post(userURL, Form)
     } catch (error) {

@@ -202,11 +202,22 @@ router.delete('/delete/:id', async (req, res) => {
   })
 })
 
-//Get a user
+//Get a user by username
 router.post('/profile/:id', async (req, res) => {
   const users = await loadUsers()
   var user = null
   if (user = await users.findOne({ "username": req.params.id, "isConfirmed": true})) {
+    return res.json({user})
+  }else{
+    return res.status(401).json({message: 'User Not Found or has not yet confirmed'})
+  }
+})
+
+//Get a user by ID
+router.post('/user/:id', async (req, res) => {
+  const users = await loadUsers()
+  var user = null
+  if (user = await users.findOne({ _id: new mongodb.ObjectID(req.params.id), isConfirmed: true})) {
     return res.json({user})
   }else{
     return res.status(401).json({message: 'User Not Found or has not yet confirmed'})

@@ -28,64 +28,148 @@
                     </div>
                   </div>
                 </div>
-                <div class="row" style="padding-top:20px;" v-if="$store.state.authUser">
-                  <div class="col-md-3" v-if="$store.state.authUser.user._id != house.owner">
-                    <p v-if="requested == true">Request Sent</p>
-                    <button v-else class="custom-button" @click.prevent="sendRequest()">Request to rent</button>
-                  </div>
-                  <div class="col-md-3" v-if="$store.state.authUser.user._id == house.owner">
-                    <button class="custom-button">Edit</button>
-                  </div>
-                  <div class="col-md-3" v-if="$store.state.authUser.user._id == house.owner">
-                    <button class="custom-button" @click="changeHouseStatus(house._id)">Suspend</button>
-                  </div>
-                  <div class="col-md-3" v-if="$store.state.authUser.user._id == house.owner">
-                    <button class="custom-button" @click="deleteHouse(house._id)">Delete</button>
-                    <!--ADD Notification here -->
-                  </div>
-                </div>
-                <!--Extra info section-->
-                <div class="row" style="padding-top:30px; padding-bottom:10px;padding-left:20px;">
-                     <h5 align="center" style="padding-left:10px; color:#a7234f">About this property</h5>
-                </div>
-                <div class="row" >
-                   <h6 style="padding-left:40px;text:bold;"><i class="far fa-eye"></i>&nbsp;&nbsp;Status<span style="font-size: 13pt;color:green;">: &nbsp; {{house.status}}</span></h6>
-                </div>
-                 <hr> 
-                <div class="row">
-                 <div class="col-md-12">
-                  <h6 style="padding-left:30px;"><i style="color:black;" class="fas fa-info-circle"></i>&nbsp;&nbsp;Description</h6>
-                  
-                      <p style="padding-left:30px; color:#a7234f">"{{house.description}}"</p>
-                  </div>
-                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h1 class="property-title">{{house.title}}</h1>
+                      <hr> 
+                      <div class="row">
+                      <div class="col-md-12">
+                        <h6><i style="color:black;" class="fas fa-info-circle"></i>&nbsp;&nbsp;Description</h6>
+                        <p>{{house.description}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="non-ticked">
+                            <li><i class="fas fa-building listStylingIcons"></i><strong class="listStyling">Space Type</strong> <span class="listStylingData">{{house.spaceType}}</span></li>
+                            <li><i class="fas fa-home listStylingIcons"></i><strong class="listStyling">Total Rooms</strong> <span class="listStylingData">{{house.totalRoomCount}}</span></li>
+                            <li><i class="fas fa-bed listStylingIcons"></i><strong class="listStyling">Bedrooms</strong> <span class="listStylingData">{{house.bedroomcount}}</span></li>
+                            <li><i class="fas fa-user listStylingIcons"></i><strong class="listStyling">People Per Bedroom</strong> <span class="listStylingData">{{house.countperbedroom}}</span></li>
+                            <li><i class="fas fa-book listStylingIcons"></i><strong class="listStyling">Study rooms</strong> <span class="listStylingData">{{house.studyroomcount}}</span></li>
+                            <li><i class="fas fa-users listStylingIcons"></i><strong class="listStyling">Guests</strong> <span class="listStylingData">{{house.guestcount}}</span></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h6><i style="color:red;" class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Location </h6>
+                          <ul class="non-ticked">
+                            <li><i class="fas fa-city listStylingIcons"></i><strong class="listStyling">City</strong> <span class="listStylingData">{{house.city}}</span></li>
+                            <li><i class="fas fa-map-marker-alt listStylingIcons"></i><strong class="listStyling">Suburb</strong> <span class="listStylingData">{{house.suburb}}</span></li>
+                            <li><i class="fas fa-university listStylingIcons"></i><strong class="listStyling">Nearby Universities</strong> <span class="listStylingData"><div style="width: 100%;" v-for="university in house.universities" :key="university">{{university}}</div></span></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row" style="margin-bottom: 30px;">
+                        <div class="col-md-12">
+                          <h6>Ammenities &nbsp;<i class="fas fa-arrow-circle-right" ></i></h6>
+                          <div class="row nopadding">
+                            <div class="col-md-6" v-for="(key, value) in house.amenities" :key="value">
+                              <ul class="ticked" v-if="key == true">
+                                <li v-if="value=='beds'"><i class="fas fa-bed listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Beds </span></li>
+                                <li v-if="value=='essentials'"><i class="fas fa-briefcase listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Essentials</span></li>
+                                <li v-if="value=='wifi'"><i class="fas fa-wifi listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Wifi</span></li>
+                                <li v-if="value=='desks'"><i class="fas fa-table listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Study Desk(s)</span></li>
+                                <li v-if="value=='drawer'"><i class="fas fa-archway listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Drawer(s)</span></li>
+                                <li v-if="value=='television'"><i class="fas fa-tv listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">TV</span></li>
+                                <li v-if="value=='pool'"><i class="fas fa-swimming-pool listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Swimming Pool</span></li>
+                                <li v-if="value=='laundry'"><i class="fas fa-tshirt listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Laundry</span></li>
+                                <li v-if="value=='parking'"><i class="fas fa-car listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Parking</span></li>
+                                <li v-if="value=='elevator'"><i class="fas fa-accessible-icon listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Accessibility</span></li>
+                                <li v-if="value=='hottub'"><i class="fas fa-hot-tub listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Hot Tub</span></li>
+                                <li v-if="value=='gym'"><i class="fas fa-dumbbell listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Gym</span></li>
+                                <li v-if="value=='firstaid'"><i class="fas fa-first-aid listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">First Aid Kit</span></li>
+                                <li v-if="value=='fireextinguisher'"><i class="fas fa-fire-extinguisher listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Fire Extinguisher</span></li>
+                                <li v-if="value=='locks'"><i class="fas fa-lock listStylingIconsAmmenities"></i><span class="listStylingDataAmmenity">Security</span></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="item-box ownerProfile">
+                        <div
+                          v-if="houseOwnerProfile.profileImage"
+                          class="ratio img-responsive img-circle"
+                          style="margin-left: 10%; margin-top: 0px;"
+                          :title="houseOwnerProfile.firstname + ' ' + houseOwnerProfile.lastname"
+                          :alt="houseOwnerProfile.firstname + ' ' + houseOwnerProfile.lastname"
+                          v-bind:style="{backgroundImage: 'url(' + houseOwnerProfile.profileImage.path + ')'}"
+                        ></div>
+                        <div
+                          v-else
+                          class="ratio img-responsive img-circle"
+                          style="background-image: url(/profileImages/user.png); margin-left: 10%; margin-top: 0px;"
+                          :title="houseOwnerProfile.firstname + ' ' + houseOwnerProfile.lastname"
+                          :alt="houseOwnerProfile.firstname + ' ' + houseOwnerProfile.lastname"
+                        ></div>
+                        <div class="sectionInfo">
+                          <h3 class="subheading-two" style="word-spacing: 0px; padding-bottom: 0px; margin: 0px;">{{houseOwnerProfile.firstname}} {{houseOwnerProfile.lastname}}</h3>
+                          <p class="subheading-four" style="text-align: center; color: #909090;">{{houseOwnerProfile.city}}, Zimbabwe</p>
+                          <div class="pricing-data">
+                            <div class="info-icon" style="width: 15%;"><i class="fas fa-info-circle" style="color: purple;"></i></div>
+                            <div v-if="house.priceMethod == 'perHead'" class="pricing-info" style="width: 50%;">Pricing per person</div>
+                            <div v-else-if="house.priceMethod == 'perRoom'" class="pricing-info" style="width: 50%;">Pricing per room</div>
+                            <div v-else-if="house.priceMethod == 'fullHouse'" class="pricing-info" style="width: 50%;">Full House</div>
+                            <div v-else class="pricing-info" style="width: 50%;">Pricing</div>
+                            <div class="pricing-amount" style="width: 35%; text-align: right;">{{house.priceCurrency}}{{house.priceValue}}</div>  
+                          </div>
+                          <div class="pricing-data">
+                            <div class="info-icon" style="width: 15%;"><i class="fas fa-info-circle" style="color: purple;"></i></div>
+                            <div class="pricing-info" style="width: 50%;">Service Fee</div>
+                            <div class="pricing-amount" style="width: 35%; text-align: right;">US$0</div>  
+                          </div>
+                          <div class="pricing-data">
+                            <div class="info-icon" style="width: 15%; color: #fff;">.</div>
+                            <div class="pricing-info" style="width: 50%;"><strong>Total</strong></div>
+                            <div class="pricing-amount" style="width: 35%; text-align: right;"><strong>{{house.priceCurrency}}{{house.priceValue}}</strong></div>  
+                          </div>
+                          <span style="font-size: 22px;">Per {{house.priceTime}}</span>
 
-                 <hr>
-                  <div class=row>
-                 <div class="col-md-8">
-                  
-                  <div class="row">
-                    <ul class="non-ticked">
-                      <li><strong>Owner</strong>: <span>{{house.owner}}</span></li>
-                      <li><strong>Space Type</strong>: <span>{{house.spaceType}}</span></li>
-                      <li><strong>Room Count</strong>: <span>{{house.totalRoomCount}}</span></li>
-                      <li><strong>Bedrooms</strong>: <span>{{house.bedroomcount}}</span></li>
-                      <li><strong>People Per Bedroom</strong>: <span>{{house.countperbedroom}}</span></li>
-                      <li><strong>Study rooms</strong>: <span>{{house.studyroomcount}}</span></li>
-                      <li><strong>Guests</strong>: <span>{{house.guestcount}}</span></li>
-                    </ul>
-                  </div>
-                  <hr>
-                  <div class="row" style="padding-left:35px">
-                    <h5 align="left" style="padding-left:0px;"><i style="color:red;" class="fas fa-map-marker-alt"></i>&nbsp;Location </h5>
-                  </div>
-                  <div class="row">
-                    <ul class="non-ticked">
-                      <li><strong>City</strong>: {{house.city}}</li>
-                      <li><strong>Suburb</strong>: {{house.suburb}}</li>
-                      <hr  width="18%">
-                      <li><strong>Nearby Universities</strong>: {{house.universities.toString()}}</li>
-                    </ul>   
+                          <!--Logged in and already made Request Start-->
+                          <br>
+                          <span style="font-size: 16px;" v-if="$store.state.authUser && $store.state.authUser.user._id != house.owner && requested == true">
+                            <strong>You made a request to rent</strong>
+                          </span>
+                          <a href="#cancel-request" v-if="$store.state.authUser && $store.state.authUser.user._id != house.owner && requested == true">
+                            <button
+                              class="default-button"
+                              style="margin-top: 30px;"
+                              
+                            >Cancel Request</button>
+                          </a>
+                          <div id="cancel-request" class="modal-window">
+                            <div>
+                              <a href="#cancel-request-close" title="Close" class="modal-close">close &times;</a>
+                              <div class="modal-text">Are you sure you want to cancel request?</div>
+                              <button class="default-button-small button-red" v-on:click.prevent="modifyRequest(house._id, 'Cancelled')">Yes</button>
+                            </div>
+                          </div>
+                          <!--Logged in and already made Request End-->
+
+                          <!--Logged in and hasn't made request Start-->
+                          <a href="#make-request" v-if="$store.state.authUser && $store.state.authUser.user._id != house.owner && requested == false">
+                            <button
+                              class="default-button"
+                              style="margin-top: 30px;"
+                            >Request to Rent</button>
+                          </a>
+                          <div id="make-request" class="modal-window">
+                            <div>
+                              <a href="#make-request-close" title="Close" class="modal-close">close &times;</a>
+                              <div class="modal-text">Are sure you want to make this request.</div>
+                              <button class="default-button-small button-red"  @click.prevent="sendRequest()">Yes</button>
+                            </div>
+                          </div>
+                          <!--Logged in and hasn't made request End-->
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
@@ -109,61 +193,7 @@
                       </div>
                     </div>
                   </div>
-                 </div>
-                 <div class="col-md-4">
-                   <div class="item-box nopadding" style="text-align: left; border: 0.5px solid #aaa;">
-                        <div class="row nopadding" style="background: #eee;">
-                          <p style="color:#a7234f; padding: 20px; font-weight: 400; font-size: 20px;">Price</p>
-                        </div>
-                        <div class="row">
-                          <p style="padding: 40px; font-weight: 300; font-size: 42px;">{{house.priceCurrency}}<span style="color:green">{{house.priceValue}}.00</span> 
-                            <br><i class="far fa-user"></i><span style="font-size: 15pt;"> &nbsp; {{house.priceMethod}}/per {{house.priceTime}}</span></br>
-                          </p>
-                        </div>
-                        <hr>
-                      </div>
-                  </div>
                 </div>
-               <div class="row" style="padding-left:35px;padding-top:20px;">
-                  <h5>Ammenities &nbsp;<i class="fas fa-arrow-circle-right" ></i></h5>
-               </div>
-            <div class="col-md-12" style="padding-left:40px; padding-right:40px;">
-              <div class="row" style="border:1px solid maroon; border-radius:5px;">
-                   <div class="col-md-4" style="padding-top:10px; margin:0;">
-                       <ul class="ticked">
-                      <!--house.ammenties[i] returns true or false but we want yes or no -->
-                      <li><i class="fas fa-couch"></i>&nbsp;{{house.furnishStatus}}</li>
-                      <li><i class="fas fa-bed"></i>&nbsp;beds {{house.amenities[0]}}</li>
-                      <li><i class="fas fa-heart"></i>&nbsp;essentials {{house.amenities[1]}}</li>
-                      <li><i class="fas fa-wifi"></i>&nbsp;wifi {{house.amenities[2]}}</li>
-                      <li><i class="fas fa-minus"></i>&nbsp;desks {{house.amenities[3]}}</li>
-                      <li><i class="fas fa-box"></i>&nbsp;drawers {{house.amenities[4]}}</li>
-                      <li><i class="fas fa-tv"></i>&nbsp;television {{house.amenities[5]}}</li>
-                       </ul>
-                   </div>
-
-                   <div class="col-md-4" style="padding-top:10px; margin:0;">
-                    <ul class="ticked">
-                      <li><i class="fas fa-swimming-pool"></i>&nbsp;swimming pool{{house.amenities[6]}}</li>
-                      <li><i class="fas fa-tshirt"></i>&nbsp;laundry {{house.amenities[7]}}</li>
-                      <li><i class="fas fa-parking"></i>&nbsp;parking {{house.amenities[8]}}</li>
-                      <li><i class="fas fa-arrow-circle-up"></i>&nbsp;elevator {{house.amenities[9]}}</li>
-                      <li><i class="fas fa-hot-tub"></i>&nbsp;hottub {{house.amenities[10]}}</li>
-                    </ul>
-                   </div>
-
-                   <div class="col-md-4" style="padding-top:10px; margin:0;">
-                     <ul class="ticked">
-                      <li><i class="fas fa-dumbbell"></i>&nbsp;gym{{house.amenities[11]}}</li>
-                      <li><i class="fas fa-first-aid"></i>&nbsp;firstaid {{house.amenities[12]}}</li>
-                      <li><i class="fas fa-fire-extinguisher"></i>&nbsp;fire extinguisher {{house.amenities[8]}}</li>
-                      <li><i class="fas fa-lock"></i>&nbsp;locks {{house.amenities[9]}}</li>
-                    </ul>
-                   </div>
-                  </div>
-              </div>
-
-
               </div>
             </div>
           </div>
@@ -176,11 +206,9 @@
 
 
 <script>
-import greetingColumn from "@/components/defaultGreetingColumn";
 import defaultAdsColumn from "@/components/defaultAdsColumn";
 export default {
   components: {
-    greetingColumn: greetingColumn,
     defaultAdsColumn: defaultAdsColumn
   },
   data() {
@@ -193,6 +221,7 @@ export default {
       imageHeight: 0,
       imageWidth: 0,
       requested: false,
+      houseOwnerProfile: {},
       Form: {
         reqID: null,
         requesterID: null,
@@ -214,6 +243,50 @@ export default {
         this.userProfile = await this.$store.dispatch("userRequestToRent", this.Form)
         this.userProfile = this.userProfile.data  
       }catch(e){
+        this.errors.push(e)
+      }
+    },
+    async modifyRequest(houseID, action){
+      var index
+      for(index in this.userProfile.allRequests){
+        if(this.userProfile.allRequests[index].requestedHouseID == houseID){
+          this.userProfile.allRequests[index].requestStatus = action
+          try{
+            this.userProfile = await this.$store.dispatch('modifyRequestToRentUser', {Form: this.userProfile.allRequests[index]})
+            this.userProfile = this.userProfile.data.user
+            await this.$store.dispatch('modifyRequestToRentHouse', {Form: this.userProfile.allRequests[index]})
+          }catch(e){
+            this.errors.push(e)
+          }
+        }
+      }
+      this.getData()
+    },
+
+    async getData(){
+      this.requestedHouses = []
+       try {
+        this.userProfile = await this.$store.dispatch('getProfile', { id: this.$store.state.authUser.user.username })
+        this.userProfile = this.userProfile.data.user
+        var index
+        for(index in this.userProfile.allRequests){
+          var request = await this.$store.dispatch('getOneHouse', { id: this.userProfile.allRequests[index].requestedHouseID })
+          if(request.data){
+            this.requestedHouses.push(request.data.house)
+          }   
+        }
+        if (this.userProfile.accountType != 'Student') {
+          this.houseExists = await this.$store.dispatch('getHousesByID', { id: this.userProfile._id })
+          if (this.houseExists.data.message == 'House could not be found')
+            this.houseExists = false
+          else if (this.houseExists.data.message == '404')
+            this.houseExists = false
+          else {
+            this.housesOwned = this.houseExists.data
+            this.houseExists = true
+          }
+        }
+      } catch (e) {
         this.errors.push(e)
       }
     },
@@ -252,6 +325,15 @@ export default {
     }
   },
 
+  async created(){
+    try {
+      this.houseOwnerProfile = await this.$store.dispatch('getProfilebyID', { id: this.house.owner })
+      this.houseOwnerProfile = this.houseOwnerProfile.data.user
+    } catch (e) {
+      this.error = e.message
+    }
+  },
+
   async mounted() {
     this.$nextTick(() => { this.$nuxt.$loading.start(); });
     try {
@@ -284,7 +366,7 @@ export default {
         if(this.house.allRequests && this.$store.state.authUser){
           var index
           for(index in this.house.allRequests){
-            if(this.house.allRequests[index].requester == this.$store.state.authUser.user._id){
+            if(this.house.allRequests[index].requester == this.$store.state.authUser.user._id && this.house.allRequests[index].requestStatus == 'pending'){
               this.requested = true
             }
           }
@@ -333,21 +415,90 @@ export default {
 </script>
 
 <style>
-.vl {
-  border-left: 1px solid maroon;
-  height: 80%;
-  left: 80%;
-  position:absolute;
-  overflow: hidden;
+.property-title{
+  font-size: 22px;
+  text-align: left;
+  color: #000000;
+  word-spacing: 0px;
+  padding: 10px 0 5px 0px;
+  margin: 10px 0 10px 0px;
+  font-weight: 500;
 }
+
+.non-ticked li{
+  width: 100%;
+  height: 30px;
+}
+.ticked li{
+  width: 100%;
+  height: 15px;
+}
+.listStylingIcons{
+  float: left;
+  width: 5%;
+  margin-top: 5px;
+}
+
+.listStyling{
+  float: left;
+  width: 40%;
+}
+.listStylingData{
+  float: left;
+  width: 55%;
+}
+
+.listStylingIconsAmmenities{
+  float: left;
+  width: 10%;
+  margin-top: 5px;
+}
+.listStylingDataAmmenity{
+  float: left;
+  width: 80%;
+}
+.sectionInfo{
+  text-align: center;
+  padding: 10px;
+}
+
+.sectionInfo .pricing-data{
+  width: 100%;
+  height: 30px;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 420;
+  color: #606060;
+}
+
+.sectionInfo .pricing-data div{
+  float:left;
+  margin-top: 5px;
+}
+@media only screen and (min-width: 756px) {
+  .ownerProfile{
+    position: absolute;
+    width: 100%;
+    margin-top: -200px;
+    border: 1px solid purple;
+  }
+}
+
+@media only screen and (max-width: 756px) {
+  .ownerProfile{
+    position: relative;
+    width: 100%;
+    border: 1px solid purple;
+    margin: 10px 0 10px 0;
+  }
+}
+
 .li {
     display: block;
     width: 25%;
     float: left;
-}
-.centered{
-   text-align: center;
-   display: inline-block;
 }
 
 .non-ticked{
