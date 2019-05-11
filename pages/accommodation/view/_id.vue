@@ -6,7 +6,7 @@
           <div class="item-box" style="margin-top: 10px; padding-top: 0px;">
             <div class="row">
               <div class="col-md-12 padding-left:0px">
-                <div class="row nopadding houseimages" v-if="house.accommodationImages.length">
+                <div class="row nopadding desktophouseimages" v-if="house.accommodationImages.length">
                   <div class="col-md-6 nopadding">
                     <div style="width:100%; height:450px;" class="accommodation-images">
                       <img :src="house.accommodationImages[0].path" style="width:100%; height:100%">
@@ -25,6 +25,30 @@
                       <div style="width:100%; height:100%;" class="nopadding accommodation-images">
                         <img :title="index" :src="image.path" style="width:100%; height:100%">
                       </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mobilehouseimages">
+                      <b-carousel
+                        :id="house._id"
+                        :interval="0"
+                        controls
+                        indicators
+                        background="#ffffff"
+                        img-width="100%"
+                        img-height="100%"
+                        style="height: 220px; overflow: hidden; border-radius: 1px;"
+                      >
+                        <b-carousel-slide
+                          v-for="(image, index) in house.accommodationImages"
+                          :key="index"
+                          :alt="house.title"
+                          :img-src="image.path"
+                        ></b-carousel-slide> 
+                      </b-carousel>
                     </div>
                   </div>
                 </div>
@@ -450,12 +474,12 @@ export default {
 
 .listStylingIconsAmmenities{
   float: left;
-  width: 10%;
+  width: 15%;
   margin-top: 5px;
 }
 .listStylingDataAmmenity{
   float: left;
-  width: 80%;
+  width: 75%;
 }
 .sectionInfo{
   text-align: center;
@@ -484,9 +508,15 @@ export default {
     margin-top: -200px;
     border: 1px solid purple;
   }
+  .mobilehouseimages{
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 756px) {
+  .desktophouseimages{
+    display: none;
+  }
   .ownerProfile{
     position: relative;
     width: 100%;
@@ -496,11 +526,9 @@ export default {
   .non-ticked li{
     font-size: 13px;
   }
-
   .listStylingIcons{
     width: 10%;
   }
-
   .listStyling{
     width: 55%;
   }
@@ -525,7 +553,7 @@ export default {
   content: "✓";
 }
 
-.houseimages{
+.desktophouseimages{
   overflow: hidden;
 }
 
