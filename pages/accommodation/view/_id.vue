@@ -493,6 +493,20 @@ export default {
     border: 1px solid purple;
     margin: 10px 0 10px 0;
   }
+  .non-ticked li{
+    font-size: 13px;
+  }
+
+  .listStylingIcons{
+    width: 10%;
+  }
+
+  .listStyling{
+    width: 55%;
+  }
+  .listStylingData{
+    width: 35%;
+  }
 }
 
 .li {
