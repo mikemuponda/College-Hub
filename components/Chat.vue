@@ -80,16 +80,7 @@ export default {
 
     this.socket.on('MESSAGE', data => {
       this.receiverProfile = data.receiverProfile
-      var newData = {
-        id: data.id,
-        user: data.user,
-        message: data.message,
-        receiverUsername: data.receiverUsername,
-        createdAt: data.createdAt,
-        receiverProfile: data.receiverProfile,
-        senderProfile: data.senderProfile
-      }
-      this.messages.push(newData)
+      this.messages.push(data)
     })
   },
 }

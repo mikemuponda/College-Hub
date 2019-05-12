@@ -61,7 +61,7 @@ router.post('/signup', async (req, res) => {
         html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="' + shortURL + '" title="Collegehub">clicking this link</a></p><p>If you are having trouble clicking the link, please use the url <br>' + shortURL + '</p><p>Regards</p>',
       }
       const sms = {
-        from: '+12055765938',
+        from: 'Collegehub Zimbabwe',
         body: 'Hello ' + req.body.firstname + '! Please verify your account by following: ' + shortURL,
         to: req.body.phone
       }
