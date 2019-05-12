@@ -44,6 +44,7 @@ export default {
       messages: [],
       receiver: 'Tinashe',
       receiverProfile: {},
+      userProfile: {},
       socket: io(process.env.socketsIO)
     }
   },
@@ -58,7 +59,8 @@ export default {
         message: this.message,
         receiverUsername: this.receiver,
         createdAt: new Date(),
-        receiverObj: this.receiverProfile
+        receiverProfile: this.receiverProfile,
+        senderProfile: this.userProfile
       }
       this.messages.push(data)
       this.socket.emit('SEND_MESSAGE', data)
@@ -74,11 +76,20 @@ export default {
       user: this.userProfile.username,
       createdAt: new Date()
     }
-    this.socket.emit('SEND_MESSAGE', data)
+    this.socket.emit('SEND_MESSAGE', data)  
 
     this.socket.on('MESSAGE', data => {
-      this.receiverProfile = data.receiverObj
-      this.messages.push(data)
+      this.receiverProfile = data.senderProfile
+      var newData = {
+        id: data.id,
+        user: data.receiverUsername,
+        message: data.message,
+        receiverUsername: data.user,
+        createdAt: data.createdAt,
+        receiverProfile: data.senderProfile,
+        senderProfile: data.receiverProfile
+      }
+      this.messages.push(newData)
     })
   },
 }
