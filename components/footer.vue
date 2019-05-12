@@ -24,7 +24,7 @@
               </a>
               
               <a
-                href="https://twitter.com/collegehubzw"
+                href="https://twitter.com/collegehubzim"
                 target="_blank"
                 rel="noopener"
                 title="Twitter"
@@ -33,7 +33,7 @@
               </a>
               
               <a
-                href="https://www.instagram.com/collegehubzw"
+                href="https://www.instagram.com/collegehubzimbabwe"
                 target="_blank"
                 rel="noopener"
                 title="Instagram"

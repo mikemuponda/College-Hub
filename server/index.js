@@ -36,8 +36,9 @@ async function start() {
   const server = app.listen(port, host)
   const io = require('socket.io')(server);
   var activity = []
+  var users = []
 
-  //io.on('connection', function(socket) { socket.on('SEND_MESSAGE', function(data) { io.emit('MESSAGE', data)});})
+
   io.on('connection', function(socket) {
     socket.on('ACTIVITY_FEED', function(data) {
       activity.push(data)
@@ -74,6 +75,33 @@ async function start() {
         }
       }
       io.emit('ACTIVITY', activity)
+    }),
+
+    socket.on('SEND_MESSAGE', function(data) {
+      var user = {
+        username: data.user,
+        socketID: socket.client.id
+      }
+      var index, exists = false, receiverSocketID, senderSocketID
+      for(index in users){
+        if(users[index].username == user.username && users[index].socketID != user.socketID){
+          users.splice(index)
+          users.push(user)
+          exists = true
+        }else if(users[index].username == user.username && users[index].socketID == user.socketID){
+          exists = true
+        }
+      }
+      if(exists == false){
+        users.push(user)
+      }
+
+      for(index in users){
+        if(users[index].username == data.receiverUsername){
+          receiverSocketID = users[index].socketID
+        }
+      }
+      io.to(receiverSocketID).emit('MESSAGE', data) 
     })
   })
   consola.ready({

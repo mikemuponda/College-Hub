@@ -1,15 +1,8 @@
-
 <template>
-  <div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <no-ssr>
-            <Chat/>
-          </no-ssr>
-        </div>
-      </div>
-    </div>
+  <div style="width: 100%; margin-top: 80px;">
+    <no-ssr>
+      <Chat/>
+    </no-ssr>
   </div>
 </template>
 

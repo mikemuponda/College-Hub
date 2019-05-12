@@ -160,6 +160,12 @@
                           <span style="font-size: 16px;" v-if="$store.state.authUser && $store.state.authUser.user._id != house.owner && requested == true">
                             <strong>You made a request to rent</strong>
                           </span>
+                          <button
+                            v-if="$store.state.authUser && $store.state.authUser.user._id != house.owner && requested == true"
+                            class="default-button"
+                            style="margin-top: 30px;"
+                            @click="startChat(houseOwnerProfile.username)"  
+                            ><i class="fas fa-comment"></i> Contact {{houseOwnerProfile.firstname}}</button>
                           <a href="#cancel-request" v-if="$store.state.authUser && $store.state.authUser.user._id != house.owner && requested == true">
                             <button
                               class="default-button"
@@ -346,6 +352,9 @@ export default {
       } catch (e) {
         this.errors.push(e.message);
       }
+    },
+    startChat(username){
+      window.location.href = '/messages/?user=' + username
     }
   },
 
