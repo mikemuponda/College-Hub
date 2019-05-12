@@ -56,12 +56,13 @@ router.post('/signup', async (req, res) => {
     urlShortener.short('https://www.collegehub.co.zw/confirm-signup/' + key, function(err, shortURL){
       const msg = {
         to: req.body.email,
+        cc: 'admin@collegehub.co.zw',
         from: 'Collegehub <noreply@collegehub.co.zw>',
         subject: 'Collegehub: Please confirm your email',
         html: '<h2>Hi, ' + req.body.firstname + '</h2><p>Thank you for creating your account at Collegehub. Please confirm your email by <a href="' + shortURL + '" title="Collegehub">clicking this link</a></p><p>If you are having trouble clicking the link, please use the url <br>' + shortURL + '</p><p>Regards</p>',
       }
       const sms = {
-        from: 'Collegehub Zimbabwe',
+        from: '+12055765938',
         body: 'Hello ' + req.body.firstname + '! Please verify your account by following: ' + shortURL,
         to: req.body.phone
       }
