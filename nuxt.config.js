@@ -216,6 +216,7 @@ module.exports = {
     '~/server/routes/api/health',
     '~/server/routes/api/admin',
     '~/server/routes/sitemap',
+    '~/server/routes/api/google-util',
   ],
 
   axios: {

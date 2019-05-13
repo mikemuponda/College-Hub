@@ -20,9 +20,6 @@ console.log = function(d) { //
   logsOut.write(util.format(d) + '\n');
 };
 
-
-
-
 aws.config.update({
   secretAccessKey: process.env.awsSecretAccessKey,
   accessKeyId: process.env.awsAccessKeyId,
