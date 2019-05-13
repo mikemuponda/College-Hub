@@ -10,18 +10,19 @@
             <div class="chat-bar">
               Hello World
             </div>
-            <div class="chat-messages-box" v-for="(msg, index) in messages" :key="index">
-              <div class="chat-box darker">
-                <img v-if="msg.user == userProfile.username" :src="userProfile.profileImage.path" :alt="userProfile.firstname + ' ' + userProfile.lastname" v-bind:class="[ userProfile.username == msg.user ? 'right' : 'left' ]">
-                <img v-else :src="receiverProfile.profileImage.path" :alt="receiverProfile.firstname + ' ' + receiverProfile.lastname" v-bind:class="[ receiverProfile.username == msg.receiverUsername ? 'right' : 'left' ]">
-                <p>{{msg.message}}</p>
-                <span class="time-left">{{ msg.createdAt }}</span>
+            <div class="chat-messages-box" >
+              <div v-for="(msg, index) in messages" :key="index">
+                <div class="chat-box darker">
+                  <img v-if="msg.user == userProfile.username" :src="userProfile.profileImage.path" :alt="userProfile.firstname + ' ' + userProfile.lastname" class="right">
+                  <img v-else :src="msg.receiverProfile.profileImage.path" :alt="msg.receiverProfile.firstname + ' ' + msg.receiverProfile.lastname" class="left">
+                  <p>{{msg.message}}</p>
+                  <span class="time-left">{{ msg.createdAt }}</span>
+                </div>
               </div>
             </div>
             <div class="input-field-chat">
               <form @submit.prevent="sendMessage">
                 <div class="form-group">
-                  <label for="message">Message:</label>
                   <input type="text" v-model="message" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-success">Send</button>
@@ -42,7 +43,7 @@ export default {
       user: '',
       message: '',
       messages: [],
-      receiver: 'Tinashe',
+      receiver: '',
       receiverProfile: {},
       userProfile: {},
       socket: io(process.env.socketsIO)
@@ -64,7 +65,12 @@ export default {
       }
       this.messages.push(data)
       this.socket.emit('SEND_MESSAGE', data)
+      this.scrollToBottom()
       this.message = ''
+    },
+    scrollToBottom: function() {    	
+      var container = this.$el.querySelector(".chat-messages-box");
+      container.scrollTop = container.scrollHeight;
     }
   },
   mounted() {
@@ -79,10 +85,23 @@ export default {
     this.socket.emit('SEND_MESSAGE', data)  
 
     this.socket.on('MESSAGE', data => {
-      this.receiverProfile = data.receiverProfile
-      this.messages.push(data)
+      this.receiver = data.user
+      var newData = {
+        id: data.id,
+        user: data.user,
+        message: data.message,
+        receiverUsername: data.receiverUsername,
+        createdAt: data.createdAt,
+        receiverProfile: data.senderProfile,
+        senderProfile: this.userProfile
+      }
+      this.receiverProfile = newData.receiverProfile
+      this.messages.push(newData)
     })
   },
+  updated(){
+    this.scrollToBottom()
+  }
 }
 </script>
 
@@ -100,7 +119,10 @@ export default {
   height: 50px;
 }
 .chat-messages-box{
-  
+  overflow-y: scroll;
+  height: 80%;
+  padding: 5px;
+  margin: 0px;
 }
 .chat-box {
   border: 2px solid #dedede;
@@ -135,6 +157,7 @@ export default {
   margin-left: 20px;
   margin-right:0;
   width: 100%;
+  text-align: right;
 }
 
 .chat-box img.left {
