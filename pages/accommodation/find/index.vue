@@ -364,7 +364,14 @@ export default {
     this.Form.suburb = 'allsuburbs'
   },
   async asyncData({ store, params, context }) {
-    const allHousesGlobal = await store.dispatch('getAllHousesAsync')
+    var x
+    if(process.server){
+      x = await store.dispatch('getAllHousesAsync')
+    }else{
+      x = await store.dispatch('getHouses')
+    }
+
+    const allHousesGlobal = x
     return {
       allHousesGlobal: allHousesGlobal.data
     } 
