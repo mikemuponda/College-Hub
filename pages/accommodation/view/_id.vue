@@ -416,7 +416,13 @@ export default {
   },
 
   async asyncData({ store, params, context }) {
-    const house = await store.dispatch("getHouseFuck", { id: params.id });
+    var x
+    if(process.client == true){
+      x = await store.dispatch("getHousesByID", { id: params.id });
+    }else{
+      x = await store.dispatch("getHouseFuck", { id: params.id });
+    }
+    const house = x
     const fullHouse = house.data.house
     const markers = []
     markers.push(house.data.house)

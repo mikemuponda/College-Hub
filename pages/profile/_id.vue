@@ -525,8 +525,13 @@ export default {
     }
   },
   async asyncData ({ store, params, context }) {
+    var x
     if(process.server){
-      const user = await store.dispatch('getProfileforMeta', {id: params.id})
+      x = await store.dispatch('getProfileforMeta', {id: params.id})
+    }else{
+      x = await store.dispatch('getProfile', {id: params.id})
+    }
+    const user = x
       return{
         title: user.data.user.firstname + ' ' + user.data.user.lastname,
         description: 'View ' + user.data.user.firstname + ' ' + user.data.user.lastname + ' on Collegehub; The premier service for university students in Zimbabwe',
@@ -540,7 +545,7 @@ export default {
           city: user.data.user.city
         }
       }
-    }
+    
   },
   head() {
     return {
