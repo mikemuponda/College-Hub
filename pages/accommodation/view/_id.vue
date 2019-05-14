@@ -418,7 +418,7 @@ export default {
   async asyncData({ store, params, context }) {
     var x
     if(process.client == true){
-      x = await store.dispatch("getHousesByID", { id: params.id });
+      x = await store.dispatch("getOneHouse", { id: params.id });
     }else{
       x = await store.dispatch("getHouseFuck", { id: params.id });
     }
