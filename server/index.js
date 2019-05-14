@@ -37,6 +37,7 @@ async function start() {
   const io = require('socket.io')(server);
   var activity = []
   var users = []
+  var chatRooms = []
 
 
   io.on('connection', function(socket) {
@@ -82,7 +83,12 @@ async function start() {
         username: data.user,
         socketID: socket.client.id
       }
-      var index, exists = false, receiverSocketID, senderSocketID
+      var chatRoom = {
+        chatRoomID: data.chatRoomID,
+        userOne: data.user,
+        userTwo: data.receiverUsername,
+      }
+      var index, exists = false, receiverSocketID, chatExists = false
       for(index in users){
         if(users[index].username == user.username && users[index].socketID != user.socketID){
           users.splice(index)
@@ -96,12 +102,28 @@ async function start() {
         users.push(user)
       }
 
+      for(index in chatRooms){
+        if(chatRooms[index].userOne == chatRoom.userOne && chatRooms[index].userTwo == chatRoom.userTwo){
+          chatRooms.splice(index)
+          chatRooms.push(chatRoom)
+          chatExists = true
+        }
+      }
+
+      if(chatExists == false){
+        chatRooms.push(chatRoom)
+      }
+
+      socket.join(chatRoom.chatRoomID);
+
       for(index in users){
         if(users[index].username == data.receiverUsername){
           receiverSocketID = users[index].socketID
         }
       }
-      io.to(receiverSocketID).emit('MESSAGE', data) 
+      if(data.receiverProfile){
+        io.to(chatRoom.chatRoomID).emit('MESSAGE', data) 
+      }
     })
   })
   consola.ready({

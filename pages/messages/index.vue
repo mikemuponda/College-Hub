@@ -8,9 +8,8 @@
 
 <script>
 import Chat from '@/components/Chat'
-
 export default {
-  name: 'app',
+  middleware: 'auth-notsignedin-redirect',
   components: {
     Chat
   }
