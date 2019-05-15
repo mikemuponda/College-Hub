@@ -3,32 +3,83 @@
     <div class="container-fluid" style="background: #eee;" v-if="$store.state.authUser">
       <div class="row">
         <div class="col-md-4">
-          Hello
-        </div>
-        <div class="col-md-8">
-          <div class="chat-main nopadding">
-            <div class="chat-bar">
-              Hello World
+          <div class="item-box">
+            <div class="message-nav">
+              <h1 class="subheading-two">Messages</h1>
             </div>
-            <div class="chat-messages-box" >
-              <div v-for="(msg, index) in messages" :key="index">
-                <div class="chat-box">
-                  <img v-if="msg.user == userProfile.username" :src="userProfile.profileImage.path" :alt="userProfile.firstname + ' ' + userProfile.lastname" class="right">
-                  <img v-else :src="msg.receiverProfile.profileImage.path" :alt="msg.receiverProfile.firstname + ' ' + msg.receiverProfile.lastname" class="left">
-                  <p v-if="msg.user == userProfile.username" class="text-left">{{msg.message}}</p>
-                  <p v-else class="text-right">{{msg.message}}</p>
-                  <span v-if="msg.user == userProfile.username" class="time-left">{{ dateConversion(msg.createdAt) }}</span>
-                  <span v-else class="time-right">{{ dateConversion(msg.createdAt) }}</span>
+            <div v-if="allUsers.length" style="100%;">
+              <div class="user" v-for="(user, index) in allUsers" :key="index" @click="getReceiverProfile(user.username)">
+                <div class="user-box">
+                  <div class="chatUserProfileImage">
+                    <img
+                      v-if="user.profileImage"
+                      title="Profile and Settings"
+                      :alt="user.firstname + ' ' + user.lastname"
+                      :src="user.profileImage.path"
+                      @click="show = !show"
+                    />
+                    <img
+                      v-else
+                      title="Profile and Settings"
+                      :alt="user.firstname + ' ' + user.lastname"
+                      src="/img/profileImages/user.png"
+                      @click="show = !show"
+                    />
+                  </div>
+                  <div class="chatUserInfo">
+                    <p class="chatUserName">{{user.firstname}} {{user.lastname}}</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="input-field-chat">
-              <form @submit.prevent="sendMessage" class="chat-area">
-                <div class="form-group">
-                  <textarea type="text" v-model="message" class="chat-form-control"></textarea>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="chatting-box">
+            <div class="chat-main nopadding">
+              <div class="chat-bar">
+                <div class="chat-bar-inner" v-if="receiverProfile">
+                  <div class="chatUserProfileImage">
+                    <img
+                      v-if="receiverProfile.profileImage"
+                      title="Profile and Settings"
+                      :alt="receiverProfile.firstname + ' ' + receiverProfile.lastname"
+                      :src="receiverProfile.profileImage.path"
+                      @click="show = !show"
+                    />
+                    <img
+                      v-else
+                      title="Profile and Settings"
+                      :alt="receiverProfile.firstname + ' ' + receiverProfile.lastname"
+                      src="/img/profileImages/user.png"
+                      @click="show = !show"
+                    />
+                  </div>
+                  <div class="chatUserInfo">
+                    <p class="chatUserName">{{receiverProfile.firstname}} {{receiverProfile.lastname}}</p>
+                  </div>
                 </div>
-                <button v-if="message.length > 0" type="submit" class="btn-send" style="width: 35px;"><i class="fas fa-paper-plane"></i></button>
-              </form>
+              </div>
+              <div class="chat-messages-box" >
+                <div v-for="(msg, index) in messages" :key="index">
+                  <div class="chat-box">
+                    <img v-if="msg.sender == userProfile.username" :src="userProfile.profileImage.path" :alt="userProfile.firstname + ' ' + userProfile.lastname" class="right">
+                    <img v-else :src="msg.receiverProfile.profileImage.path" :alt="msg.receiverProfile.firstname + ' ' + msg.receiverProfile.lastname" class="left">
+                    <p v-if="msg.sender == userProfile.username" class="text-left">{{msg.message}}</p>
+                    <p v-else class="text-right">{{msg.message}}</p>
+                    <span v-if="msg.sender == userProfile.username" class="time-left">{{ dateConversion(msg.createdAt) }}</span>
+                    <span v-else class="time-right">{{ dateConversion(msg.createdAt) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-field-chat">
+                <form @submit.prevent="sendMessage" class="chat-area">
+                  <div class="form-group">
+                    <input type="text" v-model="message" class="chat-form-control"/>
+                  </div>
+                  <button v-if="message.length > 0" type="submit" class="btn-send" style="width: 35px;"><i class="fas fa-paper-plane"></i></button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -48,20 +99,21 @@ export default {
       receiver: '',
       receiverProfile: {},
       userProfile: {},
+      chats: [],
+      errors: [],
+      allUsers: [],
       socket: io(process.env.socketsIO)
     }
   },
   methods: {
     async sendMessage(e) {
       e.preventDefault()
-      this.receiverProfile = await this.$store.dispatch('getProfile', {id: this.receiver})
-      this.receiverProfile = this.receiverProfile.data.user
       var data = {
         id: this.socket.id,
-        chatRoomID: 'roomID',
-        user: this.userProfile.username,
+        chatRoomID: 'roomID2',
+        sender: this.userProfile.username,
         message: this.message,
-        receiverUsername: this.receiver,
+        receiver: this.receiver,
         createdAt: new Date(),
         receiverProfile: this.receiverProfile,
         senderProfile: this.userProfile
@@ -82,35 +134,101 @@ export default {
       if (!isNaN(mydate.getTime()))
         return dateFormat(mydate, 'dddd, mmmm dS, yyyy, h:MM TT')
       else return 'unknown'
+    },
+    async getReceiverProfile(receiverID){
+      this.receiver = receiverID
+      var index
+      for(index in this.allUsers){
+        if(this.allUsers[index].username == receiverID){
+          this.receiverProfile = this.allUsers[index]
+        }
+      }
+    },
+    async workData(){ //Seems this whole Function is not working
+      if (this.$route.query.user){
+        this.getReceiverProfile(this.$route.query.user)
+      }else{
+        var index, i, j, k, l, tempChats = [], tempUsers = []
+        for(index in this.chats){
+          for(j in this.chats[index].users){
+            if(this.chats[index].users[j] != this.userProfile.username){ //This is the default (user from the last chat in the array)
+              this.getReceiverProfile(this.chats[index].users[j])
+              for(k in this.chats[index].conversation){
+                var sender, receiver
+                if(this.chats[index].conversation[k].sender != this.userProfile.username){
+                  sender = this.userProfile
+                  receiver = this.receiverProfile
+                }else{
+                  sender = this.receiverProfile
+                  receiver = this.userProfile
+                }
+                let defaultChat = {
+                  id: this.socket.id,
+                  chatRoomID: this.chats[index].conversation[k].chatRoomID,
+                  sender: this.chats[index].conversation[k].sender,
+                  message: this.chats[index].conversation[k].message,
+                  receiver: this.chats[index].conversation[k].receiver,
+                  createdAt: this.chats[index].conversation[k].createdAt,
+                  receiverProfile: receiver,
+                  senderProfile: sender
+                }
+                this.messages.push(defaultChat)
+              }
+            }
+            if(this.chats[index].users[j] == this.userProfile.username){
+              tempChats.push(this.chats[index])
+            }
+          }
+        }
+        this.chats = tempChats
+        for(index in this.allUsers){
+          for(i in this.chats){
+            for(j in this.chats[i].users){
+              if(this.allUsers[index].username == this.chats[i].users[j] && this.allUsers[index].username != this.userProfile.username){
+                tempUsers.push(this.allUsers[index])
+              }
+            }
+          }
+        }
+        this.allUsers = tempUsers
+      }
     }
   },
+  async created(){
+    try{
+      this.userProfile = await this.$store.dispatch('getProfile', {id: this.$store.state.authUser.user.username})
+      this.userProfile = this.userProfile.data.user
+      this.chats = await this.$store.dispatch('getUserChats', {id: this.userProfile.username})
+      this.chats = this.chats.data
+      this.allUsers = await this.$store.dispatch('getAllUserProfiles')
+      this.allUsers = this.allUsers.data    
+    }catch(error){
+      this.errors.push(error)
+    }  
+  },
   mounted() {
-    this.userProfile = this.$store.state.authUser.user
-    if (this.$route.query.user){
-      this.receiver = this.$route.query.user
-    }else{
-      this.receiver = 'Robi'
-    }
+    this.workData()
     var data = {
-      user: this.userProfile.username,
-      chatRoomID: 'roomID',
+      sender: this.userProfile.username,
+      chatRoomID: 'roomID2',
       createdAt: new Date()
     }
-    this.socket.emit('SEND_MESSAGE', data)  
+    this.socket.emit('SEND_MESSAGE', data)
+    
+      
 
     this.socket.on('MESSAGE', data => {
-      this.receiver = data.user
+      this.receiver = data.sender
       var newData = {
         id: data.id,
         chatRoomID: data.chatRoomID,
-        user: data.user,
+        sender: data.sender,
         message: data.message,
-        receiverUsername: data.receiverUsername,
+        receiver: data.receiver,
         createdAt: data.createdAt,
         receiverProfile: data.senderProfile,
         senderProfile: this.userProfile
       }
-      this.receiverProfile = newData.receiverProfile
       this.messages.push(newData)
     })
   },
@@ -121,17 +239,79 @@ export default {
 </script>
 
 <style scoped>
+.message-nav{
+  width: 100%;
+  background: #fff;
+  padding: 5px 0 15px 0;
+  border-bottom: 1px solid #eee;
+}
+.user{
+  width: 100%;
+  height: 60px;
+  border-bottom: 0.5px solid #eee;
+  padding: 5px 0 5px 0;
+}
+.user:hover{
+  cursor: pointer;
+  background: #eee;
+}
+.chatUserProfileImage{
+  float: left;
+  margin-left: 2.5%;
+  width: 50px;
+  height: 50px;
+}
+
+.chatUserProfileImage img{
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.chatUserInfo{
+  float: left;
+  width: 80%;
+  text-align: left;
+}
+
+.chatUserInfo .chatUserName{
+  padding: 5px;
+  font-weight: 420;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.chatting-box{
+  position: fixed;
+  width: 64%;
+  margin-top: 10px;
+  background-color: #fff;
+  border-radius: 1px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  -webkit-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 3px 5px 1px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
 .chat-main{
   background: #fff;
   width: 100%;
   padding: 10px;
   margin: 0px;
-  height: 87vh;
+  height: 83vh;
 }
 .chat-bar{
   width: 100%;
   border-bottom: 0.5px solid #aaa;
-  height: 50px;
+  height: 55px;
+}
+
+.chat-bar-inner{
+  height: 100%;
+  width: 100%;
 }
 .chat-messages-box{
   overflow-y: scroll;
@@ -243,7 +423,7 @@ export default {
     height: 50px;
   }
   .chat-area{
-    width: 96.5%;
+    width: 100%;
   }
   .chat-area .form-group{
     width: 91%;
@@ -258,8 +438,6 @@ export default {
 @media only screen and (max-width: 872px) {
   .chat-area{
     height: 40px;
-  }
-  .chat-area{
     width: 93%;
   }
   .chat-area .form-group{

@@ -179,6 +179,15 @@ export const actions = {
     }
   },
 
+  async getAllUserProfiles({commit}){
+    var baseUrl = '/users/allusers'
+    try {
+      return await axios.post(baseUrl)
+    } catch (error) {
+      return error
+    }
+  },
+
   async contact({commit}, {name, email, phone, message}){
     var url = '/contact/message/send'
     try {
@@ -332,12 +341,12 @@ export const actions = {
     } 
   },
 
-  async getAllLocales({commit},){
-    var url = '/data/get/locales'
+  async getUserChats({commit}, {id}){
+    var baseURL = '/chats/user/' + id
     try {
-      return await axios.post(url)
+      return await axios.post(baseURL)
     } catch (error) {
-      return "404"
-    }
+      return error
+    } 
   }
 }

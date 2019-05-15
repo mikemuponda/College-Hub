@@ -217,6 +217,7 @@ module.exports = {
     '~/server/routes/api/admin',
     '~/server/routes/sitemap',
     '~/server/routes/api/google-util',
+    '~/server/routes/api/userChats',
   ],
 
   axios: {

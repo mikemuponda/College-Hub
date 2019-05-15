@@ -8,6 +8,9 @@ const app = express()
 const host = process.env.HOST
 const port = process.env.PORT
 
+const axios = require('axios')
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 
 app.set('port', port)
 app.use(bodyParser.json())
@@ -80,13 +83,13 @@ async function start() {
 
     socket.on('SEND_MESSAGE', function(data) {
       var user = {
-        username: data.user,
+        username: data.sender,
         socketID: socket.client.id
       }
       var chatRoom = {
         chatRoomID: data.chatRoomID,
-        userOne: data.user,
-        userTwo: data.receiverUsername,
+        userOne: data.sender,
+        userTwo: data.receiver,
       }
       var index, exists = false, receiverSocketID, chatExists = false
       for(index in users){
@@ -117,12 +120,27 @@ async function start() {
       socket.join(chatRoom.chatRoomID);
 
       for(index in users){
-        if(users[index].username == data.receiverUsername){
+        if(users[index].username == data.receiver){
           receiverSocketID = users[index].socketID
         }
       }
       if(data.receiverProfile){
-        io.to(chatRoom.chatRoomID).emit('MESSAGE', data) 
+        io.to(chatRoom.chatRoomID).emit('MESSAGE', data)
+        let body = {
+          "chatRoomID": data.chatRoomID,
+          "sender": data.sender,
+          "receiver": data.receiver,
+          "message": data.message,
+          "createdAt": data.createdAt
+        }
+        axios.post('http://' + process.env.socketsIO + '/chats/update', body).then(
+          message => console.log({
+            "chat": message
+          })).catch(
+          error => console.log({
+            "error": error
+          })
+        )
       }
     })
   })
