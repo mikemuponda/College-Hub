@@ -81,6 +81,13 @@ async function start() {
       io.emit('ACTIVITY', activity)
     }),
 
+    socket.on('ENTER_ROOMS', function(data) {
+      var index
+      for(index in data){
+        socket.join(data[index].chatRoomID);
+      }
+    }),
+
     socket.on('SEND_MESSAGE', function(data) {
       var user = {
         username: data.sender,
@@ -117,7 +124,7 @@ async function start() {
         chatRooms.push(chatRoom)
       }
 
-      socket.join(chatRoom.chatRoomID);
+      //socket.join(chatRoom.chatRoomID);
 
       for(index in users){
         if(users[index].username == data.receiver){

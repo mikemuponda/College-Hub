@@ -187,17 +187,21 @@ export default {
       }
     },
     async setDefaultChat(){
+      var recUser
       if (this.$route.query.user){
-        this.getReceiverProfile(this.$route.query.user)
+        recUser = this.$route.query.user
       }else{
-        var index
-        for(index in this.chats[0].users){
-          if(this.chats[0].users[index] != this.userProfile.username){
-            this.getReceiverProfile(this.chats[0].users[index])
-            this.chatRoomID = this.chats[0].chatRoomID
+        if(this.chats.length > 0){
+          var index
+          for(index in this.chats[0].users){
+            if(this.chats[0].users[index] != this.userProfile.username){
+              recUser = this.chats[0].users[index]
+              this.chatRoomID = this.chats[0].chatRoomID
+            }
           }
         }
       }
+      this.getReceiverProfile(recUser)
     },
     async setChatUsers(){
       try{
@@ -220,15 +224,16 @@ export default {
     },
     async setRoomID(){
       var index, chatsroomNotSet = true
-      console.log(this.receiverProfile.username)
+      this.chats = await this.$store.dispatch('getAllChats')
+      this.chats = this.chats.data
       for(index in this.chats){
-        if(this.chats[index] && this.chats[index].users.includes(this.userProfile.username) && this.chats[index].users.includes(this.receiverProfile.username)){
+        if(this.chats.length > 0 && this.chats[index].users.includes(this.userProfile.username) && this.chats[index].users.includes(this.receiverProfile.username)){
           this.chatRoomID = this.chats[index].chatRoomID
           chatsroomNotSet = false
         }
       }
       if(chatsroomNotSet == true){
-        this.chatRoomID = "d5"
+        this.chatRoomID = "d5" + this.chats.length + 1
       }
     }
   },
@@ -243,19 +248,13 @@ export default {
       this.setChatUsers()
       this.setDefaultChat()
       this.setRoomID()
+      this.socket.emit('ENTER_ROOMS', this.chats)
       
     }catch(error){
       this.errors.push(error)
     }  
   },
   mounted() {
-    var data = {
-      sender: this.userProfile.username,
-      chatRoomID: this.chatRoomID,
-      createdAt: new Date()
-    }
-    this.socket.emit('SEND_MESSAGE', data)
-
     this.socket.on('MESSAGE', data => {
       this.receiver = data.sender
       var newData = {

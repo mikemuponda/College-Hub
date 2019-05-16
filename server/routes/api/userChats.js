@@ -43,6 +43,7 @@ router.post('/update', async (req, res) => {
 				{$set: Object.assign(params)},
 				{upsert: true}
 			)
+			console.log(req.body.chatRoomID)
 			return res.json(await chats.findOne({chatRoomID: req.body.chatRoomID}))
 		}else{
 			console.log(req.body.chatRoomID)

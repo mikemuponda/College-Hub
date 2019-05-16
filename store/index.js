@@ -348,5 +348,14 @@ export const actions = {
     } catch (error) {
       return error
     } 
+  },
+
+  async getAllChats({commit}){
+    var baseURL = '/chats/allchats'
+    try {
+      return await axios.post(baseURL)
+    } catch (error) {
+      return error
+    } 
   }
 }
