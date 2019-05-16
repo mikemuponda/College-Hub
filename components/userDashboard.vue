@@ -259,7 +259,8 @@
                                         <button class="default-button-small button-green" title="View" @click="redirect('/accommodation/view/' + house._id)">View House</button>
                                       </div>
                                       <div class="col-md-2"></div>
-                                      <div class="col-md-4" v-for="request in house.allRequests" :key="request.requestID">
+                                      <div class="col-md-4">
+                                        <div style="width: 100%;" v-for="request in house.allRequests" :key="request.requestID">
                                         <a href="#cancel-request" v-if="request.requester == userProfile._id && request.requestStatus == 'pending'"><button class="default-button-small button-red">Cancel Request</button></a>
                                         <a href="#resend-request" v-else-if="request.requester == userProfile._id && request.requestStatus == 'Cancelled'"><button class="default-button-small button-red">Resend Request</button></a>
                                         <a href="#deleted-request" v-else-if="request.requester == userProfile._id && request.requestStatus == 'Deleted'"><button class="default-button-small button-red">Deleted House</button></a>
@@ -283,6 +284,7 @@
                                             <a href="#deleted-request-close" title="Close" class="modal-close">close &times;</a>
                                             <div class="modal-text">Unforntunately this house was deleted by the owner</div>
                                           </div>
+                                        </div>
                                         </div>
                                       </div>
                                       <div class="col-md-1"></div>

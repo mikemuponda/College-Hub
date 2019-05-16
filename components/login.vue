@@ -99,7 +99,7 @@ export default {
   methods: {
     async login() {
       try {
-        await this.$store.dispatch('login', {email: this.formEmail, password: this.formPassword})
+        await this.$store.dispatch('login', {email: this.formEmail.toLowerCase(), password: this.formPassword})
         this.formEmail = ''
         this.formPassword = ''
         this.formError = null

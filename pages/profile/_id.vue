@@ -532,10 +532,17 @@ export default {
       x = await store.dispatch('getProfile', {id: params.id})
     }
     const user = x
+    var profileImage
+    if(user.data.user.profileImage != null){
+      profileImage = user.data.user.profileImage.path
+    }else{
+      profileImage = '/img/profileImage/user.png'
+    }
+      
       return{
         title: user.data.user.firstname + ' ' + user.data.user.lastname,
         description: 'View ' + user.data.user.firstname + ' ' + user.data.user.lastname + ' on Collegehub; The premier service for university students in Zimbabwe',
-        metaImage: user.data.user.profileImage.path,
+        metaImage: profileImage,
         userProfile: {
           username: user.data.user.username,
           firstname: user.data.user.firstname,

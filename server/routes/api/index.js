@@ -111,7 +111,9 @@ router.post('/signup', async (req, res) => {
       password: req.body.password,
       isConfirmed: false,
       confirmationKey: key,
-      profileImage: null,
+      profileImage: {
+        path: "/img/profileImages/user.png"
+      },
       dob: null,
       phone: req.body.phone,
       sex: null,

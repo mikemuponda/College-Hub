@@ -131,7 +131,8 @@ async function start() {
           "sender": data.sender,
           "receiver": data.receiver,
           "message": data.message,
-          "createdAt": data.createdAt
+          "createdAt": data.createdAt,
+          "notification": data.notification
         }
         axios.post('http://' + process.env.socketsIO + '/chats/update', body).then(
           message => console.log({

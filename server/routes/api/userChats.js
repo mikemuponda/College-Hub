@@ -30,19 +30,14 @@ const loadChats = async function () {
 
 //Save a Message
 router.post('/update', async (req, res) => {
-	const chats = await loadChats()
-	var chatRoom, temp = []
-	if (chatRoom = await chats.findOne({chatRoomID: req.body.chatRoomID})) {
-		temp = chatRoom.conversation
-		temp.push(req.body)
-		let params = {conversation: temp}
-		var activeChat = true, index
-		for(index in chatRoom.users){
-			if(chatRoom.users[index] == ''){
-				activeChat = false
-			}
-		}
-		if(activeChat == true){
+	if(req.body.sender != '' && req.body.receiver != ''){
+		const chats = await loadChats()
+		var chatRoom, temp = []
+		if (await chats.findOne({chatRoomID: req.body.chatRoomID})) {
+			chatRoom = await chats.findOne({chatRoomID: req.body.chatRoomID})
+			temp = chatRoom.conversation
+			temp.push(req.body)
+			let params = {conversation: temp}
 			await chats.findOneAndUpdate(
 				{chatRoomID: req.body.chatRoomID},
 				{$set: Object.assign(params)},
@@ -50,35 +45,24 @@ router.post('/update', async (req, res) => {
 			)
 			return res.json(await chats.findOne({chatRoomID: req.body.chatRoomID}))
 		}else{
-			await chats.deleteOne({chatRoomID: req.body.chatRoomID})
+			console.log(req.body.chatRoomID)
+			var allChats = await chats.find({}).toArray()
+
 			let params = {
 				chatRoomID: req.body.chatRoomID,
 				users: [req.body.sender, req.body.receiver],
-				conversation: [req.body],
+				conversation: [{
+					"chatRoomID": req.body.chatRoomID,
+          "sender": req.body.sender,
+          "receiver": req.body.receiver,
+          "message": req.body.message,
+          "createdAt": req.body.receiver
+				}],
 				createdAt: req.body.createdAt
 			}
-			if(req.body.sender != '' && req.body.receiver != ''){
-				await chats.insertOne(params)
-				return res.json(await chats.findOne({chatRoomID: req.body.chatRoomID}))
-			}else{
-				res.status(201).json({
-					message: 'Chat Room ' + req.body.chatRoomID + ' has been deleted because there was only one user in it'
-				})
-			}
-			
-			
-		}
-	}else{
-		let params = {
-			chatRoomID: req.body.chatRoomID,
-			users: [req.body.sender, req.body.receiver],
-			conversation: [req.body],
-			createdAt: req.body.createdAt
-		}
-		if(req.body.sender != '' && req.body.receiver != ''){
 			await chats.insertOne(params)
+			return res.json(await chats.findOne({chatRoomID: params.chatRoomID}))
 		}
-		return res.json(await chats.findOne({chatRoomID: req.body.chatRoomID}))
 	}
 })
 

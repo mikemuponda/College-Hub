@@ -7,8 +7,8 @@
             <div class="message-nav">
               <h1 class="subheading-two">Messages</h1>
             </div>
-            <div v-if="allUsers.length" style="100%;">
-              <div class="user" v-for="(user, index) in allUsers" :key="index" @click="getReceiverProfile(user.username)">
+            <div v-if="chatUsers.length" style="100%;">
+              <div class="user" v-for="(user, index) in chatUsers" :key="index" @click="getReceiverProfile(user.username)">
                 <div class="user-box">
                   <div class="chatUserProfileImage">
                     <img
@@ -102,21 +102,25 @@ export default {
       chats: [],
       errors: [],
       allUsers: [],
+      chatUsers: [],
+      chatRoomID: null,
       socket: io(process.env.socketsIO)
     }
   },
   methods: {
     async sendMessage(e) {
       e.preventDefault()
+      this.setRoomID()
       var data = {
         id: this.socket.id,
-        chatRoomID: 'roomID2',
+        chatRoomID: this.chatRoomID,
         sender: this.userProfile.username,
         message: this.message,
         receiver: this.receiver,
         createdAt: new Date(),
         receiverProfile: this.receiverProfile,
-        senderProfile: this.userProfile
+        senderProfile: this.userProfile,
+        notification: false
       }
       if(data.message.length){
         this.socket.emit('SEND_MESSAGE', data)
@@ -139,18 +143,20 @@ export default {
       this.receiver = receiverID
       this.messages = []
       this.errors = []
-      var index, j, k
-      for(index in this.allUsers){
-        if(this.allUsers[index].username == receiverID){
-          this.receiverProfile = this.allUsers[index]
-        }
-      }
       try{
         this.chats = await this.$store.dispatch('getUserChats', {id: this.userProfile.username})
         this.chats = this.chats.data
       }catch(error){
         this.errors.push(error)
       }
+
+      var index, j, k
+      for(index in this.allUsers){
+        if(this.allUsers[index].username == receiverID){
+          this.receiverProfile = this.allUsers[index]
+        }
+      }
+
       for(index in this.chats){
         for(j in this.chats[index].users){
           if(this.chats[index].users[j] == this.receiver){
@@ -165,13 +171,14 @@ export default {
                 }
                 let defaultChat = {
                   id: this.socket.id,
-                  chatRoomID: this.chats[index].conversation[k].chatRoomID,
+                  chatRoomID: this.chatRoomID,
                   sender: this.chats[index].conversation[k].sender,
                   message: this.chats[index].conversation[k].message,
                   receiver: this.chats[index].conversation[k].receiver,
                   createdAt: this.chats[index].conversation[k].createdAt,
                   receiverProfile: receiver,
-                  senderProfile: sender
+                  senderProfile: sender,
+                  notification: this.chats[index].conversation[k].notification
                 }
                 this.messages.push(defaultChat)
             }
@@ -187,11 +194,18 @@ export default {
         for(index in this.chats[0].users){
           if(this.chats[0].users[index] != this.userProfile.username){
             this.getReceiverProfile(this.chats[0].users[index])
+            this.chatRoomID = this.chats[0].chatRoomID
           }
         }
       }
     },
     async setChatUsers(){
+      try{
+        this.allUsers = await this.$store.dispatch('getAllUserProfiles')
+        this.allUsers = this.allUsers.data 
+      }catch(error){
+        this.errors.push(error)
+      }
       var index, j, k, users = []
       for(index in this.allUsers){
         for(j in this.chats){
@@ -202,19 +216,34 @@ export default {
           }
         }
       }
-      this.allUsers = users
+      this.chatUsers = users
+    },
+    async setRoomID(){
+      var index, chatsroomNotSet = true
+      console.log(this.receiverProfile.username)
+      for(index in this.chats){
+        if(this.chats[index] && this.chats[index].users.includes(this.userProfile.username) && this.chats[index].users.includes(this.receiverProfile.username)){
+          this.chatRoomID = this.chats[index].chatRoomID
+          chatsroomNotSet = false
+        }
+      }
+      if(chatsroomNotSet == true){
+        this.chatRoomID = "d5"
+      }
     }
   },
   async created(){
     try{
       this.userProfile = await this.$store.dispatch('getProfile', {id: this.$store.state.authUser.user.username})
       this.userProfile = this.userProfile.data.user
+      this.allUsers = await this.$store.dispatch('getAllUserProfiles')
+      this.allUsers = this.allUsers.data
       this.chats = await this.$store.dispatch('getUserChats', {id: this.userProfile.username})
       this.chats = this.chats.data
-      this.allUsers = await this.$store.dispatch('getAllUserProfiles')
-      this.allUsers = this.allUsers.data 
-      this.setDefaultChat()
       this.setChatUsers()
+      this.setDefaultChat()
+      this.setRoomID()
+      
     }catch(error){
       this.errors.push(error)
     }  
@@ -222,7 +251,7 @@ export default {
   mounted() {
     var data = {
       sender: this.userProfile.username,
-      chatRoomID: 'roomID2',
+      chatRoomID: this.chatRoomID,
       createdAt: new Date()
     }
     this.socket.emit('SEND_MESSAGE', data)
