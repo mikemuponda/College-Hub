@@ -60,10 +60,16 @@
                     title="Forgot Password"
                   >Forgot you password?</NuxtLink>
                   <br>
+
+                  <!-- <button class="btn btn-danger">Sign Up with Google</button> -->
+
                   <br>
                   <NuxtLink :to="'/create-account'" title="Create Account">
                     <button class="create-account" style="font-size: 15px;">Create Account</button>
                   </NuxtLink>
+
+                  <br>
+                  <br>
                 </div>
               </form>
             </div>
@@ -71,7 +77,7 @@
         </div>
       </div>
     </div>
-
+    <button v-on:click="googleSignIn" class="google-signin-button">Continue with Google</button>
     <div style="width: 100%;">
       <div class="row">
         <div class="col-md-12 nopadding">
@@ -83,38 +89,64 @@
 </template>
 
 <script>
-import homeDefault from '@/components/homeDefault'
+import homeDefault from "@/components/homeDefault";
 
 export default {
   components: {
     homeDefault: homeDefault
   },
+
   data() {
     return {
       formError: null,
-      formEmail: '',
-      formPassword: '',
-    }
+      formEmail: "",
+      formPassword: ""
+    };
   },
   methods: {
     async login() {
       try {
-        await this.$store.dispatch('login', {email: this.formEmail, password: this.formPassword})
-        this.formEmail = ''
-        this.formPassword = ''
-        this.formError = null
+        await this.$store.dispatch("login", {
+          email: this.formEmail,
+          password: this.formPassword
+        });
+        this.formEmail = "";
+        this.formPassword = "";
+        this.formError = null;
       } catch (e) {
-        this.formError = e.message
+        this.formError = e.message;
+      }
+    },
+    googleSignIn: async function() {
+      await this.$gAuth
+        .signIn()
+        .then(GoogleUser => {
+          this.isSignIn = this.$gAuth.isAuthorized;
+          const id_token = GoogleUser.getAuthResponse().id_token;
+          this.signInWithGoogle(id_token);
+        })
+        .catch(error => {
+          //on fail do something
+        });
+    },
+    async signInWithGoogle(id_token) {
+      debugger
+      try {
+        await this.$store.dispatch("signupGoogle", {
+          id_token: id_token
+        });
+      } catch (error) {
+        console.log("google sign in after error", error);
       }
     },
     async logout() {
       try {
-        await this.$store.dispatch('logout')
+        await this.$store.dispatch("logout");
       } catch (e) {
-        this.formError = e.message
+        this.formError = e.message;
       }
     }
   }
-}
+};
 </script>
 
