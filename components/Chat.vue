@@ -137,24 +137,25 @@ export default {
     },
     async getReceiverProfile(receiverID){
       this.receiver = receiverID
-      var index
+      this.messages = []
+      this.errors = []
+      var index, j, k
       for(index in this.allUsers){
         if(this.allUsers[index].username == receiverID){
           this.receiverProfile = this.allUsers[index]
         }
       }
-    },
-    async workData(){ //Seems this whole Function is not working
-      if (this.$route.query.user){
-        this.getReceiverProfile(this.$route.query.user)
-      }else{
-        var index, i, j, k, l, tempChats = [], tempUsers = []
-        for(index in this.chats){
-          for(j in this.chats[index].users){
-            if(this.chats[index].users[j] != this.userProfile.username){ //This is the default (user from the last chat in the array)
-              this.getReceiverProfile(this.chats[index].users[j])
-              for(k in this.chats[index].conversation){
-                var sender, receiver
+      try{
+        this.chats = await this.$store.dispatch('getUserChats', {id: this.userProfile.username})
+        this.chats = this.chats.data
+      }catch(error){
+        this.errors.push(error)
+      }
+      for(index in this.chats){
+        for(j in this.chats[index].users){
+          if(this.chats[index].users[j] == this.receiver){
+            for(k in this.chats[index].conversation){
+              var sender, receiver
                 if(this.chats[index].conversation[k].sender != this.userProfile.username){
                   sender = this.userProfile
                   receiver = this.receiverProfile
@@ -173,25 +174,35 @@ export default {
                   senderProfile: sender
                 }
                 this.messages.push(defaultChat)
-              }
-            }
-            if(this.chats[index].users[j] == this.userProfile.username){
-              tempChats.push(this.chats[index])
             }
           }
         }
-        this.chats = tempChats
-        for(index in this.allUsers){
-          for(i in this.chats){
-            for(j in this.chats[i].users){
-              if(this.allUsers[index].username == this.chats[i].users[j] && this.allUsers[index].username != this.userProfile.username){
-                tempUsers.push(this.allUsers[index])
-              }
-            }
-          }
-        }
-        this.allUsers = tempUsers
       }
+    },
+    async setDefaultChat(){
+      if (this.$route.query.user){
+        this.getReceiverProfile(this.$route.query.user)
+      }else{
+        var index
+        for(index in this.chats[0].users){
+          if(this.chats[0].users[index] != this.userProfile.username){
+            this.getReceiverProfile(this.chats[0].users[index])
+          }
+        }
+      }
+    },
+    async setChatUsers(){
+      var index, j, k, users = []
+      for(index in this.allUsers){
+        for(j in this.chats){
+          for(k in this.chats[j].users){
+            if(this.chats[j].users[k] == this.allUsers[index].username && this.allUsers[index].username != this.userProfile.username){
+              users.push(this.allUsers[index])
+            }
+          }
+        }
+      }
+      this.allUsers = users
     }
   },
   async created(){
@@ -201,21 +212,20 @@ export default {
       this.chats = await this.$store.dispatch('getUserChats', {id: this.userProfile.username})
       this.chats = this.chats.data
       this.allUsers = await this.$store.dispatch('getAllUserProfiles')
-      this.allUsers = this.allUsers.data    
+      this.allUsers = this.allUsers.data 
+      this.setDefaultChat()
+      this.setChatUsers()
     }catch(error){
       this.errors.push(error)
     }  
   },
   mounted() {
-    this.workData()
     var data = {
       sender: this.userProfile.username,
       chatRoomID: 'roomID2',
       createdAt: new Date()
     }
     this.socket.emit('SEND_MESSAGE', data)
-    
-      
 
     this.socket.on('MESSAGE', data => {
       this.receiver = data.sender
